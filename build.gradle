@@ -1,59 +1,25 @@
-import com.ss_team_1.koibitoshuuchuu.buildsrc.Libs
-import com.ss_team_1.koibitoshuuchuu.buildsrc.Versions
-
 buildscript {
+    ext {
+        compose_version = '1.0.2'
+    }
     repositories {
         google()
         mavenCentral()
     }
     dependencies {
-        classpath Libs.androidGradlePlugin
-        classpath Libs.Kotlin.gradlePlugin
+        classpath "com.android.tools.build:gradle:7.2.1"
+        classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:1.6.21"
+        classpath "com.google.dagger:hilt-android-gradle-plugin:2.42"
     }
 }
 
-plugins {
-    id 'com.diffplug.spotless' version '6.5.2'
-    id 'com.android.test' version '7.2.0' apply false
-    id 'org.jetbrains.kotlin.android' version '1.6.21' apply false
+task clean(type: Delete) {
+    delete rootProject.buildDir
 }
 
-subprojects {
+allprojects {
     repositories {
         google()
         mavenCentral()
-
-        if (!Libs.AndroidX.Compose.snapshot.isEmpty()) {
-            maven { url "https://androidx.dev/snapshots/builds/${Libs.AndroidX.Compose.snapshot}/artifacts/repository/" }
-        }
-        if (Libs.Accompanist.version.endsWith("SNAPSHOT")) {
-            maven { url 'https://oss.sonatype.org/content/repositories/snapshots/' }
-        }
-    }
-
-    tasks.withType(org.jetbrains.kotlin.gradle.tasks.KotlinCompile).configureEach {
-        kotlinOptions {
-            // Treat all Kotlin warnings as errors (disabled by default)
-            allWarningsAsErrors = project.hasProperty("warningsAsErrors") ? project.warningsAsErrors : false
-
-            freeCompilerArgs += '-opt-in=kotlin.RequiresOptIn'
-            // Enable experimental coroutines APIs, including Flow
-            freeCompilerArgs += '-opt-in=kotlin.Experimental'
-
-            // Set JVM target to 1.8
-            jvmTarget = "1.8"
-        }
-    }
-
-    apply plugin: 'com.diffplug.spotless'
-    spotless {
-        kotlin {
-            target '**/*.kt'
-            targetExclude("$buildDir/**/*.kt")
-            targetExclude('bin/**/*.kt')
-
-            ktlint(Versions.ktlint).userData([android: "true"])
-            licenseHeaderFile rootProject.file('spotless/copyright.kt')
-        }
     }
 }
