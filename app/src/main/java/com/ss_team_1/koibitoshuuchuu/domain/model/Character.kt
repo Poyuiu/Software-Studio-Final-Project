@@ -1,7 +1,18 @@
 package com.ss_team_1.koibitoshuuchuu.domain.model
 
 import androidx.room.Entity
+import androidx.room.PrimaryKey
 
 @Entity
-class Character {
-}
+data class Character(
+    @PrimaryKey
+    val name: String,
+    val picture_url: String,
+    val intimacy: Int,
+    val nickname: String,
+    val height: Float,
+    val species: String,
+    val residence: String,
+    val profession: String,
+    val introduction: String
+)
