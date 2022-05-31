@@ -1,4 +1,6 @@
 package com.ss_team_1.koibitoshuuchuu.presentation
 
-class MainActivity {
+import androidx.activity.ComponentActivity
+
+class MainActivity: ComponentActivity() {
 }
