@@ -1,39 +1,30 @@
 package com.ss_team_1.koibitoshuuchuu.presentation.components
 
-import android.widget.Button
-import android.widget.ResourceCursorAdapter
+import android.content.res.Resources
 import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.Button
 import androidx.compose.material.ButtonDefaults.buttonColors
-import androidx.compose.material.ButtonDefaults.outlinedBorder
-import androidx.compose.material.ButtonDefaults.outlinedButtonColors
 import androidx.compose.material.Icon
-import androidx.compose.material.SnackbarDefaults.backgroundColor
 import androidx.compose.material.Text
-import androidx.compose.material.TextField
 import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.FiberNew
 import androidx.compose.material.icons.filled.Lock
-import androidx.compose.material.icons.filled.Spa
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.rotate
 import androidx.compose.ui.graphics.Brush
-import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.layout.FirstBaseline
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
-import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
-import androidx.navigation.NavController
+import com.ss_team_1.koibitoshuuchuu.ui.theme.black
+import com.ss_team_1.koibitoshuuchuu.ui.theme.gray
+import com.ss_team_1.koibitoshuuchuu.ui.theme.grayLine
+import com.ss_team_1.koibitoshuuchuu.ui.theme.secUn
 import com.ss_team_1.koibitoshuuchuu.R
-import com.ss_team_1.koibitoshuuchuu.ui.theme.*
-
 
 @Composable
 fun PlotButton(
@@ -89,7 +80,7 @@ fun PlotButton(
         }
         if(!lock && !haveRead) {
             Image(
-                painter = painterResource(id = R.drawable.new_plot),
+                painter = painterResource(R.drawable.new_plot),
                 contentDescription = null,
                 modifier = Modifier
                     .align(Alignment.TopEnd)
