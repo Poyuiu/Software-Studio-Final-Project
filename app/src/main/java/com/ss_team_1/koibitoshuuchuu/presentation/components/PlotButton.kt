@@ -1,26 +1,112 @@
 package com.ss_team_1.koibitoshuuchuu.presentation.components
 
+import android.widget.Button
+import android.widget.ResourceCursorAdapter
+import androidx.compose.foundation.BorderStroke
+import androidx.compose.foundation.Image
+import androidx.compose.foundation.layout.*
+import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.Button
+import androidx.compose.material.ButtonDefaults.buttonColors
+import androidx.compose.material.ButtonDefaults.outlinedBorder
+import androidx.compose.material.ButtonDefaults.outlinedButtonColors
+import androidx.compose.material.Icon
+import androidx.compose.material.SnackbarDefaults.backgroundColor
 import androidx.compose.material.Text
 import androidx.compose.material.TextField
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.FiberNew
+import androidx.compose.material.icons.filled.Lock
+import androidx.compose.material.icons.filled.Spa
 import androidx.compose.runtime.Composable
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.draw.rotate
+import androidx.compose.ui.graphics.Brush
+import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.layout.FirstBaseline
+import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.text.style.TextAlign
+import androidx.compose.ui.tooling.preview.Preview
+import androidx.compose.ui.unit.Dp
+import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
 import com.ss_team_1.koibitoshuuchuu.R
+import com.ss_team_1.koibitoshuuchuu.ui.theme.*
 
 
 @Composable
-fun PlotBotton(
+fun PlotButton(
+    onClick: () -> Unit,
     modifier: Modifier = Modifier,
-    navController: NavController,
     lock: Boolean,
     haveRead: Boolean,
     id: Int
 ) {
-    Button(
-        onClick = { navController.navigate("friendslist") },
-        
-    ) {
-        Text(text = "PLOT $id")
+    Box {
+        Button(
+            modifier = modifier
+                .width(245.dp)
+                .height(47.dp)
+                .padding(4.dp),
+            onClick = onClick,
+            enabled = !lock,
+            colors = buttonColors(
+                backgroundColor = secUn,
+                contentColor = black,
+                disabledBackgroundColor = gray,
+                disabledContentColor = black
+            ),
+            shape = RoundedCornerShape(10.dp),
+            border = BorderStroke(
+                width = 2.dp,
+                brush = Brush.horizontalGradient(
+                    listOf(grayLine, grayLine, grayLine),
+                    startX = 10.0f,
+                    endX = 20.0f
+                )
+            )
+        ) {
+            Box(modifier = Modifier.fillMaxWidth()) {
+                Text(
+                    text = "PLOT $id",
+                    modifier = modifier
+                        .align(Alignment.Center)
+                        .width(158.dp)
+                        .size(24.dp),
+                    textAlign = TextAlign.Center
+                )
+                if (lock) {
+                    Icon(
+                        imageVector = Icons.Default.Lock,
+                        contentDescription = null,
+                        modifier = modifier
+                            .size(25.dp)
+                            .align(Alignment.CenterEnd)
+                    )
+                }
+            }
+        }
+        if(!lock && !haveRead) {
+            Image(
+                painter = painterResource(id = R.drawable.new_plot),
+                contentDescription = null,
+                modifier = Modifier
+                    .align(Alignment.TopEnd)
+                    .rotate(20.0F)
+            )
+        }
     }
+}
+
+@Preview(showBackground = true, backgroundColor = 0xFFF0EAE2)
+@Composable
+fun PlotButtonPreview() {
+    PlotButton(
+        onClick = {},
+        lock = false,
+        //lock = false,
+        haveRead = false,
+        id = 7
+    )
 }
