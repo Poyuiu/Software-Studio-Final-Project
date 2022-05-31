@@ -9,7 +9,7 @@ android {
     compileSdkVersion 32
 
     defaultConfig {
-        applicationId 'com.example.jetsnack'
+        applicationId 'com.example.KoiBitoShuuChuu'
         minSdkVersion 21
         targetSdkVersion 32
         versionCode 1
@@ -89,4 +89,9 @@ dependencies {
 
     // Kotlin Extensions and Coroutines support for Room
     implementation "androidx.room:room-ktx:2.4.2"
+
+
+}
+kapt {
+    correctErrorTypes = true
 }

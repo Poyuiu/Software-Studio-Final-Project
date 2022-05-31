@@ -15,7 +15,7 @@
         <activity
             android:name=".presentation.MainActivity"
             android:label="@string/app_name"
-            android:theme="@style/Theme.koibitoshuuchuu"
+            android:theme="@style/Theme.KoiBitoShuuChuu"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
