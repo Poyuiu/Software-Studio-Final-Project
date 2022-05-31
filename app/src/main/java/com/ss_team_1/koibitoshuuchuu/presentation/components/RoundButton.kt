@@ -1,6 +1,5 @@
 package com.ss_team_1.koibitoshuuchuu.presentation.components
 
-import android.graphics.drawable.Icon
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.shape.CircleShape
@@ -10,18 +9,15 @@ import androidx.compose.material.Icon
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.*
 import androidx.compose.material.icons.outlined.FastForward
-import androidx.compose.material.icons.outlined.Help
+import androidx.compose.material.icons.outlined.HelpOutline
 import androidx.compose.material.icons.outlined.Settings
-import androidx.compose.material.icons.rounded.Help
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.focus.focusModifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
-import com.ss_team_1.koibitoshuuchuu.R
 import com.ss_team_1.koibitoshuuchuu.ui.theme.Secondary
 
 @Preview
@@ -38,7 +34,7 @@ fun ForwardButton() {
 @Composable
 fun HelpButton() {
     RoundButtonTemplate(
-        icon = Icons.Outlined.Help,
+        icon = Icons.Outlined.HelpOutline,
         iconSize = 30.dp,
         onClick = {}
     )
