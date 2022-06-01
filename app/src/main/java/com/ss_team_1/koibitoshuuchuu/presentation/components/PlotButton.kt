@@ -1,6 +1,5 @@
 package com.ss_team_1.koibitoshuuchuu.presentation.components
 
-import android.content.res.Resources
 import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.*
@@ -17,6 +16,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.rotate
 import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.text.font.FontStyle
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
@@ -32,7 +32,8 @@ fun PlotButton(
     modifier: Modifier = Modifier,
     lock: Boolean,
     haveRead: Boolean,
-    id: Int
+    id: Int,
+    title: String
 ) {
     Box {
         Button(
@@ -59,21 +60,22 @@ fun PlotButton(
             )
         ) {
             Box(modifier = Modifier.fillMaxWidth()) {
-                Text(
-                    text = "PLOT $id",
-                    modifier = modifier
-                        .align(Alignment.Center)
-                        .width(158.dp)
-                        .size(24.dp),
-                    textAlign = TextAlign.Center
-                )
                 if (lock) {
                     Icon(
                         imageVector = Icons.Default.Lock,
                         contentDescription = null,
                         modifier = modifier
                             .size(25.dp)
-                            .align(Alignment.CenterEnd)
+                            .align(Alignment.Center)
+                    )
+                }else{
+                    Text(
+                        text = "$id. $title",
+                        modifier = modifier
+                            .width(158.dp)
+                            .size(24.dp),
+                        textAlign = TextAlign.Start,
+                        fontStyle = FontStyle(R.font.mamelon)
                     )
                 }
             }
@@ -98,6 +100,7 @@ fun PlotButtonPreview() {
         lock = false,
         //lock = false,
         haveRead = false,
-        id = 7
+        id = 7,
+        title = "標題範例"
     )
 }

@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="app_name">KoiBitoShuuChuu</string>
-    <string name="plot">PLOT</string>
+    <string name="detail">DETAIL</string>
 </resources>
