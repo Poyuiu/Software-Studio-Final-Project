@@ -20,11 +20,8 @@ import androidx.compose.ui.text.font.FontStyle
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import com.ss_team_1.koibitoshuuchuu.ui.theme.black
-import com.ss_team_1.koibitoshuuchuu.ui.theme.gray
-import com.ss_team_1.koibitoshuuchuu.ui.theme.grayLine
-import com.ss_team_1.koibitoshuuchuu.ui.theme.secUn
 import com.ss_team_1.koibitoshuuchuu.R
+import com.ss_team_1.koibitoshuuchuu.ui.theme.*
 
 @Composable
 fun PlotButton(
@@ -35,7 +32,7 @@ fun PlotButton(
     id: Int,
     title: String
 ) {
-    Box {
+    Box(modifier = modifier) {
         Button(
             modifier = modifier
                 .width(245.dp)
@@ -71,11 +68,11 @@ fun PlotButton(
                 }else{
                     Text(
                         text = "$id. $title",
-                        modifier = modifier
+                        modifier = Modifier
                             .width(158.dp)
                             .size(24.dp),
                         textAlign = TextAlign.Start,
-                        fontStyle = FontStyle(R.font.mamelon)
+                        fontStyle = FontStyle(mainFont)
                     )
                 }
             }

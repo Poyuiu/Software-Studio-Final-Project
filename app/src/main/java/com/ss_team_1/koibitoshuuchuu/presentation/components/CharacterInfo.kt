@@ -22,15 +22,13 @@ import androidx.compose.ui.modifier.modifierLocalConsumer
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontStyle
+import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.ss_team_1.koibitoshuuchuu.R
-import com.ss_team_1.koibitoshuuchuu.ui.theme.black
-import com.ss_team_1.koibitoshuuchuu.ui.theme.gray
-import com.ss_team_1.koibitoshuuchuu.ui.theme.grayLine
-import com.ss_team_1.koibitoshuuchuu.ui.theme.secUn
+import com.ss_team_1.koibitoshuuchuu.ui.theme.*
 
 @Composable
 fun CharacterInfo(
@@ -42,8 +40,10 @@ fun CharacterInfo(
 ) {
     Row(
         modifier = Modifier
+            .width(320.dp)
             .padding(8.dp)
-            .background(color = Color.White, shape = RoundedCornerShape(10.dp))
+            .background(color = Color.White, shape = RoundedCornerShape(10.dp)),
+        verticalAlignment = Alignment.CenterVertically
     ) {
         Image(
             painter = painterResource(id = characterPhoto),
@@ -55,19 +55,21 @@ fun CharacterInfo(
         )
         Column(
             modifier = Modifier
-                .width(172.dp)
+                .padding(8.dp)
+                .width(172.dp),
+            horizontalAlignment = Alignment.CenterHorizontally
         ) {
             Text(
                 text = characterName,
                 fontSize = 28.sp,
                 color = secUn,
-                fontStyle = FontStyle(R.font.mamelon),
+                fontStyle = FontStyle(mainFont),
                 modifier = Modifier.padding(8.dp)
             )
             Text(
                 text = characterInfo,
                 fontSize = 16.sp,
-                fontStyle = FontStyle(R.font.mamelon),
+                fontStyle = FontStyle(mainFont),
                 modifier = Modifier.padding(8.dp)
             )
             if(showDetailButton) {

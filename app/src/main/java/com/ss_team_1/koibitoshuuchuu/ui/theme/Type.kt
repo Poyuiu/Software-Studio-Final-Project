@@ -12,6 +12,8 @@ val mamelonFamily = FontFamily(
     Font(R.font.mamelon, FontWeight.Normal)
 )
 // Set of Material typography styles to start with
+val mainFont = R.font.mamelon
+
 val Typography = Typography(
     body1 = TextStyle(
         fontFamily = mamelonFamily,
