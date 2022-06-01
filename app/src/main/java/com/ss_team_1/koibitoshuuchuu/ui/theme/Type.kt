@@ -8,10 +8,13 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.sp
 import com.ss_team_1.koibitoshuuchuu.R
 
+val mamelonFamily = FontFamily(
+    Font(R.font.mamelon, FontWeight.Normal)
+)
 // Set of Material typography styles to start with
 val Typography = Typography(
     body1 = TextStyle(
-        fontFamily = FontFamily.Default,
+        fontFamily = mamelonFamily,
         fontWeight = FontWeight.Normal,
         fontSize = 16.sp
     )
@@ -29,6 +32,4 @@ val Typography = Typography(
     )
     */
 )
-val mamelonFamily = FontFamily(
-    Font(R.font.mamelon, FontWeight.Normal)
-)
+
