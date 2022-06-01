@@ -1,5 +1,6 @@
 package com.ss_team_1.koibitoshuuchuu.presentation
 
+import android.annotation.SuppressLint
 import android.content.Context
 import android.graphics.Typeface
 import android.os.Bundle
@@ -20,6 +21,7 @@ import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import com.ss_team_1.koibitoshuuchuu.R
 import com.ss_team_1.koibitoshuuchuu.ui.theme.KoiBitoShuuChuuTheme
 import com.ss_team_1.koibitoshuuchuu.ui.theme.mamelonFamily
 
@@ -37,47 +39,10 @@ class MainActivity: ComponentActivity() {
 
 @Composable
 fun LoverFocusApp(context: Context){
-    val customTypeface = Typeface.createFromAsset(context.assets, "font/mamelon.ttf")
 
-    val textPaintStroke = Paint().asFrameworkPaint().apply {
-        isAntiAlias = true
-        style = android.graphics.Paint.Style.STROKE
-        textSize = 64f
-        color = android.graphics.Color.BLACK
-        strokeWidth = 12f
-        strokeMiter= 10f
-        strokeJoin = android.graphics.Paint.Join.ROUND
-        typeface = customTypeface
-    }
-
-    val textPaint = Paint().asFrameworkPaint().apply {
-        isAntiAlias = true
-        style = android.graphics.Paint.Style.FILL
-        textSize = 64f
-        color = android.graphics.Color.WHITE
-        typeface = customTypeface
-    }
     Surface(color = MaterialTheme.colors.primary) {
         Text(text = "Welcome，你好", modifier = Modifier.padding(24.dp),fontFamily = mamelonFamily, fontWeight = FontWeight.Normal)
-        Canvas(
-            modifier = Modifier.fillMaxSize(),
-            onDraw = {
-                drawIntoCanvas {
-                    it.nativeCanvas.drawText(
-                        "戀人專注Welcome，你好",
-                        0f,
-                        120.dp.toPx(),
-                        textPaintStroke
-                    )
-                    it.nativeCanvas.drawText(
-                        "戀人專注Welcome，你好",
-                        0f,
-                        120.dp.toPx(),
-                        textPaint
-                    )
-                }
-            }
-        )
+        StrokeText(LocalContext.current,"戀人專注Welcome，你好", 30f,100,64f)
 
     }
 }
@@ -89,4 +54,48 @@ fun DefaultPreview() {
     KoiBitoShuuChuuTheme {
         LoverFocusApp(LocalContext.current)
     }
+}
+
+@SuppressLint("NewApi")
+@Composable
+fun StrokeText(context: Context,string: String, x: Float, y: Int, size: Float){
+    val customTypeface = context.resources.getFont(R.font.mamelon)
+
+    val textPaintStroke = Paint().asFrameworkPaint().apply {
+        isAntiAlias = true
+        style = android.graphics.Paint.Style.STROKE
+        textSize = size
+        color = android.graphics.Color.BLACK
+        strokeWidth = 12f
+        strokeMiter= 10f
+        strokeJoin = android.graphics.Paint.Join.ROUND
+        typeface = customTypeface
+    }
+
+    val textPaint = Paint().asFrameworkPaint().apply {
+        isAntiAlias = true
+        style = android.graphics.Paint.Style.FILL
+        textSize = size
+        color = android.graphics.Color.WHITE
+        typeface = customTypeface
+    }
+    Canvas(
+        modifier = Modifier.fillMaxSize(),
+        onDraw = {
+            drawIntoCanvas {
+                it.nativeCanvas.drawText(
+                    string,
+                    x,
+                    y.dp.toPx(),
+                    textPaintStroke
+                )
+                it.nativeCanvas.drawText(
+                    string,
+                    x,
+                    y.dp.toPx(),
+                    textPaint
+                )
+            }
+        }
+    )
 }
