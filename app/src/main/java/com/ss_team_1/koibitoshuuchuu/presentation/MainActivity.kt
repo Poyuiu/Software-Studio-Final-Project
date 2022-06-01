@@ -1,6 +1,7 @@
 package com.ss_team_1.koibitoshuuchuu.presentation
 
 import android.content.Context
+import android.graphics.Typeface
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
@@ -19,7 +20,6 @@ import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import com.ss_team_1.koibitoshuuchuu.R
 import com.ss_team_1.koibitoshuuchuu.ui.theme.KoiBitoShuuChuuTheme
 import com.ss_team_1.koibitoshuuchuu.ui.theme.mamelonFamily
 
@@ -37,7 +37,7 @@ class MainActivity: ComponentActivity() {
 
 @Composable
 fun LoverFocusApp(context: Context){
-    val customTypeface = context.resources.getFont(R.font.mamelon)
+    val customTypeface = Typeface.createFromAsset(context.assets, "font/mamelon.ttf")
 
     val textPaintStroke = Paint().asFrameworkPaint().apply {
         isAntiAlias = true
