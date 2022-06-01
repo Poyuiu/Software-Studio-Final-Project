@@ -1,6 +1,6 @@
 package com.ss_team_1.koibitoshuuchuu.presentation
 
-import android.content.res.Resources
+import android.content.Context
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
@@ -15,31 +15,29 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Paint
 import androidx.compose.ui.graphics.drawscope.drawIntoCanvas
 import androidx.compose.ui.graphics.nativeCanvas
-import androidx.compose.ui.res.fontResource
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import androidx.core.content.res.ResourcesCompat.getFont
 import com.ss_team_1.koibitoshuuchuu.R
 import com.ss_team_1.koibitoshuuchuu.ui.theme.KoiBitoShuuChuuTheme
 import com.ss_team_1.koibitoshuuchuu.ui.theme.mamelonFamily
+
 
 class MainActivity: ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContent {
             KoiBitoShuuChuuTheme {
-                LoverFocusApp()
+                LoverFocusApp(this)
             }
         }
     }
 }
-private lateinit var customTypeface: android.graphics.Typeface
-
 
 @Composable
-fun LoverFocusApp(){
-    customTypeface = resources.getFont(R.font.mamelon)
+fun LoverFocusApp(context: Context){
+    val customTypeface = context.resources.getFont(R.font.mamelon)
 
     val textPaintStroke = Paint().asFrameworkPaint().apply {
         isAntiAlias = true
@@ -66,13 +64,13 @@ fun LoverFocusApp(){
             onDraw = {
                 drawIntoCanvas {
                     it.nativeCanvas.drawText(
-                        "戀人專注",
+                        "戀人專注Welcome，你好",
                         0f,
                         120.dp.toPx(),
                         textPaintStroke
                     )
                     it.nativeCanvas.drawText(
-                        "戀人專注",
+                        "戀人專注Welcome，你好",
                         0f,
                         120.dp.toPx(),
                         textPaint
@@ -89,6 +87,6 @@ fun LoverFocusApp(){
 @Composable
 fun DefaultPreview() {
     KoiBitoShuuChuuTheme {
-        LoverFocusApp()
+        LoverFocusApp(LocalContext.current)
     }
 }
