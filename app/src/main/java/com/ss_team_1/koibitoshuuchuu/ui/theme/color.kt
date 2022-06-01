@@ -14,8 +14,6 @@ val Blue = Color(0xFF4285F4)
 val LightBlue = Color(0xFFD7EFFE)
 val Chartreuse = Color(0xFFEFF7CF)
 
-import androidx.compose.ui.graphics.Color
-
 val AccentColor = Color(0xFF94E7E1)
 val secUn = Color(0xFFFF8190)
 val gray = Color(0xFF979797)

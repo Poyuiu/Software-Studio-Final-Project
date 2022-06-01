@@ -73,6 +73,7 @@ val textPaint = Paint().asFrameworkPaint().apply {
     textSize = 64f
     color = android.graphics.Color.WHITE
 }
+
 @Preview
 @Composable
 fun DefaultPreview() {
