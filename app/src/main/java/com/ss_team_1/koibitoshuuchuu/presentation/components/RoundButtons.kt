@@ -6,8 +6,10 @@ import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.material.Button
 import androidx.compose.material.ButtonDefaults
 import androidx.compose.material.Icon
+import androidx.compose.material.SnackbarDefaults.backgroundColor
 import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.*
+import androidx.compose.material.icons.filled.ArrowBack
+import androidx.compose.material.icons.filled.Pause
 import androidx.compose.material.icons.outlined.FastForward
 import androidx.compose.material.icons.outlined.HelpOutline
 import androidx.compose.material.icons.outlined.Settings
@@ -18,14 +20,15 @@ import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
+import com.ss_team_1.koibitoshuuchuu.presentation.utils.coloredShadow
 import com.ss_team_1.koibitoshuuchuu.ui.theme.Secondary
 
-@Preview
+@Preview(showBackground = true)
 @Composable
 fun ForwardButton() {
     RoundButtonTemplate(
         icon = Icons.Outlined.FastForward,
-        iconSize = 30.dp,
+        iconSize = 36.dp,
         onClick = {}
     )
 }
@@ -35,7 +38,7 @@ fun ForwardButton() {
 fun HelpButton() {
     RoundButtonTemplate(
         icon = Icons.Outlined.HelpOutline,
-        iconSize = 30.dp,
+        iconSize = 36.dp,
         onClick = {}
     )
 }
@@ -45,7 +48,7 @@ fun HelpButton() {
 fun SettingsButton() {
     RoundButtonTemplate(
         icon = Icons.Outlined.Settings,
-        iconSize = 30.dp,
+        iconSize = 36.dp,
         onClick = {}
     )
 }
@@ -77,7 +80,15 @@ fun RoundButtonTemplate(
     onClick: () -> Unit
 ) {
     Button(
-        modifier = Modifier.size(36.dp),
+        modifier = Modifier
+            .size(46.dp)
+            .coloredShadow(
+                color = Color.Black,
+                offsetY = 4.dp,
+                alpha = 0.25f,
+                shadowRadius = 4.dp,
+                borderRadius = 30.dp
+            ),
         onClick = onClick, colors = ButtonDefaults.textButtonColors(
             backgroundColor = Color.White, contentColor = Secondary
         ), shape = CircleShape, contentPadding = PaddingValues(0.dp)
