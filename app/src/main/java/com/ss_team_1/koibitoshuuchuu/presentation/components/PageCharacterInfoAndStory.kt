@@ -29,9 +29,7 @@ fun PageCharacterInfoAndStory(
             modifier = Modifier
                 .fillMaxSize()
         )
-        TopBar {
-            BackButton()
-        }
+        TopBar(button1 = { BackButton() })
         Column(
             modifier = Modifier
                 .align(Alignment.TopCenter),
