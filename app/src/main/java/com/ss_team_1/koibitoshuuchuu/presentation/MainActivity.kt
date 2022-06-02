@@ -65,7 +65,7 @@ fun DefaultPreview() {
 }
 
 @Composable
-fun WelcomePage(){
+fun WelcomePage(context: Context){
     Box(
         Modifier
             .fillMaxSize()
@@ -77,6 +77,8 @@ fun WelcomePage(){
             modifier = Modifier
                 .fillMaxSize()
         )
+        //這個式子只能用手算的 phone: x=1080f y=904
+        StrokeText(LocalContext.current,"戀人專注", 204f,180,168f)//每個字的寬度=size
         Column(
             modifier = Modifier
                 .align(Alignment.TopCenter),
@@ -84,11 +86,14 @@ fun WelcomePage(){
         ) {
             Spacer(modifier = Modifier.height(80.dp))
             Image(
-                painter = painterResource(id = R.drawable.Welcomepage_characters),
-                contentDescription = ""
+                painter = painterResource(id = R.drawable.welcomepage_photo),
+                contentDescription = "",
+                modifier = Modifier
+                    .fillMaxSize()
             )
             Spacer(modifier = Modifier.height(8.dp))
         }
+        StrokeText(LocalContext.current,"點擊開始", 372f,800,84f)
     }
 }
 
@@ -96,7 +101,7 @@ fun WelcomePage(){
 @Composable
 fun WelcomepagePreview() {
     KoiBitoShuuChuuTheme {
-        WelcomePage()
+        WelcomePage(LocalContext.current)
     }
 }
 @SuppressLint("NewApi")
@@ -109,8 +114,8 @@ fun StrokeText(context: Context,string: String, x: Float, y: Int, size: Float){
         style = android.graphics.Paint.Style.STROKE
         textSize = size
         color = android.graphics.Color.BLACK
-        strokeWidth = 12f
-        strokeMiter= 10f
+        strokeWidth = size/6f
+        strokeMiter= size/8f
         strokeJoin = android.graphics.Paint.Join.ROUND
         typeface = customTypeface
     }
