@@ -40,11 +40,12 @@ fun CharacterInfo(
 ) {
     Row(
         modifier = Modifier
-            .width(320.dp)
             .padding(8.dp)
+            .width(344.dp)
             .background(color = Color.White, shape = RoundedCornerShape(10.dp)),
         verticalAlignment = Alignment.CenterVertically
     ) {
+        Spacer(modifier = Modifier.width(8.dp))
         Image(
             painter = painterResource(id = characterPhoto),
             contentDescription = "",
@@ -73,9 +74,11 @@ fun CharacterInfo(
                 modifier = Modifier.padding(8.dp)
             )
             if(showDetailButton) {
+                Spacer(modifier = Modifier.height(8.dp))
                 DetailButton(
                     onClick = onClick
                 )
+                Spacer(modifier = Modifier.height(8.dp))
             }
         }
     }
@@ -88,9 +91,8 @@ fun DetailButton(
     Button(
         onClick = onClick,
         modifier = Modifier
-            .padding(8.dp)
-            .width(135.dp)
-            .height(35.dp),
+            .width(136.dp)
+            .height(36.dp),
         colors = ButtonDefaults.buttonColors(
             backgroundColor = secUn,
             contentColor = black,
@@ -100,11 +102,7 @@ fun DetailButton(
         shape = RoundedCornerShape(4.dp),
         border = BorderStroke(
             width = 1.dp,
-            brush = Brush.horizontalGradient(
-                listOf(grayLine, grayLine, grayLine),
-                startX = 10.0f,
-                endX = 20.0f
-            )
+            color = grayLine,
         )
     ) {
         Text(

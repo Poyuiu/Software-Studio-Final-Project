@@ -25,7 +25,6 @@ import com.ss_team_1.koibitoshuuchuu.ui.theme.secUn
 @Composable
 fun BarChartPreview() {
     BarChart(
-        title = "FOCUS ANALYSIS",
         data = mapOf(
             Pair("Jan", 6f),
             Pair("Feb", 4f),
@@ -40,8 +39,8 @@ fun BarChartPreview() {
 
 @Composable
 fun BarChart(
-    title: String,
-    data: Map<Any, Float>,
+    title: String = "FOCUS ANALYSIS",
+    data: Map<String, Float>,
     barColor: Color = Color.Black,
     barWidth: Float = 50f,
     labelColor: Color = Color.Black,

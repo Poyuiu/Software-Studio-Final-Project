@@ -1,7 +1,10 @@
 package com.ss_team_1.koibitoshuuchuu.presentation.components
 
+
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.*
+import androidx.compose.foundation.rememberScrollState
+import androidx.compose.foundation.verticalScroll
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -14,10 +17,8 @@ import com.ss_team_1.koibitoshuuchuu.domain.use_case.plot.Character
 import com.ss_team_1.koibitoshuuchuu.domain.use_case.plot.PlotUseCases
 
 @Composable
-fun PageCharacterInfoAndStory(
+fun PageCharacterDetail(
     character: Character,
-    onClickGoStroy: () -> Unit,
-    onClickGoDetail: () -> Unit
 ) {
     Box(
         Modifier
@@ -33,34 +34,35 @@ fun PageCharacterInfoAndStory(
         TopBar(button1 = { BackButton() })
         Column(
             modifier = Modifier
-                .align(Alignment.TopCenter),
+                .align(Alignment.TopCenter)
+                .verticalScroll(rememberScrollState()),
             horizontalAlignment = Alignment.CenterHorizontally
         ) {
             Spacer(modifier = Modifier.height(80.dp))
             CharacterInfo(
-                onClick = onClickGoDetail,
+                onClick = {},
                 characterPhoto = character.photo,
                 characterName = character.name,
                 characterInfo = character.info,
-                showDetailButton = true
+                showDetailButton = false
             )
             Spacer(modifier = Modifier.height(8.dp))
-            PlotList(
-                onClick = onClickGoStroy,
-                plotTitleList = character.plotList
+            BarChart(data = character.focusRecord)
+            Spacer(modifier = Modifier.height(8.dp))
+            CharacterIntroduction(
+                introduction = character.introduction
             )
+            Spacer(modifier = Modifier.height(40.dp))
         }
     }
 }
 
 @Preview(showBackground = true, backgroundColor = 0xFFF0EAE2)
 @Composable
-fun PageCharacterInfoAndStoryPreview(
+fun PageCharacterDetailPreview(
 
 ) {
-    PageCharacterInfoAndStory(
-        character = PlotUseCases().shikieiki,
-        onClickGoStroy = {},
-        onClickGoDetail = {},
+    PageCharacterDetail(
+        character = PlotUseCases().shikieiki
     )
 }

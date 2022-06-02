@@ -21,16 +21,16 @@ fun PlotList(
     Box(
         modifier = Modifier
             .padding(8.dp)
-            .width(320.dp)
-            .height(366.dp)
+            .width(344.dp)
+            .height(364.dp)
             .background(color = Color.White, shape = RoundedCornerShape(10.dp)),
     )
     {
         LazyColumn(
             verticalArrangement = Arrangement.spacedBy(13.dp),
             modifier = Modifier
-                .width(260.dp)
-                .height(315.dp)
+                .width(296.dp)
+                .height(316.dp)
                 .align(Alignment.Center),
             horizontalAlignment = Alignment.CenterHorizontally
         ) {

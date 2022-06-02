@@ -35,7 +35,7 @@ fun PlotButton(
     Box(modifier = modifier) {
         Button(
             modifier = modifier
-                .width(245.dp)
+                .fillMaxWidth()
                 .height(47.dp)
                 .padding(4.dp),
             onClick = onClick,
