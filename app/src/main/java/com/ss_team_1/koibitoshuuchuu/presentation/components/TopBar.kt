@@ -1,38 +1,44 @@
 package com.ss_team_1.koibitoshuuchuu.presentation.components
 
-import androidx.compose.foundation.layout.Arrangement
-import androidx.compose.foundation.layout.Row
-import androidx.compose.foundation.layout.fillMaxWidth
-import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.*
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.geometry.Size
 import androidx.compose.ui.graphics.Outline
 import androidx.compose.ui.graphics.Path
 import androidx.compose.ui.graphics.Shape
+import androidx.compose.ui.input.key.Key.Companion.Button1
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.Density
 import androidx.compose.ui.unit.LayoutDirection
 import androidx.compose.ui.unit.dp
+import androidx.compose.ui.zIndex
 import com.ss_team_1.koibitoshuuchuu.ui.theme.Secondary
 
 @Preview(showBackground = true)
 @Composable
 fun TopBarPreview() {
-    TopBar()
-    {
-        BackButton()
-        PauseButton()
-    }
-
+    TopBar(
+        button1 = {
+            BackButton()
+        },
+        button2 = {
+            PauseButton()
+        }
+    )
 }
 
 
 @Composable
-fun TopBar(content: @Composable () -> Unit) {
+fun TopBar(
+    modifier: Modifier = Modifier,
+    button1: @Composable () -> Unit,
+    button2: (@Composable () -> Unit) = {},
+) {
     androidx.compose.material.Surface(
-        modifier = Modifier
-            .fillMaxWidth(),
+        modifier = modifier
+            .fillMaxWidth()
+            .zIndex(4f),
         shape = TopBarShape(),
         color = Secondary,
         elevation = 4.dp
@@ -40,11 +46,13 @@ fun TopBar(content: @Composable () -> Unit) {
         Row(
             modifier = Modifier
                 .padding(8.dp)
-                .padding(bottom = 24.dp),
+                .padding(bottom = 30.dp),
             horizontalArrangement = Arrangement.SpaceBetween
         ) {
-            content()
+            button1()
+            button2()
         }
+
     }
 
 }

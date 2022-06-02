@@ -15,7 +15,7 @@ import androidx.compose.ui.unit.dp
 
 @Preview(showBackground = true)
 @Composable
-fun trianglebuttonPreview() {
+fun TrianglebuttonPreview() {
     RoundedTriangle()
 
 }
