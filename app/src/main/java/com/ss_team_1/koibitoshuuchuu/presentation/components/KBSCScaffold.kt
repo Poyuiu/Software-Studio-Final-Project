@@ -8,13 +8,15 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.tooling.preview.Preview
-import androidx.compose.ui.zIndex
 import com.ss_team_1.koibitoshuuchuu.R
 
 @Preview
 @Composable
 private fun KBSCScaffoldPreview() {
-    KBSCScaffold(button1 = { BackButton() }) {
+    KBSCScaffold(
+        button1 = { BackButton() },
+        backgroundResourceId = R.drawable.coffee_shop_background
+    ) {
         Image(
             painter = painterResource(id = R.drawable.shikieiki_main),
             contentDescription = "",
@@ -27,6 +29,7 @@ private fun KBSCScaffoldPreview() {
 fun KBSCScaffold(
     topBarEnable: Boolean = true,
     navbarEnable: Boolean = true,
+    backgroundResourceId: Int,
     button1: (@Composable() () -> Unit) = { BackButton() },
     button2: (@Composable() () -> Unit) = {},
     content: @Composable() BoxScope.() -> Unit
@@ -36,7 +39,7 @@ fun KBSCScaffold(
             modifier = Modifier
                 .fillMaxSize()
                 .align(Alignment.Center),
-            painter = painterResource(id = R.drawable.background),
+            painter = painterResource(id = backgroundResourceId),
             contentDescription = "background",
             contentScale = ContentScale.FillBounds
         )

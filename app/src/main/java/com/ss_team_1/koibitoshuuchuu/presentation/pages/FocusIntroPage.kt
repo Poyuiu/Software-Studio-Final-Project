@@ -1,27 +1,30 @@
 package com.ss_team_1.koibitoshuuchuu.presentation.pages
 
 import androidx.compose.foundation.Image
-import androidx.compose.foundation.layout.Box
-import androidx.compose.foundation.layout.fillMaxHeight
-import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.material.Surface
+import androidx.compose.foundation.layout.*
 import androidx.compose.runtime.Composable
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.tooling.preview.Preview
 import com.ss_team_1.koibitoshuuchuu.R
+import com.ss_team_1.koibitoshuuchuu.presentation.components.KBSCScaffold
 
 @Preview
 @Composable
 fun FocusIntroPage() {
-    Box(
+    KBSCScaffold(
+        navbarEnable = false,
+        backgroundResourceId = R.drawable.coffee_shop_background
     ) {
         Image(
-            modifier = Modifier.fillMaxSize(),
-            painter = painterResource(id = R.drawable.background),
-            contentDescription = "background",
-            contentScale = ContentScale.FillBounds
+            painter = painterResource(id = R.drawable.shikieiki_main),
+            contentDescription = "",
+            modifier = Modifier
+                .fillMaxSize(0.84f)
+                .align(Alignment.Center),
+            contentScale = ContentScale.Fit
         )
     }
 }
