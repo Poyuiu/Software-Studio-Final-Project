@@ -1,9 +1,13 @@
 package com.ss_team_1.koibitoshuuchuu.presentation.components
 
+import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.Canvas
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
+import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.material.Button
+import androidx.compose.material.ButtonDefaults
 import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment.Companion.Center
@@ -58,6 +62,7 @@ fun intimacyBar(
     intimacy: Int,
     levelIntimacyNeed: Int
 ){
+    val percentage = intimacy.toFloat()/levelIntimacyNeed.toFloat()
     Box(
         modifier = Modifier.size(248.dp,46.dp)
     ){
@@ -67,23 +72,22 @@ fun intimacyBar(
             contentScale = ContentScale.Crop,
             modifier = Modifier.padding(16.dp).fillMaxWidth()
         )
-        LevelbarRectangle(intimacy, levelIntimacyNeed)
+        LevelbarRectangle(percentage)
     }
 }
 @Composable
 fun LevelbarRectangle(
-    intimacy: Int,
-    levelIntimacyNeed: Int
+    percentage : Float
 ) {
-    val percentage = levelIntimacyNeed/intimacy
+
     Canvas(
         modifier = Modifier.fillMaxSize()
     ) {
         val rectanglePath = Path().apply {
             val height = size.height
             moveTo(92f, height/(2.0f)-8f)//92f為起始點
-            lineTo(92f+500f*percentage, height/(2.0f)-8f)//592f為終點
-            lineTo(92f+500f*percentage, height/(2.0f)+8f)
+            lineTo(92f+ (500f*percentage), height/(2.0f)-8f)//592f為終點
+            lineTo(92f+ (500f*percentage), height/(2.0f)+8f)
             lineTo(92f, height/(2.0f)+8f)
         }
         drawPath(
@@ -96,4 +100,30 @@ fun LevelbarRectangle(
 @Composable
 fun intimacybarpreview(){
     intimacyBar(600,1314)
+}
+
+@Composable
+fun ButtonWithBorder(
+    lock: Boolean
+) {
+    Button(
+        onClick = {
+            /*TODO*/
+        },
+        border = BorderStroke(3.dp, Color.White),
+        modifier = Modifier.size(48.dp),
+        shape = RoundedCornerShape(14.dp),
+        colors = ButtonDefaults.buttonColors(backgroundColor = Color(0xff94e7e1))//ButtonDefaults.outlinedButtonColors(contentColor = Color.Red)
+    ) {
+        Image(
+            painterResource(id = R.drawable.ic_info_of_figure),
+            contentDescription ="figure info button icon",
+            modifier = Modifier.size(24.dp)
+        )
+    }
+}
+@Preview(showBackground = false)
+@Composable
+fun charcaterInfopreview(){
+    ButtonWithBorder(false)
 }
