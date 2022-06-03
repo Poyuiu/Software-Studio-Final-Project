@@ -70,7 +70,7 @@ fun HomepageCharacter(
     characterOrder: Int
 ){
     Box(
-        Modifier.size(300.dp, 576.dp)
+        Modifier.size(300.dp, 730.dp)
     ){
         Column(
             modifier = Modifier.align(Alignment.TopCenter),
