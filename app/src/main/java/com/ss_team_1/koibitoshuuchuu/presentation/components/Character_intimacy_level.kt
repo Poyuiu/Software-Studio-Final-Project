@@ -153,7 +153,7 @@ fun LevelbarRectangle(
 @Preview(showBackground = false)
 @Composable
 fun intimacybarpreview(){
-    intimacyBar(600,1314, true)
+    intimacyBar(900,1314, true)
 }
 
 @Composable

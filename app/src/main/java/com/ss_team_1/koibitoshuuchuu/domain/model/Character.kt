@@ -6,6 +6,7 @@ import androidx.room.PrimaryKey
 @Entity
 data class Character(
     @PrimaryKey
+    val character_order: Int,
     val name: String,
     val picture_url: String,
     val intimacy: Int,
