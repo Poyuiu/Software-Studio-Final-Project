@@ -1,11 +1,14 @@
 package com.ss_team_1.koibitoshuuchuu.domain.model
 
+import androidx.annotation.NonNull
 import androidx.room.Entity
+import androidx.room.PrimaryKey
 
 @Entity
 data class Scene (
-    val name: String,
-    val picture_url: String,
-    val price: Int,
+    @PrimaryKey
+    @NonNull
+    val id: Int,
+    @NonNull
     val is_owned: Boolean
 )
