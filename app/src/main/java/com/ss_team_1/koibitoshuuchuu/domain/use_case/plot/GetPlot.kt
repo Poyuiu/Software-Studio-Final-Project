@@ -9,6 +9,11 @@ class Plot {
     val title: String
     val lock: Boolean
     val haveRead: Boolean
+    val plotContent: List<PlotSnapShot> = listOf(
+        PlotSnapShot(R.drawable.shikieiki_main, "你是不是在想色色的事情"),
+        PlotSnapShot(R.drawable.shikieiki_main, "變態！！"),
+        PlotSnapShot(R.drawable.shikieiki_main, "是不是想死啊？"),
+    )
 
     constructor(title: String, lock: Boolean = true, haveRead: Boolean = false) {
         this.title = title
@@ -17,6 +22,15 @@ class Plot {
     }
 }
 
+class PlotSnapShot {
+    val characterPhoto: Int
+    val plotDiscription: String
+
+    constructor(photo: Int, discription: String) {
+        this.plotDiscription = discription
+        this.characterPhoto = photo
+    }
+}
 
 class Character {
     val plotList: List<Plot>
@@ -42,3 +56,4 @@ class Character {
         this.focusRecord = focusRecord
     }
 }
+
