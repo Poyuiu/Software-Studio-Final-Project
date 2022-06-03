@@ -46,5 +46,17 @@ fun HomePage(
             FocusButton(LocalContext.current,false)
             Spacer(modifier = Modifier.height(120.dp))
         }
+        Row(
+            modifier = Modifier.align(Alignment.CenterStart),
+            verticalAlignment = Alignment.CenterVertically
+        ) {
+            rightRoundedTriangle()
+        }
+        Row(
+            modifier = Modifier.align(Alignment.CenterEnd),
+            verticalAlignment = Alignment.CenterVertically
+        ) {
+            leftRoundedTriangle()
+        }
     }
 }
