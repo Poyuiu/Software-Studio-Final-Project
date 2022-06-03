@@ -19,8 +19,6 @@ data class Character(
     @Ignore
     val intimacy_level: Int,
     @Ignore
-    val level_intimacy_need: Int,
-    @Ignore
     val nickname: String,
     @Ignore
     val height: Float,
@@ -33,5 +31,5 @@ data class Character(
     @Ignore
     val introduction: String
 ) {
-    constructor(name: String, intimacy: Int): this(name, intimacy, "", 0, 0, "", 0f, "", "", "", "")
+    constructor(name: String, intimacy: Int): this(name, intimacy, "", 0, "", 0f, "", "", "", "")
 }
