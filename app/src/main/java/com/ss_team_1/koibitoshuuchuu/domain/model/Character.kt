@@ -10,6 +10,7 @@ data class Character(
     val picture_url: String,
     val intimacy: Int,
     val intimacy_level: Int,
+    val level_intimacy_need: Int,
     val nickname: String,
     val height: Float,
     val species: String,
