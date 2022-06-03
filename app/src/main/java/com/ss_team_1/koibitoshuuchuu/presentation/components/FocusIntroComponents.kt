@@ -3,10 +3,7 @@ package com.ss_team_1.koibitoshuuchuu.presentation.components
 import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border
-import androidx.compose.foundation.layout.Box
-import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.foundation.layout.size
+import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.text.BasicTextField
 import androidx.compose.material.*
@@ -35,7 +32,7 @@ private fun FocusIntroComponents() {
 fun FocusIntroTimepickerButton(
 ) {
     var focusTime by remember { mutableStateOf(10) }
-    Column() {
+    Column(modifier = Modifier.padding(12.dp)) {
         Text(text = "Focus Time")
         Button(
             modifier = Modifier.size(width = 280.dp, height = 64.dp),
@@ -56,7 +53,7 @@ fun FocusIntroTimepickerButton(
 fun FocusIntroWorkTextField(
 ) {
     var workDesc by remember { mutableStateOf("homework") }
-    Column() {
+    Column(modifier = Modifier.padding(12.dp)) {
         Text(text = "Work(optional)")
         Box(
             modifier = Modifier
@@ -81,7 +78,7 @@ fun FocusIntroWorkTextField(
 fun FocusIntroSceneButton(
 ) {
     var sceneName by remember { mutableStateOf("咖啡廳") }
-    Column() {
+    Column(modifier = Modifier.padding(12.dp)) {
         Text(text = "Scene")
         Button(
             modifier = Modifier.size(width = 280.dp, height = 64.dp),
