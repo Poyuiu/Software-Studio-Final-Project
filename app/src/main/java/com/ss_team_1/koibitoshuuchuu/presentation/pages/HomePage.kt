@@ -15,7 +15,7 @@ import com.ss_team_1.koibitoshuuchuu.domain.model.Character
 import com.ss_team_1.koibitoshuuchuu.domain.use_case.plot.PlotUseCases
 import com.ss_team_1.koibitoshuuchuu.presentation.components.*
 
-@Preview
+//@Preview
 @Composable
 fun HomePage(
 ) {
