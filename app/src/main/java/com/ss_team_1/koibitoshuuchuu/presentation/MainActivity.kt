@@ -8,6 +8,7 @@ import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.compose.foundation.Canvas
 import androidx.compose.foundation.Image
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
 import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Surface
@@ -38,37 +39,26 @@ class MainActivity: ComponentActivity() {
         super.onCreate(savedInstanceState)
         setContent {
             KoiBitoShuuChuuTheme {
-                LoverFocusApp(this)
+                WelcomePage(this)
             }
         }
     }
 }
 
-@Composable
-fun LoverFocusApp(context: Context){
 
-    Surface(
-        color = MaterialTheme.colors.primary
-    ) {
-        Text(text = "Welcome，你好", modifier = Modifier.padding(24.dp),fontFamily = mamelonFamily, fontWeight = FontWeight.Normal)
-        StrokeText(LocalContext.current,"戀人專注Welcome，你好", 30f,100,64f)
-
-    }
-}
-
-@Preview
-@Composable
-fun DefaultPreview() {
-    KoiBitoShuuChuuTheme {
-        LoverFocusApp(LocalContext.current)
-    }
-}
 
 @Composable
 fun WelcomePage(context: Context){
     Box(
         Modifier
             .fillMaxSize()
+            .clickable (
+                enabled = true,
+                onClickLabel = "Welcomepage click",
+                onClick = {
+                    /*TODO*/
+                }
+            )
     ) {
         Image(
             painter = painterResource(id = R.drawable.background_only_color),
@@ -91,7 +81,6 @@ fun WelcomePage(context: Context){
                 modifier = Modifier
                     .fillMaxSize()
             )
-            Spacer(modifier = Modifier.height(8.dp))
         }
         StrokeText(LocalContext.current,"點擊開始", 372f,800,84f)
     }
@@ -104,6 +93,7 @@ fun WelcomepagePreview() {
         WelcomePage(LocalContext.current)
     }
 }
+
 @SuppressLint("NewApi")
 @Composable
 fun StrokeText(context: Context,string: String, x: Float, y: Int, size: Float){
@@ -147,3 +137,23 @@ fun StrokeText(context: Context,string: String, x: Float, y: Int, size: Float){
         }
     )
 }
+
+/*@Composable
+fun LoverFocusApp(context: Context){
+
+    Surface(
+        color = MaterialTheme.colors.primary
+    ) {
+        Text(text = "Welcome，你好", modifier = Modifier.padding(24.dp),fontFamily = mamelonFamily, fontWeight = FontWeight.Normal)
+        StrokeText(LocalContext.current,"戀人專注Welcome，你好", 30f,100,64f)
+
+    }
+}
+
+@Preview
+@Composable
+fun DefaultPreview() {
+    KoiBitoShuuChuuTheme {
+        LoverFocusApp(LocalContext.current)
+    }
+}*/
