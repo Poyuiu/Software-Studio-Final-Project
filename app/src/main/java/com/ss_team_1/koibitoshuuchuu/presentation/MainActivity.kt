@@ -2,7 +2,6 @@ package com.ss_team_1.koibitoshuuchuu.presentation
 
 import android.annotation.SuppressLint
 import android.content.Context
-import android.graphics.Typeface
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
@@ -10,9 +9,6 @@ import androidx.compose.foundation.Canvas
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
-import androidx.compose.material.MaterialTheme
-import androidx.compose.material.Surface
-import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -22,16 +18,10 @@ import androidx.compose.ui.graphics.nativeCanvas
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
-import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.ss_team_1.koibitoshuuchuu.R
-import com.ss_team_1.koibitoshuuchuu.presentation.components.BackButton
-import com.ss_team_1.koibitoshuuchuu.presentation.components.CharacterInfo
-import com.ss_team_1.koibitoshuuchuu.presentation.components.PlotList
-import com.ss_team_1.koibitoshuuchuu.presentation.components.TopBar
 import com.ss_team_1.koibitoshuuchuu.ui.theme.KoiBitoShuuChuuTheme
-import com.ss_team_1.koibitoshuuchuu.ui.theme.mamelonFamily
 
 
 class MainActivity: ComponentActivity() {
@@ -96,7 +86,7 @@ fun WelcomepagePreview() {
 
 @SuppressLint("NewApi")
 @Composable
-fun StrokeText(context: Context,string: String, x: Float, y: Int, size: Float){
+fun StrokeText(context: Context, string: String, x: Float, y: Int, size: Float){
     val customTypeface = context.resources.getFont(R.font.mamelon)
 
     val textPaintStroke = Paint().asFrameworkPaint().apply {

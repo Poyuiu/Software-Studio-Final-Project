@@ -9,7 +9,8 @@ import androidx.compose.ui.unit.sp
 import com.ss_team_1.koibitoshuuchuu.R
 
 val mamelonFamily = FontFamily(
-    Font(R.font.mamelon, FontWeight.Normal)
+    Font(R.font.mamelon, FontWeight.Normal),
+    //Font(R.font.mamelon_bold,FontWeight.Bold)
 )
 // Set of Material typography styles to start with
 val mainFont = R.font.mamelon

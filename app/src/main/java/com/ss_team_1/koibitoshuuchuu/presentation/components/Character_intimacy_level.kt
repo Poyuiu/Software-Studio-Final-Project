@@ -1,5 +1,7 @@
 package com.ss_team_1.koibitoshuuchuu.presentation.components
 
+import android.annotation.SuppressLint
+import android.content.Context
 import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.Canvas
 import androidx.compose.foundation.Image
@@ -12,11 +14,11 @@ import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment.Companion.Center
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.graphics.Path
-import androidx.compose.ui.graphics.PathEffect
+import androidx.compose.ui.graphics.*
 import androidx.compose.ui.graphics.drawscope.Stroke
+import androidx.compose.ui.graphics.drawscope.drawIntoCanvas
 import androidx.compose.ui.layout.ContentScale
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
@@ -24,6 +26,7 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.ss_team_1.koibitoshuuchuu.R
+import com.ss_team_1.koibitoshuuchuu.presentation.StrokeText
 import com.ss_team_1.koibitoshuuchuu.ui.theme.mamelonFamily
 
 @Composable
@@ -60,21 +63,72 @@ fun heartpreview(){
 @Composable
 fun intimacyBar(
     intimacy: Int,
-    levelIntimacyNeed: Int
+    levelIntimacyNeed: Int,
+    showPercentage: Boolean
 ){
     val percentage = intimacy.toFloat()/levelIntimacyNeed.toFloat()
     Box(
-        modifier = Modifier.size(248.dp,46.dp)
+        modifier = Modifier
+            .size(248.dp, 46.dp)
+            .clickable(
+                enabled = true,
+                onClickLabel = "check percentage",
+                onClick = {
+                    /*TODO*/
+                }
+            )
     ){
         Image(
             painter = painterResource(id = R.drawable.intimacy_bar_outerframe),
             contentDescription = "",
             contentScale = ContentScale.Crop,
-            modifier = Modifier.padding(16.dp).fillMaxWidth()
+            modifier = Modifier
+                .padding(16.dp)
+                .fillMaxWidth()
         )
         LevelbarRectangle(percentage)
+        if(showPercentage){
+            Row(modifier = Modifier
+                .fillMaxWidth()) {
+                percentageLabel(
+                    percentage
+                )
+            }
+        }
     }
 }
+@Composable
+fun percentageLabel(
+    percentage: Float,
+    modifier: Modifier=Modifier
+){
+    val percent = (percentage*100).toInt()
+    Box(
+        modifier = modifier.size(56.dp,32.dp)
+            .absoluteOffset(((percentage*190).toInt()).dp,0.dp)
+    ){
+        Image(
+            painter = painterResource(id = R.drawable.label_shape),
+            contentDescription = "",
+            contentScale = ContentScale.Crop,
+            modifier = Modifier
+                .fillMaxSize()
+        )
+        Text(
+            text = "$percent%",
+            modifier = Modifier.align(Center),
+            fontSize = 20.sp,
+            fontFamily = mamelonFamily,
+            fontWeight = FontWeight.Normal,
+            color = Color(0xFFFFFFFF)
+        )
+    }
+}
+/*@Preview(showBackground = false)
+@Composable
+fun labelpreview(){
+    percentageLabel(0.444f)
+}*/
 @Composable
 fun LevelbarRectangle(
     percentage : Float
@@ -99,31 +153,129 @@ fun LevelbarRectangle(
 @Preview(showBackground = false)
 @Composable
 fun intimacybarpreview(){
-    intimacyBar(600,1314)
+    intimacyBar(600,1314, true)
 }
 
 @Composable
 fun ButtonWithBorder(
     lock: Boolean
 ) {
+    if(lock){
+        Button(
+            onClick = {
+                /*TODO*/
+            },
+            border = BorderStroke(3.dp, Color.White),
+            modifier = Modifier.size(48.dp),
+            shape = RoundedCornerShape(14.dp),
+            colors = ButtonDefaults.buttonColors(backgroundColor = Color(0xffC4C4C4))
+        ) {
+            Image(
+                painterResource(id = R.drawable.ic_info_of_figure),
+                contentDescription ="figure info button icon",
+                modifier = Modifier.size(24.dp),
+                colorFilter = ColorFilter.tint(Color(0xff979797))
+            )
+        }
+    }
+    else{
+        Button(
+            onClick = {
+                /*TODO*/
+            },
+            border = BorderStroke(3.dp, Color.White),
+            modifier = Modifier.size(48.dp),
+            shape = RoundedCornerShape(14.dp),
+            colors = ButtonDefaults.buttonColors(backgroundColor = Color(0xff94e7e1))
+        ) {
+            Image(
+                painterResource(id = R.drawable.ic_info_of_figure),
+                contentDescription ="figure info button icon",
+                modifier = Modifier.size(24.dp)
+            )
+        }
+    }
+
+}
+@Preview(showBackground = false)
+@Composable
+fun charcaterInfopreview(){
+    ButtonWithBorder(true)
+}
+
+@Composable
+fun FocusButton(
+    context: Context,
+    lock: Boolean
+){
     Button(
         onClick = {
             /*TODO*/
         },
         border = BorderStroke(3.dp, Color.White),
-        modifier = Modifier.size(48.dp),
-        shape = RoundedCornerShape(14.dp),
-        colors = ButtonDefaults.buttonColors(backgroundColor = Color(0xff94e7e1))//ButtonDefaults.outlinedButtonColors(contentColor = Color.Red)
+        modifier = Modifier.size(216.dp,66.dp),
+        shape = RoundedCornerShape(36.dp),
+        colors = ButtonDefaults.buttonColors(backgroundColor = Color(0xff94e7e1))
     ) {
-        Image(
-            painterResource(id = R.drawable.ic_info_of_figure),
-            contentDescription ="figure info button icon",
-            modifier = Modifier.size(24.dp)
-        )
+        /*Text(//細版
+            text = "Focus",
+            fontSize = 32.sp,
+            fontFamily = mamelonFamily,
+            fontWeight = FontWeight.Normal,
+            color = Color(Color(0xff09756D))
+        )*/
+        if(lock){
+            ButtonStrokeText(LocalContext.current,"UNLOCK", 84f,36,80f)
+        } else{
+            ButtonStrokeText(LocalContext.current,"FOCUS", 120f,36,80f)
+        }
     }
 }
-@Preview(showBackground = false)
+@SuppressLint("NewApi")
 @Composable
-fun charcaterInfopreview(){
-    ButtonWithBorder(false)
+fun ButtonStrokeText(context: Context, string: String, x: Float, y: Int, size: Float){
+    val customTypeface = context.resources.getFont(R.font.mamelon)
+
+    val textPaintStroke = Paint().asFrameworkPaint().apply {
+        isAntiAlias = true
+        style = android.graphics.Paint.Style.STROKE
+        textSize = size
+        color = (0xff09756D).toInt()
+        strokeWidth = size/20f
+        strokeMiter= size/20f
+        strokeJoin = android.graphics.Paint.Join.ROUND
+        typeface = customTypeface
+    }
+
+    val textPaint = Paint().asFrameworkPaint().apply {
+        isAntiAlias = true
+        style = android.graphics.Paint.Style.FILL
+        textSize = size
+        color = (0xff09756D).toInt()
+        typeface = customTypeface
+    }
+    Canvas(
+        modifier = Modifier.fillMaxSize(),
+        onDraw = {
+            drawIntoCanvas {
+                it.nativeCanvas.drawText(
+                    string,
+                    x,
+                    y.dp.toPx(),
+                    textPaintStroke
+                )
+                it.nativeCanvas.drawText(
+                    string,
+                    x,
+                    y.dp.toPx(),
+                    textPaint
+                )
+            }
+        }
+    )
+}
+@Preview
+@Composable
+fun FocusButtonPreview(){
+    FocusButton(LocalContext.current,true)
 }
