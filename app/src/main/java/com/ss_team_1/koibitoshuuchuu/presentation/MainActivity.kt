@@ -1,6 +1,7 @@
 package com.ss_team_1.koibitoshuuchuu.presentation
 
 import android.annotation.SuppressLint
+import android.app.Application
 import android.content.Context
 import android.os.Bundle
 import androidx.activity.ComponentActivity
@@ -21,18 +22,39 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.ss_team_1.koibitoshuuchuu.R
+import com.ss_team_1.koibitoshuuchuu.data.data_source.character.CharacterDao
+import com.ss_team_1.koibitoshuuchuu.data.data_source.character.CharacterDatabase
+import com.ss_team_1.koibitoshuuchuu.data.data_source.user.UserDao
+import com.ss_team_1.koibitoshuuchuu.data.data_source.user.UserDatabase
+import com.ss_team_1.koibitoshuuchuu.data.repository_implementation.CharacterRepositoryImplementation
+import com.ss_team_1.koibitoshuuchuu.domain.repository.CharacterRepository
+import com.ss_team_1.koibitoshuuchuu.domain.repository.UserRepository
 import com.ss_team_1.koibitoshuuchuu.ui.theme.KoiBitoShuuChuuTheme
 
 
 class MainActivity: ComponentActivity() {
+    companion object {
+        var app_container: AppContainer? = null
+        fun appContainer() = app_container!!
+    }
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        app_container = (application as MyApplication).appContainer
         setContent {
             KoiBitoShuuChuuTheme {
                 WelcomePage(this)
             }
         }
     }
+}
+
+class MyApplication: Application() {
+    val appContainer = AppContainer(this)
+}
+
+class AppContainer (context: Context) {
+    private val characterLocalDataSource = CharacterDatabase.getDatabase(context)
+    val characterRepository = CharacterRepositoryImplementation(characterLocalDataSource.characterDao())
 }
 
 
