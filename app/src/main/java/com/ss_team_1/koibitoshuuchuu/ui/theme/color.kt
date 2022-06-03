@@ -15,6 +15,7 @@ val LightBlue = Color(0xFFD7EFFE)
 val Chartreuse = Color(0xFFEFF7CF)
 
 val AccentColor = Color(0xFF94E7E1)
+val AccentDark = Color(0xFF09756D)
 val secUn = Color(0xFFFF8190)
 val gray = Color(0xFF979797)
 val black = Color(0xFF000000)

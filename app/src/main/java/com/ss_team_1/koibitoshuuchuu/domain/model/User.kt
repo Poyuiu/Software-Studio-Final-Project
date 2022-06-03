@@ -10,7 +10,7 @@ data class User (
     @PrimaryKey
     val id: Long,
     val user_name: String,
-    val photo_url: String,
+    val photo_url: Int,
     val gender: String,
     val birthday: Date,
     val money: Int,
