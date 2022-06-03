@@ -1,9 +1,6 @@
 package com.ss_team_1.koibitoshuuchuu.presentation.components
 
-import androidx.compose.foundation.BorderStroke
-import androidx.compose.foundation.Image
-import androidx.compose.foundation.background
-import androidx.compose.foundation.border
+import androidx.compose.foundation.*
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
@@ -32,10 +29,12 @@ private fun DialogBoxPreview() {
 @Composable
 fun DialogBox(
     text: String,
-    showTriangle: Boolean = true
+    showTriangle: Boolean = true,
+    onClickNext: () -> Unit = {},
+    modifier: Modifier = Modifier
 ) {
     Box(
-        modifier = Modifier
+        modifier = modifier
             .size(width = 283.dp, height = 153.dp)
             .shadow(elevation = 10.dp)
             .border(width = 6.dp, color = Secondary, shape = RoundedCornerShape(32.dp))
@@ -50,6 +49,7 @@ fun DialogBox(
                 modifier = Modifier
                     .align(Alignment.BottomEnd)
                     .padding(24.dp)
+                    .clickable { onClickNext }
             )
         }
     }
