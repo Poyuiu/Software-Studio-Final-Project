@@ -15,7 +15,7 @@ import com.ss_team_1.koibitoshuuchuu.domain.model.Character
 import com.ss_team_1.koibitoshuuchuu.domain.use_case.plot.PlotUseCases
 import com.ss_team_1.koibitoshuuchuu.presentation.components.*
 
-//@Preview
+@Preview
 @Composable
 fun HomePage(
 ) {
@@ -36,7 +36,7 @@ fun HomePage(
             horizontalAlignment = Alignment.CenterHorizontally
         ){
             Spacer(modifier = Modifier.height(96.dp))
-            HomepageCharacter(2,400,1314,true, LocalContext.current,"四季映姬" ,false ,1)
+            HomepageCharacter(2,700,1314,true, LocalContext.current,"四季映姬" ,false ,1)
         }
         Column(
             modifier = Modifier.align(Alignment.BottomCenter),
