@@ -8,7 +8,7 @@ data class User (
     val photo_url: String,
     val gender: String,
     val birthday: Calendar,
+    val join_date: Calendar,
     val money: Int,
     val gem: Int,
-    val join_date: Calendar,
 )

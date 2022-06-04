@@ -1,12 +1,12 @@
 package com.ss_team_1.koibitoshuuchuu.data.data_source.focusHistory
 
 import android.content.Context
-import androidx.room.Database
-import androidx.room.Room
-import androidx.room.RoomDatabase
+import androidx.room.*
 import com.ss_team_1.koibitoshuuchuu.domain.model.FocusHistory
+import com.ss_team_1.koibitoshuuchuu.domain.util.TimeConverter
 
 @Database(entities = [FocusHistory::class], version = 1)
+@TypeConverters(TimeConverter::class)
 abstract class FocusHistoryDatabase: RoomDatabase() {
     abstract fun focusHistoryDao(): FocusHistoryDao
 

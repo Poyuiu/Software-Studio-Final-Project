@@ -2,11 +2,11 @@
   "formatVersion": 1,
   "database": {
     "version": 1,
-    "identityHash": "01b39c04193f8c48b7cbceeb722817a2",
+    "identityHash": "25c06556afe23cfba4e15f4a416ba2c1",
     "entities": [
       {
         "tableName": "FocusHistory",
-        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`id` INTEGER NOT NULL, `startTime` TEXT NOT NULL, `endTime` TEXT NOT NULL, `characterId` INTEGER NOT NULL, PRIMARY KEY(`id`))",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`id` INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, `startTime` INTEGER NOT NULL, `endTime` INTEGER NOT NULL, `characterId` INTEGER NOT NULL)",
         "fields": [
           {
             "fieldPath": "id",
@@ -17,13 +17,13 @@
           {
             "fieldPath": "startTime",
             "columnName": "startTime",
-            "affinity": "TEXT",
+            "affinity": "INTEGER",
             "notNull": true
           },
           {
             "fieldPath": "endTime",
             "columnName": "endTime",
-            "affinity": "TEXT",
+            "affinity": "INTEGER",
             "notNull": true
           },
           {
@@ -37,7 +37,7 @@
           "columnNames": [
             "id"
           ],
-          "autoGenerate": false
+          "autoGenerate": true
         },
         "indices": [],
         "foreignKeys": []
@@ -46,7 +46,7 @@
     "views": [],
     "setupQueries": [
       "CREATE TABLE IF NOT EXISTS room_master_table (id INTEGER PRIMARY KEY,identity_hash TEXT)",
-      "INSERT OR REPLACE INTO room_master_table (id,identity_hash) VALUES(42, '01b39c04193f8c48b7cbceeb722817a2')"
+      "INSERT OR REPLACE INTO room_master_table (id,identity_hash) VALUES(42, '25c06556afe23cfba4e15f4a416ba2c1')"
     ]
   }
 }

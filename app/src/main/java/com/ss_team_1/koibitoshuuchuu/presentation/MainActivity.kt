@@ -11,7 +11,6 @@ import androidx.compose.foundation.Image
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
 import androidx.compose.runtime.Composable
-import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Paint
 import androidx.compose.ui.graphics.drawscope.drawIntoCanvas
@@ -22,8 +21,6 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.ss_team_1.koibitoshuuchuu.R
-import com.ss_team_1.koibitoshuuchuu.data.data_source.character.CharacterDatabase
-import com.ss_team_1.koibitoshuuchuu.data.repository_implementation.CharacterRepositoryImplementation
 import com.ss_team_1.koibitoshuuchuu.ui.theme.KoiBitoShuuChuuTheme
 
 
@@ -37,25 +34,6 @@ class MainActivity: ComponentActivity() {
         }
     }
 }
-
-class MyApplication: Application() {
-    companion object {
-        var app_container: AppContainer? = null
-        fun appContainer() = app_container!!
-    }
-
-    override fun onCreate() {
-        super.onCreate()
-        app_container = AppContainer(this)
-    }
-}
-
-class AppContainer (context: Context) {
-    private val characterLocalDataSource = CharacterDatabase.getDatabase(context)
-    val characterRepository = CharacterRepositoryImplementation(characterLocalDataSource.characterDao())
-}
-
-
 
 @Composable
 fun WelcomePage(context: Context){
