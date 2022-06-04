@@ -208,74 +208,83 @@ fun FocusButton(
     context: Context,
     lock: Boolean
 ){
-    Button(
-        onClick = {
-            /*TODO*/
-        },
-        border = BorderStroke(3.dp, Color.White),
-        modifier = Modifier.size(216.dp,66.dp),
-        shape = RoundedCornerShape(36.dp),
-        colors = ButtonDefaults.buttonColors(backgroundColor = Color(0xff94e7e1))
+    Box(
+        Modifier
+            .size(216.dp,66.dp)
+            .clickable (
+                enabled = true,
+                onClickLabel = "focus click",
+                onClick = {
+                    /*TODO*/
+                }
+            )
     ) {
-        /*Text(//細版
-            text = "Focus",
-            fontSize = 32.sp,
-            fontFamily = mamelonFamily,
-            fontWeight = FontWeight.Normal,
-            color = Color(Color(0xff09756D))
-        )*/
         if(lock){
-            ButtonStrokeText(LocalContext.current,"UNLOCK", 84f,36,80f)
-        } else{
-            ButtonStrokeText(LocalContext.current,"FOCUS", 120f,36,80f)
+            Image(
+                painter = painterResource(id = R.drawable.focus_button_unlock),
+                contentDescription = "",
+                contentScale = ContentScale.Fit,
+                modifier = Modifier
+                    .fillMaxSize()
+            )
+        }else{
+            Image(
+                painter = painterResource(id = R.drawable.focus_button),
+                contentDescription = "",
+                contentScale = ContentScale.Fit,
+                modifier = Modifier
+                    .fillMaxSize()
+            )
         }
-    }
-}
-@SuppressLint("NewApi")
-@Composable
-fun ButtonStrokeText(context: Context, string: String, x: Float, y: Int, size: Float){
-    val customTypeface = context.resources.getFont(R.font.mamelon)
 
-    val textPaintStroke = Paint().asFrameworkPaint().apply {
-        isAntiAlias = true
-        style = android.graphics.Paint.Style.STROKE
-        textSize = size
-        color = (0xff09756D).toInt()
-        strokeWidth = size/20f
-        strokeMiter= size/20f
-        strokeJoin = android.graphics.Paint.Join.ROUND
-        typeface = customTypeface
     }
 
-    val textPaint = Paint().asFrameworkPaint().apply {
-        isAntiAlias = true
-        style = android.graphics.Paint.Style.FILL
-        textSize = size
-        color = (0xff09756D).toInt()
-        typeface = customTypeface
-    }
-    Canvas(
-        modifier = Modifier.fillMaxSize(),
-        onDraw = {
-            drawIntoCanvas {
-                it.nativeCanvas.drawText(
-                    string,
-                    x,
-                    y.dp.toPx(),
-                    textPaintStroke
-                )
-                it.nativeCanvas.drawText(
-                    string,
-                    x,
-                    y.dp.toPx(),
-                    textPaint
-                )
-            }
-        }
-    )
 }
 @Preview
 @Composable
 fun FocusButtonPreview(){
     FocusButton(LocalContext.current,true)
 }
+/*@SuppressLint("NewApi")
+@Composable
+fun ButtonStrokeText(context: Context, string: String, x: Float, y: Int, size: Float){
+val customTypeface = context.resources.getFont(R.font.mamelon)
+
+val textPaintStroke = Paint().asFrameworkPaint().apply {
+    isAntiAlias = true
+    style = android.graphics.Paint.Style.STROKE
+    textSize = size
+    color = (0xff09756D).toInt()
+    strokeWidth = size/20f
+    strokeMiter= size/20f
+    strokeJoin = android.graphics.Paint.Join.ROUND
+    typeface = customTypeface
+}
+
+val textPaint = Paint().asFrameworkPaint().apply {
+    isAntiAlias = true
+    style = android.graphics.Paint.Style.FILL
+    textSize = size
+    color = (0xff09756D).toInt()
+    typeface = customTypeface
+}
+Canvas(
+    modifier = Modifier.fillMaxSize(),
+    onDraw = {
+        drawIntoCanvas {
+            it.nativeCanvas.drawText(
+                string,
+                x,
+                y.dp.toPx(),
+                textPaintStroke
+            )
+            it.nativeCanvas.drawText(
+                string,
+                x,
+                y.dp.toPx(),
+                textPaint
+            )
+        }
+    }
+)
+}*/

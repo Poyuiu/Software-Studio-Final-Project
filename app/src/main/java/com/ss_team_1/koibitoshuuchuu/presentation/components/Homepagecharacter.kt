@@ -7,6 +7,7 @@ import androidx.compose.foundation.layout.*
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.tooling.preview.Preview
@@ -33,21 +34,34 @@ fun Heart_initamcybarpreview(){
 }
 
 @Composable
-fun Name_InfoButton(
+fun Name_InfoButton(/*調*/
     context: Context,
-    name: String,
+    characterId: Int,
     lock: Boolean
 ){
     Box(
         Modifier.size(270.dp, 72.dp)
     ){
-        StrokeText(LocalContext.current,name, 32f,56,128f)
+        //StrokeText(LocalContext.current,name, 32f,56,128f)
         Row(
-            modifier = Modifier.align(Alignment.CenterEnd),
+            modifier = Modifier.align(Alignment.CenterStart),
             verticalAlignment = Alignment.CenterVertically
         ){
+            //Spacer(modifier = Modifier.width(8.dp))
+            Box(
+                Modifier.size(220.dp,72.dp)
+                    .padding(8.dp)
+            ){
+                Image(
+                    painter = painterResource(id = R.drawable.character_0_name),
+                    contentDescription = "",
+                    contentScale = ContentScale.Fit,
+                    modifier = Modifier
+                        .fillMaxSize()
+                )
+            }
             ButtonWithBorder(lock)
-            Spacer(modifier = Modifier.width(12.dp))
+
         }
     }
 
@@ -55,7 +69,7 @@ fun Name_InfoButton(
 @Preview
 @Composable
 fun Name_InfoButtonpreview(){
-    Name_InfoButton(LocalContext.current,"四季映姬" ,false )
+    Name_InfoButton(LocalContext.current,0 ,false )
 }
 
 @Composable
@@ -65,9 +79,8 @@ fun HomepageCharacter(
     levelIntimacyNeed: Int,
     showPercentage: Boolean,
     context: Context,
-    name: String,
     lock: Boolean,
-    characterOrder: Int
+    characterId: Int
 ){
     Box(
         Modifier.size(300.dp, 730.dp)
@@ -77,8 +90,8 @@ fun HomepageCharacter(
             horizontalAlignment = Alignment.CenterHorizontally
         ) {
             Heart_initamcybar(intimacyLevel, intimacy, levelIntimacyNeed, showPercentage)
-            Name_InfoButton(context, name, lock)
-            if(characterOrder==1){//隨order切照片
+            Name_InfoButton(context, characterId, lock)
+            if(characterId==0){//隨order切照片
                 Image(
                     painter = painterResource(id = R.drawable.shikieiki_main),
                     contentDescription = "",
@@ -101,5 +114,5 @@ fun HomepageCharacter(
 @Preview
 @Composable
 fun HomepageCharacterpreview(){
-    HomepageCharacter(2,400,1314,true,LocalContext.current,"四季映姬" ,false ,1)
+    HomepageCharacter(2,400,1314,true,LocalContext.current ,false ,0)
 }
