@@ -72,28 +72,15 @@ fun WelcomePage(context: Context){
             )
     ) {
         Image(
-            painter = painterResource(id = R.drawable.background_only_color),
+            painter = painterResource(id = R.drawable.welcome),
             contentDescription = "",
             contentScale = ContentScale.Crop,
             modifier = Modifier
                 .fillMaxSize()
         )
         //這個式子只能用手算的 phone: x=1080f y=904
-        StrokeText(LocalContext.current,"戀人專注", 204f,180,168f)//每個字的寬度=size
-        Column(
-            modifier = Modifier
-                .align(Alignment.TopCenter),
-            horizontalAlignment = Alignment.CenterHorizontally
-        ) {
-            Spacer(modifier = Modifier.height(80.dp))
-            Image(
-                painter = painterResource(id = R.drawable.welcomepage_photo),
-                contentDescription = "",
-                modifier = Modifier
-                    .fillMaxSize()
-            )
-        }
-        StrokeText(LocalContext.current,"點擊開始", 372f,800,84f)
+        //StrokeText(LocalContext.current,"戀人專注", 204f,180,168f)//每個字的寬度=size
+
     }
 }
 
