@@ -5,31 +5,12 @@ import androidx.room.Entity
 import androidx.room.Ignore
 import androidx.room.PrimaryKey
 
+//0: 四季映姬, 1: 魂魄妖夢, 2: 吉吊八千代
 @Entity
 data class Character(
     @PrimaryKey
     @NonNull
-    var name: String,
+    val id: Int,
     @NonNull
-    var intimacy: Int,
-
-    // fixed
-    @Ignore
-    val picture_url: String,
-    @Ignore
-    val intimacy_level: Int,
-    @Ignore
-    val nickname: String,
-    @Ignore
-    val height: Float,
-    @Ignore
-    val species: String,
-    @Ignore
-    val residence: String,
-    @Ignore
-    val profession: String,
-    @Ignore
-    val introduction: String
-) {
-    constructor(name: String, intimacy: Int): this(name, intimacy, "", 0, "", 0f, "", "", "", "")
-}
+    val intimacy: Int
+)

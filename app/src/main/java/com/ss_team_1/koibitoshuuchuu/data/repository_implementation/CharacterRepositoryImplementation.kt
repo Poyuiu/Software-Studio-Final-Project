@@ -13,20 +13,18 @@ class CharacterRepositoryImplementation (
     private val dao: CharacterDao
 ): CharacterRepository {
     private val coroutineScope = CoroutineScope(Dispatchers.Main)
-    private val allCharacter = MutableLiveData<List<Character>>()
 
-    override fun getAllCharacter(): MutableLiveData<List<Character>> {
+    override fun getAllCharacter(): LiveData<List<Character>> {
+        return dao.getAllCharacter()
+    }
+
+    override fun getCharacter(id: Int): LiveData<Character> {
+        return dao.getCharacter(id)
+    }
+
+    override fun updateIntimacy(id: Int, quantity: Int) {
         coroutineScope.launch(Dispatchers.IO) {
-            dao.getAllCharacter()
+            dao.updateIntimacy(id, quantity)
         }
-        return allCharacter
-    }
-
-    override fun getCharacter(name: String): LiveData<Character> {
-        TODO("Not yet implemented")
-    }
-
-    override fun increaseIntimacy(name: String, amount: Int) {
-        TODO("Not yet implemented")
     }
 }

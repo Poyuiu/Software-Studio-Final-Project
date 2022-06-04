@@ -5,7 +5,7 @@ import androidx.lifecycle.MutableLiveData
 import com.ss_team_1.koibitoshuuchuu.domain.model.Character
 
 interface CharacterRepository {
-    fun getAllCharacter(): MutableLiveData<List<Character>>
-    fun getCharacter(name: String): LiveData<Character>
-    fun increaseIntimacy(name: String, amount: Int)
+    fun getAllCharacter(): LiveData<List<Character>>
+    fun getCharacter(id: Int): LiveData<Character>
+    fun updateIntimacy(id: Int, amount: Int)
 }

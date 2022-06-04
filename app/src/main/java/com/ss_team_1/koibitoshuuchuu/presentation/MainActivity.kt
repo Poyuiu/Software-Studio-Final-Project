@@ -22,24 +22,14 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.ss_team_1.koibitoshuuchuu.R
-import com.ss_team_1.koibitoshuuchuu.data.data_source.character.CharacterDao
 import com.ss_team_1.koibitoshuuchuu.data.data_source.character.CharacterDatabase
-import com.ss_team_1.koibitoshuuchuu.data.data_source.user.UserDao
-import com.ss_team_1.koibitoshuuchuu.data.data_source.user.UserDatabase
 import com.ss_team_1.koibitoshuuchuu.data.repository_implementation.CharacterRepositoryImplementation
-import com.ss_team_1.koibitoshuuchuu.domain.repository.CharacterRepository
-import com.ss_team_1.koibitoshuuchuu.domain.repository.UserRepository
 import com.ss_team_1.koibitoshuuchuu.ui.theme.KoiBitoShuuChuuTheme
 
 
 class MainActivity: ComponentActivity() {
-    companion object {
-        var app_container: AppContainer? = null
-        fun appContainer() = app_container!!
-    }
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        app_container = (application as MyApplication).appContainer
         setContent {
             KoiBitoShuuChuuTheme {
                 WelcomePage(this)
@@ -49,7 +39,15 @@ class MainActivity: ComponentActivity() {
 }
 
 class MyApplication: Application() {
-    val appContainer = AppContainer(this)
+    companion object {
+        var app_container: AppContainer? = null
+        fun appContainer() = app_container!!
+    }
+
+    override fun onCreate() {
+        super.onCreate()
+        app_container = AppContainer(this)
+    }
 }
 
 class AppContainer (context: Context) {
@@ -61,6 +59,7 @@ class AppContainer (context: Context) {
 
 @Composable
 fun WelcomePage(context: Context){
+    R.string.detail
     Box(
         Modifier
             .fillMaxSize()

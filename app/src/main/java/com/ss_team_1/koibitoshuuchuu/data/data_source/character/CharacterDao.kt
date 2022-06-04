@@ -7,13 +7,13 @@ import com.ss_team_1.koibitoshuuchuu.domain.model.Character
 
 @Dao
 interface CharacterDao {
-    @Query("SELECT * FROM Character WHERE name=:name")
-    fun getCharacter(name: String): LiveData<Character>
+    @Query("SELECT * FROM Character WHERE id=:id")
+    fun getCharacter(id: Int): LiveData<Character>
 
     @Query("SELECT * FROM Character")
     fun getAllCharacter(): LiveData<List<Character>>
 
-    @Query("UPDATE Character SET intimacy=intimacy+:quantity WHERE name=:name")
-    fun updateIntimacy(name: String, quantity: Int)
+    @Query("UPDATE Character SET intimacy=intimacy+:quantity WHERE id=:id")
+    fun updateIntimacy(id: Int, quantity: Int)
 
 }
