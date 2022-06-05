@@ -13,7 +13,6 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
-import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontStyle
 import androidx.compose.ui.text.style.TextAlign
@@ -29,25 +28,18 @@ import com.ss_team_1.koibitoshuuchuu.ui.theme.GreenBlue
 import com.ss_team_1.koibitoshuuchuu.ui.theme.black
 import java.util.*
 
-/*@Composable
+@Composable
 fun UserInfo(
 //    onClick: () -> Unit,
-    @DrawableRes userPhoto: Int,
+    userPhoto: String,
     userName: String,
     userID: Long,
     userGender: String,
-    userBirthday: Date
+    userBirthday: Calendar
 //    playergender: String,
 //    playerBirthday: String,
 //    showDetailButton: Boolean
 ) {
-    Box {
-
-        //這個式子只能用手算的 phone: x=1080f y=904
-        StrokeText(
-            LocalContext.current, userName,
-            130f, 215, 90f
-        )//每個字的寬度=size
 
         Row(
             modifier = Modifier
@@ -60,7 +52,7 @@ fun UserInfo(
                     .padding(12.dp)
             ) {
                 Image(
-                    painter = painterResource(id = userPhoto),
+                    painter = painterResource(id = userPhoto.toInt()),
                     contentDescription = "",
                     contentScale = ContentScale.FillWidth,
                     modifier = Modifier
@@ -106,7 +98,7 @@ fun UserInfo(
                     )
                     Spacer(modifier = Modifier.width(40.dp))
                     Text(
-                        text = userBirthday.toString(),
+                        text = userBirthday.get(Calendar.MONTH).toString(),
                         fontStyle = FontStyle(R.font.mamelon),
                         color = Color.Black,
                         fontSize = 18.sp,
@@ -139,17 +131,17 @@ fun UserInfo(
         }
     }
 
-}
+
 
 @Preview(showBackground = true)
 @Composable
 fun UserInfoPreview() {
     UserInfo(
-        userPhoto = R.drawable.profile_picture1,
+        userPhoto = R.drawable.profile_picture1.toString(),
         userName = "酷酷的名字",
         userID = 12345678,
         userGender = "酷酷的草履蟲",
-        userBirthday = Date(2000,1,1)
+        userBirthday = Calendar.getInstance()
     )
 }
 
@@ -190,14 +182,13 @@ fun PageProfilePreview() {
     PageProfile(
         user = User(
             user_name = "酷酷的名字",
-            photo_url = R.drawable.profile_picture1,
+            photo_url = R.drawable.profile_picture1.toString(),
             id = 12345678,
             gender = "酷酷的草履蟲",
-            birthday = Date(2000, 1, 1),
+            birthday = Calendar.getInstance(),
             money = 1000,
             gem = 1000,
-            join_date = Date(2000, 1, 1),
-            total_focus_time = 100
+            join_date = Calendar.getInstance()
         )
     )
-}*/
+}
