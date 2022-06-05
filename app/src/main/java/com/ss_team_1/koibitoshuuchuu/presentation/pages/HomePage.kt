@@ -43,7 +43,7 @@ fun HomePage(
             horizontalAlignment = Alignment.CenterHorizontally
         ){
 
-            FocusButton(LocalContext.current,false)
+            FocusButton(LocalContext.current,true)
             Spacer(modifier = Modifier.height(120.dp))
         }
         Row(
