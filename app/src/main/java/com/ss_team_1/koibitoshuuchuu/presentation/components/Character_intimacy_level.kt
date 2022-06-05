@@ -26,7 +26,7 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.ss_team_1.koibitoshuuchuu.R
-import com.ss_team_1.koibitoshuuchuu.presentation.StrokeText
+//import com.ss_team_1.koibitoshuuchuu.presentation.StrokeText
 import com.ss_team_1.koibitoshuuchuu.ui.theme.mamelonFamily
 
 @Composable

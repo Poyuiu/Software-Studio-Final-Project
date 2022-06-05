@@ -22,14 +22,14 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.ss_team_1.koibitoshuuchuu.R
 import com.ss_team_1.koibitoshuuchuu.domain.model.User
-import com.ss_team_1.koibitoshuuchuu.presentation.StrokeText
+//import com.ss_team_1.koibitoshuuchuu.presentation.StrokeText
 import com.ss_team_1.koibitoshuuchuu.presentation.utils.coloredShadow
 import com.ss_team_1.koibitoshuuchuu.ui.theme.DarkGreenBlue
 import com.ss_team_1.koibitoshuuchuu.ui.theme.GreenBlue
 import com.ss_team_1.koibitoshuuchuu.ui.theme.black
 import java.util.*
 
-@Composable
+/*@Composable
 fun UserInfo(
 //    onClick: () -> Unit,
     @DrawableRes userPhoto: Int,
@@ -200,4 +200,4 @@ fun PageProfilePreview() {
             total_focus_time = 100
         )
     )
-}
+}*/

@@ -29,14 +29,14 @@ class MainActivity: ComponentActivity() {
         super.onCreate(savedInstanceState)
         setContent {
             KoiBitoShuuChuuTheme {
-                WelcomePage(this)
+                WelcomePage()
             }
         }
     }
 }
 
 @Composable
-fun WelcomePage(context: Context){
+fun WelcomePage(){
     R.string.detail
     Box(
         Modifier
@@ -66,11 +66,11 @@ fun WelcomePage(context: Context){
 @Composable
 fun WelcomepagePreview() {
     KoiBitoShuuChuuTheme {
-        WelcomePage(LocalContext.current)
+        WelcomePage()
     }
 }
 
-@SuppressLint("NewApi")
+/*@SuppressLint("NewApi")
 @Composable
 fun StrokeText(context: Context, string: String, x: Float, y: Int, size: Float){
     val customTypeface = context.resources.getFont(R.font.mamelon)
@@ -114,7 +114,7 @@ fun StrokeText(context: Context, string: String, x: Float, y: Int, size: Float){
     )
 }
 
-/*@Composable
+@Composable
 fun LoverFocusApp(context: Context){
 
     Surface(

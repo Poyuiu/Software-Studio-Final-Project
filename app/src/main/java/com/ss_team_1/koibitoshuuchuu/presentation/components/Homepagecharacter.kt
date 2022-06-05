@@ -13,7 +13,6 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.ss_team_1.koibitoshuuchuu.R
-import com.ss_team_1.koibitoshuuchuu.presentation.StrokeText
 
 @Composable
 fun Heart_initamcybar(
@@ -40,7 +39,7 @@ fun Name_InfoButton(/*調*/
     lock: Boolean
 ){
     Box(
-        Modifier.size(270.dp, 72.dp)
+        Modifier.size(280.dp, 72.dp)
     ){
         //StrokeText(LocalContext.current,name, 32f,56,128f)
         Row(
@@ -55,12 +54,13 @@ fun Name_InfoButton(/*調*/
                 Image(
                     painter = painterResource(id = R.drawable.character_0_name),
                     contentDescription = "",
-                    contentScale = ContentScale.Fit,
+                    contentScale = ContentScale.Crop,
                     modifier = Modifier
                         .fillMaxSize()
                 )
             }
             ButtonWithBorder(lock)
+            Spacer(modifier = Modifier.width(8.dp))
 
         }
     }

@@ -36,7 +36,7 @@ fun HomePage(
             horizontalAlignment = Alignment.CenterHorizontally
         ){
             Spacer(modifier = Modifier.height(96.dp))
-            HomepageCharacter(2,700,1314,true, LocalContext.current,"四季映姬" ,false ,1)
+            HomepageCharacter(2,700,1314,true, LocalContext.current,false ,0)
         }
         Column(
             modifier = Modifier.align(Alignment.BottomCenter),
