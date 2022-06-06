@@ -74,7 +74,7 @@ fun UserInfo1(
                 fontSize = 18.sp,
                 textAlign = TextAlign.Center,
             )
-            Spacer(modifier = Modifier.height(15.dp))
+            Spacer(modifier = Modifier.height(0.dp))
             Row {
                 Text(
                     text = "性別",
@@ -90,7 +90,7 @@ fun UserInfo1(
                     fontSize = 20.sp,
                 )
             }
-            Spacer(modifier = Modifier.height(5.dp))
+            Spacer(modifier = Modifier.height(0.dp))
             Row {
                 Text(
                     text = "生日",
@@ -129,7 +129,7 @@ fun UserInfo1(
             }
         }
         Column {
-            Spacer(modifier = Modifier.height(180.dp))
+            Spacer(modifier = Modifier.height(165.dp))
             Button(
                 onClick = { /* ... */ },
                 shape = RoundedCornerShape(100),
@@ -582,6 +582,7 @@ fun PageProfile(user: User) {
                 .fillMaxSize()
         )
         TopBar(button1 = { SettingsButton() })
+        NavigationBar(modifier = Modifier.align(Alignment.BottomCenter))
         Column(
             modifier = Modifier
                 .align(Alignment.TopCenter)
