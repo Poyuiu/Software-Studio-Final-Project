@@ -100,6 +100,8 @@ dependencies {
     // Item Picker
     implementation 'com.chargemap.compose:numberpicker:1.0.3'
 
+    // Snapper
+    implementation 'dev.chrisbanes.snapper:snapper:0.2.1'
 
 }
 kapt {

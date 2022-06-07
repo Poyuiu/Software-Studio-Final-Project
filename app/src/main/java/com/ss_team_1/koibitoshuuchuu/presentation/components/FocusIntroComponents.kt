@@ -1,9 +1,19 @@
+@file:OptIn(
+    ExperimentalFoundationApi::class,
+    ExperimentalComposeUiApi::class,
+    ExperimentalSnapperApi::class
+)
+
 package com.ss_team_1.koibitoshuuchuu.presentation.components
 
 import androidx.compose.foundation.BorderStroke
+import androidx.compose.foundation.ExperimentalFoundationApi
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border
 import androidx.compose.foundation.layout.*
+import androidx.compose.foundation.lazy.LazyColumn
+import androidx.compose.foundation.lazy.items
+import androidx.compose.foundation.lazy.rememberLazyListState
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.text.BasicTextField
 import androidx.compose.material.*
@@ -12,6 +22,7 @@ import androidx.compose.material.MaterialTheme.colors
 import androidx.compose.material.SnackbarDefaults.backgroundColor
 import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
+import androidx.compose.ui.ExperimentalComposeUiApi
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.text.TextStyle
@@ -20,10 +31,30 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.ss_team_1.koibitoshuuchuu.ui.theme.Primary
 import com.ss_team_1.koibitoshuuchuu.ui.theme.Secondary
+import dev.chrisbanes.snapper.ExperimentalSnapperApi
+import dev.chrisbanes.snapper.rememberSnapperFlingBehavior
 
 
+@Preview(showBackground = false)
 @Composable
-private fun FocusIntroComponents() {
+fun FocusIntroTimePicker() {
+    //TODO: Should be input
+    val focusTimeList = (50 downTo 10 step 5).toList()
+    val lazyListState = rememberLazyListState()
+    Surface(
+        shape = RoundedCornerShape(17.dp),
+        color = Primary,
+        border = BorderStroke(width = 3.dp, color = Secondary),
+        modifier = Modifier.size(width = 279.dp, height = 308.dp)
+    ) {
+        LazyColumn(
+            flingBehavior = rememberSnapperFlingBehavior(lazyListState)
+        ) {
+            items(items = focusTimeList) { item ->
+                Text(text = "$item:00")
+            }
+        }
+    }
 
 }
 

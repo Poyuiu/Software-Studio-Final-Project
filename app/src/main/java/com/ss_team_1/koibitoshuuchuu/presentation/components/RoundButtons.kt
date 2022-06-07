@@ -55,8 +55,9 @@ fun SettingsButton() {
 
 @Preview
 @Composable
-fun PauseButton() {
+fun PauseButton(modifier: Modifier = Modifier) {
     RoundButtonTemplate(
+        modifier = modifier,
         icon = Icons.Default.Pause,
         iconSize = 36.dp,
         onClick = {}
@@ -75,12 +76,13 @@ fun BackButton() {
 
 @Composable
 fun RoundButtonTemplate(
+    modifier: Modifier = Modifier,
     icon: ImageVector,
     iconSize: Dp = 24.dp,
     onClick: () -> Unit
 ) {
     Button(
-        modifier = Modifier
+        modifier = modifier
             .size(46.dp)
             .coloredShadow(
                 color = Color.Black,

@@ -18,20 +18,21 @@ import com.ss_team_1.koibitoshuuchuu.ui.theme.Primary
 @Preview
 @Composable
 private fun AccentButtonPreview() {
-    AccentButtonTemplate() {
+    AccentButtonTemplate(onClick = {}) {
         Text(text = "START")
     }
 }
 
 @Composable
 fun AccentButtonTemplate(
+    onClick: () -> Unit,
     modifier: Modifier = Modifier,
     width: Dp = 255.dp,
     height: Dp = 70.dp,
     content: @Composable() () -> Unit
 ) {
     Button(
-        onClick = { /*TODO*/ },
+        onClick = onClick,
         shape = RoundedCornerShape(36.dp),
         border = BorderStroke(width = 3.dp, color = Primary),
         modifier = modifier.size(width = width, height = height),
