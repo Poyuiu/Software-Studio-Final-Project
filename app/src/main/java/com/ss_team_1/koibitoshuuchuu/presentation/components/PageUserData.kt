@@ -28,10 +28,7 @@ import androidx.compose.ui.unit.sp
 import com.ss_team_1.koibitoshuuchuu.R
 import com.ss_team_1.koibitoshuuchuu.domain.model.User
 import com.ss_team_1.koibitoshuuchuu.presentation.utils.coloredShadow
-import com.ss_team_1.koibitoshuuchuu.ui.theme.DarkGreenBlue
-import com.ss_team_1.koibitoshuuchuu.ui.theme.GreenBlue
-import com.ss_team_1.koibitoshuuchuu.ui.theme.black
-import com.ss_team_1.koibitoshuuchuu.ui.theme.secUn
+import com.ss_team_1.koibitoshuuchuu.ui.theme.*
 import java.time.Month
 import java.util.*
 
@@ -287,78 +284,117 @@ fun UserData_Info_3(
                 text = "性別",
                 fontStyle = FontStyle(R.font.mamelon),
                 color = DarkGreenBlue,
-                fontSize = 24.sp,
+                fontSize = 32.sp,
                 modifier = Modifier.padding(
                     top = 20.dp,
                     start = 20.dp, bottom = 0.dp
                 )
             )
-            Text(
-                text = userGender,
-                fontStyle = FontStyle(R.font.mamelon),
-                color = Color.Black,
-                fontSize = 24.sp,
-                modifier = Modifier.padding(
-                    top = 20.dp,
-                    start = 10.dp, bottom = 0.dp
-                )
-            )
+            Spacer(modifier = Modifier.padding(10.dp))
+            Column {
+                Spacer(modifier = Modifier.padding(5.dp))
+                Box(modifier = Modifier.background(color = ProfilePink)) {
+                    Text(
+                        text = userGender,
+                        fontStyle = FontStyle(R.font.mamelon),
+                        color = Color.Black,
+                        fontSize = 26.sp,
+                        modifier = Modifier.padding(
+                            start = 20.dp,
+                            top = 10.dp,
+                            end = 40.dp,
+                            bottom = 10.dp
+                        )
+                    )
+                    Image(
+                        painter = painterResource(id = R.drawable.userdata_icon_pen),
+                        contentDescription = null,
+                        modifier = Modifier
+                            .size(30.dp)
+                            .align(Alignment.BottomEnd)
+                    )
+                }
+            }
         }
         Row(
-            modifier = Modifier.padding(top = 20.dp, bottom = 20.dp)
+            modifier = Modifier.padding(top = 20.dp)
         ) {
             Text(
                 text = "生日",
                 fontStyle = FontStyle(R.font.mamelon),
                 color = DarkGreenBlue,
-                fontSize = 24.sp,
+                fontSize = 32.sp,
                 modifier = Modifier.padding(
-                    top = 0.dp,
+                    top = 20.dp,
                     start = 20.dp, bottom = 0.dp
                 )
             )
-            Text(
-                text = userBirthday.get(Calendar.MONTH).toString(),
-                fontStyle = FontStyle(R.font.mamelon),
-                color = Color.Black,
-                fontSize = 24.sp,
-                modifier = Modifier.padding(
-                    top = 0.dp,
-                    start = 10.dp, bottom = 0.dp
-                )
-            )
-            Text(
-                text = "月",
-                fontStyle = FontStyle(R.font.mamelon),
-                color = Color.Black,
-                fontSize = 24.sp,
-                modifier = Modifier.padding(
-                    top = 0.dp,
-                    start = 10.dp, bottom = 0.dp
-                )
-            )
-            Text(
-                text = userBirthday.get(Calendar.DAY_OF_MONTH).toString(),
-                fontStyle = FontStyle(R.font.mamelon),
-                color = Color.Black,
-                fontSize = 24.sp,
-                modifier = Modifier.padding(
-                    top = 0.dp,
-                    start = 10.dp, bottom = 0.dp
-                )
-            )
-            Text(
-                text = "日",
-                fontStyle = FontStyle(R.font.mamelon),
-                color = Color.Black,
-                fontSize = 24.sp,
-                modifier = Modifier.padding(
-                    top = 0.dp,
-                    start = 10.dp, bottom = 0.dp
-                )
-            )
+            Spacer(modifier = Modifier.padding(10.dp))
+            Column {
+                Spacer(modifier = Modifier.padding(5.dp))
+                Box(modifier = Modifier.background(color = ProfilePink)) {
+                    Row {
+                        Text(
+                            text = userBirthday.get(Calendar.MONTH).toString(),
+                            fontStyle = FontStyle(R.font.mamelon),
+                            color = Color.Black,
+                            fontSize = 26.sp,
+                            modifier = Modifier.padding(
+                                start = 20.dp,
+                                top = 10.dp,
+                                end = 10.dp,
+                                bottom = 10.dp
+                            )
+                        )
+                        Text(
+                            text = "月",
+                            fontStyle = FontStyle(R.font.mamelon),
+                            color = Color.Black,
+                            fontSize = 26.sp,
+                            modifier = Modifier.padding(
+                                start = 5.dp,
+                                top = 10.dp,
+                                end = 10.dp,
+                                bottom = 10.dp
+                            )
+                        )
+                        Text(
+                            text = userBirthday.get(Calendar.DAY_OF_MONTH).toString(),
+                            fontStyle = FontStyle(R.font.mamelon),
+                            color = Color.Black,
+                            fontSize = 26.sp,
+                            modifier = Modifier.padding(
+                                start = 5.dp,
+                                top = 10.dp,
+                                end = 10.dp,
+                                bottom = 10.dp
+                            )
+                        )
+                        Text(
+                            text = "日",
+                            fontStyle = FontStyle(R.font.mamelon),
+                            color = Color.Black,
+                            fontSize = 26.sp,
+                            modifier = Modifier.padding(
+                                start = 5.dp,
+                                top = 10.dp,
+                                end = 60.dp,
+                                bottom = 10.dp
+                            )
+                        )
+                    }
+
+                    Image(
+                        painter = painterResource(id = R.drawable.userdata_icon_pen),
+                        contentDescription = null,
+                        modifier = Modifier
+                            .size(30.dp)
+                            .align(Alignment.BottomEnd)
+                    )
+                }
+            }
         }
-        Spacer(modifier = Modifier.size(15.dp))
+        Spacer(modifier = Modifier.size(40.dp))
     }
 }
 
@@ -410,6 +446,32 @@ fun UserDataPage() {
             UserData_Info_3(
                 userBirthday = Calendar.getInstance(),
                 userGender = "酷酷的草履蟲"
+            )
+        }
+        Image(
+            painter = painterResource(id = R.drawable.userdata_pitcure_1),
+            contentDescription = null,
+            modifier = Modifier
+                .size(width = 140.dp, height = 250.dp)
+                .align(Alignment.BottomEnd)
+        )
+        Box (modifier = Modifier.align(Alignment.BottomStart)
+            ){
+            Image(
+                painter = painterResource(id = R.drawable.userdata_conversation_1),
+                contentDescription = null,
+                modifier = Modifier
+                    .size(270.dp).padding(start = 20.dp, top = 60.dp)
+            )
+            Text(
+                text = "早上好 酷酷的名字",
+                fontStyle = FontStyle(R.font.mamelon),
+                color = Color.Black,
+                fontSize = 24.sp,
+                modifier = Modifier.padding(
+                    start = 40.dp,
+                    top = 160.dp,
+                )
             )
         }
     }
