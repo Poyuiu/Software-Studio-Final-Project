@@ -1,6 +1,5 @@
 package com.ss_team_1.koibitoshuuchuu.data.repository_implementation
 
-import android.content.Context
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.asLiveData
 import com.ss_team_1.koibitoshuuchuu.data.data_source.user.UserDataStore
@@ -8,10 +7,8 @@ import com.ss_team_1.koibitoshuuchuu.domain.model.User
 import com.ss_team_1.koibitoshuuchuu.domain.repository.UserRepository
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.flow.last
 import kotlinx.coroutines.launch
-import kotlinx.coroutines.runBlocking
 import java.util.*
 
 class UserRepositoryImplementation(

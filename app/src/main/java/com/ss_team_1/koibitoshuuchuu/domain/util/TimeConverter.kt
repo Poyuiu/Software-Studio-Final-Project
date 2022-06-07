@@ -6,7 +6,7 @@ import java.util.*
 class TimeConverter {
         @TypeConverter
         fun longToCalendar(timeInMillis: Long): Calendar {
-            var ret = Calendar.getInstance()
+            val ret = Calendar.getInstance()
             ret.timeInMillis = timeInMillis
             return ret
         }
