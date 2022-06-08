@@ -20,7 +20,12 @@ import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import androidx.navigation.NavController
+import androidx.navigation.compose.NavHost
+import androidx.navigation.compose.composable
+import androidx.navigation.compose.rememberNavController
 import com.ss_team_1.koibitoshuuchuu.R
+import com.ss_team_1.koibitoshuuchuu.presentation.pages.HomePage
 import com.ss_team_1.koibitoshuuchuu.ui.theme.KoiBitoShuuChuuTheme
 
 
@@ -29,14 +34,21 @@ class MainActivity: ComponentActivity() {
         super.onCreate(savedInstanceState)
         setContent {
             KoiBitoShuuChuuTheme {
-                WelcomePage()
+                val navController = rememberNavController()
+                NavHost(navController = navController, startDestination = "welcome") {
+                    composable("welcome") { WelcomePage(navController/*...*/) }
+                    composable("homepage") { HomePage(navController/*...*/) }
+                    /*...*/
+                }
+
+                //WelcomePage()
             }
         }
     }
 }
 
 @Composable
-fun WelcomePage(){
+fun WelcomePage(navController: NavController){
     R.string.detail
     Box(
         Modifier
@@ -45,7 +57,7 @@ fun WelcomePage(){
                 enabled = true,
                 onClickLabel = "Welcomepage click",
                 onClick = {
-                    /*TODO*/
+                    navController.navigate("homepage")
                 }
             )
     ) {
@@ -62,13 +74,13 @@ fun WelcomePage(){
     }
 }
 
-@Preview
+/*@Preview
 @Composable
 fun WelcomepagePreview() {
     KoiBitoShuuChuuTheme {
-        WelcomePage()
+        WelcomePage(navController)
     }
-}
+}*/
 
 /*@SuppressLint("NewApi")
 @Composable
