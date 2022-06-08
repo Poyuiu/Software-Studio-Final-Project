@@ -8,7 +8,7 @@ import java.util.*
 
 @Dao
 interface FocusHistoryDao {
-    @Query("SELECT * FROM FocusHistory WHERE characterId=:id and startTime>:startTime ORDER BY startTime ASC")
+    @Query("SELECT * FROM FocusHistory WHERE characterId=:id and startTime>:startTime ORDER BY startTime DESC")
     fun getLastWeekHistoryByCharacterId(id: Int, startTime: Long): LiveData<List<FocusHistory>>
     @Query("SELECT * FROM FocusHistory ORDER BY startTime DESC")
     fun getAllHistory(): LiveData<List<FocusHistory>>

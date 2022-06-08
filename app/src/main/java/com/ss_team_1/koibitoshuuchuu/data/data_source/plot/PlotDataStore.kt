@@ -8,7 +8,7 @@ import androidx.datastore.preferences.core.edit
 import androidx.datastore.preferences.core.emptyPreferences
 import androidx.datastore.preferences.preferencesDataStore
 import com.ss_team_1.koibitoshuuchuu.data.data_source.character.numOfCharacters
-import com.ss_team_1.koibitoshuuchuu.domain.model.Plot
+import com.ss_team_1.koibitoshuuchuu.domain.model.PlotState
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.catch
 import kotlinx.coroutines.flow.map
@@ -41,7 +41,7 @@ class PlotDataStore(val context: Context) {
 //            }
 //        }
     
-    fun getPlotByCharacterId(id: Int): Flow<List<Plot>> {
+    fun getPlotByCharacterId(id: Int): Flow<List<PlotState>> {
         return context.plotDataStore.data
             .catch {
                 if (it is IOException) {
@@ -53,12 +53,12 @@ class PlotDataStore(val context: Context) {
             }
             .map { plot ->
                 List(maxNumOfPlot) {
-                    Plot(id, it, plot[_seen[id][it]] ?: false)
+                    PlotState(id, it, plot[_seen[id][it]] ?: false)
                 }
             }
     }
     
-    fun getPlotByCharacterIdAndPlotNum(characterId: Int, plotNum: Int): Flow<Plot> {
+    fun getPlotByCharacterIdAndPlotNum(characterId: Int, plotNum: Int): Flow<PlotState> {
         return context.plotDataStore.data
             .catch {
                 if (it is IOException) {
@@ -69,7 +69,7 @@ class PlotDataStore(val context: Context) {
                 }
             }
             .map { plot ->
-                Plot(characterId, plotNum, plot[_seen[characterId][plotNum]] ?: false)
+                PlotState(characterId, plotNum, plot[_seen[characterId][plotNum]] ?: false)
             }
     }
 

@@ -3,7 +3,7 @@ package com.ss_team_1.koibitoshuuchuu.data.repository_implementation
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.asLiveData
 import com.ss_team_1.koibitoshuuchuu.data.data_source.plot.PlotDataStore
-import com.ss_team_1.koibitoshuuchuu.domain.model.Plot
+import com.ss_team_1.koibitoshuuchuu.domain.model.PlotState
 import com.ss_team_1.koibitoshuuchuu.domain.repository.PlotRepository
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
@@ -14,11 +14,11 @@ class PlotRepositoryImplementation (
 ): PlotRepository {
     private val coroutineScope = CoroutineScope(Dispatchers.Main)
 
-    override fun getPlotByCharacterId(characterId: Int): LiveData<List<Plot>> {
+    override fun getPlotByCharacterId(characterId: Int): LiveData<List<PlotState>> {
         return plotDataStore.getPlotByCharacterId(characterId).asLiveData(coroutineScope.coroutineContext)
     }
 
-    override fun getPlotByCharacterIdAndPlotNum(characterId: Int, plotNum: Int): LiveData<Plot> {
+    override fun getPlotByCharacterIdAndPlotNum(characterId: Int, plotNum: Int): LiveData<PlotState> {
         return plotDataStore.getPlotByCharacterIdAndPlotNum(characterId, plotNum).asLiveData(coroutineScope.coroutineContext)
     }
 
