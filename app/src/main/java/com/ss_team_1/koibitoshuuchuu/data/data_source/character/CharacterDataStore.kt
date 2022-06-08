@@ -11,7 +11,7 @@ import kotlinx.coroutines.flow.map
 import java.io.IOException
 
 private val Context.characterDataStore: DataStore<Preferences> by preferencesDataStore(name="character_data")
-private const val numOfCharacters = 3
+const val numOfCharacters = 3
 
 class CharacterDataStore(val context: Context) {
     private val _intimacy = List(numOfCharacters) {

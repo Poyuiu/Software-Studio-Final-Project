@@ -5,22 +5,22 @@ data class Character(
     val intimacy: Int
 ) {
     fun level(): Int {
-        var intimacy_needed = 0
+        var intimacyNeeded = 0
         var level = -1
-        while (intimacy >= intimacy_needed) {
+        while (intimacy >= intimacyNeeded) {
             level++
-            intimacy_needed = ((level + 2) * (level + 1)) / 2 * 100
+            intimacyNeeded = ((level + 2) * (level + 1)) / 2 * 100
         }
         return level
     }
 
-    fun intimacy_needed(): Int {
-        var intimacy_needed = 0
+    fun intimacyNeeded(): Int {
+        var intimacyNeeded = 0
         var level = -1
-        while (intimacy >= intimacy_needed) {
+        while (intimacy >= intimacyNeeded) {
             level++
-            intimacy_needed = ((level + 2) * (level + 1)) / 2 * 100
+            intimacyNeeded = ((level + 2) * (level + 1)) / 2 * 100
         }
-        return intimacy_needed - intimacy
+        return intimacyNeeded - intimacy
     }
 }
