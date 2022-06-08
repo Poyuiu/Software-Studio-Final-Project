@@ -67,5 +67,5 @@ fun ShopPage(
 @Preview
 @Composable
 fun ShopPagePreview(){
-    ShopPage(false)
+    ShopPage(true)
 }

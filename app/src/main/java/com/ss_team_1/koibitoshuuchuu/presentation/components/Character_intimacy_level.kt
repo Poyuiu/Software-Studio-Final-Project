@@ -168,13 +168,13 @@ fun ButtonWithBorder(
             border = BorderStroke(3.dp, Color.White),
             modifier = Modifier.size(48.dp),
             shape = RoundedCornerShape(14.dp),
-            colors = ButtonDefaults.buttonColors(backgroundColor = Color(0xffC4C4C4))
+            colors = ButtonDefaults.buttonColors(backgroundColor = Color(0xffC4C4C4))//調灰階
         ) {
             Image(
                 painterResource(id = R.drawable.ic_info_of_figure),
                 contentDescription ="figure info button icon",
                 modifier = Modifier.size(24.dp),
-                colorFilter = ColorFilter.tint(Color(0xff979797))
+                colorFilter = ColorFilter.tint(Color(0xff979797))//調灰階
             )
         }
     }

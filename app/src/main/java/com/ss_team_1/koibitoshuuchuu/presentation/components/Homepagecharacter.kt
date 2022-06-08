@@ -1,18 +1,33 @@
 package com.ss_team_1.koibitoshuuchuu.presentation.components
 
 import android.content.Context
+import android.content.res.Resources
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
+import androidx.compose.material.MaterialTheme
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.graphics.ColorFilter
+import androidx.compose.ui.graphics.ColorMatrix
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.ss_team_1.koibitoshuuchuu.R
+
+var characternamelist = listOf(
+        R.drawable.character_0_name,
+        R.drawable.character_1_name,
+        R.drawable.character_2_name)
+var characterphotolist = listOf(
+    R.drawable.shikieiki_main,
+    R.drawable.character_1_photo,
+    R.drawable.character_2_photo
+)
 
 @Composable
 fun Heart_initamcybar(
@@ -39,10 +54,12 @@ fun Name_InfoButton(/*調*/
     characterId: Int,
     lock: Boolean
 ){
+
     Box(
         Modifier.size(280.dp, 72.dp)
     ){
         //StrokeText(LocalContext.current,name, 32f,56,128f)
+        val str = "R.drawable.character_0_name"
         Row(
             modifier = Modifier.align(Alignment.CenterStart),
             verticalAlignment = Alignment.CenterVertically
@@ -53,7 +70,7 @@ fun Name_InfoButton(/*調*/
                     .padding(8.dp)
             ){
                 Image(
-                    painter = painterResource(id = R.drawable.character_0_name),
+                    painter = painterResource(id = characternamelist[characterId]),
                     contentDescription = "",
                     contentScale = ContentScale.Crop,
                     modifier = Modifier
@@ -70,7 +87,7 @@ fun Name_InfoButton(/*調*/
 @Preview
 @Composable
 fun Name_InfoButtonpreview(){
-    Name_InfoButton(LocalContext.current,0 ,false )
+    Name_InfoButton(LocalContext.current,1 ,false )
 }
 
 @Composable
@@ -83,6 +100,8 @@ fun HomepageCharacter(
     lock: Boolean,
     characterId: Int
 ){
+    val matrix = ColorMatrix()
+    matrix.setToSaturation(0F)
     Box(
         Modifier.size(300.dp, 730.dp)
     ){
@@ -92,12 +111,13 @@ fun HomepageCharacter(
         ) {
             Heart_initamcybar(intimacyLevel, intimacy, levelIntimacyNeed, showPercentage)
             Name_InfoButton(context, characterId, lock)
-            if(characterId==0){//隨order切照片
+            if(lock){//隨order切照片
                 Image(
                     painter = painterResource(id = R.drawable.shikieiki_main),
                     contentDescription = "",
                     modifier = Modifier
-                        .fillMaxSize()
+                        .fillMaxSize(),
+                    colorFilter = ColorFilter.colorMatrix(matrix)//調灰階
                 )
             }else {
                 Image(
@@ -115,5 +135,6 @@ fun HomepageCharacter(
 @Preview
 @Composable
 fun HomepageCharacterpreview(){
-    HomepageCharacter(2,400,1314,true,LocalContext.current ,false ,0)
+    HomepageCharacter(2,400,1314,true,LocalContext.current ,true ,1)
 }
+
