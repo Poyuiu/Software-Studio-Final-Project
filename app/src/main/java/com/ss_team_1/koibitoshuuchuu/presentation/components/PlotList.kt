@@ -11,12 +11,15 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import com.ss_team_1.koibitoshuuchuu.domain.use_case.plot.Plot
+import com.ss_team_1.koibitoshuuchuu.domain.util.GetPlotLockAndHavereadState
+import com.ss_team_1.koibitoshuuchuu.domain.util.PlotLockAndHavereadStateAndTitle
+
+
 
 @Composable
 fun PlotList(
     onClick: () -> Unit,
-    plotTitleList: List<Plot>
+    plotTitleList: List<PlotLockAndHavereadStateAndTitle>
 ) {
     Box(
         modifier = Modifier
@@ -54,16 +57,6 @@ fun PlotList(
 fun PlotListPreview() {
     PlotList(
         onClick = {},
-        plotTitleList =
-        listOf(
-            Plot("第一個故事", false, true),
-            Plot("不是第二個故事", false, true),
-            Plot("可能是第三個故事", false, true),
-            Plot("跳過第四個故事", false, true),
-            Plot("懶得寫第五個故事", false),
-            Plot("沒有第六個故事", false),
-            Plot("不是最後一個故事"),
-            Plot("是最後一個故事"),
-        )
+        plotTitleList = GetPlotLockAndHavereadState().getPlotLockAndHavereadState(0)
     )
 }

@@ -13,12 +13,13 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.ss_team_1.koibitoshuuchuu.R
-import com.ss_team_1.koibitoshuuchuu.domain.use_case.plot.Character
-import com.ss_team_1.koibitoshuuchuu.domain.use_case.plot.PlotUseCases
+import com.ss_team_1.koibitoshuuchuu.presentation.utils.CharacterInfoAndPlotStorer
+import com.ss_team_1.koibitoshuuchuu.presentation.utils.SingleCharaterInfoAndPlotStorer
 
 @Composable
 fun PageCharacterDetail(
-    character: Character,
+    character: SingleCharaterInfoAndPlotStorer,
+    focusRecord: Map<String, Float> = mapOf(Pair("1/1", 1f))
 ) {
     Box(
         Modifier
@@ -47,7 +48,7 @@ fun PageCharacterDetail(
                 showDetailButton = false
             )
             Spacer(modifier = Modifier.height(8.dp))
-            BarChart(data = character.focusRecord)
+            BarChart(data = focusRecord)
             Spacer(modifier = Modifier.height(8.dp))
             CharacterIntroduction(
                 introduction = character.introduction
@@ -63,6 +64,6 @@ fun PageCharacterDetailPreview(
 
 ) {
     PageCharacterDetail(
-        character = PlotUseCases().shikieiki
+        character = CharacterInfoAndPlotStorer.character[0],
     )
 }

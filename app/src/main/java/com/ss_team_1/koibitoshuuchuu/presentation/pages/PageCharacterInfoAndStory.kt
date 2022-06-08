@@ -10,12 +10,13 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.ss_team_1.koibitoshuuchuu.R
-import com.ss_team_1.koibitoshuuchuu.domain.use_case.plot.Character
-import com.ss_team_1.koibitoshuuchuu.domain.use_case.plot.PlotUseCases
+import com.ss_team_1.koibitoshuuchuu.domain.util.GetPlotLockAndHavereadState
+import com.ss_team_1.koibitoshuuchuu.presentation.utils.CharacterInfoAndPlotStorer
+import com.ss_team_1.koibitoshuuchuu.presentation.utils.SingleCharaterInfoAndPlotStorer
 
 @Composable
 fun PageCharacterInfoAndStory(
-    character: Character,
+    character: SingleCharaterInfoAndPlotStorer,
     onClickGoStroy: () -> Unit,
     onClickGoDetail: () -> Unit
 ) {
@@ -47,7 +48,7 @@ fun PageCharacterInfoAndStory(
             Spacer(modifier = Modifier.height(8.dp))
             PlotList(
                 onClick = onClickGoStroy,
-                plotTitleList = character.plotList
+                plotTitleList = GetPlotLockAndHavereadState().getPlotLockAndHavereadState(character.id)
             )
         }
     }
@@ -59,7 +60,7 @@ fun PageCharacterInfoAndStoryPreview(
 
 ) {
     PageCharacterInfoAndStory(
-        character = PlotUseCases().shikieiki,
+        character = CharacterInfoAndPlotStorer.character[0],
         onClickGoStroy = {},
         onClickGoDetail = {},
     )

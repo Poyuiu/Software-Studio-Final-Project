@@ -1,6 +1,7 @@
 package com.ss_team_1.koibitoshuuchuu.presentation.components
 
 import androidx.annotation.DrawableRes
+import androidx.annotation.StringRes
 import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
@@ -8,34 +9,28 @@ import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.Button
 import androidx.compose.material.ButtonDefaults
-import androidx.compose.material.MaterialTheme.colors
-import androidx.compose.material.SnackbarDefaults.backgroundColor
 import androidx.compose.material.Text
-import androidx.compose.material.lightColors
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.graphics.RectangleShape
-import androidx.compose.ui.modifier.modifierLocalConsumer
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontStyle
-import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.ss_team_1.koibitoshuuchuu.R
+import com.ss_team_1.koibitoshuuchuu.presentation.utils.CharacterInfoAndPlotStorer
 import com.ss_team_1.koibitoshuuchuu.ui.theme.*
 
 @Composable
 fun CharacterInfo(
     onClick: () -> Unit,
     @DrawableRes characterPhoto: Int,
-    characterName: String,
-    characterInfo: String,
+    @StringRes characterName: Int,
+    @StringRes characterInfo: Int,
     showDetailButton: Boolean
 ) {
     Row(
@@ -61,14 +56,14 @@ fun CharacterInfo(
             horizontalAlignment = Alignment.CenterHorizontally
         ) {
             Text(
-                text = characterName,
+                text = stringResource(id = characterName),
                 fontSize = 28.sp,
                 color = secUn,
                 fontStyle = FontStyle(mainFont),
                 modifier = Modifier.padding(8.dp)
             )
             Text(
-                text = characterInfo,
+                text = stringResource(id = characterInfo),
                 fontSize = 16.sp,
                 fontStyle = FontStyle(mainFont),
                 modifier = Modifier.padding(8.dp)
@@ -120,16 +115,10 @@ fun DetailButton(
 fun CharacterInfoPreview() {
     CharacterInfo(
         onClick = {},
-        characterName = "四季映姬",
-        characterInfo = "暱稱：閻蘿王\n" +
-                "\n" +
-                "身高：較高與高\n" + "之間\n" +
-                "種族：閻魔\n" +
-                "\n" +
-                "住所：彼岸\n" +
-                "職業：審判官",
+        characterName = CharacterInfoAndPlotStorer.character[0].name,
+        characterInfo = CharacterInfoAndPlotStorer.character[0].info,
         showDetailButton = true,
-        characterPhoto = R.drawable.shikieiki_main
+        characterPhoto = CharacterInfoAndPlotStorer.character[0].photo
     )
 }
 

@@ -26,7 +26,7 @@ fun FocusIntroPage() {
         backgroundResourceId = R.drawable.coffee_shop_background
     ) {
         Image(
-            painter = painterResource(id = R.drawable.shikieiki_main),
+            painter = painterResource(id = R.drawable.character_0_photo_main),
             contentDescription = "",
             modifier = Modifier
                 .fillMaxSize(0.84f)

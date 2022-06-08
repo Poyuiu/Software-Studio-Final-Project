@@ -1,5 +1,6 @@
 package com.ss_team_1.koibitoshuuchuu.presentation.components
 
+import androidx.annotation.StringRes
 import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.*
@@ -16,11 +17,13 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.rotate
 import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontStyle
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.ss_team_1.koibitoshuuchuu.R
+import com.ss_team_1.koibitoshuuchuu.presentation.utils.CharacterInfoAndPlotStorer
 import com.ss_team_1.koibitoshuuchuu.ui.theme.*
 
 @Composable
@@ -30,7 +33,7 @@ fun PlotButton(
     lock: Boolean,
     haveRead: Boolean,
     id: Int,
-    title: String
+    @StringRes title: Int
 ) {
     Box(modifier = modifier) {
         Button(
@@ -66,14 +69,24 @@ fun PlotButton(
                             .align(Alignment.Center)
                     )
                 }else{
-                    Text(
-                        text = "$id. $title",
-                        modifier = Modifier
-                            .width(158.dp)
-                            .size(24.dp),
-                        textAlign = TextAlign.Start,
-                        fontStyle = FontStyle(mainFont)
-                    )
+                    Row() {
+                        Text(
+                            text = stringResource(id = R.string.plot_title_num, id),
+                            modifier = Modifier
+                                .width(158.dp)
+                                .size(24.dp),
+                            textAlign = TextAlign.Start,
+                            fontStyle = FontStyle(mainFont)
+                        )
+                        Text(
+                            text = stringResource(id = title),
+                            modifier = Modifier
+                                .width(158.dp)
+                                .size(24.dp),
+                            textAlign = TextAlign.Start,
+                            fontStyle = FontStyle(mainFont)
+                        )
+                    }
                 }
             }
         }
@@ -98,6 +111,6 @@ fun PlotButtonPreview() {
         //lock = false,
         haveRead = false,
         id = 7,
-        title = "標題範例"
+        title = CharacterInfoAndPlotStorer.character[0].plotList[0].title
     )
 }

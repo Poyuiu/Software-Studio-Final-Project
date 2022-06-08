@@ -1,6 +1,5 @@
 package com.ss_team_1.koibitoshuuchuu.presentation.pages
 
-import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border
@@ -8,7 +7,6 @@ import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.AlertDialog
 import androidx.compose.material.Button
-import androidx.compose.material.Surface
 import androidx.compose.material.Text
 import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
@@ -43,7 +41,7 @@ fun FocusPage() {
         topBarEnable = false
     ) {
         Image(
-            painter = painterResource(id = R.drawable.shikieiki_main),
+            painter = painterResource(id = R.drawable.character_0_photo_main),
             contentDescription = "",
             modifier = Modifier
                 .fillMaxSize(0.84f)

@@ -1,15 +1,11 @@
 package com.ss_team_1.koibitoshuuchuu.presentation.components
 
 import android.content.Context
-import android.content.res.Resources
 import androidx.compose.foundation.Image
-import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
-import androidx.compose.material.MaterialTheme
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.ColorFilter
 import androidx.compose.ui.graphics.ColorMatrix
 import androidx.compose.ui.layout.ContentScale
@@ -24,7 +20,7 @@ var characternamelist = listOf(
         R.drawable.character_1_name,
         R.drawable.character_2_name)
 var characterphotolist = listOf(
-    R.drawable.shikieiki_main,
+    R.drawable.character_0_photo_main,
     R.drawable.character_1_photo,
     R.drawable.character_2_photo
 )
@@ -113,7 +109,7 @@ fun HomepageCharacter(
             Name_InfoButton(context, characterId, lock)
             if(lock){//隨order切照片
                 Image(
-                    painter = painterResource(id = R.drawable.shikieiki_main),
+                    painter = painterResource(id = R.drawable.character_0_photo_main),
                     contentDescription = "",
                     modifier = Modifier
                         .fillMaxSize(),
@@ -121,7 +117,7 @@ fun HomepageCharacter(
                 )
             }else {
                 Image(
-                    painter = painterResource(id = R.drawable.shikieiki_main),
+                    painter = painterResource(id = R.drawable.character_0_photo_main),
                     contentDescription = "",
                     modifier = Modifier
                         .fillMaxSize()

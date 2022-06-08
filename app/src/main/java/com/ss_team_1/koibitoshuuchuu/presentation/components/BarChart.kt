@@ -20,19 +20,20 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.ss_team_1.koibitoshuuchuu.ui.theme.mainFont
 import com.ss_team_1.koibitoshuuchuu.ui.theme.secUn
+import kotlin.math.roundToInt
 
 @Preview(showBackground = true, backgroundColor = 0xFFF0EAE2)
 @Composable
 fun BarChartPreview() {
     BarChart(
         data = mapOf(
-            Pair("Jan", 6f),
-            Pair("Feb", 4f),
-            Pair("Mar", 3f),
-            Pair("Apr", 7f),
-            Pair("May", 1f),
-            Pair("Jun", 2f),
-            Pair("Jul", 1f),
+            Pair("Jan", 0.0f),
+            Pair("Feb", 0.0f),
+            Pair("Mar", 0.0f),
+            Pair("Apr", 0.0f),
+            Pair("May", 2.1f),
+            Pair("Jun", 0.0f),
+            Pair("Jul", 0.0f),
         )
     )
 }
@@ -71,29 +72,48 @@ fun BarChart(
             )
             Spacer(modifier = Modifier.height(4.dp))
             Row() {
+                val maxBarHeight = data.values.maxOf { it }
+                val smallUnit = maxBarHeight < 2.2f
+                //DRAW Y LABEL
                 Column() {
                     Canvas(modifier = Modifier
                         .width(16.dp)
                         .height(120.dp),
                         onDraw = {
-                            val maxBarHeight = data.values.maxOf { it }
-                            val barScale = size.height / (maxBarHeight + 1)
+                            val barScale =
+                                if (smallUnit)
+                                    size.height / (maxBarHeight + 0.5f)
+                                else
+                                    size.height / (maxBarHeight + 1)
                             val paint = Paint().apply {
                                 this.color = labelColor.toArgb()
                                 textAlign = Paint.Align.CENTER
                                 textSize = 25f
                             }
-
-                            var i: Int = 2
-                            while (size.height - i * barScale > 0) {
-                                drawContext.canvas.nativeCanvas.drawText(
-                                    i.toString()+" HR",
-                                    0f,
-                                    size.height - i * barScale + 12f,
-                                    paint
-                                )
-                                i += 2
+                            if (smallUnit) {
+                                var i: Int = 1
+                                while (size.height - i * 0.3f * barScale > 0) {
+                                    drawContext.canvas.nativeCanvas.drawText(
+                                        (((i * 0.3f) * 10f).roundToInt() / 10f).toString() + " HR",
+                                        0f,
+                                        size.height - i * 0.3f * barScale + 12f,
+                                        paint
+                                    )
+                                    i += 1
+                                }
+                            } else {
+                                var i: Int = 1
+                                while (size.height - i * barScale > 0) {
+                                    drawContext.canvas.nativeCanvas.drawText(
+                                        i.toString() + " HR",
+                                        0f,
+                                        size.height - i * barScale + 12f,
+                                        paint
+                                    )
+                                    i += 1
+                                }
                             }
+
                         }
                     )
                     Spacer(modifier = Modifier.height(12.dp))
@@ -112,27 +132,51 @@ fun BarChart(
                         onDraw = {
                             val spaceBetweenBars =
                                 (size.width - (data.size * barWidth)) / (data.size + 1)
-                            val maxBarHeight = data.values.maxOf { it }
-                            val barScale = size.height / (maxBarHeight + 1)
-
+                            val barScale =
+                                if (smallUnit)
+                                    size.height / (maxBarHeight + 0.5f)
+                                else
+                                    size.height / (maxBarHeight + 1)
                             var spaceStep = spaceBetweenBars
-                            var i: Int = 2
-                            while (size.height - i * barScale > 0) {
-                                drawLine(
-                                    start = Offset(
-                                        x = 0f,
-                                        y = size.height - i * barScale
-                                    ),
-                                    end = Offset(
-                                        x = size.width,
-                                        y = size.height - i * barScale
-                                    ),
-                                    strokeWidth = 1.dp.toPx(),
-                                    color = secUn,
-                                    alpha = 0.5f
-                                )
 
-                                i += 2
+                            if (smallUnit) {
+                                var i: Int = 1
+                                while (size.height - i * 0.3f * barScale > 0) {
+                                    drawLine(
+                                        start = Offset(
+                                            x = 0f,
+                                            y = size.height - i * 0.3f * barScale
+                                        ),
+                                        end = Offset(
+                                            x = size.width,
+                                            y = size.height - i * 0.3f * barScale
+                                        ),
+                                        strokeWidth = 1.dp.toPx(),
+                                        color = secUn,
+                                        alpha = 0.5f
+                                    )
+
+                                    i += 1
+                                }
+                            } else {
+                                var i: Int = 1
+                                while (size.height - i * barScale > 0) {
+                                    drawLine(
+                                        start = Offset(
+                                            x = 0f,
+                                            y = size.height - i * barScale
+                                        ),
+                                        end = Offset(
+                                            x = size.width,
+                                            y = size.height - i * barScale
+                                        ),
+                                        strokeWidth = 1.dp.toPx(),
+                                        color = secUn,
+                                        alpha = 0.5f
+                                    )
+
+                                    i += 1
+                                }
                             }
 
                             for (item in data) {

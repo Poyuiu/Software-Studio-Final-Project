@@ -2,4 +2,21 @@
 <resources>
     <string name="app_name">KoiBitoShuuChuu</string>
     <string name="detail">DETAIL</string>
+    <string name="plot_title_num">%1$d.</string>
+    /**********************四季映姬資料***********************/
+    <string name="character0_name">四季映姫</string>
+    <string name="character0_info">暱稱：閻蘿王\n\n身高：較高與高之間\n種族：閻魔\n\n住所：彼岸\n職業：審判官</string>
+    <string name="character0_introduction">四季映姫是閻魔之一，擔當幻想郷及其他地區的閻魔，負責對死者的裁決。在是非曲直廳中負責審判死者的工作，死神小野塚小町的上司。\n\n平時在彼岸的是非曲直廳内裁決死者的靈魂，有時會到幻想郷去説教，警告人們積累善行，以免被判下地獄。\n\n身穿十分鄭重的袍裝，性格嚴肅認真，不過偶爾也有意外萌的一面。</string>
+    /*************PLOT1*************/
+    <string name="character0_plot0_title">第一個故事</string>
+    <string name="character0_plot0_snapshot0">你是不是在想色色的事情</string>
+    <string name="character0_plot0_snapshot1">變態！！</string>
+    <string name="character0_plot0_snapshot2">是不是想死啊？</string>
+
+
+    /**********************魂魄妖夢資料***********************/
+    <string name="character1_name">魂魄妖夢</string>
+    <string name="character1_info"></string>
+    <string name="character1_introduction"></string>
+    /*************PLOT1*************/
 </resources>
