@@ -15,10 +15,12 @@ import androidx.compose.ui.draw.shadow
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import androidx.compose.ui.unit.sp
 import androidx.compose.ui.zIndex
 import com.ss_team_1.koibitoshuuchuu.R
 import com.ss_team_1.koibitoshuuchuu.ui.theme.Primary
 import com.ss_team_1.koibitoshuuchuu.ui.theme.Secondary
+import com.ss_team_1.koibitoshuuchuu.ui.theme.huninnFamily
 
 @Preview
 @Composable
@@ -41,7 +43,12 @@ fun DialogBox(
             .background(color = Primary.copy(alpha = 0.95f), shape = RoundedCornerShape(32.dp))
             .zIndex(10f)
     ) {
-        Text(text = text, modifier = Modifier.padding(26.dp))
+        Text(
+            text = text,
+            modifier = Modifier.padding(26.dp),
+            fontSize = 24.sp,
+            fontFamily = huninnFamily
+        )
         if (showTriangle) {
             Image(
                 painter = painterResource(id = R.drawable.ic_dialog_triangle),

@@ -55,12 +55,12 @@ fun SettingsButton() {
 
 @Preview
 @Composable
-fun PauseButton(modifier: Modifier = Modifier) {
+fun PauseButton(modifier: Modifier = Modifier, onClick: () -> Unit = {}) {
     RoundButtonTemplate(
         modifier = modifier,
         icon = Icons.Default.Pause,
         iconSize = 36.dp,
-        onClick = {}
+        onClick = onClick
     )
 }
 
