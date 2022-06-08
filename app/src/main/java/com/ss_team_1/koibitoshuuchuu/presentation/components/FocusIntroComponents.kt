@@ -29,8 +29,11 @@ import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import androidx.compose.ui.unit.sp
 import com.ss_team_1.koibitoshuuchuu.ui.theme.Primary
 import com.ss_team_1.koibitoshuuchuu.ui.theme.Secondary
+import com.ss_team_1.koibitoshuuchuu.ui.theme.huninnFamily
+import com.ss_team_1.koibitoshuuchuu.ui.theme.mamelonFamily
 import dev.chrisbanes.snapper.ExperimentalSnapperApi
 import dev.chrisbanes.snapper.rememberSnapperFlingBehavior
 
@@ -51,7 +54,7 @@ fun FocusIntroTimePicker() {
             flingBehavior = rememberSnapperFlingBehavior(lazyListState)
         ) {
             items(items = focusTimeList) { item ->
-                Text(text = "$item:00")
+                Text(text = "$item:00", fontSize = 36.sp, fontFamily = mamelonFamily)
             }
         }
     }
@@ -74,7 +77,7 @@ fun FocusIntroTimepickerButton(
             ),
             border = BorderStroke(width = 3.dp, color = Secondary)
         ) {
-            Text(text = "$focusTime:00")
+            Text(text = "$focusTime:00", fontSize = 36.sp, fontFamily = mamelonFamily)
         }
     }
 }
@@ -97,7 +100,11 @@ fun FocusIntroWorkTextField(
             BasicTextField(
                 value = workDesc,
                 onValueChange = { workDesc = it },
-                textStyle = LocalTextStyle.current.copy(textAlign = TextAlign.Center)
+                textStyle = TextStyle(
+                    textAlign = TextAlign.Center,
+                    fontSize = 36.sp,
+                    fontFamily = mamelonFamily
+                )
             )
 
         }
@@ -120,7 +127,7 @@ fun FocusIntroSceneButton(
             ),
             border = BorderStroke(width = 3.dp, color = Secondary)
         ) {
-            Text(text = sceneName)
+            Text(text = sceneName, fontSize = 36.sp, fontFamily = huninnFamily)
         }
     }
 }

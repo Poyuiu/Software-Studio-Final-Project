@@ -12,6 +12,9 @@ val mamelonFamily = FontFamily(
     Font(R.font.mamelon, FontWeight.Normal),
     //Font(R.font.mamelon_bold,FontWeight.Bold)
 )
+val huninnFamily = FontFamily(
+    Font(R.font.openhuninn)
+)
 // Set of Material typography styles to start with
 val mainFont = R.font.mamelon
 

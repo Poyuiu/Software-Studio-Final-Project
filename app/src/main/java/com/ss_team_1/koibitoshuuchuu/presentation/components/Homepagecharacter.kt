@@ -19,9 +19,10 @@ fun Heart_initamcybar(
     intimacyLevel: Int,
     intimacy: Int,
     levelIntimacyNeed: Int,
-    showPercentage: Boolean
+    showPercentage: Boolean,
+    modifier: Modifier = Modifier
 ){
-    Row{
+    Row(modifier = modifier){
         characterIntimacyLevel(intimacyLevel)
         intimacyBar(intimacy,levelIntimacyNeed, showPercentage)
     }
