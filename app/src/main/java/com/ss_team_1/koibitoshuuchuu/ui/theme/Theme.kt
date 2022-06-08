@@ -6,6 +6,7 @@ import androidx.compose.material.darkColors
 import androidx.compose.material.lightColors
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.graphics.Color
+import com.google.accompanist.systemuicontroller.rememberSystemUiController
 
 @Composable
 fun KoiBitoShuuChuuTheme(
@@ -24,6 +25,17 @@ fun KoiBitoShuuChuuTheme(
         shapes = Shapes,
         content = content
     )
+
+    val systemUiController = rememberSystemUiController()
+    if (darkTheme) {
+        systemUiController.setSystemBarsColor(
+            color = Color.Transparent
+        )
+    } else {
+        systemUiController.setSystemBarsColor(
+            color = Secondary
+        )
+    }
 }
 
 /*private val DarkColorPalette = darkColors(
@@ -41,7 +53,6 @@ private val LightColorPalette = lightColors(
     onPrimary = Color.White,
     secondary = GreenBlue,
     onSecondary = DarkGreenBlue
-
 
 
     /* Other default colors to override

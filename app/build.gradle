@@ -103,6 +103,9 @@ dependencies {
     // Snapper
     implementation 'dev.chrisbanes.snapper:snapper:0.2.1'
 
+    // System UI Controller
+    implementation "com.google.accompanist:accompanist-systemuicontroller:0.17.0"
+
 }
 kapt {
     correctErrorTypes = true
