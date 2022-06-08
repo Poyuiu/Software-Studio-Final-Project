@@ -20,10 +20,7 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.ss_team_1.koibitoshuuchuu.R
-import com.ss_team_1.koibitoshuuchuu.presentation.components.DialogBox
-import com.ss_team_1.koibitoshuuchuu.presentation.components.Heart_initamcybar
-import com.ss_team_1.koibitoshuuchuu.presentation.components.KBSCScaffold
-import com.ss_team_1.koibitoshuuchuu.presentation.components.PauseButton
+import com.ss_team_1.koibitoshuuchuu.presentation.components.*
 import com.ss_team_1.koibitoshuuchuu.ui.theme.AccentColor
 import com.ss_team_1.koibitoshuuchuu.ui.theme.Primary
 import com.ss_team_1.koibitoshuuchuu.ui.theme.huninnFamily
@@ -38,7 +35,7 @@ fun FocusPage() {
         mutableStateOf(true)
     }
     var focusEnd by remember {
-        mutableStateOf(false)
+        mutableStateOf(true)
     }
     KBSCScaffold(
         backgroundResourceId = R.drawable.coffee_shop_background,
@@ -54,12 +51,14 @@ fun FocusPage() {
                 .padding(top = 10.dp),
             contentScale = ContentScale.Fit
         )
-        PauseButton(
-            modifier = Modifier
-                .align(Alignment.TopEnd)
-                .padding(8.dp),
-            onClick = { pauseState = true }
-        )
+        if (!focusEnd) {
+            PauseButton(
+                modifier = Modifier
+                    .align(Alignment.TopEnd)
+                    .padding(8.dp),
+                onClick = { pauseState = true }
+            )
+        }
         Column(
             modifier = Modifier.fillMaxSize(),
             horizontalAlignment = Alignment.CenterHorizontally,
@@ -80,7 +79,36 @@ fun FocusPage() {
                     .align(Alignment.CenterHorizontally)
                     .offset(y = 58.dp)
             )
-            FocusTimer(modifier = Modifier.offset(y = (-137).dp))
+            if (!focusEnd) {
+                FocusTimer(modifier = Modifier.offset(y = (-137).dp))
+            } else {
+                Column(
+                    modifier = Modifier
+                        .offset(y = (-48).dp)
+                        .width(323.dp)
+                ) {
+                    ResourceBox()
+                    Spacer(modifier = Modifier.height(27.dp))
+                    Row(
+                        horizontalArrangement = Arrangement.SpaceBetween,
+                        modifier = Modifier.fillMaxWidth()
+                    ) {
+                        SquareHomeButton()
+                        AccentButtonTemplate(
+                            onClick = { /*TODO*/ },
+                            width = 248.dp, height = 58.dp
+                        ) {
+                            Text(
+                                text = "NEXT ROUND",
+                                fontSize = 30.sp,
+                                fontFamily = mamelonFamily,
+                                letterSpacing = (-1.25).sp
+                            )
+                        }
+                    }
+                }
+            }
+
         }
         if (pauseState) {
             AlertDialog(onDismissRequest = { pauseState = false },
