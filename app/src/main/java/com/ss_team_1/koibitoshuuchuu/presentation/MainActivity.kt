@@ -36,7 +36,6 @@ class MainActivity : ComponentActivity() {
                         val focusTime = backStackEntry.arguments?.getInt("focusTime")
                         FocusPage(navController, focusTime)
                     }
-
                     composable(
                         //character0 will be -> Page.CharacterInfoAndStory.route + "/0"
                         route = Page.CharacterInfoAndStory.route + "/{characterID}",
@@ -88,6 +87,7 @@ class MainActivity : ComponentActivity() {
                             onPlotEnd = { navController.popBackStack() }
                         )
                     }
+                    //composable(Page.FocusIntro.route) { FocusIntroPage(navController) }
                     /*...*/
                 }
 
