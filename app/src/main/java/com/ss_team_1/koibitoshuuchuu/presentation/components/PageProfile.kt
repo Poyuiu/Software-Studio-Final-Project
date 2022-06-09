@@ -1,5 +1,6 @@
 package com.ss_team_1.koibitoshuuchuu.presentation.components
 
+import android.graphics.pdf.PdfRenderer
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border
@@ -27,6 +28,7 @@ import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
 import com.ss_team_1.koibitoshuuchuu.R
 import com.ss_team_1.koibitoshuuchuu.presentation.MyApplication
+import com.ss_team_1.koibitoshuuchuu.presentation.Page
 import com.ss_team_1.koibitoshuuchuu.presentation.utils.coloredShadow
 import com.ss_team_1.koibitoshuuchuu.ui.theme.DarkGreenBlue
 import com.ss_team_1.koibitoshuuchuu.ui.theme.GreenBlue
@@ -41,7 +43,8 @@ fun UserInfo1(
     userName: String,
     userID: Long,
     userGender: String,
-    userBirthday: Calendar
+    userBirthday: Calendar,
+    navController: NavController
 //    showDetailButton: Boolean
 ) {
     Row(
@@ -140,7 +143,7 @@ fun UserInfo1(
         Column {
             Spacer(modifier = Modifier.height(165.dp))
             Button(
-                onClick = { /* ... */ },
+                onClick = { navController.navigate(Page.UserData.route)},
                 shape = RoundedCornerShape(100),
                 colors = ButtonDefaults.buttonColors(
                     backgroundColor = GreenBlue,
@@ -164,17 +167,18 @@ fun UserInfo1(
 }
 
 
-@Preview(showBackground = true)
-@Composable
-fun UserInfo1Preview() {
-    UserInfo1(
-        userPhoto = R.drawable.profile_picture1.toString(),
-        userName = "酷酷的名字",
-        userID = 12345678,
-        userGender = "酷酷的草履蟲",
-        userBirthday = Calendar.getInstance()
-    )
-}
+//@Preview(showBackground = true)
+//@Composable
+//fun UserInfo1Preview() {
+//    UserInfo1(
+//        userPhoto = R.drawable.profile_picture1.toString(),
+//        userName = "酷酷的名字",
+//        userID = 12345678,
+//        userGender = "酷酷的草履蟲",
+//        userBirthday = Calendar.getInstance(),
+//        navController = NavController(LocalContext.current)
+//    )
+//}
 
 @Composable
 fun UserInfo2() {
@@ -638,7 +642,8 @@ fun PageProfile(
                 userName = "酷酷的名字",
                 userID = 1234567,
                 userGender = "酷酷的草履蟲",
-                userBirthday = Calendar.getInstance()
+                userBirthday = Calendar.getInstance(),
+                navController
             )
             Divider(
                 color = Color.Black, thickness = 1.5.dp,
@@ -651,10 +656,10 @@ fun PageProfile(
     }
 }
 
-@Preview(showBackground = true)
-@Composable
-fun PageProfilePreview() {
-    PageProfile(
-        navController = NavController(LocalContext.current)
-    )
-}
+//@Preview(showBackground = true)
+//@Composable
+//fun PageProfilePreview() {
+//    PageProfile(
+//        navController = NavController(LocalContext.current)
+//    )
+//}
