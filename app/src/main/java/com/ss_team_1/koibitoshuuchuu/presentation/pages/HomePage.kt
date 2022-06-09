@@ -49,8 +49,6 @@ fun HomePage(
                     ?.characterRepository?.getCharacter(characterid.value)
                     ?.value?.intimacyNeeded() }
 
-        val  showPercentage: MutableState<Boolean> =
-            remember { mutableStateOf(false) }
 
         var lock = true
         if (intimacyLevel != null) {
@@ -73,18 +71,17 @@ fun HomePage(
             Spacer(modifier = Modifier.height(64.dp))
             if (intimacyLevel != null && intimacy != null && levelIntimacyNeed !=null) {
                 HomepageCharacter(intimacyLevel,intimacy,levelIntimacyNeed,
-                    showPercentage.value, LocalContext.current, lock,characterid.value)
+                    LocalContext.current, lock,characterid.value)
             }else {
                 HomepageCharacter(0,0,100,
-                    showPercentage.value, LocalContext.current, lock,characterid.value)
+                    LocalContext.current, lock,characterid.value)
             }
         }
         Column(
             modifier = Modifier.align(Alignment.BottomCenter),
             horizontalAlignment = Alignment.CenterHorizontally
         ){
-
-            FocusButton(LocalContext.current, lock)
+            FocusButton(LocalContext.current, lock, navController)
             Spacer(modifier = Modifier.height(120.dp))
         }
         Row(

@@ -12,6 +12,7 @@ import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.layout.ContentScale
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
@@ -25,10 +26,9 @@ import com.ss_team_1.koibitoshuuchuu.ui.theme.Primary
 import com.ss_team_1.koibitoshuuchuu.ui.theme.huninnFamily
 import com.ss_team_1.koibitoshuuchuu.ui.theme.mamelonFamily
 
-//@Preview
-
+@Preview
 @Composable
-fun FocusPage(navController: NavController) {
+fun FocusPage(navController: NavController= NavController(LocalContext.current)) {
     var pauseState by remember { mutableStateOf(false) }
     var focusSuccess by remember {
         mutableStateOf(true)
@@ -68,8 +68,7 @@ fun FocusPage(navController: NavController) {
                 modifier = Modifier.offset(y = 40.dp),
                 intimacyLevel = 1,
                 intimacy = 50,
-                levelIntimacyNeed = 50,
-                showPercentage = false
+                levelIntimacyNeed = 50
             )
 
             DialogBox(

@@ -7,6 +7,7 @@ import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.layout.ContentScale
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
@@ -16,9 +17,9 @@ import com.ss_team_1.koibitoshuuchuu.R
 import com.ss_team_1.koibitoshuuchuu.presentation.components.*
 import com.ss_team_1.koibitoshuuchuu.ui.theme.mamelonFamily
 
-//@Preview
+@Preview
 @Composable
-fun FocusIntroPage(navController: NavController) {
+fun FocusIntroPage(navController: NavController=NavController(LocalContext.current)) {
     var timePickerOpenState by remember {
         mutableStateOf(false)
     }

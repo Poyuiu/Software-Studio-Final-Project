@@ -2,8 +2,12 @@ package com.ss_team_1.koibitoshuuchuu.presentation.components
 
 import android.content.Context
 import androidx.compose.foundation.Image
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.MutableState
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.ColorFilter
@@ -30,18 +34,17 @@ fun Heart_initamcybar(
     intimacyLevel: Int,
     intimacy: Int,
     levelIntimacyNeed: Int,
-    showPercentage: Boolean,
     modifier: Modifier = Modifier
 ){
     Row(modifier = modifier){
         characterIntimacyLevel(intimacyLevel)
-        intimacyBar(intimacy,levelIntimacyNeed, showPercentage)
+        intimacyBar(intimacy,levelIntimacyNeed)
     }
 }
 @Preview
 @Composable
 fun Heart_initamcybarpreview(){
-    Heart_initamcybar(2,400,1314,true)
+    Heart_initamcybar(2,400,1314)
 }
 
 @Composable
@@ -55,7 +58,6 @@ fun Name_InfoButton(/*調*/
         Modifier.size(280.dp, 72.dp)
     ){
         //StrokeText(LocalContext.current,name, 32f,56,128f)
-        val str = "R.drawable.character_0_name"
         Row(
             modifier = Modifier.align(Alignment.CenterStart),
             verticalAlignment = Alignment.CenterVertically
@@ -91,7 +93,6 @@ fun HomepageCharacter(
     intimacyLevel: Int,
     intimacy: Int,
     levelIntimacyNeed: Int,
-    showPercentage: Boolean,
     context: Context,
     lock: Boolean,
     characterId: Int
@@ -105,7 +106,7 @@ fun HomepageCharacter(
             modifier = Modifier.align(Alignment.TopCenter),
             horizontalAlignment = Alignment.CenterHorizontally
         ) {
-            Heart_initamcybar(intimacyLevel, intimacy, levelIntimacyNeed, showPercentage)
+            Heart_initamcybar(intimacyLevel, intimacy, levelIntimacyNeed)
             Name_InfoButton(context, characterId, lock)
             if(lock){//隨order切照片
                 Image(
@@ -131,6 +132,6 @@ fun HomepageCharacter(
 @Preview
 @Composable
 fun HomepageCharacterpreview(){
-    HomepageCharacter(2,400,1314,true,LocalContext.current ,true ,1)
+    HomepageCharacter(2,400,1314,LocalContext.current ,true ,1)
 }
 

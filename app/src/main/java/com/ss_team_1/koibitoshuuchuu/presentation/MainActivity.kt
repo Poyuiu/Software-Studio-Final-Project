@@ -18,6 +18,8 @@ import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
 import com.ss_team_1.koibitoshuuchuu.R
 import com.ss_team_1.koibitoshuuchuu.presentation.components.PageProfile
+import com.ss_team_1.koibitoshuuchuu.presentation.pages.FocusIntroPage
+import com.ss_team_1.koibitoshuuchuu.presentation.pages.FocusPage
 import com.ss_team_1.koibitoshuuchuu.presentation.pages.HomePage
 import com.ss_team_1.koibitoshuuchuu.presentation.pages.ShopPage
 import com.ss_team_1.koibitoshuuchuu.ui.theme.KoiBitoShuuChuuTheme
@@ -39,6 +41,8 @@ class MainActivity : ComponentActivity() {
                             buyflag = true
                         )
                     }
+                    composable("focusintropage"){FocusIntroPage(navController)}
+                    composable("focuspage"){FocusPage(navController)}
                     /*...*/
                 }
 

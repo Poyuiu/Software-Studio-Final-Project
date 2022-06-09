@@ -12,6 +12,9 @@ import androidx.compose.material.Button
 import androidx.compose.material.ButtonDefaults
 import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.MutableState
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment.Companion.Center
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.*
@@ -25,6 +28,7 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.navigation.NavController
 import com.ss_team_1.koibitoshuuchuu.R
 //import com.ss_team_1.koibitoshuuchuu.presentation.StrokeText
 import com.ss_team_1.koibitoshuuchuu.ui.theme.mamelonFamily
@@ -63,10 +67,11 @@ fun heartpreview(){
 @Composable
 fun intimacyBar(
     intimacy: Int,
-    levelIntimacyNeed: Int,
-    showPercentage: Boolean
+    levelIntimacyNeed: Int
 ){
     val percentage = intimacy.toFloat()/levelIntimacyNeed.toFloat()
+    val  showPercentage: MutableState<Boolean> =
+        remember { mutableStateOf(false) }
     Box(
         modifier = Modifier
             .size(248.dp, 46.dp)
@@ -74,7 +79,7 @@ fun intimacyBar(
                 enabled = true,
                 onClickLabel = "check percentage",
                 onClick = {
-                    /*TODO*/
+                    showPercentage.value = !showPercentage.value
                 }
             )
     ){
@@ -87,7 +92,7 @@ fun intimacyBar(
                 .fillMaxWidth()
         )
         LevelbarRectangle(percentage)
-        if(showPercentage){
+        if(showPercentage.value){
             Row(modifier = Modifier
                 .fillMaxWidth()) {
                 percentageLabel(
@@ -153,7 +158,7 @@ fun LevelbarRectangle(
 @Preview(showBackground = false)
 @Composable
 fun intimacybarpreview(){
-    intimacyBar(900,1314, true)
+    intimacyBar(900,1314)
 }
 
 @Composable
@@ -206,18 +211,13 @@ fun charcaterInfopreview(){
 @Composable
 fun FocusButton(
     context: Context,
-    lock: Boolean
+    lock: Boolean,
+    navController: NavController = NavController(LocalContext.current)
 ){
     Box(
         Modifier
             .size(216.dp,66.dp)
-            .clickable (
-                enabled = true,
-                onClickLabel = "focus click",
-                onClick = {
-                    /*TODO*/
-                }
-            )
+
     ) {
         if(lock){
             Image(
@@ -226,6 +226,14 @@ fun FocusButton(
                 contentScale = ContentScale.Fit,
                 modifier = Modifier
                     .fillMaxSize()
+                    .clickable (
+                        enabled = true,
+                        onClickLabel = "unlock click",
+                        onClick = {
+                            /*TODO*/
+                            navController.navigate("focusintropage")
+                        }
+                    )
             )
         }else{
             Image(
@@ -234,6 +242,13 @@ fun FocusButton(
                 contentScale = ContentScale.Fit,
                 modifier = Modifier
                     .fillMaxSize()
+                    .clickable (
+                        enabled = true,
+                        onClickLabel = "focus click",
+                        onClick = {
+                            navController.navigate("focusintropage")
+                        }
+                    )
             )
         }
 
