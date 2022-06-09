@@ -1,15 +1,12 @@
 package com.ss_team_1.koibitoshuuchuu.presentation.pages
 
 import androidx.compose.foundation.Image
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
-import androidx.compose.material.AlertDialog
-import androidx.compose.material.Button
-import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.MutableState
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
-import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.layout.ContentScale
@@ -36,21 +33,21 @@ fun HomePage(
         //var checkedState by rememberSaveable { mutableStateOf(false) }
         val intimacyLevel =
             remember{
-                MyApplication.appContainer()
-                    .characterRepository.getCharacter(characterid.value)
-                    .value?.level() }
+                MyApplication.app_container
+                    ?.characterRepository?.getCharacter(characterid.value)
+                    ?.value?.level() }
 
         val intimacy =
             remember{
-                MyApplication.appContainer()
-                    .characterRepository.getCharacter(characterid.value)
-                    .value?.intimacy }
+                MyApplication.app_container
+                    ?.characterRepository?.getCharacter(characterid.value)
+                    ?.value?.intimacy }
 
         val levelIntimacyNeed =
             remember{
-                MyApplication.appContainer()
-                    .characterRepository.getCharacter(characterid.value)
-                    .value?.intimacyNeeded() }
+                MyApplication.app_container
+                    ?.characterRepository?.getCharacter(characterid.value)
+                    ?.value?.intimacyNeeded() }
 
         val  showPercentage: MutableState<Boolean> =
             remember { mutableStateOf(false) }
@@ -78,7 +75,7 @@ fun HomePage(
                 HomepageCharacter(intimacyLevel,intimacy,levelIntimacyNeed,
                     showPercentage.value, LocalContext.current, lock,characterid.value)
             }else {
-                HomepageCharacter(100,5,10,
+                HomepageCharacter(0,0,100,
                     showPercentage.value, LocalContext.current, lock,characterid.value)
             }
         }
@@ -94,13 +91,35 @@ fun HomePage(
             modifier = Modifier.align(Alignment.CenterStart),
             verticalAlignment = Alignment.CenterVertically
         ) {
-            rightRoundedTriangle()
+            rightRoundedTriangle(
+                modifier = Modifier
+                    .clickable (
+                        enabled = true,
+                        onClickLabel = "Clickable right shift",
+                        onClick = {
+                            if(characterid.value<2){
+                                characterid.value+=1
+                            }else{characterid.value=0}
+                        }
+                    )
+            )
         }
         Row(
             modifier = Modifier.align(Alignment.CenterEnd),
             verticalAlignment = Alignment.CenterVertically
         ) {
-            leftRoundedTriangle()
+            leftRoundedTriangle(
+                modifier = Modifier
+                    .clickable (
+                        enabled = true,
+                        onClickLabel = "Clickable left shift",
+                        onClick = {
+                            if(characterid.value>0){
+                                characterid.value-=1
+                            }else{characterid.value=2}
+                        }
+                    )
+            )
         }
 
     }

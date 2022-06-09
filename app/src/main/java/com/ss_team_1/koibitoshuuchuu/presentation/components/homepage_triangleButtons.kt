@@ -25,17 +25,17 @@ fun TrianglebuttonPreview() {
 }
 
 @Composable
-fun leftRoundedTriangle() {
+fun leftRoundedTriangle(modifier: Modifier = Modifier) {
 
     Canvas(
         modifier = Modifier.size(60.dp)
-            .clickable (
+            /*.clickable (
                 enabled = true,
                 onClickLabel = "Clickable left shift",
                 onClick = {
-                   /*TODO*/
+
                 }
-            )
+            )*/
     ) {
         val trianglePath = Path().apply {
             val height = size.height
@@ -68,17 +68,16 @@ fun leftRoundedTriangle() {
 }
 
 @Composable
-fun rightRoundedTriangle() {
+fun rightRoundedTriangle(modifier: Modifier = Modifier) {
 
     Canvas(
         modifier = Modifier.size(60.dp)
-            .clickable (
+            /*.clickable (
                 enabled = true,
                 onClickLabel = "Clickable right shift",
                 onClick = {
-                    /*TODO*/
                 }
-            )
+            )*/
     ) {
         val trianglePath = Path().apply {
             val height = size.height
