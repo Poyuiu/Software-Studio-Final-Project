@@ -7,21 +7,21 @@ class GetPlotLockAndHaveReadState {
     fun getPlotLockAndHaveReadState(
         characterID: Int
     ): List<PlotLockAndHaveReadStateAndTitle> {
-        val plotHaveReadState =
-            MyApplication.appContainer().plotRepository.getPlotByCharacterId(characterID).value!!
-        val characterLevel =
-            MyApplication.appContainer().characterRepository.getCharacter(characterID).value?.level()!!
+//        val plotHaveReadState =
+//            MyApplication.appContainer().plotRepository.getPlotByCharacterId(characterID).value!!
+//        val characterLevel =
+//            MyApplication.appContainer().characterRepository.getCharacter(characterID).value?.level()!!
         var output: List<PlotLockAndHaveReadStateAndTitle> = listOf()
-        val plotListSize = plotHaveReadState.size
-        val plot = CharacterInfoAndPlotStorer.character[characterID].plotList
-
-        for (i in 0..plotListSize) {
-            output = output + PlotLockAndHaveReadStateAndTitle(
-                lock = i < characterLevel,
-                haveRead = plotHaveReadState[i].seen,
-                title = plot[i].title
-            )
-        }
+//        val plotListSize = plotHaveReadState.size
+//        val plot = CharacterInfoAndPlotStorer.character[characterID].plotList
+//
+//        for (i in 0..plotListSize) {
+//            output = output + PlotLockAndHaveReadStateAndTitle(
+//                lock = i < characterLevel,
+//                haveRead = plotHaveReadState[i].seen,
+//                title = plot[i].title
+//            )
+//        }
 
         return output
     }

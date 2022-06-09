@@ -13,8 +13,9 @@ import androidx.navigation.navArgument
 import com.ss_team_1.koibitoshuuchuu.presentation.components.PageProfile
 import com.ss_team_1.koibitoshuuchuu.presentation.pages.*
 import com.ss_team_1.koibitoshuuchuu.ui.theme.KoiBitoShuuChuuTheme
+import dagger.hilt.android.AndroidEntryPoint
 
-
+@AndroidEntryPoint
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)

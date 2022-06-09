@@ -5,20 +5,26 @@ import androidx.datastore.core.DataStore
 import androidx.datastore.preferences.core.*
 import androidx.datastore.preferences.preferencesDataStore
 import com.ss_team_1.koibitoshuuchuu.domain.model.Character
+import dagger.hilt.android.qualifiers.ApplicationContext
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.catch
 import kotlinx.coroutines.flow.map
 import java.io.IOException
+import javax.inject.Inject
+import javax.inject.Singleton
 
 private val Context.characterDataStore: DataStore<Preferences> by preferencesDataStore(name="character_data")
 const val numOfCharacters = 3
 
-class CharacterDataStore(val context: Context) {
+@Singleton
+class CharacterDataStore @Inject constructor(@ApplicationContext context: Context) {
     private val _intimacy = List(numOfCharacters) {
         intPreferencesKey("intimacy$it")
     }
 
-    val characterDataFlow = context.characterDataStore.data
+    private val characterDataStore = context.characterDataStore
+
+    val characterDataFlow = characterDataStore.data
         .catch {
             if (it is IOException) {
                 it.printStackTrace()
@@ -36,8 +42,8 @@ class CharacterDataStore(val context: Context) {
             }
         }
 
-    fun getCharacter(id: Int): Flow<Character> {
-        return context.characterDataStore.data
+    fun getCharacter(id: Int): Flow<Character> =
+        characterDataStore.data
             .catch {
                 if (it is IOException) {
                     it.printStackTrace()
@@ -52,10 +58,9 @@ class CharacterDataStore(val context: Context) {
                 else
                     Character(id, character[_intimacy[id]] ?: 0)
             }
-    }
 
     suspend fun setIntimacy(id: Int, newIntimacy: Int) {
-        context.characterDataStore.edit { character ->
+        characterDataStore.edit { character ->
             character[_intimacy[id]] =  newIntimacy
         }
     }

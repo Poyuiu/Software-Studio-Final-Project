@@ -14,16 +14,20 @@ import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavController
 import com.ss_team_1.koibitoshuuchuu.R
-import com.ss_team_1.koibitoshuuchuu.presentation.MyApplication
 import com.ss_team_1.koibitoshuuchuu.presentation.components.*
+import com.ss_team_1.koibitoshuuchuu.presentation.viewModel.CharacterViewModel
 
 @Preview
 @Composable
 fun HomePage(
-    navController: NavController = NavController(LocalContext.current)
+    navController: NavController = NavController(LocalContext.current),
+    viewModel: CharacterViewModel = hiltViewModel()
 ) {
+    val state = viewModel.state.value
+
     Box(
         Modifier.fillMaxSize()
     ){
@@ -31,30 +35,7 @@ fun HomePage(
             remember { mutableStateOf(0) }
 
         //var checkedState by rememberSaveable { mutableStateOf(false) }
-        val intimacyLevel =
-            remember{
-                MyApplication.app_container
-                    ?.characterRepository?.getCharacter(characterid.value)
-                    ?.value?.level() }
-
-        val intimacy =
-            remember{
-                MyApplication.app_container
-                    ?.characterRepository?.getCharacter(characterid.value)
-                    ?.value?.intimacy }
-
-        val levelIntimacyNeed =
-            remember{
-                MyApplication.app_container
-                    ?.characterRepository?.getCharacter(characterid.value)
-                    ?.value?.intimacyNeeded() }
-
-
-        var lock = true
-        if (intimacyLevel != null) {
-            if ( intimacyLevel > 0 ) lock = false
-        }
-
+        
         Image(
             painter = painterResource(id = R.drawable.coffee_shop_background),
             contentDescription = "",
@@ -69,30 +50,41 @@ fun HomePage(
             horizontalAlignment = Alignment.CenterHorizontally
         ){
             Spacer(modifier = Modifier.height(64.dp))
-            if (intimacyLevel != null && intimacy != null && levelIntimacyNeed !=null) {
-                HomepageCharacter(intimacyLevel,intimacy,levelIntimacyNeed,
-                    LocalContext.current, lock,characterid.value)
-            }else {
-                HomepageCharacter(0,0,100,
-                    LocalContext.current, lock,characterid.value)
-            }
+//            if (intimacyLevel != null && intimacy != null && levelIntimacyNeed !=null) {
+//                HomepageCharacter(intimacyLevel,intimacy,levelIntimacyNeed,
+//                    LocalContext.current, lock,characterid.value)
+//            }else {
+//                HomepageCharacter(0,0,100,
+//                    LocalContext.current, lock,characterid.value)
+//            }
+            HomepageCharacter(
+                intimacyLevel = state.characters[characterid.value].level(),
+                intimacy = state.characters[characterid.value].intimacy,
+                levelIntimacyNeed = state.characters[characterid.value].intimacyNeeded(),
+                context = LocalContext.current,
+                lock = state.characters[characterid.value].intimacy <= 0,
+                characterId = characterid.value
+            )
         }
         Column(
             modifier = Modifier.align(Alignment.BottomCenter),
             horizontalAlignment = Alignment.CenterHorizontally
         ){
-            FocusButton(LocalContext.current, lock, navController)
+            FocusButton(LocalContext.current, state.characters[characterid.value].intimacy <= 0, navController)
             Spacer(modifier = Modifier.height(120.dp))
         }
         Row(
-            modifier = Modifier.align(Alignment.CenterStart)
-                .clickable (
+            modifier = Modifier
+                .align(Alignment.CenterStart)
+                .clickable(
                     enabled = true,
                     onClickLabel = "Clickable right shift",
                     onClick = {
-                        if(characterid.value<2){
-                            characterid.value+=1
-                        }else{characterid.value=0}
+                        if (characterid.value < 2) {
+                            characterid.value += 1
+                        } else {
+                            characterid.value = 0
+                        }
                     }
                 ),
             verticalAlignment = Alignment.CenterVertically
@@ -111,14 +103,17 @@ fun HomePage(
             )
         }
         Row(
-            modifier = Modifier.align(Alignment.CenterEnd)
-                .clickable (
+            modifier = Modifier
+                .align(Alignment.CenterEnd)
+                .clickable(
                     enabled = true,
                     onClickLabel = "Clickable left shift",
                     onClick = {
-                        if(characterid.value>0){
-                            characterid.value-=1
-                        }else{characterid.value=2}
+                        if (characterid.value > 0) {
+                            characterid.value -= 1
+                        } else {
+                            characterid.value = 2
+                        }
                     }
                 ),
             verticalAlignment = Alignment.CenterVertically

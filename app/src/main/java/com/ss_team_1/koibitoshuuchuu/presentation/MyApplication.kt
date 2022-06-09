@@ -10,7 +10,9 @@ import com.ss_team_1.koibitoshuuchuu.data.data_source.scene.SceneDataStore
 import com.ss_team_1.koibitoshuuchuu.data.data_source.setting.SettingDataStore
 import com.ss_team_1.koibitoshuuchuu.data.data_source.user.UserDataStore
 import com.ss_team_1.koibitoshuuchuu.data.repository_implementation.*
+import dagger.hilt.android.HiltAndroidApp
 
+@HiltAndroidApp
 class MyApplication: Application() {
     companion object {
         var app_container: AppContainer? = null
