@@ -1,8 +1,6 @@
 package com.ss_team_1.koibitoshuuchuu.presentation.components
 
-import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Arrangement.Absolute.Center
-import androidx.compose.foundation.layout.Arrangement.Absolute.SpaceBetween
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding

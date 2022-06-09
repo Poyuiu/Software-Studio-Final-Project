@@ -1,6 +1,5 @@
 package com.ss_team_1.koibitoshuuchuu.presentation.pages
 
-import android.text.format.DateUtils
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border

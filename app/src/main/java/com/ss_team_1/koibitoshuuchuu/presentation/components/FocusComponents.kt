@@ -19,7 +19,6 @@ import com.ss_team_1.koibitoshuuchuu.R
 import com.ss_team_1.koibitoshuuchuu.ui.theme.Primary
 import com.ss_team_1.koibitoshuuchuu.ui.theme.Secondary
 import com.ss_team_1.koibitoshuuchuu.ui.theme.mamelonFamily
-import org.intellij.lang.annotations.JdkConstants
 
 @Preview
 @Composable

@@ -1,23 +1,17 @@
 package com.ss_team_1.koibitoshuuchuu.presentation.components
 
-import android.provider.CalendarContract
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
-import androidx.compose.material.Button
-import androidx.compose.material.ButtonDefaults
-import androidx.compose.material.Divider
 import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.ComposeCompilerApi
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.input.pointer.motionEventSpy
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
@@ -28,10 +22,7 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
 import com.ss_team_1.koibitoshuuchuu.R
-import com.ss_team_1.koibitoshuuchuu.domain.model.User
-import com.ss_team_1.koibitoshuuchuu.presentation.utils.coloredShadow
 import com.ss_team_1.koibitoshuuchuu.ui.theme.*
-import java.time.Month
 import java.util.*
 
 @Composable

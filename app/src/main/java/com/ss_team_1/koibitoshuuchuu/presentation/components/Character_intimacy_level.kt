@@ -1,6 +1,5 @@
 package com.ss_team_1.koibitoshuuchuu.presentation.components
 
-import android.annotation.SuppressLint
 import android.content.Context
 import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.Canvas
@@ -18,19 +17,15 @@ import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment.Companion.Center
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.*
-import androidx.compose.ui.graphics.drawscope.Stroke
-import androidx.compose.ui.graphics.drawscope.drawIntoCanvas
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontWeight
-import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
 import com.ss_team_1.koibitoshuuchuu.R
-//import com.ss_team_1.koibitoshuuchuu.presentation.StrokeText
 import com.ss_team_1.koibitoshuuchuu.ui.theme.mamelonFamily
 
 @Composable
