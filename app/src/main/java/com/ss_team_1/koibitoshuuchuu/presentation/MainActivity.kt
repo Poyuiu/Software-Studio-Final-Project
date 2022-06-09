@@ -43,7 +43,10 @@ class MainActivity : ComponentActivity() {
                         )
                     }
                     composable(Page.FocusIntro.route) { FocusIntroPage(navController) }
-                    composable(Page.Focus.route) { FocusPage(navController) }
+                    composable(Page.Focus.route + "/{focusTime}") { backStackEntry ->
+                        val focusTime = backStackEntry.arguments?.getInt("focusTime")
+                        FocusPage(navController, focusTime)
+                    }
                     /*...*/
                 }
 
@@ -56,7 +59,7 @@ class MainActivity : ComponentActivity() {
 /**
  * Class for route of Pages
  */
-open class Page(val route: String) {
+sealed class Page(val route: String) {
     object Welcome : Page("welcome_page")
     object Home : Page("home_page")
     object Profile : Page("profile_page")

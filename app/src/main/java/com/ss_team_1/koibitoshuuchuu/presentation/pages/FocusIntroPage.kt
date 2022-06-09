@@ -24,6 +24,9 @@ fun FocusIntroPage(navController: NavController = NavController(LocalContext.cur
     var timePickerOpenState by remember {
         mutableStateOf(false)
     }
+    var focusTime by remember {
+        mutableStateOf(20)
+    }
     KBSCScaffold(
         navController = navController,
         navbarEnable = false,
@@ -49,7 +52,9 @@ fun FocusIntroPage(navController: NavController = NavController(LocalContext.cur
             FocusIntroScenePicker()
             Spacer(modifier = Modifier.size(20.dp))
             // Start Button
-            AccentButtonTemplate(onClick = { navController.navigate(Page.Focus.route) }) {
+            AccentButtonTemplate(
+                onClick = { navController.navigate(Page.Focus.route + "/$focusTime") }
+            ) {
                 Text(text = "START", fontSize = 32.sp, fontFamily = mamelonFamily)
             }
         }
