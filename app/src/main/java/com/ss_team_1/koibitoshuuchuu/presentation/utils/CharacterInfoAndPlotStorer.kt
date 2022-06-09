@@ -6,9 +6,9 @@ import com.ss_team_1.koibitoshuuchuu.R
 
 class CharacterInfoAndPlotStorer {
     companion object {
-        val character: List<SingleCharaterInfoAndPlotStorer> = listOf(
+        val character: List<SingleCharacterInfoAndPlotStormer> = listOf(
             //四季映姫
-            SingleCharaterInfoAndPlotStorer(
+            SingleCharacterInfoAndPlotStormer(
                 id = 0,
                 name = R.string.character0_name,
                 photo = R.drawable.character_0_photo_main,
@@ -20,15 +20,18 @@ class CharacterInfoAndPlotStorer {
                         plotContent = listOf(
                             PlotSnapShot(
                                 R.drawable.character_0_photo_main,
-                                R.string.character0_plot0_snapshot0
+                                R.string.character0_plot0_snapshot0,
+                                R.drawable.background_only_color
                             ),
                             PlotSnapShot(
                                 R.drawable.character_0_photo_main,
-                                R.string.character0_plot0_snapshot1
+                                R.string.character0_plot0_snapshot1,
+                                R.drawable.background_only_color
                             ),
                             PlotSnapShot(
                                 R.drawable.character_0_photo_main,
-                                R.string.character0_plot0_snapshot2
+                                R.string.character0_plot0_snapshot2,
+                                R.drawable.background_only_color
                             ),
                         )
                     ),
@@ -36,7 +39,7 @@ class CharacterInfoAndPlotStorer {
                 introduction = R.string.character0_introduction,
             ),
             //魂魄妖夢
-            SingleCharaterInfoAndPlotStorer(
+            SingleCharacterInfoAndPlotStormer(
                 id = 1,
                 name = R.string.character1_name,
                 photo = R.drawable.character_1_photo,
@@ -50,7 +53,7 @@ class CharacterInfoAndPlotStorer {
     }
 }
 
-class SingleCharaterInfoAndPlotStorer {
+class SingleCharacterInfoAndPlotStormer {
     val id: Int
     val plotList: List<Plot>
     val name: Int
@@ -87,11 +90,13 @@ class Plot {
 
 class PlotSnapShot {
     val characterPhoto: Int
-    val plotDiscription: Int
+    val plotDescription: Int
+    val backgroundPhoto: Int
 
-    constructor(photo: Int, discription: Int) {
-        this.plotDiscription = discription
+    constructor(photo: Int, description: Int, backgroundPhoto: Int) {
+        this.plotDescription = description
         this.characterPhoto = photo
+        this.backgroundPhoto = backgroundPhoto
     }
 }
 

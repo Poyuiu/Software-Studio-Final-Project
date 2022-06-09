@@ -11,15 +11,15 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import com.ss_team_1.koibitoshuuchuu.domain.util.GetPlotLockAndHavereadState
-import com.ss_team_1.koibitoshuuchuu.domain.util.PlotLockAndHavereadStateAndTitle
+import com.ss_team_1.koibitoshuuchuu.domain.util.GetPlotLockAndHaveReadState
+import com.ss_team_1.koibitoshuuchuu.domain.util.PlotLockAndHaveReadStateAndTitle
 
 
 
 @Composable
 fun PlotList(
     onClick: () -> Unit,
-    plotTitleList: List<PlotLockAndHavereadStateAndTitle>
+    plotTitleList: List<PlotLockAndHaveReadStateAndTitle>
 ) {
     Box(
         modifier = Modifier
@@ -57,6 +57,6 @@ fun PlotList(
 fun PlotListPreview() {
     PlotList(
         onClick = {},
-        plotTitleList = GetPlotLockAndHavereadState().getPlotLockAndHavereadState(0)
+        plotTitleList = GetPlotLockAndHaveReadState().getPlotLockAndHaveReadState(0)
     )
 }

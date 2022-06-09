@@ -25,11 +25,11 @@ import com.ss_team_1.koibitoshuuchuu.ui.theme.Secondary
 
 @Preview(showBackground = true)
 @Composable
-fun ForwardButton() {
+fun ForwardButton(onClick: () -> Unit = {}) {
     RoundButtonTemplate(
         icon = Icons.Outlined.FastForward,
         iconSize = 36.dp,
-        onClick = {}
+        onClick = onClick
     )
 }
 

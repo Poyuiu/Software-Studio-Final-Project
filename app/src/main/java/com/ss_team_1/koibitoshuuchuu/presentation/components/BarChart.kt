@@ -18,6 +18,7 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import com.ss_team_1.koibitoshuuchuu.presentation.MyApplication
 import com.ss_team_1.koibitoshuuchuu.ui.theme.mainFont
 import com.ss_team_1.koibitoshuuchuu.ui.theme.secUn
 import kotlin.math.roundToInt
@@ -26,15 +27,9 @@ import kotlin.math.roundToInt
 @Composable
 fun BarChartPreview() {
     BarChart(
-        data = mapOf(
-            Pair("Jan", 0.0f),
-            Pair("Feb", 0.0f),
-            Pair("Mar", 0.0f),
-            Pair("Apr", 0.0f),
-            Pair("May", 2.1f),
-            Pair("Jun", 0.0f),
-            Pair("Jul", 0.0f),
-        )
+        data = MyApplication.app_container?.focusHistoryRepository?.getLastWeekHistoryByCharacterIdGroupByDay(
+            0
+        )?.value!!
     )
 }
 
@@ -91,7 +86,7 @@ fun BarChart(
                                 textSize = 25f
                             }
                             if (smallUnit) {
-                                var i: Int = 1
+                                var i = 1
                                 while (size.height - i * 0.3f * barScale > 0) {
                                     drawContext.canvas.nativeCanvas.drawText(
                                         (((i * 0.3f) * 10f).roundToInt() / 10f).toString() + " HR",
@@ -102,7 +97,7 @@ fun BarChart(
                                     i += 1
                                 }
                             } else {
-                                var i: Int = 1
+                                var i = 1
                                 while (size.height - i * barScale > 0) {
                                     drawContext.canvas.nativeCanvas.drawText(
                                         i.toString() + " HR",
@@ -140,7 +135,7 @@ fun BarChart(
                             var spaceStep = spaceBetweenBars
 
                             if (smallUnit) {
-                                var i: Int = 1
+                                var i = 1
                                 while (size.height - i * 0.3f * barScale > 0) {
                                     drawLine(
                                         start = Offset(
@@ -159,7 +154,7 @@ fun BarChart(
                                     i += 1
                                 }
                             } else {
-                                var i: Int = 1
+                                var i = 1
                                 while (size.height - i * barScale > 0) {
                                     drawLine(
                                         start = Offset(
@@ -218,7 +213,7 @@ fun BarChart(
                             for (item in data) {
                                 //--------------------(showing the x axis labels)--------------------//
                                 drawContext.canvas.nativeCanvas.drawText(
-                                    item.key.toString(),
+                                    item.key,
                                     spaceStep + barWidth / 2,
                                     size.height,
                                     paint
