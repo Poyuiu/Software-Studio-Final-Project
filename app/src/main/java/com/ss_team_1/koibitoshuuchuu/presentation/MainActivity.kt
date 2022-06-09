@@ -66,7 +66,7 @@ class MainActivity : ComponentActivity() {
                                 navController.navigate(Page.Plot.route + "/$characterID/$plotID")
                             },
                             onClickGoDetail = { navController.navigate(Page.CharacterDetail.route + "/$characterID") },
-                            navController = NavController(LocalContext.current)
+                            navController = navController
                         )
                     }
 
@@ -80,7 +80,7 @@ class MainActivity : ComponentActivity() {
                     ) { entry ->
                         CharacterDetailPage(
                             characterID = entry.arguments?.getInt("characterID")!!,
-                            navController = NavController(LocalContext.current)
+                            navController = navController
                         )
                     }
                     composable(
@@ -97,7 +97,7 @@ class MainActivity : ComponentActivity() {
                         PlotPage(
                             plotID = entry.arguments?.getInt("plotID")!!,
                             characterID = entry.arguments?.getInt("characterID")!!,
-                            navController = NavController(LocalContext.current),
+                            navController = navController,
                             onPlotEnd = { navController.popBackStack() }
                         )
                     }

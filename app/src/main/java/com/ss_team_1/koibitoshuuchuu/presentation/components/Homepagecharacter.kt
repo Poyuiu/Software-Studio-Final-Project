@@ -2,10 +2,16 @@ package com.ss_team_1.koibitoshuuchuu.presentation.components
 
 import android.content.Context
 import androidx.compose.foundation.Image
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
+import androidx.compose.material.Button
+import androidx.compose.material.ButtonColors
+import androidx.compose.material.ButtonDefaults
+import androidx.compose.material.SnackbarDefaults.backgroundColor
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.ColorFilter
 import androidx.compose.ui.graphics.ColorMatrix
 import androidx.compose.ui.layout.ContentScale
@@ -61,7 +67,8 @@ fun Name_InfoButton(/*調*/
         ){
             //Spacer(modifier = Modifier.width(8.dp))
             Box(
-                Modifier.size(220.dp,72.dp)
+                Modifier
+                    .size(220.dp, 72.dp)
                     .padding(8.dp)
             ){
                 Image(
@@ -115,14 +122,19 @@ fun HomepageCharacter(
                     colorFilter = ColorFilter.colorMatrix(matrix)//調灰階
                 )
             }else {
-                Image(
-                    painter = painterResource(id = characterphotolist[characterId]),
-                    contentDescription = "",
-                    modifier = Modifier
-                        .fillMaxSize()
-                )
+                Button(
+                    onClick = onClickToCharacterInfo,
+                    elevation = null,
+                    colors = ButtonDefaults.buttonColors(backgroundColor = Color.Transparent)
+                ) {
+                    Image(
+                        painter = painterResource(id = characterphotolist[characterId]),
+                        contentDescription = "",
+                        modifier = Modifier
+                            .fillMaxSize()
+                    )
+                }
             }
-
         }
     }
 
@@ -130,6 +142,6 @@ fun HomepageCharacter(
 @Preview
 @Composable
 fun HomepageCharacterpreview(){
-    HomepageCharacter(2,400,1314,LocalContext.current ,true ,1)
+    HomepageCharacter(2,400,1314,LocalContext.current ,false ,1)
 }
 
