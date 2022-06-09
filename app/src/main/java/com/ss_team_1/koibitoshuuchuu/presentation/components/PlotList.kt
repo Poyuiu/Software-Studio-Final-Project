@@ -18,7 +18,7 @@ import com.ss_team_1.koibitoshuuchuu.domain.util.PlotLockAndHaveReadStateAndTitl
 
 @Composable
 fun PlotList(
-    onClick: () -> Unit,
+    onClick: (Int) -> Unit,
     plotTitleList: List<PlotLockAndHaveReadStateAndTitle>
 ) {
     Box(
@@ -39,8 +39,9 @@ fun PlotList(
         ) {
             items(items = plotTitleList) { item ->
                 PlotButton(
-                    modifier = Modifier.align(Alignment.Center),
-                    onClick = onClick,
+                    modifier = Modifier
+                        .align(Alignment.Center),
+                    onClick = {onClick(plotTitleList.indexOf(item))},
                     lock = item.lock,
                     haveRead = item.haveRead,
                     id = plotTitleList.indexOf(item) + 1,
