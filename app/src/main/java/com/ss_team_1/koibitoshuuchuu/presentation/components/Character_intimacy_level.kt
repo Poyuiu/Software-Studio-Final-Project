@@ -124,11 +124,11 @@ fun percentageLabel(
         )
     }
 }
-/*@Preview(showBackground = false)
+@Preview(showBackground = false)
 @Composable
 fun labelpreview(){
     percentageLabel(0.444f)
-}*/
+}
 @Composable
 fun LevelbarRectangle(
     percentage : Float
