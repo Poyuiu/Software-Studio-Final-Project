@@ -109,7 +109,7 @@ fun HomepageCharacter(
             Name_InfoButton(context, characterId, lock)
             if(lock){//隨order切照片
                 Image(
-                    painter = painterResource(id = R.drawable.character_0_photo_main),
+                    painter = painterResource(id = characterphotolist[characterId]),
                     contentDescription = "",
                     modifier = Modifier
                         .fillMaxSize(),
@@ -117,7 +117,7 @@ fun HomepageCharacter(
                 )
             }else {
                 Image(
-                    painter = painterResource(id = R.drawable.character_0_photo_main),
+                    painter = painterResource(id = characterphotolist[characterId]),
                     contentDescription = "",
                     modifier = Modifier
                         .fillMaxSize()

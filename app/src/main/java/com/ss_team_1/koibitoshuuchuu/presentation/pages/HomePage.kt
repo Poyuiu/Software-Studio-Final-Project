@@ -70,7 +70,7 @@ fun HomePage(
             modifier = Modifier.align(Alignment.TopCenter),
             horizontalAlignment = Alignment.CenterHorizontally
         ){
-            Spacer(modifier = Modifier.height(96.dp))
+            Spacer(modifier = Modifier.height(64.dp))
             if (intimacyLevel != null && intimacy != null && levelIntimacyNeed !=null) {
                 HomepageCharacter(intimacyLevel,intimacy,levelIntimacyNeed,
                     showPercentage.value, LocalContext.current, lock,characterid.value)
@@ -88,11 +88,20 @@ fun HomePage(
             Spacer(modifier = Modifier.height(120.dp))
         }
         Row(
-            modifier = Modifier.align(Alignment.CenterStart),
+            modifier = Modifier.align(Alignment.CenterStart)
+                .clickable (
+                    enabled = true,
+                    onClickLabel = "Clickable right shift",
+                    onClick = {
+                        if(characterid.value<2){
+                            characterid.value+=1
+                        }else{characterid.value=0}
+                    }
+                ),
             verticalAlignment = Alignment.CenterVertically
         ) {
             rightRoundedTriangle(
-                modifier = Modifier
+                /*modifier = Modifier
                     .clickable (
                         enabled = true,
                         onClickLabel = "Clickable right shift",
@@ -101,15 +110,24 @@ fun HomePage(
                                 characterid.value+=1
                             }else{characterid.value=0}
                         }
-                    )
+                    )*/
             )
         }
         Row(
-            modifier = Modifier.align(Alignment.CenterEnd),
+            modifier = Modifier.align(Alignment.CenterEnd)
+                .clickable (
+                    enabled = true,
+                    onClickLabel = "Clickable left shift",
+                    onClick = {
+                        if(characterid.value>0){
+                            characterid.value-=1
+                        }else{characterid.value=2}
+                    }
+                ),
             verticalAlignment = Alignment.CenterVertically
         ) {
             leftRoundedTriangle(
-                modifier = Modifier
+                /*modifier = Modifier
                     .clickable (
                         enabled = true,
                         onClickLabel = "Clickable left shift",
@@ -118,7 +136,7 @@ fun HomePage(
                                 characterid.value-=1
                             }else{characterid.value=2}
                         }
-                    )
+                    )*/
             )
         }
 
