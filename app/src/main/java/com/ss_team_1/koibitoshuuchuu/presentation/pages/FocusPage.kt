@@ -1,5 +1,6 @@
 package com.ss_team_1.koibitoshuuchuu.presentation.pages
 
+import android.text.format.DateUtils
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border
@@ -21,20 +22,38 @@ import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
 import com.ss_team_1.koibitoshuuchuu.R
 import com.ss_team_1.koibitoshuuchuu.presentation.components.*
+import com.ss_team_1.koibitoshuuchuu.presentation.utils.FocusTimeFormatter
 import com.ss_team_1.koibitoshuuchuu.ui.theme.AccentColor
 import com.ss_team_1.koibitoshuuchuu.ui.theme.Primary
 import com.ss_team_1.koibitoshuuchuu.ui.theme.huninnFamily
 import com.ss_team_1.koibitoshuuchuu.ui.theme.mamelonFamily
+import kotlinx.coroutines.delay
 
 @Preview
+<<<<<<< HEAD
+=======
+@Composable
+private fun FocusPagePreview() {
+    FocusPage(navController = NavController(LocalContext.current))
+}
+
+>>>>>>> d1f10dd (Countdown available)
 @Composable
 fun FocusPage(navController: NavController= NavController(LocalContext.current)) {
     var pauseState by remember { mutableStateOf(false) }
     var focusSuccess by remember {
         mutableStateOf(true)
     }
-    var focusEnd by remember {
-        mutableStateOf(true)
+    //
+    var remainTime by remember {
+        mutableStateOf(10 * 1000L)
+    }
+    //
+    LaunchedEffect(remainTime, pauseState) {
+        if (remainTime > 0 && !pauseState) {
+            delay(100L)
+            remainTime -= 100L
+        }
     }
     KBSCScaffold(
         navController = navController,
@@ -51,7 +70,7 @@ fun FocusPage(navController: NavController= NavController(LocalContext.current))
                 .padding(top = 10.dp),
             contentScale = ContentScale.Fit
         )
-        if (!focusEnd) {
+        if (remainTime > 0) {
             PauseButton(
                 modifier = Modifier
                     .align(Alignment.TopEnd)
@@ -78,8 +97,11 @@ fun FocusPage(navController: NavController= NavController(LocalContext.current))
                     .align(Alignment.CenterHorizontally)
                     .offset(y = 58.dp)
             )
-            if (!focusEnd) {
-                FocusTimer(modifier = Modifier.offset(y = (-137).dp))
+            if (remainTime > 0) {
+                FocusTimer(
+                    modifier = Modifier.offset(y = (-137).dp),
+                    text = FocusTimeFormatter(remainTime)
+                )
             } else {
                 Column(
                     modifier = Modifier
@@ -137,7 +159,8 @@ fun FocusPage(navController: NavController= NavController(LocalContext.current))
 
 @Composable
 private fun FocusTimer(
-    modifier: Modifier = Modifier
+    modifier: Modifier = Modifier,
+    text: String
 ) {
     Box(
         modifier = modifier
@@ -148,7 +171,7 @@ private fun FocusTimer(
     ) {
 
         Text(
-            text = "00:10",
+            text = text,
             textAlign = TextAlign.Center,
             fontSize = 64.sp,
             fontFamily = mamelonFamily
