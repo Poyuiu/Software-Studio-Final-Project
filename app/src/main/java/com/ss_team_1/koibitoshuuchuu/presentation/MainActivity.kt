@@ -25,7 +25,13 @@ class MainActivity : ComponentActivity() {
                 val navController = rememberNavController()
                 NavHost(navController = navController, startDestination = Page.Welcome.route) {
                     composable(Page.Welcome.route) { WelcomePage(navController/*...*/) }
-                    composable(Page.Home.route) { HomePage(navController/*...*/) }
+                    composable(Page.Home.route) {
+                        HomePage(navController,
+                            onClickToCharacterInfo = { characterID ->
+                                navController.navigate(Page.CharacterInfoAndStory.route + "/$characterID")
+                            }
+                        )
+                    }
                     composable(Page.Profile.route) { PageProfile(navController) }
                     composable(Page.UserData.route) { UserDataPage(navController) }
                     composable(Page.Shop.route) {
@@ -57,9 +63,9 @@ class MainActivity : ComponentActivity() {
                         CharacterInfoAndStoryPage(
                             characterID = characterID,
                             onClickGoStory = { plotID ->
-                                navController.navigate("${Page.Plot.route}/$characterID/$plotID")
+                                navController.navigate(Page.Plot.route + "/$characterID/$plotID")
                             },
-                            onClickGoDetail = { navController.navigate(Page.CharacterDetail.route) },
+                            onClickGoDetail = { navController.navigate(Page.CharacterDetail.route + "/$characterID") },
                             navController = NavController(LocalContext.current)
                         )
                     }

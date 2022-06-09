@@ -20,22 +20,23 @@ import com.ss_team_1.koibitoshuuchuu.R
 import com.ss_team_1.koibitoshuuchuu.presentation.components.*
 import com.ss_team_1.koibitoshuuchuu.presentation.viewModel.CharacterViewModel
 
-@Preview
+//@Preview
 @Composable
 fun HomePage(
     navController: NavController = NavController(LocalContext.current),
-    viewModel: CharacterViewModel = hiltViewModel()
+    viewModel: CharacterViewModel = hiltViewModel(),
+    onClickToCharacterInfo: (Int) -> Unit
 ) {
     val state = viewModel.state.value
 
     Box(
         Modifier.fillMaxSize()
-    ){
+    ) {
         val characterid: MutableState<Int> =
             remember { mutableStateOf(0) }
 
         //var checkedState by rememberSaveable { mutableStateOf(false) }
-        
+
         Image(
             painter = painterResource(id = R.drawable.coffee_shop_background),
             contentDescription = "",
@@ -43,12 +44,12 @@ fun HomePage(
             modifier = Modifier
                 .fillMaxSize()
         )
-        TopBar(button1 = { SettingsButton() }, button2 = {HelpButton()})
-        NavigationBar(modifier = Modifier.align(Alignment.BottomCenter),navController)
+        TopBar(button1 = { SettingsButton() }, button2 = { HelpButton() })
+        NavigationBar(modifier = Modifier.align(Alignment.BottomCenter), navController)
         Column(
             modifier = Modifier.align(Alignment.TopCenter),
             horizontalAlignment = Alignment.CenterHorizontally
-        ){
+        ) {
             Spacer(modifier = Modifier.height(64.dp))
 //            if (intimacyLevel != null && intimacy != null && levelIntimacyNeed !=null) {
 //                HomepageCharacter(intimacyLevel,intimacy,levelIntimacyNeed,
@@ -62,15 +63,20 @@ fun HomePage(
                 intimacy = state.characters[characterid.value].intimacy,
                 levelIntimacyNeed = state.characters[characterid.value].intimacyNeeded(),
                 context = LocalContext.current,
-                lock = state.characters[characterid.value].intimacy <= 0,
-                characterId = characterid.value
+                lock = state.characters[characterid.value].level() <= 0,
+                characterId = characterid.value,
+                onClickToCharacterInfo = { onClickToCharacterInfo(characterid.value) }
             )
         }
         Column(
             modifier = Modifier.align(Alignment.BottomCenter),
             horizontalAlignment = Alignment.CenterHorizontally
-        ){
-            FocusButton(LocalContext.current, state.characters[characterid.value].intimacy <= 0, navController)
+        ) {
+            FocusButton(
+                LocalContext.current,
+                state.characters[characterid.value].intimacy <= 0,
+                navController
+            )
             Spacer(modifier = Modifier.height(120.dp))
         }
         Row(
@@ -131,7 +137,6 @@ fun HomePage(
                     )*/
             )
         }
-
     }
 }
 

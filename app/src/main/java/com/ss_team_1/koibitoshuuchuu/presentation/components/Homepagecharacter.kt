@@ -47,7 +47,8 @@ fun Heart_initamcybarpreview(){
 fun Name_InfoButton(/*調*/
     context: Context,
     characterId: Int,
-    lock: Boolean
+    lock: Boolean,
+    onClickToCharacterInfo: ()->Unit = {}
 ){
 
     Box(
@@ -71,7 +72,7 @@ fun Name_InfoButton(/*調*/
                         .fillMaxSize()
                 )
             }
-            ButtonWithBorder(lock)
+            ButtonWithBorder(lock, onClickToCharacterInfo)
             Spacer(modifier = Modifier.width(8.dp))
 
         }
@@ -91,7 +92,8 @@ fun HomepageCharacter(
     levelIntimacyNeed: Int,
     context: Context,
     lock: Boolean,
-    characterId: Int
+    characterId: Int,
+    onClickToCharacterInfo: ()->Unit = {}
 ){
     val matrix = ColorMatrix()
     matrix.setToSaturation(0F)
@@ -103,7 +105,7 @@ fun HomepageCharacter(
             horizontalAlignment = Alignment.CenterHorizontally
         ) {
             Heart_initamcybar(intimacyLevel, intimacy, levelIntimacyNeed)
-            Name_InfoButton(context, characterId, lock)
+            Name_InfoButton(context, characterId, lock, onClickToCharacterInfo)
             if(lock){//隨order切照片
                 Image(
                     painter = painterResource(id = characterphotolist[characterId]),

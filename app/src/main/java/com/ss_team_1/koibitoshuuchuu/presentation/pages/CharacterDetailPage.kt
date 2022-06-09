@@ -31,7 +31,7 @@ fun CharacterDetailPage(
     val focusRecord = remember {
         MyApplication.appContainer().focusHistoryRepository.getLastWeekHistoryByCharacterIdGroupByDay(
             characterID
-        ).value!!
+        ).value?: mapOf()
     }
 
     Box(
@@ -60,8 +60,10 @@ fun CharacterDetailPage(
                 characterInfo = character.info,
                 showDetailButton = false
             )
-            Spacer(modifier = Modifier.height(8.dp))
-            BarChart(data = focusRecord)
+            if(focusRecord.isNotEmpty()) {
+                Spacer(modifier = Modifier.height(8.dp))
+                BarChart(data = focusRecord)
+            }
             Spacer(modifier = Modifier.height(8.dp))
             CharacterIntroduction(
                 introduction = character.introduction
