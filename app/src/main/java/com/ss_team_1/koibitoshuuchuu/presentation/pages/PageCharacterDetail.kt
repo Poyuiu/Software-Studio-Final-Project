@@ -10,9 +10,11 @@ import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.layout.ContentScale
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import androidx.navigation.NavController
 import com.ss_team_1.koibitoshuuchuu.R
 import com.ss_team_1.koibitoshuuchuu.presentation.MyApplication
 import com.ss_team_1.koibitoshuuchuu.presentation.components.*
@@ -21,6 +23,7 @@ import com.ss_team_1.koibitoshuuchuu.presentation.utils.CharacterInfoAndPlotStor
 @Composable
 fun PageCharacterDetail(
     characterID: Int,
+    navController: NavController
 ) {
     val character = remember {
         CharacterInfoAndPlotStorer.character[characterID]
@@ -42,7 +45,7 @@ fun PageCharacterDetail(
             modifier = Modifier
                 .fillMaxSize()
         )
-        TopBar(button1 = { BackButton() })
+        TopBar(button1 = { BackButton(navController) })
         Column(
             modifier = Modifier
                 .align(Alignment.TopCenter)
@@ -75,5 +78,6 @@ fun PageCharacterDetailPreview(
 ) {
     PageCharacterDetail(
         characterID = 0,
+        navController = NavController(LocalContext.current)
     )
 }

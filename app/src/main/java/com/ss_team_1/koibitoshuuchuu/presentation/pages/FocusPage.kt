@@ -30,14 +30,6 @@ import com.ss_team_1.koibitoshuuchuu.ui.theme.mamelonFamily
 import kotlinx.coroutines.delay
 
 @Preview
-<<<<<<< HEAD
-=======
-@Composable
-private fun FocusPagePreview() {
-    FocusPage(navController = NavController(LocalContext.current))
-}
-
->>>>>>> d1f10dd (Countdown available)
 @Composable
 fun FocusPage(navController: NavController= NavController(LocalContext.current)) {
     var pauseState by remember { mutableStateOf(false) }

@@ -8,11 +8,13 @@ import androidx.compose.ui.graphics.Outline
 import androidx.compose.ui.graphics.Path
 import androidx.compose.ui.graphics.Shape
 import androidx.compose.ui.input.key.Key.Companion.Button1
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.Density
 import androidx.compose.ui.unit.LayoutDirection
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.zIndex
+import androidx.navigation.NavController
 import com.ss_team_1.koibitoshuuchuu.ui.theme.Secondary
 
 @Preview(showBackground = true)
@@ -20,7 +22,7 @@ import com.ss_team_1.koibitoshuuchuu.ui.theme.Secondary
 fun TopBarPreview() {
     TopBar(
         button1 = {
-            BackButton()
+            BackButton(NavController(LocalContext.current))
         },
         button2 = {
             PauseButton()

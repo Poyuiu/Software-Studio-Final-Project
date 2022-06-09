@@ -17,9 +17,11 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.vector.ImageVector
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
+import androidx.navigation.NavController
 import com.ss_team_1.koibitoshuuchuu.presentation.utils.coloredShadow
 import com.ss_team_1.koibitoshuuchuu.ui.theme.Secondary
 
@@ -66,11 +68,16 @@ fun PauseButton(modifier: Modifier = Modifier, onClick: () -> Unit = {}) {
 
 @Preview
 @Composable
-fun BackButton() {
+private fun BackButtonPreview(){
+    BackButton(navController = NavController(LocalContext.current))
+}
+
+@Composable
+fun BackButton(navController: NavController) {
     RoundButtonTemplate(
         icon = Icons.Default.ArrowBack,
         iconSize = 36.dp,
-        onClick = {}
+        onClick = {navController.popBackStack()}
     )
 }
 

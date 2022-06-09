@@ -19,12 +19,14 @@ import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.input.pointer.motionEventSpy
 import androidx.compose.ui.layout.ContentScale
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontStyle
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.navigation.NavController
 import com.ss_team_1.koibitoshuuchuu.R
 import com.ss_team_1.koibitoshuuchuu.domain.model.User
 import com.ss_team_1.koibitoshuuchuu.presentation.utils.coloredShadow
@@ -408,7 +410,7 @@ fun UserData_Info_3_Preview() {
 }
 
 @Composable
-fun UserDataPage() {
+fun UserDataPage(navController: NavController) {
     Box(
         modifier = Modifier.fillMaxSize()
     ) {
@@ -420,7 +422,7 @@ fun UserDataPage() {
             modifier = Modifier
                 .fillMaxSize()
         )
-        TopBar(button1 = { BackButton() })
+        TopBar(button1 = { BackButton(navController) })
         Column(
             modifier = Modifier
                 .align(Alignment.TopCenter)
@@ -455,13 +457,15 @@ fun UserDataPage() {
                 .size(width = 140.dp, height = 250.dp)
                 .align(Alignment.BottomEnd)
         )
-        Box (modifier = Modifier.align(Alignment.BottomStart)
-            ){
+        Box(
+            modifier = Modifier.align(Alignment.BottomStart)
+        ) {
             Image(
                 painter = painterResource(id = R.drawable.userdata_conversation_1),
                 contentDescription = null,
                 modifier = Modifier
-                    .size(270.dp).padding(start = 20.dp, top = 60.dp)
+                    .size(270.dp)
+                    .padding(start = 20.dp, top = 60.dp)
             )
             Text(
                 text = "早上好 酷酷的名字",
@@ -480,5 +484,5 @@ fun UserDataPage() {
 @Preview(showBackground = true)
 @Composable
 fun UserDataPagePreview() {
-    UserDataPage()
+    UserDataPage(navController = NavController(LocalContext.current))
 }

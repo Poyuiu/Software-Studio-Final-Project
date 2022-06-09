@@ -7,10 +7,12 @@ import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.layout.ContentScale
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import androidx.navigation.NavController
 import com.ss_team_1.koibitoshuuchuu.presentation.components.*
 import com.ss_team_1.koibitoshuuchuu.presentation.utils.CharacterInfoAndPlotStorer
 import com.ss_team_1.koibitoshuuchuu.presentation.utils.PlotSnapShot
@@ -22,6 +24,7 @@ STILL NOT COMPLETE!!!!!!!!!!!!!!!!!!!!
 @Composable
 fun PagePlot(
     plotContent: List<PlotSnapShot>,
+    navController: NavController
 ) {
 
     var plotSnapShotState by remember {
@@ -50,12 +53,12 @@ fun PagePlot(
             modifier = Modifier.align(Alignment.CenterStart)
         )
         TopBar(
-            button1 = { BackButton() },
+            button1 = { BackButton(navController) },
             button2 = {
                 if (auto)
-                    PauseButton(onClick = {auto = false})
+                    PauseButton(onClick = { auto = false })
                 else
-                    ForwardButton(onClick = {auto = true})
+                    ForwardButton(onClick = { auto = true })
             }
         )
         Column(
@@ -91,6 +94,7 @@ fun PagePlot(
 @Composable
 fun PagePlotPreview() {
     PagePlot(
-        plotContent = CharacterInfoAndPlotStorer.character[0].plotList[0].plotContent
+        plotContent = CharacterInfoAndPlotStorer.character[0].plotList[0].plotContent,
+        navController = NavController(LocalContext.current)
     )
 }

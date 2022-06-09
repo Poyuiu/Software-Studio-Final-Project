@@ -19,12 +19,12 @@ import com.ss_team_1.koibitoshuuchuu.ui.theme.mamelonFamily
 
 @Preview
 @Composable
-fun FocusIntroPage(navController: NavController=NavController(LocalContext.current)) {
+fun FocusIntroPage(navController: NavController = NavController(LocalContext.current)) {
     var timePickerOpenState by remember {
         mutableStateOf(false)
     }
     KBSCScaffold(
-        navController=navController,
+        navController = navController,
         navbarEnable = false,
         backgroundResourceId = R.drawable.coffee_shop_background
     ) {

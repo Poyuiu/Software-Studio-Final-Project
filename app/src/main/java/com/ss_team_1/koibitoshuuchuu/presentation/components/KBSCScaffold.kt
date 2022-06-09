@@ -17,7 +17,7 @@ import com.ss_team_1.koibitoshuuchuu.R
 private fun KBSCScaffoldPreview() {
     KBSCScaffold(
         navController = NavController(LocalContext.current),
-        button1 = { BackButton() },
+        button1 = { BackButton(NavController(LocalContext.current)) },
         backgroundResourceId = R.drawable.coffee_shop_background
     ) {
         Image(
@@ -34,7 +34,7 @@ fun KBSCScaffold(
     topBarEnable: Boolean = true,
     navbarEnable: Boolean = true,
     backgroundResourceId: Int,
-    button1: (@Composable() () -> Unit) = { BackButton() },
+    button1: (@Composable() () -> Unit) = { BackButton(navController) },
     button2: (@Composable() () -> Unit) = {},
     content: @Composable() BoxScope.() -> Unit
 ) {
