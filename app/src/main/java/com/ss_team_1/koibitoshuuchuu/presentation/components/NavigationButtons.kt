@@ -20,6 +20,7 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
 import com.ss_team_1.koibitoshuuchuu.R
+import com.ss_team_1.koibitoshuuchuu.presentation.Page
 import com.ss_team_1.koibitoshuuchuu.ui.theme.Primary
 import com.ss_team_1.koibitoshuuchuu.ui.theme.Secondary
 
@@ -27,7 +28,7 @@ import com.ss_team_1.koibitoshuuchuu.ui.theme.Secondary
 @Composable
 fun NavigationProfileButton(navController:NavController) {
     NavigationButtonTemplate(
-        onClick = { navController.navigate("profile_page") },
+        onClick = { navController.navigate(Page.Profile.route) },
         selected = false,
         painter = painterResource(id = R.drawable.ic_profile)
     )
@@ -37,7 +38,7 @@ fun NavigationProfileButton(navController:NavController) {
 @Composable
 fun NavigationHomeButton(navController:NavController) {
     NavigationButtonTemplate(
-        onClick = { navController.navigate("home_page") },
+        onClick = { navController.navigate(Page.Home.route) },
         selected = false,
         painter = painterResource(id = R.drawable.ic_home)
     )
@@ -47,7 +48,7 @@ fun NavigationHomeButton(navController:NavController) {
 @Composable
 fun NavigationShopButton(navController:NavController) {
     NavigationButtonTemplate(
-        onClick = { navController.navigate("shop_page") },
+        onClick = { navController.navigate(Page.Shop.route) },
         selected = false,
         painter = painterResource(id = R.drawable.ic_shop)
     )
