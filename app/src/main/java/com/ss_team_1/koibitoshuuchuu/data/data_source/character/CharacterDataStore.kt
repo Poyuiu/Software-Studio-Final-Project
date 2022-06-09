@@ -29,7 +29,10 @@ class CharacterDataStore(val context: Context) {
         }
         .map { character ->
             List(numOfCharacters) {
-                Character(it, character[_intimacy[it]] ?: 0)
+                if (it == 0)
+                    Character(it, character[_intimacy[it]] ?: 100)
+                else
+                    Character(it, character[_intimacy[it]] ?: 0)
             }
         }
 
@@ -44,7 +47,10 @@ class CharacterDataStore(val context: Context) {
                 }
             }
             .map { character ->
-                Character(id, character[_intimacy[id]] ?: 0)
+                if (id == 0)
+                    Character(id, character[_intimacy[id]] ?: 100)
+                else
+                    Character(id, character[_intimacy[id]] ?: 0)
             }
     }
 
