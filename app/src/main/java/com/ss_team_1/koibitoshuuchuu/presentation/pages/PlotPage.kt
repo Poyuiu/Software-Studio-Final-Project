@@ -2,7 +2,6 @@ package com.ss_team_1.koibitoshuuchuu.presentation.pages
 
 import androidx.compose.foundation.*
 import androidx.compose.foundation.layout.*
-import androidx.compose.material.*
 import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -14,8 +13,8 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
 import com.ss_team_1.koibitoshuuchuu.presentation.components.*
-import com.ss_team_1.koibitoshuuchuu.presentation.utils.CharacterInfoAndPlotStorer
-import com.ss_team_1.koibitoshuuchuu.presentation.utils.PlotSnapShot
+import com.ss_team_1.koibitoshuuchuu.presentation.utils.CharacterInfoAndPlotStorer.Companion.character
+import kotlinx.coroutines.delay
 
 /*
 STILL NOT COMPLETE!!!!!!!!!!!!!!!!!!!!
@@ -23,18 +22,31 @@ STILL NOT COMPLETE!!!!!!!!!!!!!!!!!!!!
 
 @Composable
 fun PagePlot(
-    plotContent: List<PlotSnapShot>,
+    plotID: Int,
+    characterID: Int,
+    onPlotEnd: () -> Unit,
     navController: NavController
 ) {
 
     var plotSnapShotState by remember {
         mutableStateOf(0)
     }
-    ///////ABOVE DOSE NOT MOVE, I DON't KNOW WHY QQ
     var auto by remember {
         mutableStateOf(false)
     }
-
+    val plotContent = character[characterID].plotList[plotID].plotContent
+    val plotContentSize = plotContent.size
+    LaunchedEffect(plotSnapShotState, auto) {
+        if (auto) {
+            if (plotSnapShotState < plotContentSize - 1)
+            {
+                delay(3000L)
+                plotSnapShotState++
+            }
+            else
+                onPlotEnd
+        }
+    }
     Box(
         Modifier
             .fillMaxSize()
@@ -45,12 +57,6 @@ fun PagePlot(
             contentScale = ContentScale.Crop,
             modifier = Modifier
                 .fillMaxSize()
-        )
-
-        //THIS ONLY FOR TEST, CAN BE REMOVE
-        Text(
-            text = plotSnapShotState.toString(),
-            modifier = Modifier.align(Alignment.CenterStart)
         )
         TopBar(
             button1 = { BackButton(navController) },
@@ -81,8 +87,13 @@ fun PagePlot(
                 )
                 DialogBox(
                     text = stringResource(id = plotContent[plotSnapShotState].plotDescription),
-                    showTriangle = true,
-                    onClickNext = { plotSnapShotState++ },
+                    showTriangle = !auto,
+                    onClickNext = {
+                        if (plotSnapShotState < plotContentSize - 1)
+                            plotSnapShotState++
+                        else
+                            onPlotEnd
+                    },
                     modifier = Modifier.align(Alignment.BottomCenter)
                 )
             }
@@ -94,7 +105,9 @@ fun PagePlot(
 @Composable
 fun PagePlotPreview() {
     PagePlot(
-        plotContent = CharacterInfoAndPlotStorer.character[0].plotList[0].plotContent,
-        navController = NavController(LocalContext.current)
+        plotID = 0,
+        characterID = 0,
+        navController = NavController(LocalContext.current),
+        onPlotEnd = {}
     )
 }

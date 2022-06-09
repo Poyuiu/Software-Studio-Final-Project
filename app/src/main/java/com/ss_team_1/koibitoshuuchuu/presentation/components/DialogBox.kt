@@ -5,27 +5,28 @@ import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.shape.RoundedCornerShape
-import androidx.compose.material.Icon
-import androidx.compose.material.Surface
-import androidx.compose.material.Text
+import androidx.compose.material.*
+import androidx.compose.material.MaterialTheme.colors
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.shadow
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.compose.ui.zIndex
 import com.ss_team_1.koibitoshuuchuu.R
-import com.ss_team_1.koibitoshuuchuu.ui.theme.Primary
-import com.ss_team_1.koibitoshuuchuu.ui.theme.Secondary
-import com.ss_team_1.koibitoshuuchuu.ui.theme.huninnFamily
+import com.ss_team_1.koibitoshuuchuu.ui.theme.*
 
 @Preview
 @Composable
 private fun DialogBoxPreview() {
-    DialogBox(text = "快點專心！我可沒法整天在這裡看著你")
+    DialogBox(
+        text = "快點專心！我可沒法整天在這裡看著你",
+        showTriangle = false
+    )
 }
 
 @Composable
@@ -50,14 +51,24 @@ fun DialogBox(
             fontFamily = huninnFamily
         )
         if (showTriangle) {
-            Image(
-                painter = painterResource(id = R.drawable.ic_dialog_triangle),
-                contentDescription = "Dialog Triangle",
+            Button(
+                onClick = onClickNext,
+                elevation = null,
                 modifier = Modifier
-                    .align(Alignment.BottomEnd)
-                    .padding(24.dp)
-                    .clickable { onClickNext }
-            )
+                    .align(Alignment.BottomEnd),
+                colors = ButtonDefaults.buttonColors(
+                    backgroundColor = Color.Transparent,
+                    contentColor = Color.Transparent,
+                    disabledBackgroundColor = Color.Transparent,
+                    disabledContentColor = Color.Transparent
+                )
+            ) {
+                Image(
+                    painter = painterResource(id = R.drawable.ic_dialog_triangle),
+                    contentDescription = "Dialog Triangle"
+                )
+            }
+
         }
     }
 }
