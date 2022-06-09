@@ -1,0 +1,95 @@
+Index: app/src/main/java/com/ss_team_1/koibitoshuuchuu/presentation/pages/HomePage.kt
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>package com.ss_team_1.koibitoshuuchuu.presentation.pages\r\n\r\nimport androidx.compose.foundation.Image\r\nimport androidx.compose.foundation.layout.*\r\nimport androidx.compose.material.AlertDialog\r\nimport androidx.compose.material.Button\r\nimport androidx.compose.material.Text\r\nimport androidx.compose.runtime.Composable\r\nimport androidx.compose.runtime.mutableStateOf\r\nimport androidx.compose.runtime.remember\r\nimport androidx.compose.ui.Alignment\r\nimport androidx.compose.ui.Modifier\r\nimport androidx.compose.ui.layout.ContentScale\r\nimport androidx.compose.ui.platform.LocalContext\r\nimport androidx.compose.ui.res.painterResource\r\nimport androidx.compose.ui.tooling.preview.Preview\r\nimport androidx.compose.ui.unit.dp\r\nimport androidx.navigation.NavController\r\nimport com.ss_team_1.koibitoshuuchuu.R\r\nimport com.ss_team_1.koibitoshuuchuu.presentation.components.*\r\n\r\n@Preview\r\n@Composable\r\nfun HomePage(\r\n    navController: NavController = NavController(LocalContext.current)\r\n) {\r\n    Box(\r\n        Modifier.fillMaxSize()\r\n    ){\r\n        val intimacyLevel = \r\n        Image(\r\n            painter = painterResource(id = R.drawable.coffee_shop_background),\r\n            contentDescription = \"\",\r\n            contentScale = ContentScale.Crop,\r\n            modifier = Modifier\r\n                .fillMaxSize()\r\n        )\r\n        TopBar(button1 = { SettingsButton() }, button2 = {HelpButton()})\r\n        NavigationBar(modifier = Modifier.align(Alignment.BottomCenter))\r\n        Column(\r\n            modifier = Modifier.align(Alignment.TopCenter),\r\n            horizontalAlignment = Alignment.CenterHorizontally\r\n        ){\r\n            Spacer(modifier = Modifier.height(96.dp))\r\n            HomepageCharacter(2,700,1314,true, LocalContext.current,false ,0)\r\n        }\r\n        Column(\r\n            modifier = Modifier.align(Alignment.BottomCenter),\r\n            horizontalAlignment = Alignment.CenterHorizontally\r\n        ){\r\n\r\n            FocusButton(LocalContext.current,true)\r\n            Spacer(modifier = Modifier.height(120.dp))\r\n        }\r\n        Row(\r\n            modifier = Modifier.align(Alignment.CenterStart),\r\n            verticalAlignment = Alignment.CenterVertically\r\n        ) {\r\n            rightRoundedTriangle()\r\n        }\r\n        Row(\r\n            modifier = Modifier.align(Alignment.CenterEnd),\r\n            verticalAlignment = Alignment.CenterVertically\r\n        ) {\r\n            leftRoundedTriangle()\r\n        }\r\n\r\n    }\r\n}\r\n
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/app/src/main/java/com/ss_team_1/koibitoshuuchuu/presentation/pages/HomePage.kt b/app/src/main/java/com/ss_team_1/koibitoshuuchuu/presentation/pages/HomePage.kt
+--- a/app/src/main/java/com/ss_team_1/koibitoshuuchuu/presentation/pages/HomePage.kt	(revision 886eab3a46e93d11fc1c8ddaaba40c1206820275)
++++ b/app/src/main/java/com/ss_team_1/koibitoshuuchuu/presentation/pages/HomePage.kt	(date 1654758620259)
+@@ -6,8 +6,10 @@
+ import androidx.compose.material.Button
+ import androidx.compose.material.Text
+ import androidx.compose.runtime.Composable
++import androidx.compose.runtime.MutableState
+ import androidx.compose.runtime.mutableStateOf
+ import androidx.compose.runtime.remember
++import androidx.compose.runtime.saveable.rememberSaveable
+ import androidx.compose.ui.Alignment
+ import androidx.compose.ui.Modifier
+ import androidx.compose.ui.layout.ContentScale
+@@ -17,6 +19,7 @@
+ import androidx.compose.ui.unit.dp
+ import androidx.navigation.NavController
+ import com.ss_team_1.koibitoshuuchuu.R
++import com.ss_team_1.koibitoshuuchuu.presentation.MyApplication
+ import com.ss_team_1.koibitoshuuchuu.presentation.components.*
+ 
+ @Preview
+@@ -27,7 +30,36 @@
+     Box(
+         Modifier.fillMaxSize()
+     ){
+-        val intimacyLevel = 
++        val characterid: MutableState<Int> =
++            remember { mutableStateOf(0) }
++
++        //var checkedState by rememberSaveable { mutableStateOf(false) }
++        val intimacyLevel =
++            remember{
++                MyApplication.app_container
++                    ?.characterRepository?.getCharacter(characterid.value)
++                    ?.value?.level() }
++
++        val intimacy =
++            remember{
++                MyApplication.app_container
++                    ?.characterRepository?.getCharacter(characterid.value)
++                    ?.value?.intimacy }
++
++        val levelIntimacyNeed =
++            remember{
++                MyApplication.app_container
++                    ?.characterRepository?.getCharacter(characterid.value)
++                    ?.value?.intimacyNeeded() }
++
++        val  showPercentage: MutableState<Boolean> =
++            remember { mutableStateOf(false) }
++
++        var lock = true
++        if (intimacyLevel != null) {
++            if ( intimacyLevel > 0 ) lock = false
++        }
++
+         Image(
+             painter = painterResource(id = R.drawable.coffee_shop_background),
+             contentDescription = "",
+@@ -42,14 +74,20 @@
+             horizontalAlignment = Alignment.CenterHorizontally
+         ){
+             Spacer(modifier = Modifier.height(96.dp))
+-            HomepageCharacter(2,700,1314,true, LocalContext.current,false ,0)
++            if (intimacyLevel != null && intimacy != null && levelIntimacyNeed !=null) {
++                HomepageCharacter(intimacyLevel,intimacy,levelIntimacyNeed,
++                    showPercentage.value, LocalContext.current, lock,characterid.value)
++            }else {
++                HomepageCharacter(100,5,10,
++                    showPercentage.value, LocalContext.current, lock,characterid.value)
++            }
+         }
+         Column(
+             modifier = Modifier.align(Alignment.BottomCenter),
+             horizontalAlignment = Alignment.CenterHorizontally
+         ){
+ 
+-            FocusButton(LocalContext.current,true)
++            FocusButton(LocalContext.current, lock)
+             Spacer(modifier = Modifier.height(120.dp))
+         }
+         Row(
+@@ -67,3 +105,4 @@
+ 
+     }
+ }
++
