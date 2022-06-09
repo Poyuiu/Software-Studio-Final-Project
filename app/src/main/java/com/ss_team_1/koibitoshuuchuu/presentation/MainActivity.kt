@@ -56,7 +56,7 @@ class MainActivity : ComponentActivity() {
 /**
  * Class for route of Pages
  */
-sealed class Page(val route: String) {
+open class Page(val route: String) {
     object Welcome : Page("welcome_page")
     object Home : Page("home_page")
     object Profile : Page("profile_page")

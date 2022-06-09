@@ -14,6 +14,7 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
 import com.ss_team_1.koibitoshuuchuu.R
+import com.ss_team_1.koibitoshuuchuu.presentation.Page
 import com.ss_team_1.koibitoshuuchuu.presentation.components.*
 import com.ss_team_1.koibitoshuuchuu.ui.theme.mamelonFamily
 
@@ -47,7 +48,8 @@ fun FocusIntroPage(navController: NavController = NavController(LocalContext.cur
             FocusIntroWorkTextField()
             FocusIntroScenePicker()
             Spacer(modifier = Modifier.size(20.dp))
-            AccentButtonTemplate(onClick = {}) {
+            // Start Button
+            AccentButtonTemplate(onClick = { navController.navigate(Page.Focus.route) }) {
                 Text(text = "START", fontSize = 32.sp, fontFamily = mamelonFamily)
             }
         }
