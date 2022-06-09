@@ -51,7 +51,7 @@ class MainActivity: ComponentActivity() {
 }
 
 @Composable
-fun WelcomePage(navController: NavController){
+fun WelcomePage(navController: NavController = NavController(LocalContext.current)){
     R.string.detail
     Box(
         Modifier
@@ -77,13 +77,13 @@ fun WelcomePage(navController: NavController){
     }
 }
 
-/*@Preview
+@Preview
 @Composable
 fun WelcomepagePreview() {
     KoiBitoShuuChuuTheme {
-        WelcomePage(navController)
+        WelcomePage(NavController(LocalContext.current))
     }
-}*/
+}
 
 /*@SuppressLint("NewApi")
 @Composable

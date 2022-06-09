@@ -9,9 +9,9 @@ class GetPlotLockAndHavereadState {
         characterID: Int
     ): List<PlotLockAndHavereadStateAndTitle> {
         val plotHavereadState =
-            MyApplication.app_container?.plotRepository?.getPlotByCharacterId(characterID)?.value!!
+            MyApplication.appContainer().plotRepository.getPlotByCharacterId(characterID).value!!
         val characterLevel =
-            MyApplication.app_container?.characterRepository?.getCharacter(characterID)?.value?.level()!!
+            MyApplication.appContainer().characterRepository.getCharacter(characterID).value?.level()!!
         var output: List<PlotLockAndHavereadStateAndTitle> = listOf()
         val plotListSize = plotHavereadState.size
         val plot = CharacterInfoAndPlotStorer.character[characterID].plotList

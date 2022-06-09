@@ -19,14 +19,15 @@ import androidx.navigation.NavController
 import com.ss_team_1.koibitoshuuchuu.R
 import com.ss_team_1.koibitoshuuchuu.presentation.components.*
 
-//@Preview
+@Preview
 @Composable
 fun HomePage(
-    navController: NavController
+    navController: NavController = NavController(LocalContext.current)
 ) {
     Box(
         Modifier.fillMaxSize()
     ){
+        val intimacyLevel = 
         Image(
             painter = painterResource(id = R.drawable.coffee_shop_background),
             contentDescription = "",
