@@ -21,7 +21,7 @@ STILL NOT COMPLETE!!!!!!!!!!!!!!!!!!!!
  */
 
 @Composable
-fun PagePlot(
+fun PlotPage(
     plotID: Int,
     characterID: Int,
     onPlotEnd: () -> Unit,
@@ -104,7 +104,7 @@ fun PagePlot(
 @Preview(showBackground = true, backgroundColor = 0xFFF0EAE2)
 @Composable
 fun PagePlotPreview() {
-    PagePlot(
+    PlotPage(
         plotID = 0,
         characterID = 0,
         navController = NavController(LocalContext.current),

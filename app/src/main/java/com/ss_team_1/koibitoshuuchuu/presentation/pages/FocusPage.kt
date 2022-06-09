@@ -20,6 +20,7 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
 import com.ss_team_1.koibitoshuuchuu.R
+import com.ss_team_1.koibitoshuuchuu.presentation.Page
 import com.ss_team_1.koibitoshuuchuu.presentation.components.*
 import com.ss_team_1.koibitoshuuchuu.presentation.utils.FocusTimeFormatter
 import com.ss_team_1.koibitoshuuchuu.ui.theme.AccentColor
@@ -30,10 +31,10 @@ import kotlinx.coroutines.delay
 
 @Preview
 @Composable
-private fun FocusPagePreview()
-{
+private fun FocusPagePreview() {
     FocusPage(navController = NavController(LocalContext.current), focusTime = 10)
 }
+
 @Composable
 fun FocusPage(navController: NavController, focusTime: Int?) {
     var pauseState by remember { mutableStateOf(false) }
@@ -111,9 +112,9 @@ fun FocusPage(navController: NavController, focusTime: Int?) {
                         horizontalArrangement = Arrangement.SpaceBetween,
                         modifier = Modifier.fillMaxWidth()
                     ) {
-                        SquareHomeButton()
+                        SquareHomeButton(onClick = { navController.navigate(Page.Home.route) })
                         AccentButtonTemplate(
-                            onClick = { /*TODO*/ },
+                            onClick = { navController.navigate(Page.FocusIntro.route) },
                             width = 248.dp, height = 58.dp
                         ) {
                             Text(

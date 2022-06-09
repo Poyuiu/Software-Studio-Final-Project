@@ -3,6 +3,7 @@ package com.ss_team_1.koibitoshuuchuu.presentation.pages
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.*
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.layout.ContentScale
@@ -18,15 +19,18 @@ import com.ss_team_1.koibitoshuuchuu.presentation.components.CharacterInfo
 import com.ss_team_1.koibitoshuuchuu.presentation.components.PlotList
 import com.ss_team_1.koibitoshuuchuu.presentation.components.TopBar
 import com.ss_team_1.koibitoshuuchuu.presentation.utils.CharacterInfoAndPlotStorer
-import com.ss_team_1.koibitoshuuchuu.presentation.utils.SingleCharacterInfoAndPlotStormer
 
 @Composable
-fun PageCharacterInfoAndStory(
-    character: SingleCharacterInfoAndPlotStormer,
-    onClickGoStory: () -> Unit,
+fun CharacterInfoAndStoryPage(
+    characterID: Int,
+    onClickGoStory: (Int) -> Unit,
     onClickGoDetail: () -> Unit,
     navController: NavController
 ) {
+    val character = CharacterInfoAndPlotStorer.character[characterID]
+    val plotTitleList = remember {
+        GetPlotLockAndHaveReadState().getPlotLockAndHaveReadState(characterID)
+    }
     Box(
         Modifier
             .fillMaxSize()
@@ -55,7 +59,7 @@ fun PageCharacterInfoAndStory(
             Spacer(modifier = Modifier.height(8.dp))
             PlotList(
                 onClick = onClickGoStory,
-                plotTitleList = GetPlotLockAndHaveReadState().getPlotLockAndHaveReadState(character.id)
+                plotTitleList = plotTitleList
             )
         }
     }
@@ -66,8 +70,8 @@ fun PageCharacterInfoAndStory(
 fun PageCharacterInfoAndStoryPreview(
 
 ) {
-    PageCharacterInfoAndStory(
-        character = CharacterInfoAndPlotStorer.character[0],
+    CharacterInfoAndStoryPage(
+        characterID = 0,
         onClickGoStory = {},
         onClickGoDetail = {},
         navController = NavController(LocalContext.current)

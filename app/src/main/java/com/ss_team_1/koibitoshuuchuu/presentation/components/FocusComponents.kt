@@ -22,9 +22,9 @@ import com.ss_team_1.koibitoshuuchuu.ui.theme.mamelonFamily
 
 @Preview
 @Composable
-fun SquareHomeButton() {
+fun SquareHomeButton(onClick: ()->Unit = {}) {
     Button(
-        onClick = { /*TODO*/ },
+        onClick = onClick,
         shape = RoundedCornerShape(15.dp),
         colors = ButtonDefaults.buttonColors(backgroundColor = Primary, contentColor = Secondary),
         border = BorderStroke(width = 2.dp, color = Secondary),

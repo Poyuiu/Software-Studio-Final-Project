@@ -2,6 +2,7 @@ package com.ss_team_1.koibitoshuuchuu.presentation.pages
 
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.*
+import androidx.compose.foundation.lazy.rememberLazyListState
 import androidx.compose.material.Text
 import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
@@ -17,7 +18,11 @@ import com.ss_team_1.koibitoshuuchuu.R
 import com.ss_team_1.koibitoshuuchuu.presentation.Page
 import com.ss_team_1.koibitoshuuchuu.presentation.components.*
 import com.ss_team_1.koibitoshuuchuu.ui.theme.mamelonFamily
+import dev.chrisbanes.snapper.ExperimentalSnapperApi
+import dev.chrisbanes.snapper.LazyListSnapperLayoutInfo
+import dev.chrisbanes.snapper.rememberLazyListSnapperLayoutInfo
 
+@OptIn(ExperimentalSnapperApi::class)
 @Preview
 @Composable
 fun FocusIntroPage(navController: NavController = NavController(LocalContext.current)) {
@@ -27,6 +32,9 @@ fun FocusIntroPage(navController: NavController = NavController(LocalContext.cur
     var focusTime by remember {
         mutableStateOf(20)
     }
+    val lazyListState = rememberLazyListState()
+    val layoutInfo: LazyListSnapperLayoutInfo =
+        rememberLazyListSnapperLayoutInfo(lazyListState = lazyListState)
     KBSCScaffold(
         navController = navController,
         navbarEnable = false,
@@ -47,7 +55,7 @@ fun FocusIntroPage(navController: NavController = NavController(LocalContext.cur
             horizontalAlignment = Alignment.CenterHorizontally,
             verticalArrangement = Arrangement.Bottom
         ) {
-            FocusIntroTimePickerButton()
+            FocusIntroTimePickerButton(lazyListState = lazyListState, layoutInfo = layoutInfo)
             FocusIntroWorkTextField()
             FocusIntroScenePicker()
             Spacer(modifier = Modifier.size(20.dp))

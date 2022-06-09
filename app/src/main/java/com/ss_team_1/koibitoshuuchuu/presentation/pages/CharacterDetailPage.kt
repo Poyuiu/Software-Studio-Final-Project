@@ -21,7 +21,7 @@ import com.ss_team_1.koibitoshuuchuu.presentation.components.*
 import com.ss_team_1.koibitoshuuchuu.presentation.utils.CharacterInfoAndPlotStorer
 
 @Composable
-fun PageCharacterDetail(
+fun CharacterDetailPage(
     characterID: Int,
     navController: NavController
 ) {
@@ -76,7 +76,7 @@ fun PageCharacterDetail(
 fun PageCharacterDetailPreview(
 
 ) {
-    PageCharacterDetail(
+    CharacterDetailPage(
         characterID = 0,
         navController = NavController(LocalContext.current)
     )
