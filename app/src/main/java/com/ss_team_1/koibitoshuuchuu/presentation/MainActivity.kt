@@ -32,7 +32,12 @@ class MainActivity : ComponentActivity() {
                         )
                     }
                     composable(Page.FocusIntro.route) { FocusIntroPage(navController) }
-                    composable(Page.Focus.route + "/{focusTime}") { backStackEntry ->
+                    composable(
+                        Page.Focus.route + "/{focusTime}",
+                        arguments = listOf(navArgument("focusTime") {
+                            type = NavType.IntType
+                        })
+                    ) { backStackEntry ->
                         val focusTime = backStackEntry.arguments?.getInt("focusTime")
                         FocusPage(navController, focusTime)
                     }

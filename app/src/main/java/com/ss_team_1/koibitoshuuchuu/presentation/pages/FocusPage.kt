@@ -112,9 +112,17 @@ fun FocusPage(navController: NavController, focusTime: Int?) {
                         horizontalArrangement = Arrangement.SpaceBetween,
                         modifier = Modifier.fillMaxWidth()
                     ) {
-                        SquareHomeButton(onClick = { navController.navigate(Page.Home.route) })
+                        SquareHomeButton(onClick = {
+                            navController.navigate(Page.Home.route) {
+                                popUpTo(Page.Home.route) { inclusive = true }
+                            }
+                        })
                         AccentButtonTemplate(
-                            onClick = { navController.navigate(Page.FocusIntro.route) },
+                            onClick = {
+                                navController.navigate(Page.FocusIntro.route) {
+                                    popUpTo(Page.FocusIntro.route) { inclusive = true }
+                                }
+                            },
                             width = 248.dp, height = 58.dp
                         ) {
                             Text(
