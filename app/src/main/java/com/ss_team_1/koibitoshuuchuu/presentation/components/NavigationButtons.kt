@@ -18,35 +18,36 @@ import androidx.compose.ui.graphics.painter.Painter
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import androidx.navigation.NavController
 import com.ss_team_1.koibitoshuuchuu.R
 import com.ss_team_1.koibitoshuuchuu.ui.theme.Primary
 import com.ss_team_1.koibitoshuuchuu.ui.theme.Secondary
 
-@Preview(showBackground = true)
+//@Preview(showBackground = true)
 @Composable
-fun NavigationProfileButton() {
+fun NavigationProfileButton(navController:NavController) {
     NavigationButtonTemplate(
-        onClick = { /*TODO*/ },
+        onClick = { navController.navigate("profilepage") },
         selected = false,
         painter = painterResource(id = R.drawable.ic_profile)
     )
 }
 
-@Preview(showBackground = true)
+//@Preview(showBackground = true)
 @Composable
-fun NavigationHomeButton() {
+fun NavigationHomeButton(navController:NavController) {
     NavigationButtonTemplate(
-        onClick = { /*TODO*/ },
+        onClick = { navController.navigate("homepage") },
         selected = false,
         painter = painterResource(id = R.drawable.ic_home)
     )
 }
 
-@Preview(showBackground = true)
+//@Preview(showBackground = true)
 @Composable
-fun NavigationShopButton() {
+fun NavigationShopButton(navController:NavController) {
     NavigationButtonTemplate(
-        onClick = { /*TODO*/ },
+        onClick = { navController.navigate("shoppage") },
         selected = false,
         painter = painterResource(id = R.drawable.ic_shop)
     )

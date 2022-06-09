@@ -582,19 +582,19 @@ fun PageProfile(
     navController: NavController
 ) {
     val userPhoto = remember {
-        MyApplication.app_container?.userRepository?.getUserInfo()?.value?.photo_url
+        MyApplication.appContainer().userRepository.getUserInfo().value?.photo_url
     }
     val userName = remember {
-        MyApplication.app_container?.userRepository?.getUserInfo()?.value?.user_name
+        MyApplication.appContainer().userRepository.getUserInfo().value?.user_name
     }
     val userID = remember {
-        MyApplication.app_container?.userRepository?.getUserInfo()?.value?.id
+        MyApplication.appContainer().userRepository.getUserInfo().value?.id
     }
     val userGender = remember {
-        MyApplication.app_container?.userRepository?.getUserInfo()?.value?.gender
+        MyApplication.appContainer().userRepository.getUserInfo().value?.gender
     }
     val userBirthday = remember {
-        MyApplication.app_container?.userRepository?.getUserInfo()?.value?.birthday
+        MyApplication.appContainer().userRepository.getUserInfo().value?.birthday
     }
     Box(
         modifier = Modifier.fillMaxSize()

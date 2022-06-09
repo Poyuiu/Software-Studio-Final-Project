@@ -28,10 +28,11 @@ import com.ss_team_1.koibitoshuuchuu.R
 import com.ss_team_1.koibitoshuuchuu.domain.model.User
 import com.ss_team_1.koibitoshuuchuu.presentation.components.PageProfile
 import com.ss_team_1.koibitoshuuchuu.presentation.pages.HomePage
+import com.ss_team_1.koibitoshuuchuu.presentation.pages.ShopPage
 import com.ss_team_1.koibitoshuuchuu.ui.theme.KoiBitoShuuChuuTheme
 
 
-class MainActivity: ComponentActivity() {
+class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContent {
@@ -40,7 +41,13 @@ class MainActivity: ComponentActivity() {
                 NavHost(navController = navController, startDestination = "welcome") {
                     composable("welcome") { WelcomePage(navController/*...*/) }
                     composable("homepage") { HomePage(navController/*...*/) }
-                    composable("profilepage"){ PageProfile(navController)}
+                    composable("profilepage") { PageProfile(navController) }
+                    composable("shoppage") {
+                        ShopPage(
+                            navController = navController,
+                            buyflag = true
+                        )
+                    }
                     /*...*/
                 }
 
@@ -51,7 +58,7 @@ class MainActivity: ComponentActivity() {
 }
 
 @Composable
-fun WelcomePage(navController: NavController = NavController(LocalContext.current)){
+fun WelcomePage(navController: NavController = NavController(LocalContext.current)) {
     R.string.detail
     Box(
         Modifier
@@ -60,7 +67,7 @@ fun WelcomePage(navController: NavController = NavController(LocalContext.curren
                 enabled = true,
                 onClickLabel = "Welcomepage click",
                 onClick = {
-                    navController.navigate("profilepage")
+                    navController.navigate("homepage")
                 }
             )
     ) {

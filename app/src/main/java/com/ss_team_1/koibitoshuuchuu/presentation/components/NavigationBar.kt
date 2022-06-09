@@ -37,9 +37,9 @@ fun NavigationBar(
             modifier = Modifier.padding(horizontal = 25.5.dp),
             horizontalArrangement = Center
         ) {
-            NavigationHomeButton()
-            NavigationProfileButton()
-            NavigationShopButton()
+            NavigationHomeButton(navController)
+            NavigationProfileButton(navController)
+            NavigationShopButton(navController)
         }
     }
 }
