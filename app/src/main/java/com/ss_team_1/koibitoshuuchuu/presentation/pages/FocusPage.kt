@@ -17,6 +17,7 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.navigation.NavController
 import com.ss_team_1.koibitoshuuchuu.R
 import com.ss_team_1.koibitoshuuchuu.presentation.components.*
 import com.ss_team_1.koibitoshuuchuu.ui.theme.AccentColor
@@ -24,10 +25,10 @@ import com.ss_team_1.koibitoshuuchuu.ui.theme.Primary
 import com.ss_team_1.koibitoshuuchuu.ui.theme.huninnFamily
 import com.ss_team_1.koibitoshuuchuu.ui.theme.mamelonFamily
 
-@Preview
+//@Preview
 
 @Composable
-fun FocusPage() {
+fun FocusPage(navController: NavController) {
     var pauseState by remember { mutableStateOf(false) }
     var focusSuccess by remember {
         mutableStateOf(true)
@@ -36,6 +37,7 @@ fun FocusPage() {
         mutableStateOf(true)
     }
     KBSCScaffold(
+        navController = navController,
         backgroundResourceId = R.drawable.coffee_shop_background,
         navbarEnable = false,
         topBarEnable = false

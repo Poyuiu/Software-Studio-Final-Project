@@ -6,14 +6,17 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.layout.ContentScale
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.tooling.preview.Preview
+import androidx.navigation.NavController
 import com.ss_team_1.koibitoshuuchuu.R
 
 @Preview
 @Composable
 private fun KBSCScaffoldPreview() {
     KBSCScaffold(
+        navController = NavController(LocalContext.current),
         button1 = { BackButton() },
         backgroundResourceId = R.drawable.coffee_shop_background
     ) {
@@ -27,6 +30,7 @@ private fun KBSCScaffoldPreview() {
 
 @Composable
 fun KBSCScaffold(
+    navController: NavController,
     topBarEnable: Boolean = true,
     navbarEnable: Boolean = true,
     backgroundResourceId: Int,
@@ -51,7 +55,7 @@ fun KBSCScaffold(
             )
         }
         if (navbarEnable) {
-            NavigationBar(modifier = Modifier.align(Alignment.BottomCenter))
+            NavigationBar(modifier = Modifier.align(Alignment.BottomCenter), navController)
         }
         content()
     }

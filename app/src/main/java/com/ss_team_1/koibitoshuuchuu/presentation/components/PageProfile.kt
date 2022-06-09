@@ -6,23 +6,32 @@ import androidx.compose.foundation.border
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
-import androidx.compose.material.*
+import androidx.compose.material.Button
+import androidx.compose.material.ButtonDefaults
+import androidx.compose.material.Divider
+import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontStyle
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.navigation.NavController
 import com.ss_team_1.koibitoshuuchuu.R
-import com.ss_team_1.koibitoshuuchuu.domain.model.User
+import com.ss_team_1.koibitoshuuchuu.presentation.MyApplication
 import com.ss_team_1.koibitoshuuchuu.presentation.utils.coloredShadow
-import com.ss_team_1.koibitoshuuchuu.ui.theme.*
+import com.ss_team_1.koibitoshuuchuu.ui.theme.DarkGreenBlue
+import com.ss_team_1.koibitoshuuchuu.ui.theme.GreenBlue
+import com.ss_team_1.koibitoshuuchuu.ui.theme.ProfilePink
+import com.ss_team_1.koibitoshuuchuu.ui.theme.black
 import java.util.*
 
 @Composable
@@ -271,7 +280,7 @@ fun Info2_character() {
             )
         }
         Spacer(modifier = Modifier.padding(5.dp))
-        Box() {
+        Box {
             Image(
                 painter = painterResource(
                     id = R.drawable.profile_character_2
@@ -302,7 +311,7 @@ fun Info2_character() {
             )
         }
         Spacer(modifier = Modifier.padding(5.dp))
-        Box() {
+        Box {
             Image(
                 painter = painterResource(
                     id = R.drawable.profile_character_3
@@ -388,7 +397,7 @@ fun Info2_scene() {
             )
         }
         Spacer(modifier = Modifier.padding(5.dp))
-        Box() {
+        Box {
             Image(
                 painter = painterResource(
                     id = R.drawable.profile_scene_2
@@ -419,7 +428,7 @@ fun Info2_scene() {
             )
         }
         Spacer(modifier = Modifier.padding(5.dp))
-        Box() {
+        Box {
             Image(
                 painter = painterResource(
                     id = R.drawable.profile_scene_3
@@ -504,7 +513,7 @@ fun Info2_item() {
             )
         }
         Spacer(modifier = Modifier.padding(5.dp))
-        Box() {
+        Box {
             Image(
                 painter = painterResource(
                     id = R.drawable.profile_item_2
@@ -526,7 +535,7 @@ fun Info2_item() {
             )
         }
         Spacer(modifier = Modifier.padding(5.dp))
-        Box() {
+        Box {
             Image(
                 painter = painterResource(
                     id = R.drawable.profile_item_3
@@ -569,7 +578,24 @@ fun UserInfo2Preview() {
 }
 
 @Composable
-fun PageProfile(user: User) {
+fun PageProfile(
+    navController: NavController
+) {
+    val userPhoto = remember {
+        MyApplication.app_container?.userRepository?.getUserInfo()?.value?.photo_url
+    }
+    val userName = remember {
+        MyApplication.app_container?.userRepository?.getUserInfo()?.value?.user_name
+    }
+    val userID = remember {
+        MyApplication.app_container?.userRepository?.getUserInfo()?.value?.id
+    }
+    val userGender = remember {
+        MyApplication.app_container?.userRepository?.getUserInfo()?.value?.gender
+    }
+    val userBirthday = remember {
+        MyApplication.app_container?.userRepository?.getUserInfo()?.value?.birthday
+    }
     Box(
         modifier = Modifier.fillMaxSize()
     ) {
@@ -582,7 +608,7 @@ fun PageProfile(user: User) {
                 .fillMaxSize()
         )
         TopBar(button1 = { SettingsButton() })
-        NavigationBar(modifier = Modifier.align(Alignment.BottomCenter))
+        NavigationBar(modifier = Modifier.align(Alignment.BottomCenter), navController)
         Column(
             modifier = Modifier
                 .align(Alignment.TopCenter)
@@ -590,12 +616,29 @@ fun PageProfile(user: User) {
             horizontalAlignment = Alignment.CenterHorizontally
         ) {
             Spacer(modifier = Modifier.height(40.dp))
+//            if (userPhoto != null) {
+//                if (userName != null) {
+//                    if (userID != null) {
+//                        if (userGender != null) {
+//                            if (userBirthday != null) {
+//                                UserInfo1(
+//                                    userPhoto = userPhoto,
+//                                    userName = userName,
+//                                    userID = userID,
+//                                    userGender = userGender,
+//                                    userBirthday = userBirthday
+//                                )
+//                            }
+//                        }
+//                    }
+//                }
+//            }
             UserInfo1(
-                userPhoto = user.photo_url,
-                userName = user.user_name,
-                userID = user.id,
-                userGender = user.gender,
-                userBirthday = user.birthday
+                userPhoto = R.drawable.profile_picture1.toString(),
+                userName = "酷酷的名字",
+                userID = 1234567,
+                userGender = "酷酷的草履蟲",
+                userBirthday = Calendar.getInstance()
             )
             Divider(
                 color = Color.Black, thickness = 1.5.dp,
@@ -612,15 +655,6 @@ fun PageProfile(user: User) {
 @Composable
 fun PageProfilePreview() {
     PageProfile(
-        user = User(
-            user_name = "酷酷的名字",
-            photo_url = R.drawable.profile_picture1.toString(),
-            id = 12345678,
-            gender = "酷酷的草履蟲",
-            birthday = Calendar.getInstance(),
-            money = 1000,
-            gem = 1000,
-            join_date = Calendar.getInstance()
-        )
+        navController = NavController(LocalContext.current)
     )
 }

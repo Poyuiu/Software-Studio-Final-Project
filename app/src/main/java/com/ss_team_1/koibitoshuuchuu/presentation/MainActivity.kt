@@ -25,6 +25,8 @@ import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
 import com.ss_team_1.koibitoshuuchuu.R
+import com.ss_team_1.koibitoshuuchuu.domain.model.User
+import com.ss_team_1.koibitoshuuchuu.presentation.components.PageProfile
 import com.ss_team_1.koibitoshuuchuu.presentation.pages.HomePage
 import com.ss_team_1.koibitoshuuchuu.ui.theme.KoiBitoShuuChuuTheme
 
@@ -38,6 +40,7 @@ class MainActivity: ComponentActivity() {
                 NavHost(navController = navController, startDestination = "welcome") {
                     composable("welcome") { WelcomePage(navController/*...*/) }
                     composable("homepage") { HomePage(navController/*...*/) }
+                    composable("profilepage"){ PageProfile(navController)}
                     /*...*/
                 }
 
@@ -53,11 +56,11 @@ fun WelcomePage(navController: NavController){
     Box(
         Modifier
             .fillMaxSize()
-            .clickable (
+            .clickable(
                 enabled = true,
                 onClickLabel = "Welcomepage click",
                 onClick = {
-                    navController.navigate("homepage")
+                    navController.navigate("profilepage")
                 }
             )
     ) {

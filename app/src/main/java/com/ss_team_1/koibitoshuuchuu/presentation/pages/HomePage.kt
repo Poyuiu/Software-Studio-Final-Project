@@ -35,7 +35,7 @@ fun HomePage(
                 .fillMaxSize()
         )
         TopBar(button1 = { SettingsButton() }, button2 = {HelpButton()})
-        NavigationBar(modifier = Modifier.align(Alignment.BottomCenter))
+        NavigationBar(modifier = Modifier.align(Alignment.BottomCenter),navController)
         Column(
             modifier = Modifier.align(Alignment.TopCenter),
             horizontalAlignment = Alignment.CenterHorizontally

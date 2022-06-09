@@ -11,17 +11,19 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.navigation.NavController
 import com.ss_team_1.koibitoshuuchuu.R
 import com.ss_team_1.koibitoshuuchuu.presentation.components.*
 import com.ss_team_1.koibitoshuuchuu.ui.theme.mamelonFamily
 
-@Preview
+//@Preview
 @Composable
-fun FocusIntroPage() {
+fun FocusIntroPage(navController: NavController) {
     var timePickerOpenState by remember {
         mutableStateOf(false)
     }
     KBSCScaffold(
+        navController=navController,
         navbarEnable = false,
         backgroundResourceId = R.drawable.coffee_shop_background
     ) {
