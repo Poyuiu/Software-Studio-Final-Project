@@ -27,7 +27,7 @@ import com.ss_team_1.koibitoshuuchuu.ui.theme.Secondary
 @Composable
 fun NavigationProfileButton(navController:NavController) {
     NavigationButtonTemplate(
-        onClick = { navController.navigate("profilepage") },
+        onClick = { navController.navigate("profile_page") },
         selected = false,
         painter = painterResource(id = R.drawable.ic_profile)
     )
@@ -37,7 +37,7 @@ fun NavigationProfileButton(navController:NavController) {
 @Composable
 fun NavigationHomeButton(navController:NavController) {
     NavigationButtonTemplate(
-        onClick = { navController.navigate("homepage") },
+        onClick = { navController.navigate("home_page") },
         selected = false,
         painter = painterResource(id = R.drawable.ic_home)
     )
@@ -47,7 +47,7 @@ fun NavigationHomeButton(navController:NavController) {
 @Composable
 fun NavigationShopButton(navController:NavController) {
     NavigationButtonTemplate(
-        onClick = { navController.navigate("shoppage") },
+        onClick = { navController.navigate("shop_page") },
         selected = false,
         painter = painterResource(id = R.drawable.ic_shop)
     )
