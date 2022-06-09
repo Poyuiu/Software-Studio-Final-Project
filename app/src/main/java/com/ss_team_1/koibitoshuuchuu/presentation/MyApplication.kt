@@ -13,7 +13,7 @@ import com.ss_team_1.koibitoshuuchuu.data.repository_implementation.*
 
 class MyApplication: Application() {
     companion object {
-        private var app_container: AppContainer? = null
+        var app_container: AppContainer? = null
         fun appContainer() = app_container!!
     }
 
