@@ -97,7 +97,13 @@ class MainActivity : ComponentActivity() {
                             plotID = entry.arguments?.getInt("plotID")!!,
                             characterID = entry.arguments?.getInt("characterID")!!,
                             navController = navController,
-                            onPlotEnd = { navController.popBackStack() }
+                            onPlotEnd = {
+                                navController.popBackStack()
+                                MyApplication.appContainer().plotRepository.setPlotSeen(
+                                    characterId = entry.arguments?.getInt("characterID")!!,
+                                    plotNum = entry.arguments?.getInt("plotID")!!
+                                )
+                            }
                         )
                     }
                     //composable(Page.FocusIntro.route) { FocusIntroPage(navController) }
