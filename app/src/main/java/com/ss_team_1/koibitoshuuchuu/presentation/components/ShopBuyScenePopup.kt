@@ -74,7 +74,6 @@ fun SceneBuying(
                     fontStyle = FontStyle(contextFont),
                     modifier = Modifier.padding(8.dp)
                 )
-
             }
         }
         Box(
@@ -127,7 +126,7 @@ fun SceneBuying(
                             onClickLabel = "buy scene",
                             onClick = {
                                 /*TODO*/
-                                spend.value =100
+                                spend.value =100+scene*1000
                             }
                         )
                 )

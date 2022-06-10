@@ -58,7 +58,7 @@ fun ShopPage(
             money_diamond_bar(100, 100)
             if (boughtflag.value) {
                 Image(
-                    painter = painterResource(id = bought_list[buying.value]),
+                    painter = painterResource(id = bought_list[spending.value/1000]),
                     contentDescription = "",
                     contentScale = ContentScale.Fit,
                     modifier = Modifier.size(336.dp, 40.dp)
@@ -136,17 +136,19 @@ fun ShopPage(
             ShopGiftGoodsRow1()
             if(buying.value>-1){
                 openDialog.value = true
+                boughtflag.value=false
             }
         }
         if(openDialog.value){
             spending.value=buyingPopupScreen(buying.value)
+            if(spending.value>0){
+                boughtflag.value=true
+            }
             if(spending.value >= 0){
                 buying.value=-1
                 openDialog.value=false
             }
-            if(spending.value>0){
-                boughtflag.value=true
-            }
+
         }
 
     }
