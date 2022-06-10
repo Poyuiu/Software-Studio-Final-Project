@@ -1,0 +1,495 @@
+Index: app/src/main/java/com/ss_team_1/koibitoshuuchuu/presentation/pages/HomePage.kt
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>package com.ss_team_1.koibitoshuuchuu.presentation.pages\r\n\r\nimport androidx.compose.foundation.Image\r\nimport androidx.compose.foundation.clickable\r\nimport androidx.compose.foundation.layout.*\r\nimport androidx.compose.runtime.Composable\r\nimport androidx.compose.runtime.MutableState\r\nimport androidx.compose.runtime.mutableStateOf\r\nimport androidx.compose.runtime.remember\r\nimport androidx.compose.ui.Alignment\r\nimport androidx.compose.ui.Modifier\r\nimport androidx.compose.ui.layout.ContentScale\r\nimport androidx.compose.ui.platform.LocalContext\r\nimport androidx.compose.ui.res.painterResource\r\nimport androidx.compose.ui.tooling.preview.Preview\r\nimport androidx.compose.ui.unit.dp\r\nimport androidx.hilt.navigation.compose.hiltViewModel\r\nimport androidx.navigation.NavController\r\nimport com.ss_team_1.koibitoshuuchuu.R\r\nimport com.ss_team_1.koibitoshuuchuu.presentation.components.*\r\nimport com.ss_team_1.koibitoshuuchuu.presentation.viewModel.CharacterViewModel\r\n\r\n//@Preview\r\n@Composable\r\nfun HomePage(\r\n    navController: NavController = NavController(LocalContext.current),\r\n    viewModel: CharacterViewModel = hiltViewModel(),\r\n    onClickToCharacterInfo: (Int) -> Unit\r\n) {\r\n    val state = viewModel.state.value\r\n\r\n    Box(\r\n        Modifier.fillMaxSize()\r\n    ) {\r\n        val characterid: MutableState<Int> =\r\n            remember { mutableStateOf(0) }\r\n\r\n        //var checkedState by rememberSaveable { mutableStateOf(false) }\r\n\r\n        Image(\r\n            painter = painterResource(id = R.drawable.coffee_shop_background),\r\n            contentDescription = \"\",\r\n            contentScale = ContentScale.Crop,\r\n            modifier = Modifier\r\n                .fillMaxSize()\r\n        )\r\n        TopBar(button1 = { SettingsButton() }, button2 = { HelpButton() })\r\n        NavigationBar(modifier = Modifier.align(Alignment.BottomCenter), navController)\r\n        Column(\r\n            modifier = Modifier.align(Alignment.TopCenter),\r\n            horizontalAlignment = Alignment.CenterHorizontally\r\n        ) {\r\n            Spacer(modifier = Modifier.height(64.dp))\r\n//            if (intimacyLevel != null && intimacy != null && levelIntimacyNeed !=null) {\r\n//                HomepageCharacter(intimacyLevel,intimacy,levelIntimacyNeed,\r\n//                    LocalContext.current, lock,characterid.value)\r\n//            }else {\r\n//                HomepageCharacter(0,0,100,\r\n//                    LocalContext.current, lock,characterid.value)\r\n//            }\r\n            HomepageCharacter(\r\n                intimacyLevel = state.characters[characterid.value].level(),\r\n                intimacy = state.characters[characterid.value].intimacy,\r\n                levelIntimacyNeed = state.characters[characterid.value].intimacyNeeded(),\r\n                context = LocalContext.current,\r\n                lock = state.characters[characterid.value].level() <= 0,\r\n                characterId = characterid.value,\r\n                onClickToCharacterInfo = { onClickToCharacterInfo(characterid.value) }\r\n            )\r\n        }\r\n        Column(\r\n            modifier = Modifier.align(Alignment.BottomCenter),\r\n            horizontalAlignment = Alignment.CenterHorizontally\r\n        ) {\r\n            FocusButton(\r\n                LocalContext.current,\r\n                state.characters[characterid.value].intimacy <= 0,\r\n                navController\r\n            )\r\n            Spacer(modifier = Modifier.height(120.dp))\r\n        }\r\n        Row(\r\n            modifier = Modifier\r\n                .align(Alignment.CenterStart)\r\n                .clickable(\r\n                    enabled = true,\r\n                    onClickLabel = \"Clickable right shift\",\r\n                    onClick = {\r\n                        if (characterid.value < 2) {\r\n                            characterid.value += 1\r\n                        } else {\r\n                            characterid.value = 0\r\n                        }\r\n                    }\r\n                ),\r\n            verticalAlignment = Alignment.CenterVertically\r\n        ) {\r\n            rightRoundedTriangle(\r\n                /*modifier = Modifier\r\n                    .clickable (\r\n                        enabled = true,\r\n                        onClickLabel = \"Clickable right shift\",\r\n                        onClick = {\r\n                            if(characterid.value<2){\r\n                                characterid.value+=1\r\n                            }else{characterid.value=0}\r\n                        }\r\n                    )*/\r\n            )\r\n        }\r\n        Row(\r\n            modifier = Modifier\r\n                .align(Alignment.CenterEnd)\r\n                .clickable(\r\n                    enabled = true,\r\n                    onClickLabel = \"Clickable left shift\",\r\n                    onClick = {\r\n                        if (characterid.value > 0) {\r\n                            characterid.value -= 1\r\n                        } else {\r\n                            characterid.value = 2\r\n                        }\r\n                    }\r\n                ),\r\n            verticalAlignment = Alignment.CenterVertically\r\n        ) {\r\n            leftRoundedTriangle(\r\n                /*modifier = Modifier\r\n                    .clickable (\r\n                        enabled = true,\r\n                        onClickLabel = \"Clickable left shift\",\r\n                        onClick = {\r\n                            if(characterid.value>0){\r\n                                characterid.value-=1\r\n                            }else{characterid.value=2}\r\n                        }\r\n                    )*/\r\n            )\r\n        }\r\n    }\r\n}\r\n\r\n
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/app/src/main/java/com/ss_team_1/koibitoshuuchuu/presentation/pages/HomePage.kt b/app/src/main/java/com/ss_team_1/koibitoshuuchuu/presentation/pages/HomePage.kt
+--- a/app/src/main/java/com/ss_team_1/koibitoshuuchuu/presentation/pages/HomePage.kt	(revision fa54ebbb9ee325bb80a50685e99e0dced5b879fb)
++++ b/app/src/main/java/com/ss_team_1/koibitoshuuchuu/presentation/pages/HomePage.kt	(date 1654882082991)
+@@ -17,6 +17,7 @@
+ import androidx.hilt.navigation.compose.hiltViewModel
+ import androidx.navigation.NavController
+ import com.ss_team_1.koibitoshuuchuu.R
++import com.ss_team_1.koibitoshuuchuu.presentation.Page
+ import com.ss_team_1.koibitoshuuchuu.presentation.components.*
+ import com.ss_team_1.koibitoshuuchuu.presentation.viewModel.CharacterViewModel
+ 
+@@ -28,7 +29,10 @@
+     onClickToCharacterInfo: (Int) -> Unit
+ ) {
+     val state = viewModel.state.value
+-
++    val openDialog1 = remember { mutableStateOf(false) }
++    val popup = remember { mutableStateOf(0) }
++    val openDialog2 = remember { mutableStateOf(false) }
++    val intimacyupdate = remember { mutableStateOf(-1) }
+     Box(
+         Modifier.fillMaxSize()
+     ) {
+@@ -72,11 +76,49 @@
+             modifier = Modifier.align(Alignment.BottomCenter),
+             horizontalAlignment = Alignment.CenterHorizontally
+         ) {
+-            FocusButton(
++            /*FocusButton(
+                 LocalContext.current,
+                 state.characters[characterid.value].intimacy <= 0,
+                 navController
+-            )
++            )*/
++            Box(
++                Modifier
++                    .size(216.dp, 66.dp)
++            ) {
++                if (state.characters[characterid.value].intimacy <= 0) {
++                    Image(
++                        painter = painterResource(id = R.drawable.focus_button_unlock),
++                        contentDescription = "",
++                        contentScale = ContentScale.Fit,
++                        modifier = Modifier
++                            .fillMaxSize()
++                            .clickable(
++                                enabled = true,
++                                onClickLabel = "unlock click",
++                                onClick = {
++                                    /*TODO*/
++                                    openDialog1.value = true
++                                }
++                            )
++                    )
++                } else {
++                    Image(
++                        painter = painterResource(id = R.drawable.focus_button),
++                        contentDescription = "",
++                        contentScale = ContentScale.Fit,
++                        modifier = Modifier
++                            .fillMaxSize()
++                            .clickable(
++                                enabled = true,
++                                onClickLabel = "focus click",
++                                onClick = {
++                                    navController.navigate(Page.FocusIntro.route)
++                                }
++                            )
++                    )
++                }
++
++            }
+             Spacer(modifier = Modifier.height(120.dp))
+         }
+         Row(
+@@ -95,18 +137,7 @@
+                 ),
+             verticalAlignment = Alignment.CenterVertically
+         ) {
+-            rightRoundedTriangle(
+-                /*modifier = Modifier
+-                    .clickable (
+-                        enabled = true,
+-                        onClickLabel = "Clickable right shift",
+-                        onClick = {
+-                            if(characterid.value<2){
+-                                characterid.value+=1
+-                            }else{characterid.value=0}
+-                        }
+-                    )*/
+-            )
++            rightRoundedTriangle()
+         }
+         Row(
+             modifier = Modifier
+@@ -124,19 +155,28 @@
+                 ),
+             verticalAlignment = Alignment.CenterVertically
+         ) {
+-            leftRoundedTriangle(
+-                /*modifier = Modifier
+-                    .clickable (
+-                        enabled = true,
+-                        onClickLabel = "Clickable left shift",
+-                        onClick = {
+-                            if(characterid.value>0){
+-                                characterid.value-=1
+-                            }else{characterid.value=2}
+-                        }
+-                    )*/
+-            )
++            leftRoundedTriangle()
++        }
++        if(openDialog1.value){
++            popup.value = UnlockPopupScreen()
++            if(popup.value==1){
++                openDialog1.value=false
++            }
++            else if(popup.value==2){
++                openDialog1.value=false
++                openDialog2.value=true
++            }
+         }
++        else if(openDialog2.value){
++            intimacyupdate.value = GiveGiftPopupScreen()
++            if(intimacyupdate.value >= 0){
++                openDialog2.value=false
++                if(intimacyupdate.value!=0){
++                    /*****************updateintimacy****************/
++                    //state.characters[characterid.value].
++                }
++            }
++        }
+     }
+ }
+ 
+Index: app/src/main/res/values/strings.xml
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+><?xml version=\"1.0\" encoding=\"utf-8\"?>\r\n<resources>\r\n    <string name=\"app_name\">KoiBitoShuuChuu</string>\r\n    <string name=\"detail\">DETAIL</string>\r\n    <string name=\"plot_title_num\">%1$d.</string>\r\n    /**********************四季映姬資料***********************/\r\n    <string name=\"character0_name\">四季映姫</string>\r\n    <string name=\"character0_info\">暱稱：閻蘿王\\n\\n身高：較高與高之間\\n種族：閻魔\\n\\n住所：彼岸\\n職業：審判官</string>\r\n    <string name=\"character0_introduction\">四季映姫是閻魔之一，擔當幻想郷及其他地區的閻魔，負責對死者的裁決。在是非曲直廳中負責審判死者的工作，死神小野塚小町的上司。\\n\\n平時在彼岸的是非曲直廳内裁決死者的靈魂，有時會到幻想郷去説教，警告人們積累善行，以免被判下地獄。\\n\\n身穿十分鄭重的袍裝，性格嚴肅認真，不過偶爾也有意外萌的一面。</string>\r\n    /*************PLOT1*************/\r\n    <string name=\"character0_plot0_title\">第一個故事</string>\r\n    <string name=\"character0_plot0_snapshot0\">你是不是在想色色的事情</string>\r\n    <string name=\"character0_plot0_snapshot1\">變態！！</string>\r\n    <string name=\"character0_plot0_snapshot2\">是不是想死啊？</string>\r\n\r\n\r\n    /**********************魂魄妖夢資料***********************/\r\n    <string name=\"character1_name\">魂魄妖夢</string>\r\n    <string name=\"character1_info\"></string>\r\n    <string name=\"character1_introduction\"></string>\r\n    /*************PLOT1*************/\r\n\r\n\r\n    <string name=\"shop_buying_scene0_head\">購買場景-辦公室</string>\r\n    <string name=\"shop_buying_scene0_body\">有了辦公室的場景，您可以和您心愛\\n的戀人在此場景專注約會，聆聽辦公\\n室相關音樂</string>\r\n\r\n    <string name=\"shop_buying_scene1_head\">購買場景-圖書館</string>\r\n    <string name=\"shop_buying_scene1_body\">有了圖書館的場景，您可以和您心愛\\n的戀人在此場景專注約會，聆聽圖書\\n館相關音樂</string>\r\n\r\n    <string name=\"shop_buying_scene2_head\">購買場景-咖啡廳</string>\r\n    <string name=\"shop_buying_scene2_body\">有了咖啡廳的場景，您可以和您心愛\\n的戀人在此場景專注約會，聆聽咖啡\\n廳相關音樂</string>\r\n\r\n    <string name=\"shop_buying_gift2_head\">購買禮物-戒指</string>\r\n    <string name=\"shop_buying_gift2_body\">有了戒指，您可以送給您心儀的對\\n象，以提升對方對您的親切程度\\n(+100)，親切程度到了一定的數值時\\n，對方會接受您的告白，成為戀人</string>\r\n\r\n</resources>\r\n
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/app/src/main/res/values/strings.xml b/app/src/main/res/values/strings.xml
+--- a/app/src/main/res/values/strings.xml	(revision fa54ebbb9ee325bb80a50685e99e0dced5b879fb)
++++ b/app/src/main/res/values/strings.xml	(date 1654879274275)
+@@ -33,4 +33,8 @@
+     <string name="shop_buying_gift2_head">購買禮物-戒指</string>
+     <string name="shop_buying_gift2_body">有了戒指，您可以送給您心儀的對\n象，以提升對方對您的親切程度\n(+100)，親切程度到了一定的數值時\n，對方會接受您的告白，成為戀人</string>
+ 
++    <string name="Unlock_character">好感度提升到1等時\n將解鎖角色</string>
++
++    <string name="Give_character_gift_header">你想要送什麼禮物呢？</string>
++
+ </resources>
+Index: app/src/main/java/com/ss_team_1/koibitoshuuchuu/presentation/components/UnlockCharacterPopup.kt
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/app/src/main/java/com/ss_team_1/koibitoshuuchuu/presentation/components/UnlockCharacterPopup.kt b/app/src/main/java/com/ss_team_1/koibitoshuuchuu/presentation/components/UnlockCharacterPopup.kt
+new file mode 100644
+--- /dev/null	(date 1654881862597)
++++ b/app/src/main/java/com/ss_team_1/koibitoshuuchuu/presentation/components/UnlockCharacterPopup.kt	(date 1654881862597)
+@@ -0,0 +1,105 @@
++package com.ss_team_1.koibitoshuuchuu.presentation.components
++
++import androidx.compose.foundation.background
++import androidx.compose.foundation.clickable
++import androidx.compose.foundation.layout.*
++import androidx.compose.foundation.shape.RoundedCornerShape
++import androidx.compose.material.Text
++import androidx.compose.runtime.Composable
++import androidx.compose.runtime.mutableStateOf
++import androidx.compose.runtime.remember
++import androidx.compose.ui.Alignment
++import androidx.compose.ui.Modifier
++import androidx.compose.ui.graphics.Color
++import androidx.compose.ui.graphics.RectangleShape
++import androidx.compose.ui.res.stringResource
++import androidx.compose.ui.text.font.FontStyle
++import androidx.compose.ui.tooling.preview.Preview
++import androidx.compose.ui.unit.dp
++import androidx.compose.ui.unit.sp
++import com.ss_team_1.koibitoshuuchuu.ui.theme.contextFont
++import com.ss_team_1.koibitoshuuchuu.R
++import com.ss_team_1.koibitoshuuchuu.ui.theme.AccentDark
++import com.ss_team_1.koibitoshuuchuu.ui.theme.grayLine
++import com.ss_team_1.koibitoshuuchuu.ui.theme.mainFont
++
++@Preview
++@Composable
++fun UnlockCharacter(
++):Int{
++    val popup = remember { mutableStateOf(0) }//沒暗任何案件
++    Column(
++        modifier = Modifier
++            .width(280.dp)
++            .background(color = Color.White, shape = RoundedCornerShape(10.dp)),
++        horizontalAlignment = Alignment.CenterHorizontally
++    ) {
++        Spacer(modifier = Modifier.height(16.dp))
++        Text(
++            text = stringResource(id = R.string.Unlock_character),
++            fontSize = 28.sp,
++            //color = secUn,
++            fontStyle = FontStyle(contextFont),
++            modifier = Modifier.padding(8.dp)
++        )
++        Box(modifier = Modifier.fillMaxWidth()){
++            Row(
++                modifier = Modifier
++                    .align(Alignment.CenterEnd),
++                //verticalAlignment = Alignment.CenterVertically
++            ){
++                Text(
++                    text = "好喔",
++                    fontSize = 24.sp,
++                    fontStyle = FontStyle(mainFont),
++                    modifier = Modifier.padding(8.dp)
++                        .clickable(
++                            enabled = true,
++                            onClickLabel = "doesn't buy",
++                            onClick = {
++                                popup.value = 1
++                            }
++                        )
++                )
++                Spacer(modifier = Modifier.width(100.dp))
++                Text(
++                    text = "送禮去",
++                    fontSize = 24.sp,
++                    fontStyle = FontStyle(mainFont),
++                    color = AccentDark,
++                    modifier = Modifier.padding(8.dp)
++                        .clickable(
++                            enabled = true,
++                            onClickLabel = "give gift",
++                            onClick = {
++                                popup.value = 2
++                            }
++                        )
++                )
++                Spacer(modifier = Modifier.width(16.dp))
++            }
++        }
++        Spacer(modifier = Modifier.height(16.dp))
++    }
++    return popup.value
++}
++
++@Preview(showBackground = true)
++@Composable
++fun UnlockPopupScreen(
++): Int{
++    val popup = remember { mutableStateOf(0) }//沒暗任何案件
++    Box(
++        Modifier.fillMaxSize()
++            .background(Color.Black.copy(alpha = 0.5f), RectangleShape)
++    ){
++        Column(
++            Modifier.fillMaxSize(),
++            horizontalAlignment = Alignment.CenterHorizontally
++        ){
++            Spacer(modifier = Modifier.height(280.dp))
++            popup.value = UnlockCharacter()
++        }
++    }
++    return popup.value
++}
+\ No newline at end of file
+Index: app/src/main/java/com/ss_team_1/koibitoshuuchuu/presentation/components/GiveCharacterGift.kt
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/app/src/main/java/com/ss_team_1/koibitoshuuchuu/presentation/components/GiveCharacterGift.kt b/app/src/main/java/com/ss_team_1/koibitoshuuchuu/presentation/components/GiveCharacterGift.kt
+new file mode 100644
+--- /dev/null	(date 1654881615726)
++++ b/app/src/main/java/com/ss_team_1/koibitoshuuchuu/presentation/components/GiveCharacterGift.kt	(date 1654881615726)
+@@ -0,0 +1,206 @@
++package com.ss_team_1.koibitoshuuchuu.presentation.components
++
++import androidx.compose.foundation.Image
++import androidx.compose.foundation.background
++import androidx.compose.foundation.clickable
++import androidx.compose.foundation.layout.*
++import androidx.compose.foundation.shape.RoundedCornerShape
++import androidx.compose.material.Text
++import androidx.compose.runtime.Composable
++import androidx.compose.runtime.mutableStateOf
++import androidx.compose.runtime.remember
++import androidx.compose.ui.Alignment
++import androidx.compose.ui.Modifier
++import androidx.compose.ui.graphics.Color
++import androidx.compose.ui.graphics.ColorFilter
++import androidx.compose.ui.graphics.RectangleShape
++import androidx.compose.ui.layout.ContentScale
++import androidx.compose.ui.res.painterResource
++import androidx.compose.ui.res.stringResource
++import androidx.compose.ui.text.font.FontStyle
++import androidx.compose.ui.tooling.preview.Preview
++import androidx.compose.ui.unit.dp
++import androidx.compose.ui.unit.sp
++import com.ss_team_1.koibitoshuuchuu.R
++import com.ss_team_1.koibitoshuuchuu.ui.theme.AccentDark
++import com.ss_team_1.koibitoshuuchuu.ui.theme.contextFont
++import com.ss_team_1.koibitoshuuchuu.ui.theme.mainFont
++
++@Preview
++@Composable
++fun GiveCharacterGift(
++): Int{
++    val intimacyupdate = remember { mutableStateOf(-1) }//沒暗任何案件
++    Column(
++        modifier = Modifier
++            .width(280.dp)
++            .background(color = Color.White, shape = RoundedCornerShape(10.dp)),
++        horizontalAlignment = Alignment.CenterHorizontally
++    ) {
++        Spacer(modifier = Modifier.height(16.dp))
++        Text(
++            text = stringResource(id = R.string.Give_character_gift_header),
++            fontSize = 28.sp,
++            //color = secUn,
++            fontStyle = FontStyle(contextFont),
++            modifier = Modifier.padding(8.dp)
++        )
++        Image(
++            painter = painterResource(id = R.drawable.give_gift),
++            contentDescription = "",
++            contentScale = ContentScale.Fit,
++            modifier = Modifier
++                .height(144.dp)
++        )
++        Box(
++            modifier = Modifier
++                .fillMaxWidth()
++                .height(30.dp)
++        ){
++            Row(
++                modifier = Modifier
++                    .align(Alignment.CenterStart),
++                //verticalAlignment = Alignment.CenterVertically
++            ){
++                Spacer(modifier = Modifier.width(24.dp))
++                Text(
++                    text = "數量:",
++                    fontSize = 16.sp,
++                    fontStyle = FontStyle(contextFont)
++                )
++                Spacer(modifier = Modifier.width(24.dp))
++                Image(
++                    painter = painterResource(id = R.drawable.ic_minus),
++                    contentDescription = "",
++                    contentScale = ContentScale.Fit,
++                    colorFilter = ColorFilter.tint(color = Color.Gray),
++                    modifier = Modifier
++                        .size(24.dp)
++                        .clickable(
++                            enabled = true,
++                            onClickLabel = "minus gift",
++                            onClick = {
++                                /*TODO*/
++                            }
++                        )
++                )
++                Spacer(modifier = Modifier.width(16.dp))
++                Box(
++                    modifier = Modifier
++                        .width(90.dp)
++                        .height(30.dp)
++                        .align(Alignment.CenterVertically)
++                ){
++                    Image(
++                        painter = painterResource(id = R.drawable.popup_block),
++                        contentDescription = "",
++                        contentScale = ContentScale.Fit
++                    )
++                    Column(
++                        modifier = Modifier.fillMaxSize(),
++                        horizontalAlignment = Alignment.CenterHorizontally
++                    ) {
++                        Text(
++                            text = "1",
++                            fontSize = 16.sp,
++                            fontStyle = FontStyle(contextFont)
++                        )
++                    }
++
++                }
++                Spacer(modifier = Modifier.width(16.dp))
++                Image(
++                    painter = painterResource(id = R.drawable.ic_plus),
++                    contentDescription = "",
++                    contentScale = ContentScale.Fit,
++                    colorFilter = ColorFilter.tint(color = Color.Gray),
++                    modifier = Modifier
++                        .size(24.dp)
++                        .clickable(
++                            enabled = true,
++                            onClickLabel = "plus gift",
++                            onClick = {
++                                /*TODO*/
++                            }
++                        )
++                )
++            }
++        }
++        Box(
++            modifier = Modifier.fillMaxWidth()
++        ){
++            Row(
++                modifier = Modifier
++                    .align(Alignment.CenterStart),
++                //verticalAlignment = Alignment.CenterVertically
++            ){
++                Spacer(modifier = Modifier.width(24.dp))
++                Text(
++                    text = "將提升的好感度:   100",
++                    fontSize = 16.sp,
++                    fontStyle = FontStyle(contextFont),
++                    modifier = Modifier.padding(8.dp)
++                )
++            }
++        }
++        Box(modifier = Modifier.fillMaxWidth()){
++            Row(
++                modifier = Modifier
++                    .align(Alignment.CenterEnd),
++                //verticalAlignment = Alignment.CenterVertically
++            ){
++                Text(
++                    text = "取消",
++                    fontSize = 24.sp,
++                    fontStyle = FontStyle(mainFont),
++                    modifier = Modifier.padding(8.dp)
++                        .clickable(
++                            enabled = true,
++                            onClickLabel = "doesn't buy",
++                            onClick = {
++                                intimacyupdate.value = 0
++                            }
++                        )
++                )
++                Spacer(modifier = Modifier.width(100.dp))
++                Text(
++                    text = "送給她",
++                    fontSize = 24.sp,
++                    fontStyle = FontStyle(mainFont),
++                    color = AccentDark,
++                    modifier = Modifier.padding(8.dp)
++                        .clickable(
++                            enabled = true,
++                            onClickLabel = "give",
++                            onClick = {
++                                intimacyupdate.value = 100
++                            }
++                        )
++                )
++                Spacer(modifier = Modifier.width(16.dp))
++            }
++        }
++        Spacer(modifier = Modifier.height(16.dp))
++    }
++    return intimacyupdate.value
++}
++
++@Preview(showBackground = true)
++@Composable
++fun GiveGiftPopupScreen(
++): Int{
++    val intimacyupdate = remember { mutableStateOf(-1) }//沒暗任何案件
++    Box(
++        Modifier.fillMaxSize()
++            .background(Color.Black.copy(alpha = 0.5f), RectangleShape)
++    ){
++        Column(
++            Modifier.fillMaxSize(),
++            horizontalAlignment = Alignment.CenterHorizontally
++        ){
++            Spacer(modifier = Modifier.height(240.dp))
++            intimacyupdate.value = GiveCharacterGift()
++        }
++    }
++    return intimacyupdate.value
++}
+\ No newline at end of file

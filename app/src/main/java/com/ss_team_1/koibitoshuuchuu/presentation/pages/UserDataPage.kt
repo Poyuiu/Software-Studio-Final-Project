@@ -66,31 +66,31 @@ fun UserDataPage(navController: NavController) {
                 userGender = "酷酷的草履蟲"
             )
         }
-        Image(
-            painter = painterResource(id = R.drawable.userdata_pitcure_1),
-            contentDescription = null,
-            modifier = Modifier
-                .size(width = 140.dp, height = 250.dp)
-                .align(Alignment.BottomEnd)
-        )
         Box(
-            modifier = Modifier.align(Alignment.BottomStart)
+            modifier = Modifier.align(Alignment.BottomStart).fillMaxWidth(1f)
         ) {
+            Image(
+                painter = painterResource(id = R.drawable.userdata_pitcure_1),
+                contentDescription = null,
+                modifier = Modifier
+                    .size(width = 140.dp, height = 190.dp)
+                    .align(Alignment.BottomEnd)
+            )
             Image(
                 painter = painterResource(id = R.drawable.userdata_conversation_1),
                 contentDescription = null,
                 modifier = Modifier
-                    .size(270.dp)
-                    .padding(start = 20.dp, top = 60.dp)
+                    .size(height = 180.dp, width = 250.dp)
+                    .padding(start = 40.dp, top = 40.dp)
             )
             Text(
                 text = "早上好 酷酷的名字",
                 fontStyle = FontStyle(R.font.mamelon),
                 color = Color.Black,
-                fontSize = 24.sp,
+                fontSize = 21.sp,
                 modifier = Modifier.padding(
-                    start = 40.dp,
-                    top = 160.dp,
+                    start = 55.dp,
+                    top = 105.dp,
                 )
             )
         }
