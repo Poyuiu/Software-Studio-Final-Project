@@ -71,8 +71,13 @@ fun money_diamond_barpreview(){
 }
 
 @Composable
-fun ShopSceneGoods() :Int{
+fun ShopSceneGoods(
+    dialogPop: Boolean,
+    spendingValue: Int
+) : Int{
     val bought = remember { mutableStateOf(-1) }
+    //bought.value = buying
+    if(dialogPop && spendingValue>=0) bought.value=-1
     Box(modifier = Modifier.size(328.dp,128.dp)){
         Row(
             modifier = Modifier.align(Alignment.CenterStart),
@@ -84,7 +89,7 @@ fun ShopSceneGoods() :Int{
                 contentScale = ContentScale.Fit,
                 modifier = Modifier.size(88.dp,138.dp)
                     .clickable(
-                        enabled = true,
+                        enabled = !dialogPop,
                         onClickLabel = "buy scene0",
                         onClick = {
                             /*TODO*/
@@ -99,7 +104,7 @@ fun ShopSceneGoods() :Int{
                 contentScale = ContentScale.Fit,
                 modifier = Modifier.size(88.dp,138.dp)
                     .clickable(
-                        enabled = true,
+                        enabled = !dialogPop,
                         onClickLabel = "buy scene1",
                         onClick = {
                             /*TODO*/
@@ -114,7 +119,7 @@ fun ShopSceneGoods() :Int{
                 contentScale = ContentScale.Fit,
                 modifier = Modifier.size(88.dp,138.dp)
                     .clickable(
-                        enabled = true,
+                        enabled = !dialogPop,
                         onClickLabel = "buy scene2",
                         onClick = {
                             /*TODO*/
@@ -129,7 +134,7 @@ fun ShopSceneGoods() :Int{
 @Preview
 @Composable
 fun ShopSceneGoodspreview(){
-    ShopSceneGoods()
+    ShopSceneGoods(false,-1)
 }
 
 @Composable

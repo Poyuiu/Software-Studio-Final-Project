@@ -26,7 +26,7 @@ fun ShopPage(
 ) {
     val openDialog = remember { mutableStateOf(false) }
     val buying = remember { mutableStateOf(-1) }
-    val spend = remember { mutableStateOf(1) }//沒暗任何案件
+    val spending = remember { mutableStateOf(-1) }//沒暗任何案件
     val boughtflag = remember { mutableStateOf(false) }
     Box(
         Modifier.fillMaxSize()
@@ -45,7 +45,7 @@ fun ShopPage(
             horizontalAlignment = Alignment.CenterHorizontally
         ) {
             Spacer(modifier = Modifier.height(32.dp))
-            money_diamond_bar(100000, 400)
+            money_diamond_bar(if(openDialog.value)1 else 0, 400)
             if (boughtflag.value) {
                 Image(
                     painter = painterResource(id = R.drawable.shop_buy_gift_0),
@@ -63,8 +63,13 @@ fun ShopPage(
                 modifier = Modifier.size(356.dp, 72.dp)
             )
 
-             buying.value =ShopSceneGoods()
-            if(buying.value>-1 && spend.value==1) openDialog.value =true
+            buying.value = ShopSceneGoods(openDialog.value, buying.value)
+            var scene = -1
+            if(buying.value>-1){
+                openDialog.value = true
+                scene =buying.value
+            }
+
             Spacer(modifier = Modifier.height(36.dp))
             Image(
                 painter = painterResource(id = R.drawable.shop_header_1),
@@ -74,19 +79,20 @@ fun ShopPage(
             )
             ShopGiftGoodsRow0()
             Spacer(modifier = Modifier.height(36.dp))
+            money_diamond_bar(spending.value, scene)
             ShopGiftGoodsRow1()
         }
-
-
-    }
-    if(openDialog.value){
-        spend.value=buyingPopupScreen()
-        if(spend.value<=0){
-            openDialog.value=false
+        if(openDialog.value){
+            spending.value=buyingPopupScreen()
+            if(spending.value >= 0){
+                //buying.value=-1
+                openDialog.value=false
+            }
+            if(spending.value>0){
+                boughtflag.value=true
+            }
         }
-        if(spend.value<0){
-            boughtflag.value=true
-        }
+
     }
 }
 

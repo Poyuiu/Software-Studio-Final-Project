@@ -33,7 +33,7 @@ val shopBuySceneBody = listOf(
 @Preview
 @Composable
 fun SceneBuying():Int{
-    val spend = remember { mutableStateOf(1) }//沒暗任何案件
+    val spend = remember { mutableStateOf(-1) }//沒暗任何案件
     Column(
         modifier = Modifier
             .width(280.dp)
@@ -121,7 +121,7 @@ fun SceneBuying():Int{
                             onClickLabel = "unlock click",
                             onClick = {
                                 /*TODO*/
-                                spend.value =-100
+                                spend.value =100
                             }
                         )
                 )
@@ -136,7 +136,7 @@ fun SceneBuying():Int{
 @Preview(showBackground = true)
 @Composable
 fun buyingPopupScreen():Int{
-    val spend = remember { mutableStateOf(1) }//沒暗任何案件
+    val spend = remember { mutableStateOf(-1) }//沒暗任何案件
     Box(
         Modifier.fillMaxSize()
             .background(Color.Black.copy(alpha = 0.5f), RectangleShape)
@@ -148,7 +148,6 @@ fun buyingPopupScreen():Int{
             Spacer(modifier = Modifier.height(280.dp))
             spend.value = SceneBuying()
         }
-
     }
     return spend.value
 }
