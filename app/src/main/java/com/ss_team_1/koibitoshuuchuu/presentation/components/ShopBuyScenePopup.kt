@@ -24,15 +24,21 @@ import com.ss_team_1.koibitoshuuchuu.presentation.Page
 import com.ss_team_1.koibitoshuuchuu.ui.theme.*
 
 val shopBuySceneHead= listOf(
-    R.string.shop_buying_scnen0_head
+    R.string.shop_buying_scene0_head,
+    R.string.shop_buying_scene1_head,
+    R.string.shop_buying_scene2_head
 )
 val shopBuySceneBody = listOf(
-    R.string.shop_buying_scene0_body
+    R.string.shop_buying_scene0_body,
+    R.string.shop_buying_scene1_body,
+    R.string.shop_buying_scene2_body
 )
 
-@Preview
+//@Preview
 @Composable
-fun SceneBuying():Int{
+fun SceneBuying(
+    scene: Int
+):Int{
     val spend = remember { mutableStateOf(-1) }//沒暗任何案件
     Column(
         modifier = Modifier
@@ -42,14 +48,14 @@ fun SceneBuying():Int{
     ) {
         Spacer(modifier = Modifier.height(16.dp))
         Text(
-            text = stringResource(id = shopBuySceneHead[0]),
+            text = stringResource(id = shopBuySceneHead[scene]),
             fontSize = 20.sp,
             //color = secUn,
             fontStyle = FontStyle(contextFont),
             modifier = Modifier.padding(8.dp)
         )
         Text(
-            text = stringResource(id = shopBuySceneBody[0]),
+            text = stringResource(id = shopBuySceneBody[scene]),
             fontSize = 14.sp,
             fontStyle = FontStyle(contextFont)
         )
@@ -118,7 +124,7 @@ fun SceneBuying():Int{
                     modifier = Modifier.padding(8.dp)
                         .clickable(
                             enabled = true,
-                            onClickLabel = "unlock click",
+                            onClickLabel = "buy scene",
                             onClick = {
                                 /*TODO*/
                                 spend.value =100
@@ -133,9 +139,11 @@ fun SceneBuying():Int{
     return spend.value
 }
 
-@Preview(showBackground = true)
+//@Preview(showBackground = true)
 @Composable
-fun buyingPopupScreen():Int{
+fun buyingPopupScreen(
+    scene: Int
+):Int{
     val spend = remember { mutableStateOf(-1) }//沒暗任何案件
     Box(
         Modifier.fillMaxSize()
@@ -146,7 +154,7 @@ fun buyingPopupScreen():Int{
             horizontalAlignment = Alignment.CenterHorizontally
         ){
             Spacer(modifier = Modifier.height(280.dp))
-            spend.value = SceneBuying()
+            spend.value = SceneBuying(scene)
         }
     }
     return spend.value

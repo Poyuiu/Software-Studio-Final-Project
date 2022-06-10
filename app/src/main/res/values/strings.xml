@@ -21,6 +21,12 @@
     /*************PLOT1*************/
 
 
-    <string name="shop_buying_scnen0_head">購買場景-咖啡廳</string>
-    <string name="shop_buying_scene0_body">有了咖啡廳的場景，您可以和您心愛\n的戀人在此場景專注約會，聆聽咖啡\n廳相關音樂</string>
+    <string name="shop_buying_scene0_head">購買場景-辦公室</string>
+    <string name="shop_buying_scene0_body">有了辦公室的場景，您可以和您心愛\n的戀人在此場景專注約會，聆聽辦公\n室相關音樂</string>
+
+    <string name="shop_buying_scene1_head">購買場景-圖書館</string>
+    <string name="shop_buying_scene1_body">有了圖書館的場景，您可以和您心愛\n的戀人在此場景專注約會，聆聽圖書\n館相關音樂</string>
+
+    <string name="shop_buying_scene2_head">購買場景-咖啡廳</string>
+    <string name="shop_buying_scene2_body">有了咖啡廳的場景，您可以和您心愛\n的戀人在此場景專注約會，聆聽咖啡\n廳相關音樂</string>
 </resources>

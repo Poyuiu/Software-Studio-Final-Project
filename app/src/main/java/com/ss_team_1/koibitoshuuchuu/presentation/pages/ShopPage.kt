@@ -20,6 +20,16 @@ import androidx.navigation.NavController
 import com.ss_team_1.koibitoshuuchuu.R
 import com.ss_team_1.koibitoshuuchuu.presentation.components.*
 
+val bought_list=listOf(
+    R.drawable.shop_buy_scene_0,
+    R.drawable.shop_buy_scene_1,
+    R.drawable.shop_buy_scene_2,
+    R.drawable.shop_buy_gift_0,
+    R.drawable.shop_buy_gift_1,
+    R.drawable.shop_buy_gift_2,
+    R.drawable.shop_buy_gift_3,
+    R.drawable.shop_buy_gift_4
+)
 @Composable
 fun ShopPage(
     navController: NavController,
@@ -45,10 +55,10 @@ fun ShopPage(
             horizontalAlignment = Alignment.CenterHorizontally
         ) {
             Spacer(modifier = Modifier.height(32.dp))
-            money_diamond_bar(if(openDialog.value)1 else 0, 400)
+            money_diamond_bar(100, 100)
             if (boughtflag.value) {
                 Image(
-                    painter = painterResource(id = R.drawable.shop_buy_gift_0),
+                    painter = painterResource(id = bought_list[buying.value]),
                     contentDescription = "",
                     contentScale = ContentScale.Fit,
                     modifier = Modifier.size(336.dp, 40.dp)
@@ -114,10 +124,6 @@ fun ShopPage(
                     )
                 }
             }
-            if(buying.value>-1){
-                openDialog.value = true
-            }
-
             Spacer(modifier = Modifier.height(36.dp))
             Image(
                 painter = painterResource(id = R.drawable.shop_header_1),
@@ -127,11 +133,13 @@ fun ShopPage(
             )
             ShopGiftGoodsRow0()
             Spacer(modifier = Modifier.height(36.dp))
-            money_diamond_bar(spending.value, buying.value)
             ShopGiftGoodsRow1()
+            if(buying.value>-1){
+                openDialog.value = true
+            }
         }
         if(openDialog.value){
-            spending.value=buyingPopupScreen()
+            spending.value=buyingPopupScreen(buying.value)
             if(spending.value >= 0){
                 buying.value=-1
                 openDialog.value=false
