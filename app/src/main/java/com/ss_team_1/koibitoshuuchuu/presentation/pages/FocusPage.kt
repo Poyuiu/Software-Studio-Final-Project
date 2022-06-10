@@ -32,7 +32,7 @@ import kotlinx.coroutines.delay
 @Preview
 @Composable
 private fun FocusPagePreview() {
-    FocusPage(navController = NavController(LocalContext.current), focusTime = 10)
+    FocusPage(navController = NavController(LocalContext.current), focusTime = 15)
 }
 
 @Composable
@@ -44,7 +44,7 @@ fun FocusPage(navController: NavController, focusTime: Int?) {
     navController.currentBackStackEntry?.arguments
     //
     var remainTime by remember {
-        mutableStateOf(focusTime?.times(1000L) ?: 0L)
+        mutableStateOf(focusTime?.times(60000L) ?: 0L)
     }
     //
     LaunchedEffect(remainTime, pauseState) {

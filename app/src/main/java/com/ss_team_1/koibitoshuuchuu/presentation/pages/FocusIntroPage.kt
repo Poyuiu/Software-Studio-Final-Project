@@ -55,7 +55,13 @@ fun FocusIntroPage(navController: NavController = NavController(LocalContext.cur
             horizontalAlignment = Alignment.CenterHorizontally,
             verticalArrangement = Arrangement.Bottom
         ) {
-            FocusIntroTimePickerButton(lazyListState = lazyListState, layoutInfo = layoutInfo)
+            FocusIntroTimePickerButton(
+                lazyListState = lazyListState,
+                layoutInfo = layoutInfo,
+                focusTime = focusTime,
+                setFocusTime = {
+                    focusTime = focusTimeList[layoutInfo.currentItem?.index!!]
+                })
             FocusIntroWorkTextField()
             FocusIntroScenePicker()
             Spacer(modifier = Modifier.size(20.dp))

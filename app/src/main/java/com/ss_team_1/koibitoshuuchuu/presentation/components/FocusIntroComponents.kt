@@ -11,10 +11,16 @@ import androidx.compose.foundation.ExperimentalFoundationApi
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border
 import androidx.compose.foundation.layout.*
-import androidx.compose.foundation.lazy.*
+import androidx.compose.foundation.lazy.LazyColumn
+import androidx.compose.foundation.lazy.LazyListState
+import androidx.compose.foundation.lazy.itemsIndexed
+import androidx.compose.foundation.lazy.rememberLazyListState
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.text.BasicTextField
-import androidx.compose.material.*
+import androidx.compose.material.Button
+import androidx.compose.material.ButtonDefaults
+import androidx.compose.material.Surface
+import androidx.compose.material.Text
 import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.ExperimentalComposeUiApi
@@ -27,7 +33,6 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.compose.ui.window.Popup
 import androidx.compose.ui.window.PopupProperties
-import com.ss_team_1.koibitoshuuchuu.presentation.utils.FocusTimeFormatter
 import com.ss_team_1.koibitoshuuchuu.ui.theme.Primary
 import com.ss_team_1.koibitoshuuchuu.ui.theme.Secondary
 import com.ss_team_1.koibitoshuuchuu.ui.theme.huninnFamily
@@ -95,17 +100,20 @@ fun FocusIntroTimePicker(
 private fun FocusIntroTimePickerButtonPreview() {
     FocusIntroTimePickerButton(
         lazyListState = rememberLazyListState(),
-        rememberLazyListSnapperLayoutInfo(lazyListState = rememberLazyListState())
+        layoutInfo = rememberLazyListSnapperLayoutInfo(lazyListState = rememberLazyListState()),
+        focusTime = 10,
+        setFocusTime = {}
     )
 }
 
 @Composable
 fun FocusIntroTimePickerButton(
     lazyListState: LazyListState,
-    layoutInfo: LazyListSnapperLayoutInfo
+    layoutInfo: LazyListSnapperLayoutInfo,
+    focusTime: Int,
+    setFocusTime: () -> Unit
 ) {
     var openState by remember { mutableStateOf(false) }
-    var focusTime by remember { mutableStateOf(10) }
     Column(modifier = Modifier.padding(12.dp)) {
         Text(text = "Focus Time")
         Button(
@@ -122,8 +130,10 @@ fun FocusIntroTimePickerButton(
         if (openState) {
             Popup(
                 alignment = Alignment.Center,
-                onDismissRequest = { openState = false
-                                   focusTime = focusTimeList[layoutInfo.currentItem?.index!!]},
+                onDismissRequest = {
+                    openState = false
+                    setFocusTime()
+                },
                 properties = PopupProperties()
             ) {
                 FocusIntroTimePicker(lazyListState = lazyListState, layoutInfo = layoutInfo)
