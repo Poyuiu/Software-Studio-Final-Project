@@ -17,6 +17,7 @@ import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavController
 import com.ss_team_1.koibitoshuuchuu.R
+import com.ss_team_1.koibitoshuuchuu.presentation.Page
 import com.ss_team_1.koibitoshuuchuu.presentation.components.*
 import com.ss_team_1.koibitoshuuchuu.presentation.viewModel.CharacterViewModel
 
@@ -28,7 +29,10 @@ fun HomePage(
     onClickToCharacterInfo: (Int) -> Unit
 ) {
     val state = viewModel.state.value
-
+    val openDialog1 = remember { mutableStateOf(false) }
+    val popup = remember { mutableStateOf(0) }
+    val openDialog2 = remember { mutableStateOf(false) }
+    val intimacyupdate = remember { mutableStateOf(-1) }
     Box(
         Modifier.fillMaxSize()
     ) {
@@ -73,11 +77,49 @@ fun HomePage(
             modifier = Modifier.align(Alignment.BottomCenter),
             horizontalAlignment = Alignment.CenterHorizontally
         ) {
-            FocusButton(
+            /*FocusButton(
                 LocalContext.current,
                 lock,
                 navController
-            )
+            )*/
+            Box(
+                Modifier
+                    .size(216.dp, 66.dp)
+            ) {
+                if (state.characters[characterid.value].intimacy <= 0) {
+                    Image(
+                        painter = painterResource(id = R.drawable.focus_button_unlock),
+                        contentDescription = "",
+                        contentScale = ContentScale.Fit,
+                        modifier = Modifier
+                            .fillMaxSize()
+                            .clickable(
+                                enabled = true,
+                                onClickLabel = "unlock click",
+                                onClick = {
+                                    /*TODO*/
+                                    openDialog1.value = true
+                                }
+                            )
+                    )
+                } else {
+                    Image(
+                        painter = painterResource(id = R.drawable.focus_button),
+                        contentDescription = "",
+                        contentScale = ContentScale.Fit,
+                        modifier = Modifier
+                            .fillMaxSize()
+                            .clickable(
+                                enabled = true,
+                                onClickLabel = "focus click",
+                                onClick = {
+                                    navController.navigate(Page.FocusIntro.route)
+                                }
+                            )
+                    )
+                }
+
+            }
             Spacer(modifier = Modifier.height(120.dp))
         }
         Row(
@@ -96,18 +138,7 @@ fun HomePage(
                 ),
             verticalAlignment = Alignment.CenterVertically
         ) {
-            rightRoundedTriangle(
-                /*modifier = Modifier
-                    .clickable (
-                        enabled = true,
-                        onClickLabel = "Clickable right shift",
-                        onClick = {
-                            if(characterid.value<2){
-                                characterid.value+=1
-                            }else{characterid.value=0}
-                        }
-                    )*/
-            )
+            rightRoundedTriangle()
         }
         Row(
             modifier = Modifier
@@ -125,18 +156,27 @@ fun HomePage(
                 ),
             verticalAlignment = Alignment.CenterVertically
         ) {
-            leftRoundedTriangle(
-                /*modifier = Modifier
-                    .clickable (
-                        enabled = true,
-                        onClickLabel = "Clickable left shift",
-                        onClick = {
-                            if(characterid.value>0){
-                                characterid.value-=1
-                            }else{characterid.value=2}
-                        }
-                    )*/
-            )
+            leftRoundedTriangle()
+        }
+        if(openDialog1.value){
+            popup.value = UnlockPopupScreen()
+            if(popup.value==1){
+                openDialog1.value=false
+            }
+            else if(popup.value==2){
+                openDialog1.value=false
+                openDialog2.value=true
+            }
+        }
+        else if(openDialog2.value){
+            intimacyupdate.value = GiveGiftPopupScreen()
+            if(intimacyupdate.value >= 0){
+                openDialog2.value=false
+                if(intimacyupdate.value!=0){
+                    /*****************updateintimacy****************/
+                    //state.characters[characterid.value].
+                }
+            }
         }
     }
 }
