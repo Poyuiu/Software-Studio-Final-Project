@@ -82,9 +82,9 @@ fun PageProfile(
                 navController
             )
             Divider(
-                color = Color.Black, thickness = 1.5.dp,
+                color = Color.Black, thickness = 1.2.dp,
                 modifier = Modifier.padding(
-                    15.dp
+                    12.dp
                 )
             )
             UserInfo2()
