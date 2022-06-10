@@ -52,7 +52,7 @@ fun UserInfo1(
             .padding(
                 start = 30.dp,
                 bottom = 0.dp,
-                top = 30.dp,
+                top = 20.dp,
                 end = 30.dp
             )
 
@@ -611,7 +611,6 @@ fun PageProfile(
             modifier = Modifier
                 .fillMaxSize()
         )
-        TopBar(button1 = { SettingsButton() })
         NavigationBar(modifier = Modifier.align(Alignment.BottomCenter), navController)
         Column(
             modifier = Modifier
@@ -619,7 +618,6 @@ fun PageProfile(
                 .padding(bottom = 0.dp),
             horizontalAlignment = Alignment.CenterHorizontally
         ) {
-            Spacer(modifier = Modifier.height(40.dp))
 //            if (userPhoto != null) {
 //                if (userName != null) {
 //                    if (userID != null) {
