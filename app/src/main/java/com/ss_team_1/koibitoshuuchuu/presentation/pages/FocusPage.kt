@@ -7,7 +7,10 @@ import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.AlertDialog
 import androidx.compose.material.Button
+import androidx.compose.material.Icon
 import androidx.compose.material.Text
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.outlined.Home
 import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -41,24 +44,29 @@ fun FocusPage(navController: NavController, focusTime: Int?) {
     var focusSuccess by remember {
         mutableStateOf(true)
     }
-    navController.currentBackStackEntry?.arguments
-    //
+    var focusEnd by remember {
+        mutableStateOf(false)
+    }
     var remainTime by remember {
         mutableStateOf(focusTime?.times(60000L) ?: 0L)
     }
-    //
+
+    // Countdown Timer
     LaunchedEffect(remainTime, pauseState) {
-        if (remainTime > 0 && !pauseState) {
+        if (remainTime > 0 && !pauseState && !focusEnd) {
             delay(100L)
             remainTime -= 100L
+            if (remainTime <= 0) focusEnd = true
         }
     }
+
     KBSCScaffold(
         navController = navController,
         backgroundResourceId = R.drawable.coffee_shop_background,
         navbarEnable = false,
         topBarEnable = false
     ) {
+        // Character Image
         Image(
             painter = painterResource(id = R.drawable.character_0_photo_main),
             contentDescription = "",
@@ -68,7 +76,8 @@ fun FocusPage(navController: NavController, focusTime: Int?) {
                 .padding(top = 10.dp),
             contentScale = ContentScale.Fit
         )
-        if (remainTime > 0) {
+
+        if (!focusEnd) {
             PauseButton(
                 modifier = Modifier
                     .align(Alignment.TopEnd)
@@ -76,6 +85,7 @@ fun FocusPage(navController: NavController, focusTime: Int?) {
                 onClick = { pauseState = true }
             )
         }
+
         Column(
             modifier = Modifier.fillMaxSize(),
             horizontalAlignment = Alignment.CenterHorizontally,
@@ -87,7 +97,6 @@ fun FocusPage(navController: NavController, focusTime: Int?) {
                 intimacy = 50,
                 levelIntimacyNeed = 50
             )
-
             DialogBox(
                 text = "快點專心！我可沒法整天在這裡看著你",
                 showTriangle = false,
@@ -95,7 +104,8 @@ fun FocusPage(navController: NavController, focusTime: Int?) {
                     .align(Alignment.CenterHorizontally)
                     .offset(y = 58.dp)
             )
-            if (remainTime > 0) {
+
+            if (!focusEnd) {
                 FocusTimer(
                     modifier = Modifier.offset(y = (-137).dp),
                     text = FocusTimeFormatter(remainTime)
@@ -104,35 +114,55 @@ fun FocusPage(navController: NavController, focusTime: Int?) {
                 Column(
                     modifier = Modifier
                         .offset(y = (-48).dp)
-                        .width(323.dp)
+                        .width(323.dp),
+                    horizontalAlignment = Alignment.CenterHorizontally
                 ) {
                     ResourceBox()
                     Spacer(modifier = Modifier.height(27.dp))
-                    Row(
-                        horizontalArrangement = Arrangement.SpaceBetween,
-                        modifier = Modifier.fillMaxWidth()
-                    ) {
-                        SquareHomeButton(onClick = {
-                            navController.navigate(Page.Home.route) {
-                                popUpTo(Page.Home.route) { inclusive = true }
+                    if (focusSuccess) {
+                        Row(
+                            horizontalArrangement = Arrangement.SpaceBetween,
+                            modifier = Modifier.fillMaxWidth()
+                        ) {
+                            SquareHomeButton(onClick = {
+                                navController.navigate(Page.Home.route) {
+                                    popUpTo(Page.Home.route) { inclusive = true }
+                                }
+                            })
+                            // Next Round Button
+                            AccentButtonTemplate(
+                                onClick = {
+                                    navController.navigate(Page.FocusIntro.route) {
+                                        popUpTo(Page.FocusIntro.route) { inclusive = true }
+                                    }
+                                },
+                                width = 248.dp, height = 58.dp
+                            ) {
+                                Text(
+                                    text = "NEXT ROUND",
+                                    fontSize = 30.sp,
+                                    fontFamily = mamelonFamily,
+                                    letterSpacing = (-1.5).sp
+                                )
                             }
-                        })
+                        }
+                    } else {
                         AccentButtonTemplate(
                             onClick = {
-                                navController.navigate(Page.FocusIntro.route) {
-                                    popUpTo(Page.FocusIntro.route) { inclusive = true }
+                                navController.navigate(Page.Home.route) {
+                                    popUpTo(Page.Home.route) { inclusive = true }
                                 }
-                            },
-                            width = 248.dp, height = 58.dp
+                            }, width = 255.dp, height = 58.dp
                         ) {
-                            Text(
-                                text = "NEXT ROUND",
-                                fontSize = 30.sp,
-                                fontFamily = mamelonFamily,
-                                letterSpacing = (-1.25).sp
+                            Icon(
+                                imageVector = Icons.Outlined.Home,
+                                contentDescription = "Home",
+                                modifier = Modifier
+                                    .size(40.dp)
                             )
                         }
                     }
+
                 }
             }
 
@@ -149,6 +179,7 @@ fun FocusPage(navController: NavController, focusTime: Int?) {
                         Button(onClick = {
                             pauseState = false
                             focusSuccess = false
+                            focusEnd = true
                         }) {
                             Text(text = "是", fontFamily = huninnFamily)
                         }
