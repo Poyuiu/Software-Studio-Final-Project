@@ -234,7 +234,7 @@ fun FocusButton(
                 modifier = Modifier
                     .fillMaxSize()
                     .clickable(
-                        enabled = true,
+                        enabled = false,
                         onClickLabel = "unlock click",
                         onClick = {
                             /*TODO*/

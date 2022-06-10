@@ -29,4 +29,8 @@
 
     <string name="shop_buying_scene2_head">購買場景-咖啡廳</string>
     <string name="shop_buying_scene2_body">有了咖啡廳的場景，您可以和您心愛\n的戀人在此場景專注約會，聆聽咖啡\n廳相關音樂</string>
+
+    <string name="shop_buying_gift2_head">購買禮物-戒指</string>
+    <string name="shop_buying_gift2_body">有了戒指，您可以送給您心儀的對\n象，以提升對方對您的親切程度\n(+100)，親切程度到了一定的數值時\n，對方會接受您的告白，成為戀人</string>
+
 </resources>
