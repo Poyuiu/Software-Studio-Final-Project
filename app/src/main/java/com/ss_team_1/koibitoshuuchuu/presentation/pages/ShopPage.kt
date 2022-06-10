@@ -63,11 +63,59 @@ fun ShopPage(
                 modifier = Modifier.size(356.dp, 72.dp)
             )
 
-            buying.value = ShopSceneGoods(openDialog.value, buying.value)
-            var scene = -1
+            Box(modifier = Modifier.size(328.dp,128.dp)){
+                Row(
+                    modifier = Modifier.align(Alignment.CenterStart),
+                    verticalAlignment = Alignment.CenterVertically
+                ) {
+                    Image(
+                        painter = painterResource(id = R.drawable.shop_scene_0),
+                        contentDescription = "",
+                        contentScale = ContentScale.Fit,
+                        modifier = Modifier.size(88.dp,138.dp)
+                            .clickable(
+                                enabled = !openDialog.value,
+                                onClickLabel = "buy scene0",
+                                onClick = {
+                                    /*TODO*/
+                                    buying.value=0
+                                }
+                            )
+                    )
+                    Spacer(modifier = Modifier.width(32.dp))
+                    Image(
+                        painter = painterResource(id = R.drawable.shop_scene_1),
+                        contentDescription = "",
+                        contentScale = ContentScale.Fit,
+                        modifier = Modifier.size(88.dp,138.dp)
+                            .clickable(
+                                enabled = !openDialog.value,
+                                onClickLabel = "buy scene1",
+                                onClick = {
+                                    /*TODO*/
+                                    buying.value=1
+                                }
+                            )
+                    )
+                    Spacer(modifier = Modifier.width(32.dp))
+                    Image(
+                        painter = painterResource(id = R.drawable.shop_scene_2),
+                        contentDescription = "",
+                        contentScale = ContentScale.Fit,
+                        modifier = Modifier.size(88.dp,138.dp)
+                            .clickable(
+                                enabled = !openDialog.value,
+                                onClickLabel = "buy scene2",
+                                onClick = {
+                                    /*TODO*/
+                                    buying.value=2
+                                }
+                            )
+                    )
+                }
+            }
             if(buying.value>-1){
                 openDialog.value = true
-                scene =buying.value
             }
 
             Spacer(modifier = Modifier.height(36.dp))
@@ -79,13 +127,13 @@ fun ShopPage(
             )
             ShopGiftGoodsRow0()
             Spacer(modifier = Modifier.height(36.dp))
-            money_diamond_bar(spending.value, scene)
+            money_diamond_bar(spending.value, buying.value)
             ShopGiftGoodsRow1()
         }
         if(openDialog.value){
             spending.value=buyingPopupScreen()
             if(spending.value >= 0){
-                //buying.value=-1
+                buying.value=-1
                 openDialog.value=false
             }
             if(spending.value>0){
