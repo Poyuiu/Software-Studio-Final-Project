@@ -131,16 +131,102 @@ fun ShopPage(
                 contentScale = ContentScale.Fit,
                 modifier = Modifier.size(356.dp, 72.dp)
             )
-            ShopGiftGoodsRow0()
+            Box(modifier = Modifier.size(328.dp,128.dp)){
+                Row(
+                    modifier = Modifier.align(Alignment.CenterStart),
+                    verticalAlignment = Alignment.CenterVertically
+                ) {
+                    Image(
+                        painter = painterResource(id = R.drawable.shop_gift_0),
+                        contentDescription = "",
+                        contentScale = ContentScale.Fit,
+                        modifier = Modifier.size(88.dp,138.dp)
+                            .clickable(
+                                enabled = !openDialog.value,
+                                onClickLabel = "buy gift0",
+                                onClick = {
+                                    /*TODO*/
+                                    buying.value=3
+                                }
+                            )
+                    )
+                    Spacer(modifier = Modifier.width(32.dp))
+                    Image(
+                        painter = painterResource(id = R.drawable.shop_gift_1),
+                        contentDescription = "",
+                        contentScale = ContentScale.Fit,
+                        modifier = Modifier.size(88.dp,138.dp)
+                            .clickable(
+                                enabled = !openDialog.value,
+                                onClickLabel = "buy gift1",
+                                onClick = {
+                                    /*TODO*/
+                                    buying.value=4
+                                }
+                            )
+                    )
+                    Spacer(modifier = Modifier.width(32.dp))
+                    Image(
+                        painter = painterResource(id = R.drawable.shop_gift_2),
+                        contentDescription = "",
+                        contentScale = ContentScale.Fit,
+                        modifier = Modifier.size(88.dp,138.dp)
+                            .clickable(
+                                enabled = !openDialog.value,
+                                onClickLabel = "buy gift2",
+                                onClick = {
+                                    /*TODO*/
+                                    buying.value=5
+                                }
+                            )
+                    )
+                }
+            }
             Spacer(modifier = Modifier.height(36.dp))
-            ShopGiftGoodsRow1()
+            Box(modifier = Modifier.size(328.dp,128.dp)){
+                Row(
+                    modifier = Modifier.align(Alignment.CenterStart),
+                    verticalAlignment = Alignment.CenterVertically
+                ) {
+                    Image(
+                        painter = painterResource(id = R.drawable.shop_gift_3),
+                        contentDescription = "",
+                        contentScale = ContentScale.Fit,
+                        modifier = Modifier.size(88.dp,138.dp)
+                            .clickable(
+                                enabled = !openDialog.value,
+                                onClickLabel = "buy gift3",
+                                onClick = {
+                                    /*TODO*/
+                                    buying.value=6
+                                }
+                            )
+                    )
+                    Spacer(modifier = Modifier.width(32.dp))
+                    Image(
+                        painter = painterResource(id = R.drawable.shop_gift_4),
+                        contentDescription = "",
+                        contentScale = ContentScale.Fit,
+                        modifier = Modifier.size(88.dp,138.dp)
+                            .clickable(
+                                enabled = !openDialog.value,
+                                onClickLabel = "buy gift4",
+                                onClick = {
+                                    /*TODO*/
+                                    buying.value=7
+                                }
+                            )
+                    )
+                }
+            }
             if(buying.value>-1){
                 openDialog.value = true
                 boughtflag.value=false
             }
         }
         if(openDialog.value){
-            spending.value=buyingPopupScreen(buying.value)
+            if(buying.value<=2) spending.value=buyingPopupScreen(buying.value)
+            else spending.value=buyinggiftPopupScreen()
             if(spending.value>0){
                 boughtflag.value=true
             }
