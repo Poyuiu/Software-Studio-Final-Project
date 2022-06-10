@@ -26,10 +26,6 @@ class MyApplication: Application() {
 }
 
 class AppContainer (context: Context) {
-    private val characterLocalDataSource = CharacterDataStore(context)
-    val characterRepository = CharacterRepositoryImplementation(characterLocalDataSource)
-    private val  focusHistoryLocalDataSource = FocusHistoryDatabase.getDatabase(context)
-    val focusHistoryRepository = FocusHistoryRepositoryImplementation(focusHistoryLocalDataSource)
     private val itemLocalDataSource = ItemDataStore(context)
     val itemRepository = ItemRepositoryImplementation(itemLocalDataSource)
     private val plotLocalDataSource = PlotDataStore(context)

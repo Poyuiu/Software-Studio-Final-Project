@@ -7,7 +7,18 @@ class UpdateIntimacy(
     private val repository: CharacterRepository
 ) {
     suspend operator fun invoke(id: Int, changeAmount: Int) {
-        val newIntimacy = repository.getCharacter(id).last().intimacy + changeAmount
+        val character = repository.getCharacter(id).last()
+        var newLevel = character.level
+        var newIntimacy = character.intimacy + changeAmount
+        while (newIntimacy >= (newLevel+1)*100) {
+            newIntimacy -= (newLevel+1)*100
+            newLevel++
+        }
+        while (newIntimacy < 0) {
+            newIntimacy += newLevel*100
+            newLevel--
+        }
         repository.setIntimacy(id, newIntimacy)
+        repository.setLevel(id, newLevel)
     }
 }

@@ -7,4 +7,5 @@ interface CharacterRepository {
     fun getAllCharacter(): Flow<List<Character>>
     fun getCharacter(id: Int): Flow<Character>
     suspend fun setIntimacy(id: Int, newIntimacy: Int)
+    suspend fun setLevel(id: Int, newLevel: Int)
 }

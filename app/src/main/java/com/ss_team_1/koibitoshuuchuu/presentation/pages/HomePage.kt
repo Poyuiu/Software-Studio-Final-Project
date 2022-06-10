@@ -34,6 +34,7 @@ fun HomePage(
     ) {
         val characterid: MutableState<Int> =
             remember { mutableStateOf(0) }
+        val lock = state.characters[characterid.value].level == 0 && state.characters[characterid.value].intimacy == 0
 
         //var checkedState by rememberSaveable { mutableStateOf(false) }
 
@@ -59,11 +60,11 @@ fun HomePage(
 //                    LocalContext.current, lock,characterid.value)
 //            }
             HomepageCharacter(
-                intimacyLevel = state.characters[characterid.value].level(),
+                intimacyLevel = state.characters[characterid.value].level,
                 intimacy = state.characters[characterid.value].intimacy,
                 levelIntimacyNeed = state.characters[characterid.value].intimacyNeeded(),
                 context = LocalContext.current,
-                lock = state.characters[characterid.value].level() <= 0,
+                lock = lock,
                 characterId = characterid.value,
                 onClickToCharacterInfo = { onClickToCharacterInfo(characterid.value) }
             )
@@ -74,7 +75,7 @@ fun HomePage(
         ) {
             FocusButton(
                 LocalContext.current,
-                state.characters[characterid.value].intimacy <= 0,
+                lock,
                 navController
             )
             Spacer(modifier = Modifier.height(120.dp))
