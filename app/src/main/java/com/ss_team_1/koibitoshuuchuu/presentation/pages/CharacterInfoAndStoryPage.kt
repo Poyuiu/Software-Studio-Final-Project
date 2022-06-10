@@ -18,7 +18,7 @@ import com.ss_team_1.koibitoshuuchuu.presentation.components.BackButton
 import com.ss_team_1.koibitoshuuchuu.presentation.components.CharacterInfo
 import com.ss_team_1.koibitoshuuchuu.presentation.components.PlotList
 import com.ss_team_1.koibitoshuuchuu.presentation.components.TopBar
-import com.ss_team_1.koibitoshuuchuu.presentation.utils.CharacterInfoAndPlotStorer
+import com.ss_team_1.koibitoshuuchuu.presentation.utils.ResourceStorer
 
 @Composable
 fun CharacterInfoAndStoryPage(
@@ -27,7 +27,7 @@ fun CharacterInfoAndStoryPage(
     onClickGoDetail: () -> Unit,
     navController: NavController
 ) {
-    val character = CharacterInfoAndPlotStorer.character[characterID]
+    val character = ResourceStorer.character[characterID]
     val plotTitleList = remember {
         GetPlotLockAndHaveReadState().getPlotLockAndHaveReadState(characterID)
     }

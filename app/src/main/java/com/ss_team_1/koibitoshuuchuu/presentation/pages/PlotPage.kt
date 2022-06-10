@@ -13,7 +13,7 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
 import com.ss_team_1.koibitoshuuchuu.presentation.components.*
-import com.ss_team_1.koibitoshuuchuu.presentation.utils.CharacterInfoAndPlotStorer.Companion.character
+import com.ss_team_1.koibitoshuuchuu.presentation.utils.ResourceStorer.Companion.character
 import kotlinx.coroutines.delay
 
 /*

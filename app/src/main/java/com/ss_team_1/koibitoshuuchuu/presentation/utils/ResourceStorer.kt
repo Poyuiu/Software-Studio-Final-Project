@@ -4,7 +4,7 @@ import androidx.annotation.DrawableRes
 import com.ss_team_1.koibitoshuuchuu.R
 
 
-class CharacterInfoAndPlotStorer {
+class ResourceStorer {
     companion object {
         val character: List<SingleCharacterInfoAndPlotStormer> = listOf(
             //四季映姫
@@ -49,6 +49,16 @@ class CharacterInfoAndPlotStorer {
                 ),
                 introduction = R.string.character1_introduction,
             ),
+        )
+        val weekdayName = listOf(
+            R.string.sunday,
+            R.string.monday,
+            R.string.tuesday,
+            R.string.wednesday,
+            R.string.thursday,
+            R.string.friday,
+            R.string.saturday,
+            R.string.sunday,
         )
     }
 }

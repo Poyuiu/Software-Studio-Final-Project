@@ -22,7 +22,7 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.ss_team_1.koibitoshuuchuu.R
-import com.ss_team_1.koibitoshuuchuu.presentation.utils.CharacterInfoAndPlotStorer
+import com.ss_team_1.koibitoshuuchuu.presentation.utils.ResourceStorer
 import com.ss_team_1.koibitoshuuchuu.ui.theme.*
 
 @Composable
@@ -115,10 +115,10 @@ fun DetailButton(
 fun CharacterInfoPreview() {
     CharacterInfo(
         onClick = {},
-        characterName = CharacterInfoAndPlotStorer.character[0].name,
-        characterInfo = CharacterInfoAndPlotStorer.character[0].info,
+        characterName = ResourceStorer.character[0].name,
+        characterInfo = ResourceStorer.character[0].info,
         showDetailButton = true,
-        characterPhoto = CharacterInfoAndPlotStorer.character[0].photo
+        characterPhoto = ResourceStorer.character[0].photo
     )
 }
 

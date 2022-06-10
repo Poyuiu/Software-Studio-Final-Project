@@ -1,6 +1,7 @@
 package com.ss_team_1.koibitoshuuchuu.presentation.components
 
 
+import android.content.res.Resources
 import android.graphics.Paint
 import androidx.compose.foundation.*
 import androidx.compose.foundation.layout.*
@@ -13,12 +14,15 @@ import androidx.compose.ui.draw.alpha
 import androidx.compose.ui.geometry.Offset
 import androidx.compose.ui.geometry.Size
 import androidx.compose.ui.graphics.*
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontStyle
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import com.ss_team_1.koibitoshuuchuu.presentation.MyApplication
+import androidx.hilt.navigation.compose.hiltViewModel
+import com.ss_team_1.koibitoshuuchuu.presentation.utils.ResourceStorer
+import com.ss_team_1.koibitoshuuchuu.presentation.viewModel.FocusHistoryViewModel
 import com.ss_team_1.koibitoshuuchuu.ui.theme.mainFont
 import com.ss_team_1.koibitoshuuchuu.ui.theme.secUn
 import kotlin.math.roundToInt
@@ -26,23 +30,29 @@ import kotlin.math.roundToInt
 @Preview(showBackground = true, backgroundColor = 0xFFF0EAE2)
 @Composable
 fun BarChartPreview() {
+    //val focusHistory: FocusHistoryViewModel = hiltViewModel()
     BarChart(
-        data = MyApplication.app_container?.focusHistoryRepository?.getLastWeekHistoryByCharacterIdGroupByDay(
-            0
-        )?.value!!
+        rowData = mapOf(
+            Pair(1,1f),
+            Pair(4,0.4f)
+        )
+        //rowData = focusHistory.state.value.historiesGroupByDay[0]
     )
 }
 
 @Composable
 fun BarChart(
     title: String = "FOCUS ANALYSIS",
-    data: Map<String, Float>,
+    rowData: Map<Int, Float>,
     barColor: Color = Color.Black,
     barWidth: Float = 50f,
     labelColor: Color = Color.Black,
     backgroundColor: Color = Color.White
 ) {
-
+    var data: Map<String, Float> = mapOf()
+    for (item in rowData){
+        data += Pair(stringResource(id = ResourceStorer.weekdayName[item.key]), item.value)
+    }
     Box(
         modifier = Modifier
             .padding(8.dp)
@@ -209,9 +219,9 @@ fun BarChart(
                             }
 
                             var spaceStep = spaceBetweenBars
-
                             for (item in data) {
                                 //--------------------(showing the x axis labels)--------------------//
+
                                 drawContext.canvas.nativeCanvas.drawText(
                                     item.key,
                                     spaceStep + barWidth / 2,

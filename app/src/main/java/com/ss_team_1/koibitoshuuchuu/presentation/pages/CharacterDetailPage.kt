@@ -14,11 +14,13 @@ import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavController
 import com.ss_team_1.koibitoshuuchuu.R
 import com.ss_team_1.koibitoshuuchuu.presentation.MyApplication
 import com.ss_team_1.koibitoshuuchuu.presentation.components.*
-import com.ss_team_1.koibitoshuuchuu.presentation.utils.CharacterInfoAndPlotStorer
+import com.ss_team_1.koibitoshuuchuu.presentation.utils.ResourceStorer
+import com.ss_team_1.koibitoshuuchuu.presentation.viewModel.FocusHistoryViewModel
 
 @Composable
 fun CharacterDetailPage(
@@ -26,13 +28,10 @@ fun CharacterDetailPage(
     navController: NavController
 ) {
     val character = remember {
-        CharacterInfoAndPlotStorer.character[characterID]
+        ResourceStorer.character[characterID]
     }
-    val focusRecord = remember {
-        MyApplication.appContainer().focusHistoryRepository.getLastWeekHistoryByCharacterIdGroupByDay(
-            characterID
-        ).value?: mapOf()
-    }
+    val focusHistory: FocusHistoryViewModel = hiltViewModel()
+    val focusRecord = focusHistory.state.value.historiesGroupByDay[characterID]
 
     Box(
         Modifier
@@ -62,7 +61,7 @@ fun CharacterDetailPage(
             )
             if(focusRecord.isNotEmpty()) {
                 Spacer(modifier = Modifier.height(8.dp))
-                BarChart(data = focusRecord)
+                BarChart(rowData = focusRecord)
             }
             Spacer(modifier = Modifier.height(8.dp))
             CharacterIntroduction(
