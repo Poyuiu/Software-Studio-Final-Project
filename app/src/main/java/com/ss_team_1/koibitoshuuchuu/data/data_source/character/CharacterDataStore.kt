@@ -21,6 +21,9 @@ class CharacterDataStore @Inject constructor(@ApplicationContext context: Contex
     private val _intimacy = List(numOfCharacters) {
         intPreferencesKey("intimacy$it")
     }
+    private val _level = List(numOfCharacters) {
+        intPreferencesKey("level$it")
+    }
 
     private val characterDataStore = context.characterDataStore
 
@@ -36,9 +39,9 @@ class CharacterDataStore @Inject constructor(@ApplicationContext context: Contex
         .map { character ->
             List(numOfCharacters) {
                 if (it == 0)
-                    Character(it, character[_intimacy[it]] ?: 100)
+                    Character(it, character[_level[it]] ?: 1, character[_intimacy[it]] ?: 0)
                 else
-                    Character(it, character[_intimacy[it]] ?: 0)
+                    Character(it, character[_level[it]] ?: 0, character[_intimacy[it]] ?: 0)
             }
         }
 
@@ -54,14 +57,20 @@ class CharacterDataStore @Inject constructor(@ApplicationContext context: Contex
             }
             .map { character ->
                 if (id == 0)
-                    Character(id, character[_intimacy[id]] ?: 100)
+                    Character(id, character[_level[id]] ?: 1, character[_intimacy[id]] ?: 0)
                 else
-                    Character(id, character[_intimacy[id]] ?: 0)
+                    Character(id, character[_level[id]] ?: 0, character[_intimacy[id]] ?: 0)
             }
 
     suspend fun setIntimacy(id: Int, newIntimacy: Int) {
         characterDataStore.edit { character ->
             character[_intimacy[id]] =  newIntimacy
+        }
+    }
+
+    suspend fun setLevel(id: Int, newLevel: Int) {
+        characterDataStore.edit { character ->
+            character[_level[id]] = newLevel
         }
     }
 }

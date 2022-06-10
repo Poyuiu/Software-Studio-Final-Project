@@ -27,4 +27,8 @@ class CharacterRepositoryImplementation (
     override suspend fun setIntimacy(id: Int, newIntimacy: Int) {
         characterDataStore.setIntimacy(id, newIntimacy)
     }
+
+    override suspend fun setLevel(id: Int, newLevel: Int) {
+        characterDataStore.setLevel(id, newLevel)
+    }
 }

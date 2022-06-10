@@ -5,6 +5,6 @@ import com.ss_team_1.koibitoshuuchuu.domain.model.Character
 
 data class CharacterState (
     val characters: List<Character> = List(numOfCharacters) {
-        Character(it, 0)
+        Character(it, 0, 0)
     }
 )

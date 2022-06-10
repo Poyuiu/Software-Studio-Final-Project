@@ -2,11 +2,11 @@ package com.ss_team_1.koibitoshuuchuu.domain.repository
 
 import androidx.lifecycle.LiveData
 import com.ss_team_1.koibitoshuuchuu.domain.model.FocusHistory
+import kotlinx.coroutines.flow.Flow
 import java.util.*
 
 interface FocusHistoryRepository {
-    fun getLastWeekHistoryByCharacterId(id: Int): LiveData<List<FocusHistory>>
-    fun getLastWeekHistoryByCharacterIdGroupByDay(id: Int): LiveData<Map<String, Float>>
-    fun getAllHistory(): LiveData<List<FocusHistory>>
-    fun insertHistory(characterId: Int, startTime: Calendar, endTime: Calendar)
+    fun getLastWeekHistory(): Flow<List<FocusHistory>>
+    fun getAllHistory(): Flow<List<FocusHistory>>
+    suspend fun insertHistory(characterId: Int, startTime: Calendar, endTime: Calendar)
 }
