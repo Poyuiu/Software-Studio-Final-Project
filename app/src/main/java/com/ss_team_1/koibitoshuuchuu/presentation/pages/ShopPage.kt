@@ -23,9 +23,11 @@ import com.ss_team_1.koibitoshuuchuu.presentation.components.*
 @Composable
 fun ShopPage(
     navController: NavController,
-    buyflag: Boolean
 ) {
     val openDialog = remember { mutableStateOf(false) }
+    val buying = remember { mutableStateOf(-1) }
+    val spend = remember { mutableStateOf(1) }//沒暗任何案件
+    val boughtflag = remember { mutableStateOf(false) }
     Box(
         Modifier.fillMaxSize()
     ) {
@@ -39,19 +41,12 @@ fun ShopPage(
         NavigationBar(modifier = Modifier.align(Alignment.BottomCenter), navController)
         Column(
             modifier = Modifier
-                .align(Alignment.TopCenter)
-                .clickable(
-                    enabled = true,
-                    onClickLabel = "Welcomepage click",
-                    onClick = {
-                        openDialog.value = true
-                    }
-                ),
+                .align(Alignment.TopCenter),
             horizontalAlignment = Alignment.CenterHorizontally
         ) {
             Spacer(modifier = Modifier.height(32.dp))
             money_diamond_bar(100000, 400)
-            if (buyflag) {
+            if (boughtflag.value) {
                 Image(
                     painter = painterResource(id = R.drawable.shop_buy_gift_0),
                     contentDescription = "",
@@ -67,7 +62,9 @@ fun ShopPage(
                 contentScale = ContentScale.Fit,
                 modifier = Modifier.size(356.dp, 72.dp)
             )
-            ShopSceneGoods()
+
+             buying.value =ShopSceneGoods()
+            if(buying.value>-1 && spend.value==1) openDialog.value =true
             Spacer(modifier = Modifier.height(36.dp))
             Image(
                 painter = painterResource(id = R.drawable.shop_header_1),
@@ -80,40 +77,15 @@ fun ShopPage(
             ShopGiftGoodsRow1()
         }
 
-        if (openDialog.value) {
 
-            AlertDialog(
-                onDismissRequest = {
-                    // Dismiss the dialog when the user clicks outside the dialog or on the back
-                    // button. If you want to disable that functionality, simply use an empty
-                    // onCloseRequest.
-                    openDialog.value = false
-                },
-                title = {
-                    Text(text = "Dialog Title")
-                },
-                text = {
-                    Text("Here is a text ")
-                },
-                confirmButton = {
-                    Button(
-
-                        onClick = {
-                            openDialog.value = false
-                        }) {
-                        Text("This is the Confirm Button")
-                    }
-                },
-                dismissButton = {
-                    Button(
-
-                        onClick = {
-                            openDialog.value = false
-                        }) {
-                        Text("This is the dismiss Button")
-                    }
-                }
-            )
+    }
+    if(openDialog.value){
+        spend.value=buyingPopupScreen()
+        if(spend.value<=0){
+            openDialog.value=false
+        }
+        if(spend.value<0){
+            boughtflag.value=true
         }
     }
 }
@@ -121,5 +93,5 @@ fun ShopPage(
 @Preview
 @Composable
 fun ShopPagePreview() {
-    ShopPage(navController = NavController(LocalContext.current), true)
+    ShopPage(navController = NavController(LocalContext.current))
 }

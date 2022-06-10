@@ -6,6 +6,8 @@ import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
 import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
@@ -69,7 +71,8 @@ fun money_diamond_barpreview(){
 }
 
 @Composable
-fun ShopSceneGoods(){
+fun ShopSceneGoods() :Int{
+    val bought = remember { mutableStateOf(-1) }
     Box(modifier = Modifier.size(328.dp,128.dp)){
         Row(
             modifier = Modifier.align(Alignment.CenterStart),
@@ -85,6 +88,7 @@ fun ShopSceneGoods(){
                         onClickLabel = "buy scene0",
                         onClick = {
                             /*TODO*/
+                            bought.value=0
                         }
                     )
             )
@@ -99,6 +103,7 @@ fun ShopSceneGoods(){
                         onClickLabel = "buy scene1",
                         onClick = {
                             /*TODO*/
+                            bought.value=1
                         }
                     )
             )
@@ -113,13 +118,13 @@ fun ShopSceneGoods(){
                         onClickLabel = "buy scene2",
                         onClick = {
                             /*TODO*/
+                            bought.value=2
                         }
                     )
             )
         }
     }
-
-
+    return bought.value
 }
 @Preview
 @Composable

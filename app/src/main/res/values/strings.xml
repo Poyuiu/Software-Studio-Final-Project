@@ -19,4 +19,8 @@
     <string name="character1_info"></string>
     <string name="character1_introduction"></string>
     /*************PLOT1*************/
+
+
+    <string name="shop_buying_scnen0_head">購買場景-咖啡廳</string>
+    <string name="shop_buying_scene0_body">有了咖啡廳的場景，您可以和您心愛\n的戀人在此場景專注約會，聆聽咖啡\n廳相關音樂</string>
 </resources>

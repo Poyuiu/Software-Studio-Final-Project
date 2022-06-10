@@ -36,8 +36,7 @@ class MainActivity : ComponentActivity() {
                     composable(Page.UserData.route) { UserDataPage(navController) }
                     composable(Page.Shop.route) {
                         ShopPage(
-                            navController = navController,
-                            buyflag = true
+                            navController = navController
                         )
                     }
                     composable(Page.FocusIntro.route) { FocusIntroPage(navController) }

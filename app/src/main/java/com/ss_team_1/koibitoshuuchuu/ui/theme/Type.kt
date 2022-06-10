@@ -18,6 +18,8 @@ val huninnFamily = FontFamily(
 // Set of Material typography styles to start with
 val mainFont = R.font.mamelon
 
+val contextFont = R.font.openhuninn
+
 val Typography = Typography(
     body1 = TextStyle(
         fontFamily = mamelonFamily,
