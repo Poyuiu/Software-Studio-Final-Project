@@ -1,5 +1,6 @@
 package com.ss_team_1.koibitoshuuchuu.presentation.pages
 
+import androidx.activity.compose.BackHandler
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border
@@ -59,6 +60,11 @@ fun FocusPage(navController: NavController, focusTime: Int?) {
             if (remainTime <= 0) focusEnd = true
         }
     }
+    // Back Handlers
+    BackHandler(!focusEnd && !pauseState) {
+        pauseState = true
+    }
+
 
     KBSCScaffold(
         navController = navController,
