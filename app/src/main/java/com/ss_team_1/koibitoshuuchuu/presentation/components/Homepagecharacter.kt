@@ -100,7 +100,8 @@ fun HomepageCharacter(
     context: Context,
     lock: Boolean,
     characterId: Int,
-    onClickToCharacterInfo: ()->Unit = {}
+    onClickToCharacterInfo: ()->Unit = {},
+    enable: Boolean
 ){
     val matrix = ColorMatrix()
     matrix.setToSaturation(0F)
@@ -124,6 +125,7 @@ fun HomepageCharacter(
             }else {
                 Button(
                     onClick = onClickToCharacterInfo,
+                    enabled = enable,
                     elevation = null,
                     colors = ButtonDefaults.buttonColors(backgroundColor = Color.Transparent)
                 ) {
@@ -139,9 +141,9 @@ fun HomepageCharacter(
     }
 
 }
-@Preview
+/*@Preview
 @Composable
 fun HomepageCharacterpreview(){
-    HomepageCharacter(2,400,1314,LocalContext.current ,false ,1)
-}
+    HomepageCharacter(2,400,1314,LocalContext.current ,false ,1,,true)
+}*/
 

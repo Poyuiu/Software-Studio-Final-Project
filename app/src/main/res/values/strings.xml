@@ -33,4 +33,17 @@
     <string name="shop_buying_gift2_head">購買禮物-戒指</string>
     <string name="shop_buying_gift2_body">有了戒指，您可以送給您心儀的對\n象，以提升對方對您的親切程度\n(+100)，親切程度到了一定的數值時\n，對方會接受您的告白，成為戀人</string>
 
+    <string name="Unlock_character">好感度提升到1等時\n將解鎖角色</string>
+
+    <string name="Give_character_gift_header">你想要送什麼禮物呢？</string>
+
+
+    <string name="monday">星期一</string>
+    <string name="tuesday">星期二</string>
+    <string name="wednesday">星期三</string>
+    <string name="thursday">星期四</string>
+    <string name="friday">星期五</string>
+    <string name="saturday">星期六</string>
+    <string name="sunday">星期日</string>
+
 </resources>

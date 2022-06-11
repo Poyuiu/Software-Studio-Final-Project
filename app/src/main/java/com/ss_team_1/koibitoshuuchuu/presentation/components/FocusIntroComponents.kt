@@ -33,10 +33,9 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.compose.ui.window.Popup
 import androidx.compose.ui.window.PopupProperties
-import com.ss_team_1.koibitoshuuchuu.ui.theme.Primary
-import com.ss_team_1.koibitoshuuchuu.ui.theme.Secondary
-import com.ss_team_1.koibitoshuuchuu.ui.theme.huninnFamily
-import com.ss_team_1.koibitoshuuchuu.ui.theme.mamelonFamily
+import com.ss_team_1.koibitoshuuchuu.R
+import com.ss_team_1.koibitoshuuchuu.presentation.utils.OutlinedText
+import com.ss_team_1.koibitoshuuchuu.ui.theme.*
 import dev.chrisbanes.snapper.ExperimentalSnapperApi
 import dev.chrisbanes.snapper.LazyListSnapperLayoutInfo
 import dev.chrisbanes.snapper.rememberLazyListSnapperLayoutInfo
@@ -67,7 +66,7 @@ fun FocusIntroTimePicker(
         modifier = Modifier
             .size(width = 279.dp, height = 308.dp)
     ) {
-        Text(text = "${layoutInfo.currentItem?.index}", modifier = Modifier.padding(10.dp))
+        //Text(text = "${layoutInfo.currentItem?.index}", modifier = Modifier.padding(10.dp))
         LazyColumn(
             modifier = Modifier
                 .fillMaxWidth()
@@ -115,7 +114,15 @@ fun FocusIntroTimePickerButton(
 ) {
     var openState by remember { mutableStateOf(false) }
     Column(modifier = Modifier.padding(12.dp)) {
-        Text(text = "Focus Time")
+        //Text(text = "Focus Time", fontSize = 20.sp, color = Primary, fontFamily = mamelonFamily)
+        OutlinedText(
+            text = "Focus Time",
+            fontSize = 20,
+            fontResId = R.font.mamelon,
+            textColor = PrimaryValue,
+            strokeColor = SecondaryValue,
+            strokeWidth = 2
+        )
         Button(
             modifier = Modifier.size(width = 280.dp, height = 64.dp),
             onClick = { openState = true },
@@ -148,7 +155,15 @@ fun FocusIntroWorkTextField(
 ) {
     var workDesc by remember { mutableStateOf("homework") }
     Column(modifier = Modifier.padding(12.dp)) {
-        Text(text = "Work(optional)")
+        //Text(text = "Work(optional)", fontSize = 20.sp, color = Primary, fontFamily = mamelonFamily)
+        OutlinedText(
+            text = "Work(optional)",
+            fontSize = 20,
+            fontResId = R.font.mamelon,
+            textColor = PrimaryValue,
+            strokeColor = SecondaryValue,
+            strokeWidth = 2
+        )
         Box(
             modifier = Modifier
                 .size(width = 280.dp, height = 64.dp)
@@ -164,7 +179,8 @@ fun FocusIntroWorkTextField(
                     textAlign = TextAlign.Center,
                     fontSize = 36.sp,
                     fontFamily = huninnFamily
-                )
+                ),
+                singleLine = true
             )
 
         }
@@ -178,7 +194,15 @@ fun FocusIntroScenePicker(
     var openState by remember { mutableStateOf(false) }
     var sceneName by remember { mutableStateOf("咖啡廳") }
     Column(modifier = Modifier.padding(12.dp)) {
-        Text(text = "Scene")
+        OutlinedText(
+            text = "Scene",
+            fontSize = 20,
+            fontResId = R.font.mamelon,
+            textColor = PrimaryValue,
+            strokeColor = SecondaryValue,
+            strokeWidth = 2
+        )
+        //Text(text = "Scene", fontSize = 20.sp, color = Primary, fontFamily = mamelonFamily)
         Button(
             modifier = Modifier.size(width = 280.dp, height = 64.dp),
             onClick = { openState = true },

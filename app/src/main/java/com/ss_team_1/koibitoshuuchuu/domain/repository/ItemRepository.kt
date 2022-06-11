@@ -1,10 +1,10 @@
 package com.ss_team_1.koibitoshuuchuu.domain.repository
 
-import androidx.lifecycle.LiveData
 import com.ss_team_1.koibitoshuuchuu.domain.model.Item
+import kotlinx.coroutines.flow.Flow
 
 interface ItemRepository {
-    fun getAllItem(): LiveData<List<Item>>
-    fun getItem(id: Int): LiveData<Item>
-    fun updateItemOwnedQuantity(id: Int, changeAmount: Int)
+    fun getAllItem(): Flow<List<Item>>
+    fun getItem(id: Int): Flow<Item>
+    suspend fun setItemOwnedQuantity(id: Int, newQuantity: Int)
 }

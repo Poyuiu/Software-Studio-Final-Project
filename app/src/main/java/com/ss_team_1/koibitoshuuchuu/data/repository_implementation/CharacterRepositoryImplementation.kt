@@ -14,8 +14,6 @@ import kotlinx.coroutines.launch
 class CharacterRepositoryImplementation (
     private val characterDataStore: CharacterDataStore
 ): CharacterRepository {
-    private val coroutineScope = CoroutineScope(Dispatchers.Main)
-
     override fun getAllCharacter(): Flow<List<Character>> {
         return characterDataStore.characterDataFlow
     }

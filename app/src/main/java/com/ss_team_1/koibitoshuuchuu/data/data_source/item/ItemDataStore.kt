@@ -8,20 +8,26 @@ import androidx.datastore.preferences.core.emptyPreferences
 import androidx.datastore.preferences.core.intPreferencesKey
 import androidx.datastore.preferences.preferencesDataStore
 import com.ss_team_1.koibitoshuuchuu.domain.model.Item
+import dagger.hilt.android.qualifiers.ApplicationContext
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.catch
 import kotlinx.coroutines.flow.map
 import java.io.IOException
+import javax.inject.Inject
+import javax.inject.Singleton
 
 private val Context.itemDataStore: DataStore<Preferences> by preferencesDataStore(name="item_data")
-private const val numOfItems = 5
+const val numOfItems = 5
 
-class ItemDataStore(val context: Context) {
+@Singleton
+class ItemDataStore @Inject constructor(@ApplicationContext context: Context) {
     private val _quantity = List(numOfItems) {
         intPreferencesKey("quantity$it")
     }
 
-    val itemDataFlow = context.itemDataStore.data
+    private val itemDataStore = context.itemDataStore
+
+    val itemDataFlow = itemDataStore.data
         .catch {
             if (it is IOException) {
                 it.printStackTrace()
@@ -37,7 +43,7 @@ class ItemDataStore(val context: Context) {
         }
 
     fun getItem(id: Int): Flow<Item> {
-        return context.itemDataStore.data
+        return itemDataStore.data
             .catch {
                 if (it is IOException) {
                     it.printStackTrace()
@@ -52,7 +58,7 @@ class ItemDataStore(val context: Context) {
     }
 
     suspend fun setQuantity(id: Int, newQuantity: Int) {
-        context.itemDataStore.edit { item ->
+        itemDataStore.edit { item ->
             item[_quantity[id]] = newQuantity
         }
     }

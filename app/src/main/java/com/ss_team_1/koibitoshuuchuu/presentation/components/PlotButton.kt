@@ -23,7 +23,7 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.ss_team_1.koibitoshuuchuu.R
-import com.ss_team_1.koibitoshuuchuu.presentation.utils.CharacterInfoAndPlotStorer
+import com.ss_team_1.koibitoshuuchuu.presentation.utils.ResourceStorer
 import com.ss_team_1.koibitoshuuchuu.ui.theme.*
 
 @Composable
@@ -111,6 +111,6 @@ fun PlotButtonPreview() {
         //lock = false,
         haveRead = false,
         id = 7,
-        title = CharacterInfoAndPlotStorer.character[0].plotList[0].title
+        title = ResourceStorer.character[0].plotList[0].title
     )
 }

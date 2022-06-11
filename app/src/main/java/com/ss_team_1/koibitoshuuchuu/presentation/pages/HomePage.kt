@@ -17,7 +17,9 @@ import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavController
 import com.ss_team_1.koibitoshuuchuu.R
+import com.ss_team_1.koibitoshuuchuu.presentation.Page
 import com.ss_team_1.koibitoshuuchuu.presentation.components.*
+import com.ss_team_1.koibitoshuuchuu.presentation.event.CharacterEvent
 import com.ss_team_1.koibitoshuuchuu.presentation.viewModel.CharacterViewModel
 
 //@Preview
@@ -28,13 +30,16 @@ fun HomePage(
     onClickToCharacterInfo: (Int) -> Unit
 ) {
     val state = viewModel.state.value
-
+    val openDialog1 = remember { mutableStateOf(false) }
+    val popup = remember { mutableStateOf(0) }
+    val openDialog2 = remember { mutableStateOf(false) }
+    val intimacyupdate = remember { mutableStateOf(-1) }
     Box(
         Modifier.fillMaxSize()
     ) {
         val characterid: MutableState<Int> =
             remember { mutableStateOf(0) }
-        val lock = state.characters[characterid.value].level == 0 && state.characters[characterid.value].intimacy == 0
+        val lock = state.characters[characterid.value].level == 0 //&& state.characters[characterid.value].intimacy == 0
 
         //var checkedState by rememberSaveable { mutableStateOf(false) }
 
@@ -61,30 +66,70 @@ fun HomePage(
 //            }
             HomepageCharacter(
                 intimacyLevel = state.characters[characterid.value].level,
+                //intimacyupdate.value,
                 intimacy = state.characters[characterid.value].intimacy,
                 levelIntimacyNeed = state.characters[characterid.value].intimacyNeeded(),
                 context = LocalContext.current,
                 lock = lock,
                 characterId = characterid.value,
-                onClickToCharacterInfo = { onClickToCharacterInfo(characterid.value) }
+                onClickToCharacterInfo = { onClickToCharacterInfo(characterid.value) },
+                !(openDialog1.value && openDialog2.value)
             )
         }
         Column(
             modifier = Modifier.align(Alignment.BottomCenter),
             horizontalAlignment = Alignment.CenterHorizontally
         ) {
-            FocusButton(
+            /*FocusButton(
                 LocalContext.current,
                 lock,
                 navController
-            )
+            )*/
+            Box(
+                Modifier
+                    .size(216.dp, 66.dp)
+            ) {
+                if (lock) {
+                    Image(
+                        painter = painterResource(id = R.drawable.focus_button_unlock),
+                        contentDescription = "",
+                        contentScale = ContentScale.Fit,
+                        modifier = Modifier
+                            .fillMaxSize()
+                            .clickable(
+                                enabled = !(openDialog1.value && openDialog2.value),
+                                onClickLabel = "unlock click",
+                                onClick = {
+                                    /*TODO*/
+                                    openDialog1.value = true
+                                }
+                            )
+                    )
+                } else {
+                    Image(
+                        painter = painterResource(id = R.drawable.focus_button),
+                        contentDescription = "",
+                        contentScale = ContentScale.Fit,
+                        modifier = Modifier
+                            .fillMaxSize()
+                            .clickable(
+                                enabled = !(openDialog1.value && openDialog2.value),
+                                onClickLabel = "focus click",
+                                onClick = {
+                                    navController.navigate(Page.FocusIntro.route)
+                                }
+                            )
+                    )
+                }
+
+            }
             Spacer(modifier = Modifier.height(120.dp))
         }
         Row(
             modifier = Modifier
                 .align(Alignment.CenterStart)
                 .clickable(
-                    enabled = true,
+                    enabled = !(openDialog1.value && openDialog2.value),
                     onClickLabel = "Clickable right shift",
                     onClick = {
                         if (characterid.value < 2) {
@@ -96,24 +141,13 @@ fun HomePage(
                 ),
             verticalAlignment = Alignment.CenterVertically
         ) {
-            rightRoundedTriangle(
-                /*modifier = Modifier
-                    .clickable (
-                        enabled = true,
-                        onClickLabel = "Clickable right shift",
-                        onClick = {
-                            if(characterid.value<2){
-                                characterid.value+=1
-                            }else{characterid.value=0}
-                        }
-                    )*/
-            )
+            rightRoundedTriangle()
         }
         Row(
             modifier = Modifier
                 .align(Alignment.CenterEnd)
                 .clickable(
-                    enabled = true,
+                    enabled = !(openDialog1.value && openDialog2.value),
                     onClickLabel = "Clickable left shift",
                     onClick = {
                         if (characterid.value > 0) {
@@ -125,18 +159,26 @@ fun HomePage(
                 ),
             verticalAlignment = Alignment.CenterVertically
         ) {
-            leftRoundedTriangle(
-                /*modifier = Modifier
-                    .clickable (
-                        enabled = true,
-                        onClickLabel = "Clickable left shift",
-                        onClick = {
-                            if(characterid.value>0){
-                                characterid.value-=1
-                            }else{characterid.value=2}
-                        }
-                    )*/
-            )
+            leftRoundedTriangle()
+        }
+        if(openDialog1.value){
+            popup.value = UnlockPopupScreen()
+            if(popup.value==1){
+                openDialog1.value=false
+            }
+            else if(popup.value==2){
+                openDialog1.value=false
+                openDialog2.value=true
+            }
+        }
+        else if(openDialog2.value){
+            intimacyupdate.value = GiveGiftPopupScreen()
+            if(intimacyupdate.value >= 0){
+                openDialog2.value=false
+                if(intimacyupdate.value!=0){
+                    viewModel.onEvent(CharacterEvent.UpdateIntimacy(characterid.value,100))
+                }
+            }
         }
     }
 }
