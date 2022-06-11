@@ -73,16 +73,13 @@ fun PlotButton(
                         Text(
                             text = stringResource(id = R.string.plot_title_num, id),
                             modifier = Modifier
-                                .width(158.dp)
-                                .size(24.dp),
+                                .width(30.dp),
                             textAlign = TextAlign.Start,
                             fontStyle = FontStyle(mainFont)
                         )
                         Text(
                             text = stringResource(id = title),
-                            modifier = Modifier
-                                .width(158.dp)
-                                .size(24.dp),
+                            modifier = Modifier,
                             textAlign = TextAlign.Start,
                             fontStyle = FontStyle(mainFont)
                         )

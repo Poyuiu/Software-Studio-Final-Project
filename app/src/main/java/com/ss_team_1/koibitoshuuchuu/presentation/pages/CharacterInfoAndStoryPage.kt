@@ -3,6 +3,7 @@ package com.ss_team_1.koibitoshuuchuu.presentation.pages
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.*
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -11,6 +12,7 @@ import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavController
 import com.ss_team_1.koibitoshuuchuu.R
 import com.ss_team_1.koibitoshuuchuu.domain.util.GetPlotLockAndHaveReadState
@@ -19,6 +21,8 @@ import com.ss_team_1.koibitoshuuchuu.presentation.components.CharacterInfo
 import com.ss_team_1.koibitoshuuchuu.presentation.components.PlotList
 import com.ss_team_1.koibitoshuuchuu.presentation.components.TopBar
 import com.ss_team_1.koibitoshuuchuu.presentation.utils.ResourceStorer
+import com.ss_team_1.koibitoshuuchuu.presentation.viewModel.CharacterViewModel
+import com.ss_team_1.koibitoshuuchuu.presentation.viewModel.PlotStateViewModel
 
 @Composable
 fun CharacterInfoAndStoryPage(
@@ -28,9 +32,9 @@ fun CharacterInfoAndStoryPage(
     navController: NavController
 ) {
     val character = ResourceStorer.character[characterID]
-    val plotTitleList = remember {
-        GetPlotLockAndHaveReadState().getPlotLockAndHaveReadState(characterID)
-    }
+    val characterViewModel: CharacterViewModel = hiltViewModel()
+    val plotStateViewModel: PlotStateViewModel = hiltViewModel()
+    val plotTitleList = GetPlotLockAndHaveReadState().getPlotLockAndHaveReadState(characterID, characterViewModel, plotStateViewModel)
     Box(
         Modifier
             .fillMaxSize()

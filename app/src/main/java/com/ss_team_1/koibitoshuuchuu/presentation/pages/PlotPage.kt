@@ -44,7 +44,7 @@ fun PlotPage(
                 plotSnapShotState++
             }
             else
-                onPlotEnd
+                onPlotEnd()
         }
     }
     Box(
@@ -92,7 +92,7 @@ fun PlotPage(
                         if (plotSnapShotState < plotContentSize - 1)
                             plotSnapShotState++
                         else
-                            onPlotEnd
+                            onPlotEnd()
                     },
                     fontSize = 18,
                     modifier = Modifier.align(Alignment.BottomCenter)
@@ -106,7 +106,7 @@ fun PlotPage(
 @Composable
 fun PagePlotPreview() {
     PlotPage(
-        plotID = 4,
+        plotID = 0,
         characterID = 0,
         navController = NavController(LocalContext.current),
         onPlotEnd = {}

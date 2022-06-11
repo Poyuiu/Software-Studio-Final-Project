@@ -4,6 +4,7 @@ import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.compose.ui.platform.LocalContext
+import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavController
 import androidx.navigation.NavType
 import androidx.navigation.compose.NavHost
@@ -12,7 +13,9 @@ import androidx.navigation.compose.rememberNavController
 import androidx.navigation.navArgument
 import com.ss_team_1.koibitoshuuchuu.presentation.components.PageProfile
 import com.ss_team_1.koibitoshuuchuu.presentation.components.UserDataPage
+import com.ss_team_1.koibitoshuuchuu.presentation.event.PlotStateEvent
 import com.ss_team_1.koibitoshuuchuu.presentation.pages.*
+import com.ss_team_1.koibitoshuuchuu.presentation.viewModel.PlotStateViewModel
 import com.ss_team_1.koibitoshuuchuu.ui.theme.KoiBitoShuuChuuTheme
 import dagger.hilt.android.AndroidEntryPoint
 
@@ -82,30 +85,31 @@ class MainActivity : ComponentActivity() {
                             navController = navController
                         )
                     }
-//                    composable(
-//                        route = Page.Plot.route + "/{characterID}/{plotID}",
-//                        arguments = listOf(
-//                            navArgument("characterID") {
-//                                type = NavType.IntType
-//                            },
-//                            navArgument("plotID") {
-//                                type = NavType.IntType
-//                            }
-//                        )
-//                    ) { entry ->
-//                        PlotPage(
-//                            plotID = entry.arguments?.getInt("plotID")!!,
-//                            characterID = entry.arguments?.getInt("characterID")!!,
-//                            navController = navController,
-//                            onPlotEnd = {
-//                                navController.popBackStack()
-//                                MyApplication.appContainer().plotRepository.setPlotSeen(
-//                                    characterId = entry.arguments?.getInt("characterID")!!,
-//                                    plotNum = entry.arguments?.getInt("plotID")!!
-//                                )
-//                            }
-//                        )
-//                    }
+                    composable(
+                        route = Page.Plot.route + "/{characterID}/{plotID}",
+                        arguments = listOf(
+                            navArgument("characterID") {
+                                type = NavType.IntType
+                            },
+                            navArgument("plotID") {
+                                type = NavType.IntType
+                            }
+                        )
+                    ) { entry ->
+
+                        val plotViewModel: PlotStateViewModel = hiltViewModel()
+                        val plotID = entry.arguments?.getInt("plotID")!!
+                        val characterID = entry.arguments?.getInt("characterID")!!
+                        PlotPage(
+                            plotID = plotID,
+                            characterID = characterID,
+                            navController = navController,
+                            onPlotEnd = {
+                                navController.popBackStack()
+                                plotViewModel.onEvent(PlotStateEvent.SetPlotState(characterId = characterID, plotNum = plotID))
+                            }
+                        )
+                    }
                     //composable(Page.FocusIntro.route) { FocusIntroPage(navController) }
                     /*...*/
                 }
