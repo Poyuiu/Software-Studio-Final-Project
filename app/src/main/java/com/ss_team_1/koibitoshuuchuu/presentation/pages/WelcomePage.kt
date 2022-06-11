@@ -21,6 +21,7 @@ import com.ss_team_1.koibitoshuuchuu.R
 import com.ss_team_1.koibitoshuuchuu.presentation.Page
 import com.ss_team_1.koibitoshuuchuu.presentation.components.RoundButtonTemplate
 import com.ss_team_1.koibitoshuuchuu.presentation.event.PlotStateEvent
+import com.ss_team_1.koibitoshuuchuu.presentation.utils.ResourceStorer
 import com.ss_team_1.koibitoshuuchuu.presentation.viewModel.PlotStateViewModel
 import com.ss_team_1.koibitoshuuchuu.ui.theme.KoiBitoShuuChuuTheme
 
@@ -56,14 +57,18 @@ fun WelcomePage(navController: NavController = NavController(LocalContext.curren
             icon = Icons.Outlined.HelpOutline,
             iconSize = 36.dp,
             onClick = {
-                for (i in 0..2) {
-                    plotStateViewModel.onEvent(
-                        PlotStateEvent.SetPlotStateValue(
-                            characterId = i,
-                            plotNum = 0,
-                            newValue = false
+                val character_count = ResourceStorer.character.size
+                for (i in 0 until character_count) {
+                    val plot_count = ResourceStorer.character[i].plotList.size
+                    for (j in 0 until plot_count) {
+                        plotStateViewModel.onEvent(
+                            PlotStateEvent.SetPlotStateValue(
+                                characterId = i,
+                                plotNum = j,
+                                newValue = false
+                            )
                         )
-                    )
+                    }
                 }
             }
         )
