@@ -11,4 +11,5 @@ data class User (
     val join_date: Calendar,
     val money: Int,
     val gem: Int,
+    val lastUsedCharacterId: Int,
 )

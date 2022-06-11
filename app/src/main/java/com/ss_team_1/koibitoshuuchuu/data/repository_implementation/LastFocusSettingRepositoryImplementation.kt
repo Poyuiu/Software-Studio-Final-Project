@@ -12,10 +12,6 @@ class LastFocusSettingRepositoryImplementation(
         return lastFocusSettingDataStore.lastFocusSettingDataFlow
     }
 
-    override suspend fun setCharacterId(id: Int) {
-        lastFocusSettingDataStore.setLastCharacterId(id)
-    }
-
     override suspend fun setFocusTime(time: Int) {
         lastFocusSettingDataStore.setLastFocusTime(time)
     }

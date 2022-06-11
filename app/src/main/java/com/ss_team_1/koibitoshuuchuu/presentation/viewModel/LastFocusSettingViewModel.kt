@@ -5,7 +5,6 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.ss_team_1.koibitoshuuchuu.domain.use_case.lastFocusSettingUseCases.LastFocusSettingUseCases
-import com.ss_team_1.koibitoshuuchuu.domain.use_case.lastFocusSettingUseCases.SetLastCharacterId
 import com.ss_team_1.koibitoshuuchuu.presentation.event.LastFocusSettingEvent
 import com.ss_team_1.koibitoshuuchuu.presentation.state.LastFocusSettingState
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -30,11 +29,6 @@ class LastFocusSettingViewModel @Inject constructor(
 
     fun onEvent(event: LastFocusSettingEvent) {
         when (event) {
-            is LastFocusSettingEvent.SetLastCharacterId -> {
-                viewModelScope.launch {
-                    lastFocusSettingUseCases.setLastCharacterId(event.id)
-                }
-            }
             is LastFocusSettingEvent.SetLastFocusTime -> {
                 viewModelScope.launch {
                     lastFocusSettingUseCases.setLastFocusTime(event.time)

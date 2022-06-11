@@ -102,7 +102,6 @@ object AppModule {
     fun provideLastFocusSettingUseCases(repository: LastFocusSettingRepository): LastFocusSettingUseCases {
         return LastFocusSettingUseCases(
             getLastFocusSetting = GetLastFocusSetting(repository),
-            setLastCharacterId = SetLastCharacterId(repository),
             setLastFocusTime = SetLastFocusTime(repository),
             setLastWork = SetLastWork(repository),
             setLastSceneId = SetLastSceneId(repository)

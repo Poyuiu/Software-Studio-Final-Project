@@ -20,7 +20,6 @@ private val Context.lastFocusSettingDataStore: DataStore<Preferences> by prefere
 
 @Singleton
 class LastFocusSettingDataStore @Inject constructor(@ApplicationContext context: Context) {
-    private val _characterId = intPreferencesKey("character_id")
     private val _focusTime = intPreferencesKey("focus_time")
     private val _work = stringPreferencesKey("word")
     private val _sceneId = intPreferencesKey("scene_id")
@@ -37,14 +36,8 @@ class LastFocusSettingDataStore @Inject constructor(@ApplicationContext context:
             }
         }
         .map {
-            LastFocusSetting(it[_characterId]?:0, it[_focusTime]?:0, it[_work]?:"", it[_sceneId]?:0)
+            LastFocusSetting(it[_focusTime]?:0, it[_work]?:"", it[_sceneId]?:0)
         }
-
-    suspend fun setLastCharacterId(id: Int) {
-        lastFocusSettingDataStore.edit {
-            it[_characterId] = id
-        }
-    }
 
     suspend fun setLastFocusTime(time: Int) {
         lastFocusSettingDataStore.edit {
