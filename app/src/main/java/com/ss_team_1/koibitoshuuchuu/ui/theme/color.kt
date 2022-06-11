@@ -21,5 +21,7 @@ val gray = Color(0xFF979797)
 val black = Color(0xFF000000)
 val grayLine = Color(0xFF545454)
 val Secondary = Color(0xFFF8BBD0)
+val SecondaryValue = android.graphics.Color.rgb(248, 187, 208)
 val Primary = Color(0xFFFFFFFF)
+val PrimaryValue = android.graphics.Color.WHITE
 val ProfilePink = Color(0xFFFFEEFF)
