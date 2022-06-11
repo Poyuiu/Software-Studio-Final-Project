@@ -9,21 +9,27 @@ import androidx.datastore.preferences.core.emptyPreferences
 import androidx.datastore.preferences.preferencesDataStore
 import com.ss_team_1.koibitoshuuchuu.data.data_source.character.numOfCharacters
 import com.ss_team_1.koibitoshuuchuu.domain.model.PlotState
+import dagger.hilt.android.qualifiers.ApplicationContext
 import kotlinx.coroutines.flow.catch
 import kotlinx.coroutines.flow.map
 import java.io.IOException
+import javax.inject.Inject
+import javax.inject.Singleton
 
 private val Context.plotStateDataStore: DataStore<Preferences> by preferencesDataStore(name = "plot_state_data")
 const val maxNumOfPlot = 5
 
-class PlotStateDataStore(val context: Context) {
+@Singleton
+class PlotStateDataStore @Inject constructor(@ApplicationContext context: Context) {
     private val _seen = List(numOfCharacters) { characterId ->
         List(maxNumOfPlot) { plotId ->
             booleanPreferencesKey("seen$characterId$plotId")
         }
     }
 
-    val plotStateDataFlow = context.plotStateDataStore.data
+    private val plotStateDataStore = context.plotStateDataStore
+
+    val plotStateDataFlow = plotStateDataStore.data
         .catch {
             if (it is IOException) {
                 it.printStackTrace()
@@ -41,7 +47,7 @@ class PlotStateDataStore(val context: Context) {
         }
 
     suspend fun setSeen(characterId: Int, plotNum: Int, newValue: Boolean) {
-        context.plotStateDataStore.edit { plot ->
+        plotStateDataStore.edit { plot ->
             plot[_seen[characterId][plotNum]] = newValue
         }
     }
