@@ -38,7 +38,7 @@ fun HomePage(
     ) {
         val characterid: MutableState<Int> =
             remember { mutableStateOf(0) }
-        val lock = state.characters[characterid.value].level == 0 && state.characters[characterid.value].intimacy == 0
+        val lock = state.characters[characterid.value].level == 0 //&& state.characters[characterid.value].intimacy == 0
 
         //var checkedState by rememberSaveable { mutableStateOf(false) }
 
@@ -70,7 +70,8 @@ fun HomePage(
                 context = LocalContext.current,
                 lock = lock,
                 characterId = characterid.value,
-                onClickToCharacterInfo = { onClickToCharacterInfo(characterid.value) }
+                onClickToCharacterInfo = { onClickToCharacterInfo(characterid.value) },
+                !(openDialog1.value && openDialog2.value)
             )
         }
         Column(
@@ -86,7 +87,7 @@ fun HomePage(
                 Modifier
                     .size(216.dp, 66.dp)
             ) {
-                if (state.characters[characterid.value].intimacy <= 0) {
+                if (lock) {
                     Image(
                         painter = painterResource(id = R.drawable.focus_button_unlock),
                         contentDescription = "",
@@ -94,7 +95,7 @@ fun HomePage(
                         modifier = Modifier
                             .fillMaxSize()
                             .clickable(
-                                enabled = true,
+                                enabled = !(openDialog1.value && openDialog2.value),
                                 onClickLabel = "unlock click",
                                 onClick = {
                                     /*TODO*/
@@ -110,7 +111,7 @@ fun HomePage(
                         modifier = Modifier
                             .fillMaxSize()
                             .clickable(
-                                enabled = true,
+                                enabled = !(openDialog1.value && openDialog2.value),
                                 onClickLabel = "focus click",
                                 onClick = {
                                     navController.navigate(Page.FocusIntro.route)
@@ -126,7 +127,7 @@ fun HomePage(
             modifier = Modifier
                 .align(Alignment.CenterStart)
                 .clickable(
-                    enabled = true,
+                    enabled = !(openDialog1.value && openDialog2.value),
                     onClickLabel = "Clickable right shift",
                     onClick = {
                         if (characterid.value < 2) {
@@ -144,7 +145,7 @@ fun HomePage(
             modifier = Modifier
                 .align(Alignment.CenterEnd)
                 .clickable(
-                    enabled = true,
+                    enabled = !(openDialog1.value && openDialog2.value),
                     onClickLabel = "Clickable left shift",
                     onClick = {
                         if (characterid.value > 0) {
@@ -174,7 +175,7 @@ fun HomePage(
                 openDialog2.value=false
                 if(intimacyupdate.value!=0){
                     /*****************updateintimacy****************/
-                    //state.characters[characterid.value].
+
                 }
             }
         }
