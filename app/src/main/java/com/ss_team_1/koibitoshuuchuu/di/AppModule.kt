@@ -4,15 +4,22 @@ import android.app.Application
 import androidx.room.Room
 import com.ss_team_1.koibitoshuuchuu.data.data_source.character.CharacterDataStore
 import com.ss_team_1.koibitoshuuchuu.data.data_source.focusHistory.FocusHistoryDatabase
+import com.ss_team_1.koibitoshuuchuu.data.data_source.item.ItemDataStore
 import com.ss_team_1.koibitoshuuchuu.data.repository_implementation.CharacterRepositoryImplementation
 import com.ss_team_1.koibitoshuuchuu.data.repository_implementation.FocusHistoryRepositoryImplementation
+import com.ss_team_1.koibitoshuuchuu.data.repository_implementation.ItemRepositoryImplementation
 import com.ss_team_1.koibitoshuuchuu.domain.repository.CharacterRepository
 import com.ss_team_1.koibitoshuuchuu.domain.repository.FocusHistoryRepository
+import com.ss_team_1.koibitoshuuchuu.domain.repository.ItemRepository
 import com.ss_team_1.koibitoshuuchuu.domain.use_case.character.CharacterUseCases
 import com.ss_team_1.koibitoshuuchuu.domain.use_case.character.GetAllCharacter
 import com.ss_team_1.koibitoshuuchuu.domain.use_case.character.GetCharacterById
 import com.ss_team_1.koibitoshuuchuu.domain.use_case.character.UpdateIntimacy
 import com.ss_team_1.koibitoshuuchuu.domain.use_case.focusHistory.*
+import com.ss_team_1.koibitoshuuchuu.domain.use_case.item.GetAllItem
+import com.ss_team_1.koibitoshuuchuu.domain.use_case.item.GetItemById
+import com.ss_team_1.koibitoshuuchuu.domain.use_case.item.ItemUseCases
+import com.ss_team_1.koibitoshuuchuu.domain.use_case.item.UpdateItemOwnedQuantity
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -61,6 +68,23 @@ object AppModule {
             getLastWeekHistory = GetLastWeekHistory(repository),
             getLastWeekHistoryGroupByDay = GetLastWeekHistoryGroupByDay(repository),
             getAllHistory = GetAllHistory(repository),
-            insertHistory = InsertHistory(repository),        )
+            insertHistory = InsertHistory(repository)
+        )
+    }
+
+    @Provides
+    @Singleton
+    fun provideItemRepository(dataStore: ItemDataStore): ItemRepository {
+        return ItemRepositoryImplementation(dataStore)
+    }
+
+    @Provides
+    @Singleton
+    fun provideItemUseCases(repository: ItemRepository): ItemUseCases {
+        return ItemUseCases(
+            getAllItem = GetAllItem(repository),
+            getItemById = GetItemById(repository),
+            updateItemOwnedQuantity = UpdateItemOwnedQuantity(repository)
+        )
     }
 }
