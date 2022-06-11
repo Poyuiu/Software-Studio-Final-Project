@@ -21,6 +21,7 @@ class UserDataStore(val context: Context) {
     private val _money = intPreferencesKey("money")
     private val _gem = intPreferencesKey("gem")
     private val _joinDate = longPreferencesKey("join_date")
+    private val _lastUsedCharacterId = intPreferencesKey("last_used_character_id")
 
     val userDataFlow = context.userDataStore.data
         .catch {
@@ -42,8 +43,9 @@ class UserDataStore(val context: Context) {
             joinDate.timeInMillis = user[_joinDate] ?: 0
             val money = user[_money] ?: 0
             val gem = user[_gem] ?: 0
+            val lastUsedCharacterId = user[_lastUsedCharacterId] ?: 0
 
-            User(id, userName, photoUrl, gender, birthday, joinDate, money, gem)
+            User(id, userName, photoUrl, gender, birthday, joinDate, money, gem, lastUsedCharacterId)
         }
 
     suspend fun saveId(newId: Long) {

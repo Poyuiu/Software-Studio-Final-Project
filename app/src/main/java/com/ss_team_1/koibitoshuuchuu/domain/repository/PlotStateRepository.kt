@@ -1,11 +1,10 @@
 package com.ss_team_1.koibitoshuuchuu.domain.repository
 
-import androidx.lifecycle.LiveData
 import com.ss_team_1.koibitoshuuchuu.domain.model.PlotState
+import kotlinx.coroutines.flow.Flow
 
-interface PlotRepository {
-    fun getPlotByCharacterId(characterId: Int): LiveData<List<PlotState>>
-    fun getPlotByCharacterIdAndPlotNum(characterId: Int, plotNum: Int): LiveData<PlotState>
+interface PlotStateRepository {
+    fun getPlotState(): Flow<List<List<PlotState>>>
     fun setPlotSeenValue(characterId: Int, plotNum: Int, newValue: Boolean)
     fun setPlotSeen(characterId: Int, plotNum: Int)
 }

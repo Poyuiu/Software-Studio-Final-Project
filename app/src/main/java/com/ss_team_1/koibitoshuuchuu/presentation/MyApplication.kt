@@ -2,10 +2,8 @@ package com.ss_team_1.koibitoshuuchuu.presentation
 
 import android.app.Application
 import android.content.Context
-import com.ss_team_1.koibitoshuuchuu.data.data_source.character.CharacterDataStore
-import com.ss_team_1.koibitoshuuchuu.data.data_source.focusHistory.FocusHistoryDatabase
 import com.ss_team_1.koibitoshuuchuu.data.data_source.item.ItemDataStore
-import com.ss_team_1.koibitoshuuchuu.data.data_source.plot.PlotDataStore
+import com.ss_team_1.koibitoshuuchuu.data.data_source.plot.PlotStateDataStore
 import com.ss_team_1.koibitoshuuchuu.data.data_source.scene.SceneDataStore
 import com.ss_team_1.koibitoshuuchuu.data.data_source.setting.SettingDataStore
 import com.ss_team_1.koibitoshuuchuu.data.data_source.user.UserDataStore
@@ -26,11 +24,7 @@ class MyApplication: Application() {
 }
 
 class AppContainer (context: Context) {
-    private val itemLocalDataSource = ItemDataStore(context)
-    val itemRepository = ItemRepositoryImplementation(itemLocalDataSource)
-    private val plotLocalDataSource = PlotDataStore(context)
-    val plotRepository = PlotRepositoryImplementation(plotLocalDataSource)
-    private val sceneLocalDataSource = SceneDataStore(context)
+   private val sceneLocalDataSource = SceneDataStore(context)
     val sceneRepository = SceneRepositoryImplementation(sceneLocalDataSource)
     private val settingLocalDataSource = SettingDataStore(context)
     val settingRepository = SettingRepositoryImplementation(settingLocalDataSource)

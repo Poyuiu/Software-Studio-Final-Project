@@ -1,6 +1,5 @@
 package com.ss_team_1.koibitoshuuchuu.data.data_source.focusHistory
 
-import android.content.Context
 import androidx.room.*
 import com.ss_team_1.koibitoshuuchuu.domain.model.FocusHistory
 import com.ss_team_1.koibitoshuuchuu.domain.util.TimeConverter

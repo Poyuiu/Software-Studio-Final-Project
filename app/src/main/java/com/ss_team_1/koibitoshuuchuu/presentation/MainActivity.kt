@@ -82,30 +82,30 @@ class MainActivity : ComponentActivity() {
                             navController = navController
                         )
                     }
-                    composable(
-                        route = Page.Plot.route + "/{characterID}/{plotID}",
-                        arguments = listOf(
-                            navArgument("characterID") {
-                                type = NavType.IntType
-                            },
-                            navArgument("plotID") {
-                                type = NavType.IntType
-                            }
-                        )
-                    ) { entry ->
-                        PlotPage(
-                            plotID = entry.arguments?.getInt("plotID")!!,
-                            characterID = entry.arguments?.getInt("characterID")!!,
-                            navController = navController,
-                            onPlotEnd = {
-                                navController.popBackStack()
-                                MyApplication.appContainer().plotRepository.setPlotSeen(
-                                    characterId = entry.arguments?.getInt("characterID")!!,
-                                    plotNum = entry.arguments?.getInt("plotID")!!
-                                )
-                            }
-                        )
-                    }
+//                    composable(
+//                        route = Page.Plot.route + "/{characterID}/{plotID}",
+//                        arguments = listOf(
+//                            navArgument("characterID") {
+//                                type = NavType.IntType
+//                            },
+//                            navArgument("plotID") {
+//                                type = NavType.IntType
+//                            }
+//                        )
+//                    ) { entry ->
+//                        PlotPage(
+//                            plotID = entry.arguments?.getInt("plotID")!!,
+//                            characterID = entry.arguments?.getInt("characterID")!!,
+//                            navController = navController,
+//                            onPlotEnd = {
+//                                navController.popBackStack()
+//                                MyApplication.appContainer().plotRepository.setPlotSeen(
+//                                    characterId = entry.arguments?.getInt("characterID")!!,
+//                                    plotNum = entry.arguments?.getInt("plotID")!!
+//                                )
+//                            }
+//                        )
+//                    }
                     //composable(Page.FocusIntro.route) { FocusIntroPage(navController) }
                     /*...*/
                 }
