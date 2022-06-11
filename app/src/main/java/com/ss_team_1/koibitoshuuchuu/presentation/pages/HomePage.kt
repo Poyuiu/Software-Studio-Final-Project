@@ -66,6 +66,7 @@ fun HomePage(
 //            }
             HomepageCharacter(
                 intimacyLevel = state.characters[characterid.value].level,
+                //intimacyupdate.value,
                 intimacy = state.characters[characterid.value].intimacy,
                 levelIntimacyNeed = state.characters[characterid.value].intimacyNeeded(),
                 context = LocalContext.current,
@@ -175,8 +176,7 @@ fun HomePage(
             if(intimacyupdate.value >= 0){
                 openDialog2.value=false
                 if(intimacyupdate.value!=0){
-                    /*****************updateintimacy****************/
-
+                    viewModel.onEvent(CharacterEvent.UpdateIntimacy(characterid.value,100))
                 }
             }
         }
