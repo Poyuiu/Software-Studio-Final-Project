@@ -94,6 +94,7 @@ fun PlotPage(
                         else
                             onPlotEnd
                     },
+                    fontSize = 18,
                     modifier = Modifier.align(Alignment.BottomCenter)
                 )
             }
@@ -105,7 +106,7 @@ fun PlotPage(
 @Composable
 fun PagePlotPreview() {
     PlotPage(
-        plotID = 0,
+        plotID = 4,
         characterID = 0,
         navController = NavController(LocalContext.current),
         onPlotEnd = {}

@@ -33,7 +33,8 @@ fun DialogBox(
     text: String,
     showTriangle: Boolean = true,
     onClickNext: () -> Unit = {},
-    modifier: Modifier = Modifier
+    modifier: Modifier = Modifier,
+    fontSize: Int = 24
 ) {
     Box(
         modifier = modifier
@@ -46,7 +47,7 @@ fun DialogBox(
         Text(
             text = text,
             modifier = Modifier.padding(26.dp),
-            fontSize = 24.sp,
+            fontSize = fontSize.sp,
             fontFamily = huninnFamily
         )
         if (showTriangle) {
