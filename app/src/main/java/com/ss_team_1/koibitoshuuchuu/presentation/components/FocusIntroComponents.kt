@@ -67,7 +67,7 @@ fun FocusIntroTimePicker(
         modifier = Modifier
             .size(width = 279.dp, height = 308.dp)
     ) {
-        Text(text = "${layoutInfo.currentItem?.index}", modifier = Modifier.padding(10.dp))
+        //Text(text = "${layoutInfo.currentItem?.index}", modifier = Modifier.padding(10.dp))
         LazyColumn(
             modifier = Modifier
                 .fillMaxWidth()

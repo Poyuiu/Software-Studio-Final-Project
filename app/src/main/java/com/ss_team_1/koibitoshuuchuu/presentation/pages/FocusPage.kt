@@ -1,12 +1,12 @@
 package com.ss_team_1.koibitoshuuchuu.presentation.pages
 
 import androidx.activity.compose.BackHandler
+import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.shape.RoundedCornerShape
-import androidx.compose.material.AlertDialog
 import androidx.compose.material.Button
 import androidx.compose.material.Icon
 import androidx.compose.material.Text
@@ -15,6 +15,7 @@ import androidx.compose.material.icons.outlined.Home
 import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
@@ -22,15 +23,15 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.compose.ui.window.Popup
+import androidx.compose.ui.window.PopupProperties
+import androidx.compose.ui.zIndex
 import androidx.navigation.NavController
 import com.ss_team_1.koibitoshuuchuu.R
 import com.ss_team_1.koibitoshuuchuu.presentation.Page
 import com.ss_team_1.koibitoshuuchuu.presentation.components.*
 import com.ss_team_1.koibitoshuuchuu.presentation.utils.FocusTimeFormatter
-import com.ss_team_1.koibitoshuuchuu.ui.theme.AccentColor
-import com.ss_team_1.koibitoshuuchuu.ui.theme.Primary
-import com.ss_team_1.koibitoshuuchuu.ui.theme.huninnFamily
-import com.ss_team_1.koibitoshuuchuu.ui.theme.mamelonFamily
+import com.ss_team_1.koibitoshuuchuu.ui.theme.*
 import kotlinx.coroutines.delay
 
 @Preview
@@ -174,28 +175,84 @@ fun FocusPage(navController: NavController, focusTime: Int?) {
 
         }
         if (pauseState) {
-            AlertDialog(onDismissRequest = { pauseState = false },
-                shape = RoundedCornerShape(10.dp),
-                backgroundColor = Primary,
-                text = {
-                    Text(text = "真的要丟下她一個人嗎？", fontSize = 32.sp, fontFamily = huninnFamily)
-                },
-                buttons = {
-                    Row(horizontalArrangement = Arrangement.SpaceBetween) {
-                        Button(onClick = {
-                            pauseState = false
-                            focusSuccess = false
-                            focusEnd = true
-                        }) {
-                            Text(text = "是", fontFamily = huninnFamily)
-                        }
-                        Button(onClick = {
-                            pauseState = false
-                        }) {
-                            Text(text = "否", fontFamily = huninnFamily)
+            Box(
+                modifier = Modifier
+                    .fillMaxSize()
+                    .background(color = Color.Black.copy(alpha = 0.4f))
+                    .zIndex(4f)
+            )
+            {
+                Popup(
+                    alignment = Alignment.Center,
+                    onDismissRequest = { pauseState = false },
+                    properties = PopupProperties(focusable = true, dismissOnClickOutside = false)
+                ) {
+                    androidx.compose.material.Surface(
+                        modifier = Modifier
+                            .size(
+                                width = 280.dp,
+                                height = 230.dp
+                            )
+                            .zIndex(8f),
+                        shape = RoundedCornerShape(10.dp),
+                        color = Primary,
+                        border = BorderStroke(width = 3.dp, color = Secondary)
+                    ) {
+                        Column(
+                            modifier = Modifier
+                                .fillMaxSize()
+                                .padding(24.dp),
+                            verticalArrangement = Arrangement.SpaceBetween
+                        )
+                        {
+                            Text(text = "真的要丟下她一個人嗎？", fontSize = 32.sp, fontFamily = huninnFamily)
+                            Row(
+                                modifier = Modifier.fillMaxWidth(),
+                                horizontalArrangement = Arrangement.SpaceBetween
+                            ) {
+                                Button(onClick = {
+                                    pauseState = false
+                                    focusSuccess = false
+                                    focusEnd = true
+                                }) {
+                                    Text(text = "是", fontFamily = huninnFamily)
+                                }
+                                Button(onClick = {
+                                    pauseState = false
+                                }) {
+                                    Text(text = "否", fontFamily = huninnFamily)
+                                }
+                            }
                         }
                     }
-                })
+                }
+            }
+
+//            AlertDialog(
+//                onDismissRequest = { pauseState = false },
+//                shape = RoundedCornerShape(10.dp),
+//                backgroundColor = Primary,
+//                text = {
+//                    Text(text = "真的要丟下她一個人嗎？", fontSize = 32.sp, fontFamily = huninnFamily)
+//                },
+//                buttons = {
+//                    Row(horizontalArrangement = Arrangement.SpaceBetween) {
+//                        Button(onClick = {
+//                            pauseState = false
+//                            focusSuccess = false
+//                            focusEnd = true
+//                        }) {
+//                            Text(text = "是", fontFamily = huninnFamily)
+//                        }
+//                        Button(onClick = {
+//                            pauseState = false
+//                        }) {
+//                            Text(text = "否", fontFamily = huninnFamily)
+//                        }
+//                    }
+//                },
+//                properties = DialogProperties()
+//            )
         }
     }
 }
