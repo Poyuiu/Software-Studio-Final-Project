@@ -22,6 +22,7 @@ import com.ss_team_1.koibitoshuuchuu.R
 import com.ss_team_1.koibitoshuuchuu.presentation.MyApplication
 import com.ss_team_1.koibitoshuuchuu.presentation.viewModel.UserViewModel
 import java.util.*
+import androidx.hilt.navigation.compose.hiltViewModel
 @Composable
 fun PageProfile(navController: NavController= NavController(LocalContext.current),
     userViewModel: UserViewModel= hiltViewModel(),
