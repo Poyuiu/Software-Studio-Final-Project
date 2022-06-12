@@ -243,7 +243,7 @@ fun ShopPage(
                 if(spending.value/1000 == 5){
                     viewModel.onEvent(ItemEvent.UpdateOwnedQuantity(2,+1))
                 }else if(spending.value/1000<=2){
-                    sceneViewModel.onEvent(SceneEvent.SetScene(spending.value/1000,true))
+                    sceneViewModel.onEvent(SceneEvent.SetScene((spending.value/1000)+1,true))
                 }
                 userViewModel.onEvent(UserEvent.UpdateMoney(-(spending.value%1000)))
             }
