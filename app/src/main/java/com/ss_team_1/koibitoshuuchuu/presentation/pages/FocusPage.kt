@@ -65,6 +65,14 @@ fun FocusPage(
     var moneyChange by remember {
         mutableStateOf(0)
     }
+    
+    val dialogText = if (!focusEnd) {
+        "快點專心！我可沒法整天在這裡看著你"
+    } else if (focusSuccess) {
+        "還不錯嘛！接下來也繼續加油哦！"
+    } else {
+        "不專心可是有罪的哦..."
+    }
     // Countdown Timer
     LaunchedEffect(remainTime, pauseState) {
         if (remainTime > 0 && !pauseState && !focusEnd) {
@@ -124,7 +132,7 @@ fun FocusPage(
                 levelIntimacyNeed = state.characters[characterId].intimacyNeeded(),
             )
             DialogBox(
-                text = "快點專心！我可沒法整天在這裡看著你",
+                text = dialogText,
                 showTriangle = false,
                 modifier = Modifier
                     .align(Alignment.CenterHorizontally)
