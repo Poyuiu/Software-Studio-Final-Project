@@ -6,6 +6,11 @@
 
 package com.ss_team_1.koibitoshuuchuu.presentation.components
 
+import androidx.compose.animation.AnimatedVisibility
+import androidx.compose.animation.animateContentSize
+import androidx.compose.animation.core.Spring
+import androidx.compose.animation.core.animateDpAsState
+import androidx.compose.animation.core.spring
 import androidx.compose.foundation.*
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.*
@@ -25,12 +30,14 @@ import androidx.compose.ui.focus.FocusRequester
 import androidx.compose.ui.focus.focusRequester
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.platform.LocalFocusManager
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
+import androidx.compose.ui.unit.IntOffset
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.compose.ui.window.Popup
@@ -39,6 +46,7 @@ import com.ss_team_1.koibitoshuuchuu.R
 import com.ss_team_1.koibitoshuuchuu.domain.model.Scene
 import com.ss_team_1.koibitoshuuchuu.presentation.sceneNameList
 import com.ss_team_1.koibitoshuuchuu.presentation.utils.OutlinedText
+import com.ss_team_1.koibitoshuuchuu.presentation.utils.convertDpToPixel
 import com.ss_team_1.koibitoshuuchuu.ui.theme.*
 import dev.chrisbanes.snapper.ExperimentalSnapperApi
 import dev.chrisbanes.snapper.LazyListSnapperLayoutInfo
@@ -216,7 +224,9 @@ fun FocusIntroScenePicker(
     sceneOnClick: (Int) -> Unit
 ) {
     var openState by remember { mutableStateOf(false) }
-    Column(modifier = Modifier.padding(12.dp)) {
+    Column(modifier = Modifier
+        .padding(12.dp)
+        .animateContentSize()) {
         OutlinedText(
             text = "Scene",
             fontSize = 20,
@@ -227,7 +237,7 @@ fun FocusIntroScenePicker(
         )
         //Text(text = "Scene", fontSize = 20.sp, color = Primary, fontFamily = mamelonFamily)
         Button(
-            modifier = Modifier.size(width = 280.dp, height = 64.dp),
+            modifier = Modifier.size(width = 280.dp, height = if (!openState) 64.dp else 391.dp),
             onClick = { openState = true },
             shape = RoundedCornerShape(17.dp),
             colors = ButtonDefaults.buttonColors(
@@ -235,43 +245,55 @@ fun FocusIntroScenePicker(
             ),
             border = BorderStroke(width = 3.dp, color = Secondary)
         ) {
-            Text(
-                text = stringResource(id = sceneNameList[sceneId]),
-                fontSize = 36.sp,
-                fontFamily = huninnFamily
-            )
+            if (!openState) {
+                Text(
+                    text = stringResource(id = sceneNameList[sceneId]),
+                    fontSize = 36.sp,
+                    fontFamily = huninnFamily
+                )
+            } else {
+                LazyVerticalGrid(
+                    cells = GridCells.Fixed(3),
+                    modifier = Modifier.padding(20.dp)
+                ) {
+                    items(sceneList) { item ->
+                        Image(
+                            painter = painterResource(id = com.ss_team_1.koibitoshuuchuu.presentation.sceneIdList[item.id]),
+                            contentDescription = "scene",
+                            contentScale = ContentScale.FillBounds,
+                            modifier = Modifier
+                                .size(61.dp, 106.dp)
+                                .padding(4.dp)
+                                .clickable {
+                                    sceneOnClick(item.id)
+                                    openState = false
+                                }
+                        )
+                    }
+
+                }
+            }
+
         }
-        if (openState) {
+        val height by animateDpAsState(targetValue = if (openState) 391.dp else 64.dp)
+        //val offset by animateDpAsState(targetValue = if (openState) (-300).dp else 0.dp)
+        if (false) {
             Popup(
-                alignment = Alignment.BottomCenter,
+                alignment = Alignment.TopCenter,
                 onDismissRequest = { openState = false }
             ) {
                 Surface(
                     shape = RoundedCornerShape(15.dp),
                     color = Primary,
                     border = BorderStroke(width = 6.dp, color = Secondary),
-                    modifier = Modifier.size(width = 275.dp, height = 391.dp)
+                    modifier = Modifier
+                        .width(280.dp)
+                        .height(height)
                 ) {
-                    LazyVerticalGrid(
-                        cells = GridCells.Fixed(3),
-                        modifier = Modifier.padding(20.dp)
-                    ) {
-                        items(sceneList) { item ->
-                            Image(
-                                painter = painterResource(id = com.ss_team_1.koibitoshuuchuu.presentation.sceneIdList[item.id]),
-                                contentDescription = "scene",
-                                contentScale = ContentScale.FillBounds,
-                                modifier = Modifier
-                                    .size(61.dp, 106.dp)
-                                    .padding(4.dp)
-                                    .clickable {
-                                        sceneOnClick(item.id)
-                                        openState = false
-                                    }
-                            )
-                        }
-                    }
+
+
                 }
+
             }
         }
     }
