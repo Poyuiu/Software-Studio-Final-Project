@@ -1,5 +1,6 @@
 package com.ss_team_1.koibitoshuuchuu.presentation.pages
 
+import android.util.Log
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.rememberLazyListState
@@ -34,13 +35,11 @@ fun FocusIntroPage(
     viewModel: LastFocusSettingViewModel = hiltViewModel()
 ) {
     val state = viewModel.state.value
-    var timePickerOpenState by remember {
-        mutableStateOf(false)
-    }
-    var focusTime by remember {
-        mutableStateOf(state.lastFocusSetting.focusTime)
-    }
-    var workDesc by remember { mutableStateOf(state.lastFocusSetting.work) }
+//    var focusTime by remember {
+//        mutableStateOf(25)
+//    }
+    val focusTime = state.lastFocusSetting.focusTime
+    val workDesc = state.lastFocusSetting.work
     val lazyListState = rememberLazyListState()
     val layoutInfo: LazyListSnapperLayoutInfo =
         rememberLazyListSnapperLayoutInfo(lazyListState = lazyListState)
@@ -69,12 +68,10 @@ fun FocusIntroPage(
                 layoutInfo = layoutInfo,
                 focusTime = focusTime,
                 setFocusTime = {
-                    focusTime = focusTimeList[layoutInfo.currentItem?.index!!]
-                    viewModel.onEvent(LastFocusSettingEvent.SetLastFocusTime(focusTime))
+                    viewModel.onEvent(LastFocusSettingEvent.SetLastFocusTime(focusTimeList[layoutInfo.currentItem?.index!!]))
                 })
 
             FocusIntroWorkTextField(workDesc = workDesc, onValueChange = { it ->
-                workDesc = it
                 viewModel.onEvent(LastFocusSettingEvent.SetLastWork(it))
             })
             FocusIntroScenePicker()

@@ -31,8 +31,11 @@ import com.ss_team_1.koibitoshuuchuu.R
 import com.ss_team_1.koibitoshuuchuu.presentation.Page
 import com.ss_team_1.koibitoshuuchuu.presentation.components.*
 import com.ss_team_1.koibitoshuuchuu.presentation.utils.FocusTimeFormatter
+import com.ss_team_1.koibitoshuuchuu.presentation.viewModel.CharacterViewModel
 import com.ss_team_1.koibitoshuuchuu.ui.theme.*
 import kotlinx.coroutines.delay
+import androidx.hilt.navigation.compose.hiltViewModel
+import com.ss_team_1.koibitoshuuchuu.presentation.event.CharacterEvent
 
 @Preview
 @Composable
@@ -41,7 +44,13 @@ private fun FocusPagePreview() {
 }
 
 @Composable
-fun FocusPage(navController: NavController, focusTime: Int?, characterId: Int?) {
+fun FocusPage(
+    navController: NavController,
+    focusTime: Int?,
+    characterId: Int?,
+    viewModel: CharacterViewModel = hiltViewModel(),
+) {
+    val state = viewModel.state.value
     var pauseState by remember { mutableStateOf(false) }
     var focusSuccess by remember {
         mutableStateOf(true)
@@ -214,6 +223,12 @@ fun FocusPage(navController: NavController, focusTime: Int?, characterId: Int?) 
                                     pauseState = false
                                     focusSuccess = false
                                     focusEnd = true
+                                    viewModel.onEvent(
+                                        CharacterEvent.UpdateIntimacy(
+                                            characterId,
+                                            -100
+                                        )
+                                    )
                                 }) {
                                     Text(text = "是", fontFamily = huninnFamily)
                                 }
