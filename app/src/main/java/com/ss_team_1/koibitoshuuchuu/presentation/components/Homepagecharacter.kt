@@ -20,16 +20,9 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.ss_team_1.koibitoshuuchuu.R
+import com.ss_team_1.koibitoshuuchuu.presentation.characternamelist
+import com.ss_team_1.koibitoshuuchuu.presentation.characterphotolist
 
-var characternamelist = listOf(
-        R.drawable.character_0_name,
-        R.drawable.character_1_name,
-        R.drawable.character_2_name)
-var characterphotolist = listOf(
-    R.drawable.character_0_photo_main,
-    R.drawable.character_1_photo,
-    R.drawable.character_2_photo
-)
 
 @Composable
 fun Heart_initamcybar(

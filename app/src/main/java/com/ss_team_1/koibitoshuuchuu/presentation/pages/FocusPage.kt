@@ -33,6 +33,7 @@ import com.ss_team_1.koibitoshuuchuu.presentation.viewModel.CharacterViewModel
 import com.ss_team_1.koibitoshuuchuu.ui.theme.*
 import kotlinx.coroutines.delay
 import androidx.hilt.navigation.compose.hiltViewModel
+import com.ss_team_1.koibitoshuuchuu.presentation.characterphotolist
 import com.ss_team_1.koibitoshuuchuu.presentation.event.CharacterEvent
 
 @Preview
@@ -65,7 +66,7 @@ fun FocusPage(
     var moneyChange by remember {
         mutableStateOf(0)
     }
-    
+
     val dialogText = if (!focusEnd) {
         "快點專心！我可沒法整天在這裡看著你"
     } else if (focusSuccess) {
@@ -96,7 +97,7 @@ fun FocusPage(
 
     KBSCScaffold(
         navController = navController,
-        backgroundResourceId = R.drawable.coffee_shop_background,
+        backgroundResourceId = R.drawable.scene_coffee_shop,
         navbarEnable = false,
         topBarEnable = false
     ) {

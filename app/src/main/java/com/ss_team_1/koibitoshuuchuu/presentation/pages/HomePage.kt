@@ -14,7 +14,6 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.zIndex
 import androidx.hilt.navigation.compose.hiltViewModel
@@ -55,7 +54,7 @@ fun HomePage(
         //var checkedState by rememberSaveable { mutableStateOf(false) }
 
         Image(
-            painter = painterResource(id = R.drawable.coffee_shop_background),
+            painter = painterResource(id = R.drawable.scene_coffee_shop),
             contentDescription = "",
             contentScale = ContentScale.Crop,
             modifier = Modifier

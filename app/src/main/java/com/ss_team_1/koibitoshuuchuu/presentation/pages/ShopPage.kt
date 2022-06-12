@@ -19,20 +19,12 @@ import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavController
 import com.ss_team_1.koibitoshuuchuu.R
+import com.ss_team_1.koibitoshuuchuu.presentation.bought_list
 import com.ss_team_1.koibitoshuuchuu.presentation.components.*
 import com.ss_team_1.koibitoshuuchuu.presentation.event.ItemEvent
 import com.ss_team_1.koibitoshuuchuu.presentation.viewModel.ItemViewModel
 
-val bought_list=listOf(
-    R.drawable.shop_buy_scene_0,
-    R.drawable.shop_buy_scene_1,
-    R.drawable.shop_buy_scene_2,
-    R.drawable.shop_buy_gift_0,
-    R.drawable.shop_buy_gift_1,
-    R.drawable.shop_buy_gift_2,
-    R.drawable.shop_buy_gift_3,
-    R.drawable.shop_buy_gift_4
-)
+
 @Composable
 fun ShopPage(
     navController: NavController,

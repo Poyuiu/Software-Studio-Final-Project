@@ -231,7 +231,7 @@ fun FocusIntroScenePicker(
                     border = BorderStroke(width = 6.dp, color = Secondary),
                     modifier = Modifier.size(width = 275.dp, height = 391.dp)
                 ) {
-
+                    
                 }
             }
         }
