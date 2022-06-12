@@ -3,6 +3,7 @@ package com.ss_team_1.koibitoshuuchuu.presentation.components
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
@@ -138,7 +139,7 @@ fun UserInfo1(
         Column {
             Spacer(modifier = Modifier.height(165.dp))
             Button(
-                onClick = { navController.navigate(Page.UserData.route)},
+                onClick = { navController.navigate(Page.UserData.route) },
                 shape = RoundedCornerShape(100),
                 colors = ButtonDefaults.buttonColors(
                     backgroundColor = GreenBlue,
@@ -254,6 +255,7 @@ fun Info2_character() {
                 .size(width = 20.dp, height = 50.dp)
                 .background(ProfilePink)
                 .width(10.dp)
+                .clickable { /*future new roles*/ }
         )
         Spacer(modifier = Modifier.padding(5.dp))
         Box {
@@ -349,6 +351,7 @@ fun Info2_character() {
                 .size(width = 20.dp, height = 50.dp)
                 .background(ProfilePink)
                 .width(10.dp)
+                .clickable { /*future new roles*/ }
         )
 
     }
@@ -371,6 +374,7 @@ fun Info2_scene() {
                 .size(width = 20.dp, height = 50.dp)
                 .background(ProfilePink)
                 .width(10.dp)
+                .clickable { /*future new scenes*/ }
         )
         Spacer(modifier = Modifier.padding(5.dp))
         Box {
@@ -466,6 +470,7 @@ fun Info2_scene() {
                 .size(width = 20.dp, height = 50.dp)
                 .background(ProfilePink)
                 .width(10.dp)
+                .clickable { /*future new scenes*/ }
         )
     }
 }
@@ -487,6 +492,7 @@ fun Info2_item() {
                 .size(width = 20.dp, height = 50.dp)
                 .background(ProfilePink)
                 .width(10.dp)
+                .clickable { /*future new items*/ }
         )
         Spacer(modifier = Modifier.padding(5.dp))
         Box {
@@ -559,11 +565,12 @@ fun Info2_item() {
             painter = painterResource(
                 id = R.drawable.profile_arrow_right
             ),
-            contentDescription = "arrow left",
+            contentDescription = "arrow right",
             modifier = Modifier
                 .size(width = 20.dp, height = 50.dp)
                 .background(ProfilePink)
                 .width(10.dp)
+                .clickable { /*future new items*/ }
         )
 
     }
