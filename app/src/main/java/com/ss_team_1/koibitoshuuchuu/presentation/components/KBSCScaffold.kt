@@ -30,6 +30,7 @@ private fun KBSCScaffoldPreview() {
 
 @Composable
 fun KBSCScaffold(
+    modifier: Modifier = Modifier,
     navController: NavController,
     topBarEnable: Boolean = true,
     navbarEnable: Boolean = true,
@@ -38,7 +39,7 @@ fun KBSCScaffold(
     button2: (@Composable() () -> Unit) = {},
     content: @Composable() BoxScope.() -> Unit
 ) {
-    Box(modifier = Modifier.fillMaxSize()) {
+    Box(modifier = modifier.fillMaxSize()) {
         Image(
             modifier = Modifier
                 .fillMaxSize()

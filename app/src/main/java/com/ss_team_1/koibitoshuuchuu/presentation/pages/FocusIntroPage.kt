@@ -1,14 +1,18 @@
 package com.ss_team_1.koibitoshuuchuu.presentation.pages
 
 import androidx.compose.foundation.Image
+import androidx.compose.foundation.gestures.detectTapGestures
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.rememberLazyListState
 import androidx.compose.material.Text
 import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.focus.FocusRequester
+import androidx.compose.ui.input.pointer.pointerInput
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.platform.LocalFocusManager
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
@@ -44,10 +48,21 @@ fun FocusIntroPage(
     val workDesc = state.lastFocusSetting.work
     val sceneId = state.lastFocusSetting.sceneId
     val sceneList = sceneViewModel.state.value.scenes
+
     val lazyListState = rememberLazyListState()
     val layoutInfo: LazyListSnapperLayoutInfo =
         rememberLazyListSnapperLayoutInfo(lazyListState = lazyListState)
+    val focusRequester = remember {
+        FocusRequester()
+    }
+    val focusManager = LocalFocusManager.current
+
     KBSCScaffold(
+        modifier = Modifier.pointerInput(Unit) {
+            detectTapGestures(onTap = {
+                focusManager.clearFocus()
+            })
+        },
         navController = navController,
         navbarEnable = false,
         backgroundResourceId = sceneIdList[sceneId]
@@ -67,17 +82,20 @@ fun FocusIntroPage(
             horizontalAlignment = Alignment.CenterHorizontally,
             verticalArrangement = Arrangement.Bottom
         ) {
+            FocusIntroWorkTextField(
+                workDesc = workDesc, onValueChange = { it ->
+                    viewModel.onEvent(LastFocusSettingEvent.SetLastWork(it))
+                },
+                focusRequester = focusRequester, focusManager = focusManager
+            )
             FocusIntroTimePickerButton(
                 lazyListState = lazyListState,
                 layoutInfo = layoutInfo,
                 focusTime = focusTime,
                 setFocusTime = {
                     viewModel.onEvent(LastFocusSettingEvent.SetLastFocusTime(focusTimeList[layoutInfo.currentItem?.index!!]))
-                })
-
-            FocusIntroWorkTextField(workDesc = workDesc, onValueChange = { it ->
-                viewModel.onEvent(LastFocusSettingEvent.SetLastWork(it))
-            })
+                }
+            )
             FocusIntroScenePicker(sceneId, sceneList.filter { it.is_owned }) { it ->
                 viewModel.onEvent(LastFocusSettingEvent.SetLastSceneId(it))
             }
