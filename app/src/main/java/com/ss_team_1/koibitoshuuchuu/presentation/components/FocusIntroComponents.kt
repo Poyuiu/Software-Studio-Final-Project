@@ -212,11 +212,10 @@ fun FocusIntroWorkTextField(
 @Composable
 fun FocusIntroScenePicker(
     sceneId: Int,
-    sceneIdList: List<Scene>,
+    sceneList: List<Scene>,
     sceneOnClick: (Int) -> Unit
 ) {
     var openState by remember { mutableStateOf(false) }
-    var sceneName by remember { mutableStateOf("咖啡廳") }
     Column(modifier = Modifier.padding(12.dp)) {
         OutlinedText(
             text = "Scene",
@@ -255,16 +254,20 @@ fun FocusIntroScenePicker(
                 ) {
                     LazyVerticalGrid(
                         cells = GridCells.Fixed(3),
-                        modifier = Modifier.padding(24.dp)
+                        modifier = Modifier.padding(20.dp)
                     ) {
-                        items(sceneIdList) { item ->
+                        items(sceneList) { item ->
                             Image(
                                 painter = painterResource(id = com.ss_team_1.koibitoshuuchuu.presentation.sceneIdList[item.id]),
                                 contentDescription = "scene",
                                 contentScale = ContentScale.FillBounds,
                                 modifier = Modifier
                                     .size(61.dp, 106.dp)
-                                    .clickable { sceneOnClick(item.id) }
+                                    .padding(4.dp)
+                                    .clickable {
+                                        sceneOnClick(item.id)
+                                        openState = false
+                                    }
                             )
                         }
                     }
