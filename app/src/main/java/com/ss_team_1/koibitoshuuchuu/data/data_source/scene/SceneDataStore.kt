@@ -13,7 +13,7 @@ import javax.inject.Inject
 import javax.inject.Singleton
 
 private val Context.sceneDataStore: DataStore<Preferences> by preferencesDataStore(name="scene_data")
-const val numOfScenes = 3
+const val numOfScenes = 4
 
 @Singleton
 class SceneDataStore @Inject constructor(@ApplicationContext context: Context) {

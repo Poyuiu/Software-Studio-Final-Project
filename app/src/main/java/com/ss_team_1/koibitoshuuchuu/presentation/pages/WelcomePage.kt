@@ -21,8 +21,10 @@ import com.ss_team_1.koibitoshuuchuu.R
 import com.ss_team_1.koibitoshuuchuu.presentation.Page
 import com.ss_team_1.koibitoshuuchuu.presentation.components.RoundButtonTemplate
 import com.ss_team_1.koibitoshuuchuu.presentation.event.PlotStateEvent
+import com.ss_team_1.koibitoshuuchuu.presentation.event.SceneEvent
 import com.ss_team_1.koibitoshuuchuu.presentation.utils.ResourceStorer
 import com.ss_team_1.koibitoshuuchuu.presentation.viewModel.PlotStateViewModel
+import com.ss_team_1.koibitoshuuchuu.presentation.viewModel.SceneViewModel
 import com.ss_team_1.koibitoshuuchuu.ui.theme.KoiBitoShuuChuuTheme
 
 @Composable
@@ -53,6 +55,7 @@ fun WelcomePage(navController: NavController = NavController(LocalContext.curren
     }
     if (debugInit) {
         val plotStateViewModel: PlotStateViewModel = hiltViewModel()
+        val sceneViewModel: SceneViewModel = hiltViewModel()
         RoundButtonTemplate(
             icon = Icons.Outlined.HelpOutline,
             iconSize = 36.dp,
@@ -69,6 +72,10 @@ fun WelcomePage(navController: NavController = NavController(LocalContext.curren
                             )
                         )
                     }
+                }
+                // reset scenes
+                for (id in (0..3)) {
+                    sceneViewModel.onEvent(SceneEvent.SetScene(id, false))
                 }
             }
         )
