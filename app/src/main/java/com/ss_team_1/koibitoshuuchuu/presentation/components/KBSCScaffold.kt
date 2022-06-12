@@ -18,7 +18,7 @@ private fun KBSCScaffoldPreview() {
     KBSCScaffold(
         navController = NavController(LocalContext.current),
         button1 = { BackButton(NavController(LocalContext.current)) },
-        backgroundResourceId = R.drawable.coffee_shop_background
+        backgroundResourceId = R.drawable.scene_coffee_shop
     ) {
         Image(
             painter = painterResource(id = R.drawable.character_0_photo_main),

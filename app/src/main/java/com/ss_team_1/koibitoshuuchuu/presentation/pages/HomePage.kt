@@ -3,6 +3,8 @@ package com.ss_team_1.koibitoshuuchuu.presentation.pages
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.outlined.HelpOutline
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.MutableState
 import androidx.compose.runtime.mutableStateOf
@@ -12,8 +14,8 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import androidx.compose.ui.zIndex
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavController
 import com.ss_team_1.koibitoshuuchuu.R
@@ -21,37 +23,69 @@ import com.ss_team_1.koibitoshuuchuu.presentation.Page
 import com.ss_team_1.koibitoshuuchuu.presentation.components.*
 import com.ss_team_1.koibitoshuuchuu.presentation.event.CharacterEvent
 import com.ss_team_1.koibitoshuuchuu.presentation.viewModel.CharacterViewModel
+import com.ss_team_1.koibitoshuuchuu.presentation.viewModel.ItemViewModel
+import com.ss_team_1.koibitoshuuchuu.ui.theme.Secondary
 
 //@Preview
 @Composable
 fun HomePage(
     navController: NavController = NavController(LocalContext.current),
     viewModel: CharacterViewModel = hiltViewModel(),
+    itemViewModel: ItemViewModel = hiltViewModel(),
     onClickToCharacterInfo: (Int) -> Unit
 ) {
     val state = viewModel.state.value
+    val itemState = itemViewModel.state.value
     val openDialog1 = remember { mutableStateOf(false) }
     val popup = remember { mutableStateOf(0) }
     val openDialog2 = remember { mutableStateOf(false) }
     val intimacyupdate = remember { mutableStateOf(-1) }
+    val openDialogNoGift = remember { mutableStateOf(false) }
+    val popupNoGift = remember { mutableStateOf(0) }
+    val clickedHelp = remember { mutableStateOf(false) }
+    val popupHelp = remember { mutableStateOf(0) }
     Box(
         Modifier.fillMaxSize()
     ) {
         val characterid: MutableState<Int> =
             remember { mutableStateOf(0) }
-        val lock =
-            state.characters[characterid.value].level == 0 //&& state.characters[characterid.value].intimacy == 0
+        val lock = state.characters[characterid.value].level == 0 //&& state.characters[characterid.value].intimacy == 0
 
         //var checkedState by rememberSaveable { mutableStateOf(false) }
 
         Image(
-            painter = painterResource(id = R.drawable.coffee_shop_background),
+            painter = painterResource(id = R.drawable.scene_coffee_shop),
             contentDescription = "",
             contentScale = ContentScale.Crop,
             modifier = Modifier
                 .fillMaxSize()
         )
-        TopBar(button1 = { SettingsButton() }, button2 = { HelpButton() })
+        //TopBar(button1 = { SettingsButton() }, button2 = { HelpButton() })
+        androidx.compose.material.Surface(
+            modifier = Modifier
+                .fillMaxWidth()
+                .zIndex(4f),
+            shape = TopBarShape(),
+            color = Secondary,
+            elevation = 4.dp
+        ) {
+            Row(
+                modifier = Modifier
+                    .padding(8.dp)
+                    .padding(bottom = 30.dp),
+                horizontalArrangement = Arrangement.SpaceBetween
+            ) {
+                SettingsButton()
+                RoundButtonTemplate(
+                    icon = Icons.Outlined.HelpOutline,
+                    iconSize = 36.dp,
+                    onClick = {
+                        clickedHelp.value = true
+                    }
+                )
+            }
+
+        }
         NavigationBar(modifier = Modifier.align(Alignment.BottomCenter), navController)
         Column(
             modifier = Modifier.align(Alignment.TopCenter),
@@ -67,14 +101,13 @@ fun HomePage(
 //            }
             HomepageCharacter(
                 intimacyLevel = state.characters[characterid.value].level,
-                //intimacyupdate.value,
                 intimacy = state.characters[characterid.value].intimacy,
                 levelIntimacyNeed = state.characters[characterid.value].intimacyNeeded(),
                 context = LocalContext.current,
                 lock = lock,
                 characterId = characterid.value,
                 onClickToCharacterInfo = { onClickToCharacterInfo(characterid.value) },
-                !(openDialog1.value && openDialog2.value)
+                !(openDialog1.value || openDialog2.value || openDialogNoGift.value || clickedHelp.value)
             )
         }
         Column(
@@ -98,7 +131,7 @@ fun HomePage(
                         modifier = Modifier
                             .fillMaxSize()
                             .clickable(
-                                enabled = !(openDialog1.value && openDialog2.value),
+                                enabled = !(openDialog1.value || openDialog2.value || openDialogNoGift.value || clickedHelp.value),
                                 onClickLabel = "unlock click",
                                 onClick = {
                                     /*TODO*/
@@ -114,7 +147,7 @@ fun HomePage(
                         modifier = Modifier
                             .fillMaxSize()
                             .clickable(
-                                enabled = !(openDialog1.value && openDialog2.value),
+                                enabled = !(openDialog1.value || openDialog2.value || openDialogNoGift.value || clickedHelp.value),
                                 onClickLabel = "focus click",
                                 onClick = {
                                     navController.navigate(Page.FocusIntro.route + "/${characterid.value}")
@@ -130,7 +163,7 @@ fun HomePage(
             modifier = Modifier
                 .align(Alignment.CenterStart)
                 .clickable(
-                    enabled = !(openDialog1.value && openDialog2.value),
+                    enabled = !(openDialog1.value || openDialog2.value || openDialogNoGift.value || clickedHelp.value),
                     onClickLabel = "Clickable right shift",
                     onClick = {
                         if (characterid.value < 2) {
@@ -148,7 +181,7 @@ fun HomePage(
             modifier = Modifier
                 .align(Alignment.CenterEnd)
                 .clickable(
-                    enabled = !(openDialog1.value && openDialog2.value),
+                    enabled = !(openDialog1.value || openDialog2.value || openDialogNoGift.value || clickedHelp.value),
                     onClickLabel = "Clickable left shift",
                     onClick = {
                         if (characterid.value > 0) {
@@ -162,20 +195,43 @@ fun HomePage(
         ) {
             leftRoundedTriangle()
         }
-        if (openDialog1.value) {
-            popup.value = UnlockPopupScreen()
-            if (popup.value == 1) {
-                openDialog1.value = false
-            } else if (popup.value == 2) {
-                openDialog1.value = false
-                openDialog2.value = true
+        if(clickedHelp.value){
+            popupHelp.value = HelpPopupScreen()
+            if(popupHelp.value == 1){
+                clickedHelp.value = false
             }
-        } else if (openDialog2.value) {
+        }
+        if(openDialog1.value){
+            popup.value = UnlockPopupScreen()
+            if(popup.value==1){
+                openDialog1.value=false
+            }
+            else if(popup.value==2){
+                openDialog1.value=false
+                if(itemState.Items[2].quantity_owned>0){
+                    openDialog2.value=true
+                }else{
+                    openDialogNoGift.value = true
+                }
+
+            }
+        }
+        else if(openDialogNoGift.value){
+            popupNoGift.value = NoGiftPopupScreen()
+            if(popupNoGift.value == 1){
+                openDialogNoGift.value = false
+            }
+            else if(popupNoGift.value == 2){
+                navController.navigate(Page.Shop.route)
+                openDialogNoGift.value = false
+            }
+        }
+        else if(openDialog2.value){
             intimacyupdate.value = GiveGiftPopupScreen()
-            if (intimacyupdate.value >= 0) {
-                openDialog2.value = false
-                if (intimacyupdate.value != 0) {
-                    viewModel.onEvent(CharacterEvent.UpdateIntimacy(characterid.value, 100))
+            if(intimacyupdate.value >= 0){
+                openDialog2.value=false
+                if(intimacyupdate.value!=0){
+                    viewModel.onEvent(CharacterEvent.UpdateIntimacy(characterid.value,100))
                 }
             }
         }

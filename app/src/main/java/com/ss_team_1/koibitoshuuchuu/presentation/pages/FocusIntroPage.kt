@@ -1,6 +1,5 @@
 package com.ss_team_1.koibitoshuuchuu.presentation.pages
 
-import android.util.Log
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.rememberLazyListState
@@ -18,6 +17,7 @@ import androidx.navigation.NavController
 import androidx.hilt.navigation.compose.hiltViewModel
 import com.ss_team_1.koibitoshuuchuu.R
 import com.ss_team_1.koibitoshuuchuu.presentation.Page
+import com.ss_team_1.koibitoshuuchuu.presentation.characterphotolist
 import com.ss_team_1.koibitoshuuchuu.presentation.components.*
 import com.ss_team_1.koibitoshuuchuu.presentation.event.LastFocusSettingEvent
 import com.ss_team_1.koibitoshuuchuu.presentation.viewModel.LastFocusSettingViewModel
@@ -40,13 +40,14 @@ fun FocusIntroPage(
 //    }
     val focusTime = state.lastFocusSetting.focusTime
     val workDesc = state.lastFocusSetting.work
+    val sceneId = state.lastFocusSetting.sceneId
     val lazyListState = rememberLazyListState()
     val layoutInfo: LazyListSnapperLayoutInfo =
         rememberLazyListSnapperLayoutInfo(lazyListState = lazyListState)
     KBSCScaffold(
         navController = navController,
         navbarEnable = false,
-        backgroundResourceId = R.drawable.coffee_shop_background
+        backgroundResourceId = sceneId
     ) {
         Image(
             painter = painterResource(id = characterphotolist[characterId!!]),

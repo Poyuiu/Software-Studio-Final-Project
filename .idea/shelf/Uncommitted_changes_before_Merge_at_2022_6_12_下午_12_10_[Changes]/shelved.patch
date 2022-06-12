@@ -1,0 +1,615 @@
+Index: app/src/main/java/com/ss_team_1/koibitoshuuchuu/presentation/components/RoundButtons.kt
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>package com.ss_team_1.koibitoshuuchuu.presentation.components\r\n\r\nimport androidx.compose.foundation.layout.PaddingValues\r\nimport androidx.compose.foundation.layout.size\r\nimport androidx.compose.foundation.shape.CircleShape\r\nimport androidx.compose.material.Button\r\nimport androidx.compose.material.ButtonDefaults\r\nimport androidx.compose.material.Icon\r\nimport androidx.compose.material.icons.Icons\r\nimport androidx.compose.material.icons.filled.ArrowBack\r\nimport androidx.compose.material.icons.filled.Pause\r\nimport androidx.compose.material.icons.outlined.FastForward\r\nimport androidx.compose.material.icons.outlined.HelpOutline\r\nimport androidx.compose.material.icons.outlined.Settings\r\nimport androidx.compose.runtime.Composable\r\nimport androidx.compose.ui.Modifier\r\nimport androidx.compose.ui.graphics.Color\r\nimport androidx.compose.ui.graphics.vector.ImageVector\r\nimport androidx.compose.ui.platform.LocalContext\r\nimport androidx.compose.ui.tooling.preview.Preview\r\nimport androidx.compose.ui.unit.Dp\r\nimport androidx.compose.ui.unit.dp\r\nimport androidx.navigation.NavController\r\nimport com.ss_team_1.koibitoshuuchuu.presentation.utils.coloredShadow\r\nimport com.ss_team_1.koibitoshuuchuu.ui.theme.Secondary\r\n\r\n@Preview(showBackground = true)\r\n@Composable\r\nfun ForwardButton(onClick: () -> Unit = {}) {\r\n    RoundButtonTemplate(\r\n        icon = Icons.Outlined.FastForward,\r\n        iconSize = 36.dp,\r\n        onClick = onClick\r\n    )\r\n}\r\n\r\n@Preview\r\n@Composable\r\nfun HelpButton() {\r\n    RoundButtonTemplate(\r\n        icon = Icons.Outlined.HelpOutline,\r\n        iconSize = 36.dp,\r\n        onClick = {}\r\n    )\r\n}\r\n\r\n@Preview\r\n@Composable\r\nfun SettingsButton() {\r\n    RoundButtonTemplate(\r\n        icon = Icons.Outlined.Settings,\r\n        iconSize = 36.dp,\r\n        onClick = {}\r\n    )\r\n}\r\n\r\n@Preview\r\n@Composable\r\nfun PauseButton(modifier: Modifier = Modifier, onClick: () -> Unit = {}) {\r\n    RoundButtonTemplate(\r\n        modifier = modifier,\r\n        icon = Icons.Default.Pause,\r\n        iconSize = 36.dp,\r\n        onClick = onClick\r\n    )\r\n}\r\n\r\n@Preview\r\n@Composable\r\nprivate fun BackButtonPreview(){\r\n    BackButton(navController = NavController(LocalContext.current))\r\n}\r\n\r\n@Composable\r\nfun BackButton(navController: NavController) {\r\n    RoundButtonTemplate(\r\n        icon = Icons.Default.ArrowBack,\r\n        iconSize = 36.dp,\r\n        onClick = {navController.popBackStack()}\r\n    )\r\n}\r\n\r\n@Composable\r\nfun RoundButtonTemplate(\r\n    modifier: Modifier = Modifier,\r\n    icon: ImageVector,\r\n    iconSize: Dp = 24.dp,\r\n    onClick: () -> Unit\r\n) {\r\n    Button(\r\n        modifier = modifier\r\n            .size(46.dp)\r\n            .coloredShadow(\r\n                color = Color.Black,\r\n                offsetY = 4.dp,\r\n                alpha = 0.25f,\r\n                shadowRadius = 4.dp,\r\n                borderRadius = 30.dp\r\n            ),\r\n        onClick = onClick, colors = ButtonDefaults.textButtonColors(\r\n            backgroundColor = Color.White, contentColor = Secondary\r\n        ), shape = CircleShape, contentPadding = PaddingValues(0.dp)\r\n    ) {\r\n        Icon(\r\n            icon,\r\n            contentDescription = \"Menu Icon\",\r\n            modifier = Modifier.size(iconSize)\r\n        )\r\n    }\r\n}\r\n
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/app/src/main/java/com/ss_team_1/koibitoshuuchuu/presentation/components/RoundButtons.kt b/app/src/main/java/com/ss_team_1/koibitoshuuchuu/presentation/components/RoundButtons.kt
+--- a/app/src/main/java/com/ss_team_1/koibitoshuuchuu/presentation/components/RoundButtons.kt	(revision b6da1198dc5e50c239533f56452af2b078a1f1d7)
++++ b/app/src/main/java/com/ss_team_1/koibitoshuuchuu/presentation/components/RoundButtons.kt	(date 1655005277157)
+@@ -13,6 +13,8 @@
+ import androidx.compose.material.icons.outlined.HelpOutline
+ import androidx.compose.material.icons.outlined.Settings
+ import androidx.compose.runtime.Composable
++import androidx.compose.runtime.mutableStateOf
++import androidx.compose.runtime.remember
+ import androidx.compose.ui.Modifier
+ import androidx.compose.ui.graphics.Color
+ import androidx.compose.ui.graphics.vector.ImageVector
+@@ -36,12 +38,16 @@
+ 
+ @Preview
+ @Composable
+-fun HelpButton() {
++fun HelpButton() :Boolean{
++    val clickedHelp = remember { mutableStateOf(false) }
+     RoundButtonTemplate(
+         icon = Icons.Outlined.HelpOutline,
+         iconSize = 36.dp,
+-        onClick = {}
++        onClick = {
++            clickedHelp.value = true
++        }
+     )
++    return clickedHelp.value
+ }
+ 
+ @Preview
+Index: app/src/main/java/com/ss_team_1/koibitoshuuchuu/presentation/pages/HomePage.kt
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>package com.ss_team_1.koibitoshuuchuu.presentation.pages\r\n\r\nimport androidx.compose.foundation.Image\r\nimport androidx.compose.foundation.clickable\r\nimport androidx.compose.foundation.layout.*\r\nimport androidx.compose.runtime.Composable\r\nimport androidx.compose.runtime.MutableState\r\nimport androidx.compose.runtime.mutableStateOf\r\nimport androidx.compose.runtime.remember\r\nimport androidx.compose.ui.Alignment\r\nimport androidx.compose.ui.Modifier\r\nimport androidx.compose.ui.layout.ContentScale\r\nimport androidx.compose.ui.platform.LocalContext\r\nimport androidx.compose.ui.res.painterResource\r\nimport androidx.compose.ui.tooling.preview.Preview\r\nimport androidx.compose.ui.unit.dp\r\nimport androidx.hilt.navigation.compose.hiltViewModel\r\nimport androidx.navigation.NavController\r\nimport com.ss_team_1.koibitoshuuchuu.R\r\nimport com.ss_team_1.koibitoshuuchuu.presentation.Page\r\nimport com.ss_team_1.koibitoshuuchuu.presentation.components.*\r\nimport com.ss_team_1.koibitoshuuchuu.presentation.event.CharacterEvent\r\nimport com.ss_team_1.koibitoshuuchuu.presentation.viewModel.CharacterViewModel\r\n\r\n//@Preview\r\n@Composable\r\nfun HomePage(\r\n    navController: NavController = NavController(LocalContext.current),\r\n    viewModel: CharacterViewModel = hiltViewModel(),\r\n    onClickToCharacterInfo: (Int) -> Unit\r\n) {\r\n    val state = viewModel.state.value\r\n    val openDialog1 = remember { mutableStateOf(false) }\r\n    val popup = remember { mutableStateOf(0) }\r\n    val openDialog2 = remember { mutableStateOf(false) }\r\n    val intimacyupdate = remember { mutableStateOf(-1) }\r\n    Box(\r\n        Modifier.fillMaxSize()\r\n    ) {\r\n        val characterid: MutableState<Int> =\r\n            remember { mutableStateOf(0) }\r\n        val lock = state.characters[characterid.value].level == 0 //&& state.characters[characterid.value].intimacy == 0\r\n\r\n        //var checkedState by rememberSaveable { mutableStateOf(false) }\r\n\r\n        Image(\r\n            painter = painterResource(id = R.drawable.coffee_shop_background),\r\n            contentDescription = \"\",\r\n            contentScale = ContentScale.Crop,\r\n            modifier = Modifier\r\n                .fillMaxSize()\r\n        )\r\n        TopBar(button1 = { SettingsButton() }, button2 = { HelpButton() })\r\n        NavigationBar(modifier = Modifier.align(Alignment.BottomCenter), navController)\r\n        Column(\r\n            modifier = Modifier.align(Alignment.TopCenter),\r\n            horizontalAlignment = Alignment.CenterHorizontally\r\n        ) {\r\n            Spacer(modifier = Modifier.height(64.dp))\r\n//            if (intimacyLevel != null && intimacy != null && levelIntimacyNeed !=null) {\r\n//                HomepageCharacter(intimacyLevel,intimacy,levelIntimacyNeed,\r\n//                    LocalContext.current, lock,characterid.value)\r\n//            }else {\r\n//                HomepageCharacter(0,0,100,\r\n//                    LocalContext.current, lock,characterid.value)\r\n//            }\r\n            HomepageCharacter(\r\n                intimacyLevel = state.characters[characterid.value].level,\r\n                //intimacyupdate.value,\r\n                intimacy = state.characters[characterid.value].intimacy,\r\n                levelIntimacyNeed = state.characters[characterid.value].intimacyNeeded(),\r\n                context = LocalContext.current,\r\n                lock = lock,\r\n                characterId = characterid.value,\r\n                onClickToCharacterInfo = { onClickToCharacterInfo(characterid.value) },\r\n                !(openDialog1.value && openDialog2.value)\r\n            )\r\n        }\r\n        Column(\r\n            modifier = Modifier.align(Alignment.BottomCenter),\r\n            horizontalAlignment = Alignment.CenterHorizontally\r\n        ) {\r\n            /*FocusButton(\r\n                LocalContext.current,\r\n                lock,\r\n                navController\r\n            )*/\r\n            Box(\r\n                Modifier\r\n                    .size(216.dp, 66.dp)\r\n            ) {\r\n                if (lock) {\r\n                    Image(\r\n                        painter = painterResource(id = R.drawable.focus_button_unlock),\r\n                        contentDescription = \"\",\r\n                        contentScale = ContentScale.Fit,\r\n                        modifier = Modifier\r\n                            .fillMaxSize()\r\n                            .clickable(\r\n                                enabled = !(openDialog1.value && openDialog2.value),\r\n                                onClickLabel = \"unlock click\",\r\n                                onClick = {\r\n                                    /*TODO*/\r\n                                    openDialog1.value = true\r\n                                }\r\n                            )\r\n                    )\r\n                } else {\r\n                    Image(\r\n                        painter = painterResource(id = R.drawable.focus_button),\r\n                        contentDescription = \"\",\r\n                        contentScale = ContentScale.Fit,\r\n                        modifier = Modifier\r\n                            .fillMaxSize()\r\n                            .clickable(\r\n                                enabled = !(openDialog1.value && openDialog2.value),\r\n                                onClickLabel = \"focus click\",\r\n                                onClick = {\r\n                                    navController.navigate(Page.FocusIntro.route)\r\n                                }\r\n                            )\r\n                    )\r\n                }\r\n\r\n            }\r\n            Spacer(modifier = Modifier.height(120.dp))\r\n        }\r\n        Row(\r\n            modifier = Modifier\r\n                .align(Alignment.CenterStart)\r\n                .clickable(\r\n                    enabled = !(openDialog1.value && openDialog2.value),\r\n                    onClickLabel = \"Clickable right shift\",\r\n                    onClick = {\r\n                        if (characterid.value < 2) {\r\n                            characterid.value += 1\r\n                        } else {\r\n                            characterid.value = 0\r\n                        }\r\n                    }\r\n                ),\r\n            verticalAlignment = Alignment.CenterVertically\r\n        ) {\r\n            rightRoundedTriangle()\r\n        }\r\n        Row(\r\n            modifier = Modifier\r\n                .align(Alignment.CenterEnd)\r\n                .clickable(\r\n                    enabled = !(openDialog1.value && openDialog2.value),\r\n                    onClickLabel = \"Clickable left shift\",\r\n                    onClick = {\r\n                        if (characterid.value > 0) {\r\n                            characterid.value -= 1\r\n                        } else {\r\n                            characterid.value = 2\r\n                        }\r\n                    }\r\n                ),\r\n            verticalAlignment = Alignment.CenterVertically\r\n        ) {\r\n            leftRoundedTriangle()\r\n        }\r\n        if(openDialog1.value){\r\n            popup.value = UnlockPopupScreen()\r\n            if(popup.value==1){\r\n                openDialog1.value=false\r\n            }\r\n            else if(popup.value==2){\r\n                openDialog1.value=false\r\n                openDialog2.value=true\r\n            }\r\n        }\r\n        else if(openDialog2.value){\r\n            intimacyupdate.value = GiveGiftPopupScreen()\r\n            if(intimacyupdate.value >= 0){\r\n                openDialog2.value=false\r\n                if(intimacyupdate.value!=0){\r\n                    viewModel.onEvent(CharacterEvent.UpdateIntimacy(characterid.value,100))\r\n                }\r\n            }\r\n        }\r\n    }\r\n}\r\n\r\n
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/app/src/main/java/com/ss_team_1/koibitoshuuchuu/presentation/pages/HomePage.kt b/app/src/main/java/com/ss_team_1/koibitoshuuchuu/presentation/pages/HomePage.kt
+--- a/app/src/main/java/com/ss_team_1/koibitoshuuchuu/presentation/pages/HomePage.kt	(revision b6da1198dc5e50c239533f56452af2b078a1f1d7)
++++ b/app/src/main/java/com/ss_team_1/koibitoshuuchuu/presentation/pages/HomePage.kt	(date 1655005346464)
+@@ -14,6 +14,7 @@
+ import androidx.compose.ui.res.painterResource
+ import androidx.compose.ui.tooling.preview.Preview
+ import androidx.compose.ui.unit.dp
++import androidx.compose.ui.zIndex
+ import androidx.hilt.navigation.compose.hiltViewModel
+ import androidx.navigation.NavController
+ import com.ss_team_1.koibitoshuuchuu.R
+@@ -21,19 +22,26 @@
+ import com.ss_team_1.koibitoshuuchuu.presentation.components.*
+ import com.ss_team_1.koibitoshuuchuu.presentation.event.CharacterEvent
+ import com.ss_team_1.koibitoshuuchuu.presentation.viewModel.CharacterViewModel
++import com.ss_team_1.koibitoshuuchuu.presentation.viewModel.ItemViewModel
++import com.ss_team_1.koibitoshuuchuu.ui.theme.Secondary
+ 
+ //@Preview
+ @Composable
+ fun HomePage(
+     navController: NavController = NavController(LocalContext.current),
+     viewModel: CharacterViewModel = hiltViewModel(),
++    itemViewModel: ItemViewModel = hiltViewModel(),
+     onClickToCharacterInfo: (Int) -> Unit
+ ) {
+     val state = viewModel.state.value
++    val itemState = itemViewModel.state.value
+     val openDialog1 = remember { mutableStateOf(false) }
+     val popup = remember { mutableStateOf(0) }
+     val openDialog2 = remember { mutableStateOf(false) }
+     val intimacyupdate = remember { mutableStateOf(-1) }
++    val openDialogNoGift = remember { mutableStateOf(false) }
++    val noGiftPopup = remember { mutableStateOf(0) }
++    val clickedHelp = remember { mutableStateOf(false) }
+     Box(
+         Modifier.fillMaxSize()
+     ) {
+@@ -50,7 +58,25 @@
+             modifier = Modifier
+                 .fillMaxSize()
+         )
+-        TopBar(button1 = { SettingsButton() }, button2 = { HelpButton() })
++        //TopBar(button1 = { SettingsButton() }, button2 = { HelpButton() })
++        androidx.compose.material.Surface(
++            modifier = Modifier
++                .fillMaxWidth()
++                .zIndex(4f),
++            shape = TopBarShape(),
++            color = Secondary,
++            elevation = 4.dp
++        ) {
++            Row(
++                modifier = Modifier
++                    .padding(8.dp)
++                    .padding(bottom = 30.dp),
++                horizontalArrangement = Arrangement.SpaceBetween
++            ) {
++                SettingsButton()
++                clickedHelp.value = HelpButton()
++            }
++        }
+         NavigationBar(modifier = Modifier.align(Alignment.BottomCenter), navController)
+         Column(
+             modifier = Modifier.align(Alignment.TopCenter),
+@@ -168,15 +194,28 @@
+             }
+             else if(popup.value==2){
+                 openDialog1.value=false
+-                openDialog2.value=true
++                if(itemState.Items[2].quantity_owned == 0){
++                    openDialogNoGift.value = true
++                }else{
++                    openDialog2.value=true
++                }
+             }
+         }
++        else if(openDialogNoGift.value){
++            noGiftPopup.value = NoGiftPopupScreen()
++            if(noGiftPopup.value==1){
++                openDialogNoGift.value = false
++            }
++            else if(noGiftPopup.value==2){
++                navController.navigate(Page.Shop.route)
++            }
++        }
+         else if(openDialog2.value){
+             intimacyupdate.value = GiveGiftPopupScreen()
+             if(intimacyupdate.value >= 0){
+                 openDialog2.value=false
+                 if(intimacyupdate.value!=0){
+-                    viewModel.onEvent(CharacterEvent.UpdateIntimacy(characterid.value,100))
++                    viewModel.onEvent(CharacterEvent.UpdateIntimacy(characterid.value,intimacyupdate.value))
+                 }
+             }
+         }
+Index: app/src/main/res/values/strings.xml
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+><?xml version=\"1.0\" encoding=\"utf-8\"?>\r\n<resources>\r\n    <string name=\"a_space\"> </string>\r\n    <string name=\"app_name\">KoiBitoShuuChuu</string>\r\n    <string name=\"detail\">DETAIL</string>\r\n    <string name=\"plot_title_num\">%1$d.</string>\r\n\r\n    /*************shkieiki PLOT1*************/\r\n    <string name=\"character0_plot0_title\">我死了</string>\r\n    <string name=\"character0_plot0_snapshot0\">當我醒來之時，我發現自己躺在一艘古老的小船上，面前站了一個個頭挺高，紅髮藍衣的女孩</string>\r\n    <string name=\"character0_plot0_snapshot1\">好驚訝</string>\r\n    <string name=\"character0_plot0_snapshot2\">什麼?我我我我我死了?怎麼會這樣，我還沒有喜歡的人，怎麼就死了</string>\r\n    <string name=\"character0_plot0_snapshot3\">某女：「這位孩子，別傷心了，你還可以投胎呢?」</string>\r\n    <string name=\"character0_plot0_snapshot4\">不過即使這樣，那真是太可惜了，我才十四歲呢，生命結束的太早了</string>\r\n    <string name=\"character0_plot0_snapshot5\">這個女孩說了一些安慰我的話，就繼續划船，我和她閒聊了起來</string>\r\n\r\n    <string name=\"character0_plot1_title\">你誰</string>\r\n    <string name=\"character0_plot1_snapshot0\">我：「請問.......您叫什麼?</string>\r\n    <string name=\"character0_plot1_snapshot1\">某女：「小野塚小町，一個死神，以後叫我小町就可以了」</string>\r\n    <string name=\"character0_plot1_snapshot2\">過了很長時間，目的地到了，我對冥界十分陌生，就請求小町帶路，小町答應了，在她站起來時，她把我撞到了</string>\r\n    <string name=\"character0_plot1_snapshot3\">我：「哎呀，對不起」</string>\r\n    <string name=\"character0_plot1_snapshot4\">小町：「沒關係，不疼」</string>\r\n\r\n    <string name=\"character0_plot2_title\">我不想活了</string>\r\n    <string name=\"character0_plot2_snapshot0\">小町把我帶到了審判的地方，心中十分不安，只見那裡坐著一個穿著工作制服，留著綠色短髮的少女，神態嚴肅</string>\r\n    <string name=\"character0_plot2_snapshot1\">我：「小町，他是...」</string>\r\n    <string name=\"character0_plot2_snapshot2\">小町：「四季大人，這個孩子有點怕生，你需要和他溝通一下。這是四季大人，你們溝通一下吧」說完小町走出了房間，繼續工作了</string>\r\n    <string name=\"character0_plot2_snapshot3\">四季問了我一些問題，她給我的感覺很好，嚴肅之中帶著點溫柔</string>\r\n    <string name=\"character0_plot2_snapshot4\">我：「四季大人，我不想投胎了，能留在這里工作嗎?」</string>\r\n    <string name=\"character0_plot2_snapshot5\">四季：「可以呀，不過需要明天的審判。」</string>\r\n    <string name=\"character0_plot2_snapshot6\">隔天，我成功地通過了審判，正式成為了四季的下屬，幫助她記敘被審批者的供詞，挺有趣的工作</string>\r\n\r\n    <string name=\"character0_plot3_title\">他好可愛</string>\r\n    <string name=\"character0_plot3_snapshot0\">上午，四季在審判一個戴眼鏡，鬍子拉碴，不像好人的肥胖男子，這個男子被打入地獄，那個男子聽了後絕望的跪下了</string>\r\n    <string name=\"character0_plot3_snapshot1\">下午，一個頭上有角的下屬犯了錯，被四季說教，我正站在旁邊看，仔細看著四季</string>\r\n    <string name=\"character0_plot3_snapshot2\">四季大人好可愛啊，不僅臉蛋可愛，身材苗條，而且氣質也很迷人呢</string>\r\n    <string name=\"character0_plot3_snapshot3\">四季的怒容並不可怕，倒很可愛，精巧的五官構成一副精緻的面孔</string>\r\n    <string name=\"character0_plot3_snapshot4\">我還聽說，四季大人經常對小町說教</string>\r\n\r\n    <string name=\"character0_plot4_title\">她暈了</string>\r\n    <string name=\"character0_plot4_snapshot0\">四季大人在審判一個不良少女時莫名暈倒了！我和其他工作人員連忙將她扶起，我用公主抱的方式把她送到了醫院</string>\r\n    <string name=\"character0_plot4_snapshot1\">還好，四季大人只是因為睡眠不足所致，沒有大礙，過不多久就會醒來</string>\r\n    <string name=\"character0_plot4_snapshot2\">四季大人醒來了，是我最早發現的，四季大人知道是我送她來的，竟然依偎到我胸前</string>\r\n    <string name=\"character0_plot4_snapshot3\">四季大人說了一些感謝我的話，露出來微笑</string>\r\n    <string name=\"character0_plot4_snapshot4\">四季大人的笑容在燈光的渲染下顯得格外美麗</string>\r\n    <string name=\"character0_plot4_snapshot5\">四季大人出院了，對別人的態度溫柔了些，對我似乎有好感..</string>\r\n    <string name=\"character0_plot4_snapshot6\">以後我會好好工作，回報四季大人</string>\r\n    <string name=\"character0_plot4_snapshot7\">demo劇情結束，本劇情改自：B站 東方同人文:一位旁觀者的日記，四季映姬</string>\r\n    <string name=\"character0_plot4_snapshot8\">網址：https://www.bilibili.com/read/cv19162</string>\r\n\r\n    /**********************四季映姬資料***********************/\r\n    <string name=\"character0_name\">四季映姫</string>\r\n    <string name=\"character0_info\">暱稱：閻蘿王\\n\\n身高：較高與高之間\\n種族：閻魔\\n\\n住所：彼岸\\n職業：審判官</string>\r\n    <string name=\"character0_introduction\">四季映姫是閻魔之一，擔當幻想郷及其他地區的閻魔，負責對死者的裁決。在是非曲直廳中負責審判死者的工作，死神小野塚小町的上司。\\n\\n平時在彼岸的是非曲直廳内裁決死者的靈魂，有時會到幻想郷去説教，警告人們積累善行，以免被判下地獄。\\n\\n身穿十分鄭重的袍裝，性格嚴肅認真，不過偶爾也有意外萌的一面。</string>\r\n\r\n    /**********************魂魄妖夢資料***********************/\r\n    <string name=\"character1_name\">魂魄妖夢</string>\r\n    <string name=\"character1_info\">暱稱：U夢\\n\\n身高：較矮\\n種族：半人半靈\\n住所：冥界白玉樓\\n職業：護衛、庭師</string>\r\n    <string name=\"character1_introduction\">妖夢是西行寺家專屬庭師的第二代，幽幽子的護衛。西行寺家上一代的庭師，妖夢的爺爺魂魄妖忌在擔任了300年的庭師之後，有一天忽然頓悟了什麼，便將庭師的工作交給了還是少女的妖夢，自己一個人隱居了起來。\\n\\n妖夢不同於純粹是亡靈的主人西行寺幽幽子，她是半人半靈的存在。身邊巨大的幽靈是按照她的意識活動的，那個是她身體的一部分。\\n\\n妖夢本來應該是幽幽子的劍術指導老師。雖說現在作為庭師工作著，但妖夢有著相當優秀的劍術，是二刀流的高手。\\n\\n性格認真直率，有時有點逞強；但也許是因為年齡還不是很大，常常表現得特別天真，也就成了幽幽子最喜歡戲弄的對象。\\n\\n膽子很小。身為半人半靈，看到幽靈時卻十分害怕。</string>\r\n\r\n\r\n    /**********************吉吊八千代***********************/\r\n    <string name=\"character2_name\">吉吊八千代</string>\r\n    <string name=\"character2_info\">種族：吉弔\\n\\n職業：鬼傑組組長\\n\\n能力：讓人失去反抗意志程度的能力</string>\r\n    <string name=\"character2_introduction\">對任何人都是一副彬彬有禮的樣子，但內心裡卻瞧不起絕大多數人。擁有讓人失去反抗意志的能力，沒有人能夠違抗她。</string>\r\n    /*************PLOT1*************/\r\n\r\n\r\n    <string name=\"shop_buying_scene0_head\">購買場景-辦公室</string>\r\n    <string name=\"shop_buying_scene0_body\">有了辦公室的場景，您可以和您心愛\\n的戀人在此場景專注約會，聆聽辦公\\n室相關音樂</string>\r\n\r\n    <string name=\"shop_buying_scene1_head\">購買場景-圖書館</string>\r\n    <string name=\"shop_buying_scene1_body\">有了圖書館的場景，您可以和您心愛\\n的戀人在此場景專注約會，聆聽圖書\\n館相關音樂</string>\r\n\r\n    <string name=\"shop_buying_scene2_head\">購買場景-咖啡廳</string>\r\n    <string name=\"shop_buying_scene2_body\">有了咖啡廳的場景，您可以和您心愛\\n的戀人在此場景專注約會，聆聽咖啡\\n廳相關音樂</string>\r\n\r\n    <string name=\"shop_buying_gift2_head\">購買禮物-戒指</string>\r\n    <string name=\"shop_buying_gift2_body\">有了戒指，您可以送給您心儀的對\\n象，以提升對方對您的親切程度\\n(+100)，親切程度到了一定的數值時\\n，對方會接受您的告白，成為戀人</string>\r\n\r\n    <string name=\"Unlock_character\">好感度提升到1等時\\n將解鎖角色</string>\r\n\r\n    <string name=\"Give_character_gift_header\">你想要送什麼禮物呢？</string>\r\n\r\n\r\n    <string name=\"monday\">星期一</string>\r\n    <string name=\"tuesday\">星期二</string>\r\n    <string name=\"wednesday\">星期三</string>\r\n    <string name=\"thursday\">星期四</string>\r\n    <string name=\"friday\">星期五</string>\r\n    <string name=\"saturday\">星期六</string>\r\n    <string name=\"sunday\">星期日</string>\r\n\r\n</resources>\r\n
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/app/src/main/res/values/strings.xml b/app/src/main/res/values/strings.xml
+--- a/app/src/main/res/values/strings.xml	(revision b6da1198dc5e50c239533f56452af2b078a1f1d7)
++++ b/app/src/main/res/values/strings.xml	(date 1655006139565)
+@@ -82,6 +82,10 @@
+ 
+     <string name="Give_character_gift_header">你想要送什麼禮物呢？</string>
+ 
++    <string name="No_Gift_to_give_header">你沒有足夠的禮物\nQQ</string>
++
++    <string name="Help_body1">按下中間按鈕進入個人\n資料頁面</string>
++
+ 
+     <string name="monday">星期一</string>
+     <string name="tuesday">星期二</string>
+Index: app/src/main/java/com/ss_team_1/koibitoshuuchuu/presentation/pages/ShopPage.kt
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>package com.ss_team_1.koibitoshuuchuu.presentation.pages\r\n\r\nimport androidx.compose.foundation.Image\r\nimport androidx.compose.foundation.clickable\r\nimport androidx.compose.foundation.layout.*\r\nimport androidx.compose.material.AlertDialog\r\nimport androidx.compose.material.Button\r\nimport androidx.compose.material.Text\r\nimport androidx.compose.runtime.Composable\r\nimport androidx.compose.runtime.mutableStateOf\r\nimport androidx.compose.runtime.remember\r\nimport androidx.compose.ui.Alignment\r\nimport androidx.compose.ui.Modifier\r\nimport androidx.compose.ui.layout.ContentScale\r\nimport androidx.compose.ui.platform.LocalContext\r\nimport androidx.compose.ui.res.painterResource\r\nimport androidx.compose.ui.tooling.preview.Preview\r\nimport androidx.compose.ui.unit.dp\r\nimport androidx.navigation.NavController\r\nimport com.ss_team_1.koibitoshuuchuu.R\r\nimport com.ss_team_1.koibitoshuuchuu.presentation.components.*\r\n\r\nval bought_list=listOf(\r\n    R.drawable.shop_buy_scene_0,\r\n    R.drawable.shop_buy_scene_1,\r\n    R.drawable.shop_buy_scene_2,\r\n    R.drawable.shop_buy_gift_0,\r\n    R.drawable.shop_buy_gift_1,\r\n    R.drawable.shop_buy_gift_2,\r\n    R.drawable.shop_buy_gift_3,\r\n    R.drawable.shop_buy_gift_4\r\n)\r\n@Composable\r\nfun ShopPage(\r\n    navController: NavController,\r\n) {\r\n    val openDialog = remember { mutableStateOf(false) }\r\n    val buying = remember { mutableStateOf(-1) }\r\n    val spending = remember { mutableStateOf(-1) }//沒暗任何案件\r\n    val boughtflag = remember { mutableStateOf(false) }\r\n    Box(\r\n        Modifier.fillMaxSize()\r\n    ) {\r\n        Image(\r\n            painter = painterResource(id = R.drawable.background_only_color),\r\n            contentDescription = \"\",\r\n            contentScale = ContentScale.Crop,\r\n            modifier = Modifier\r\n                .fillMaxSize()\r\n        )\r\n        NavigationBar(modifier = Modifier.align(Alignment.BottomCenter), navController)\r\n        Column(\r\n            modifier = Modifier\r\n                .align(Alignment.TopCenter),\r\n            horizontalAlignment = Alignment.CenterHorizontally\r\n        ) {\r\n            Spacer(modifier = Modifier.height(32.dp))\r\n            money_diamond_bar(100, 100)\r\n            if (boughtflag.value) {\r\n                Image(\r\n                    painter = painterResource(id = bought_list[spending.value/1000]),\r\n                    contentDescription = \"\",\r\n                    contentScale = ContentScale.Fit,\r\n                    modifier = Modifier.size(336.dp, 40.dp)\r\n                )\r\n            } else {\r\n                Spacer(modifier = Modifier.height(40.dp))\r\n            }\r\n            Image(\r\n                painter = painterResource(id = R.drawable.shop_header_0),\r\n                contentDescription = \"\",\r\n                contentScale = ContentScale.Fit,\r\n                modifier = Modifier.size(356.dp, 72.dp)\r\n            )\r\n\r\n            Box(modifier = Modifier.size(328.dp,128.dp)){\r\n                Row(\r\n                    modifier = Modifier.align(Alignment.CenterStart),\r\n                    verticalAlignment = Alignment.CenterVertically\r\n                ) {\r\n                    Image(\r\n                        painter = painterResource(id = R.drawable.shop_scene_0),\r\n                        contentDescription = \"\",\r\n                        contentScale = ContentScale.Fit,\r\n                        modifier = Modifier.size(88.dp,138.dp)\r\n                            .clickable(\r\n                                enabled = !openDialog.value,\r\n                                onClickLabel = \"buy scene0\",\r\n                                onClick = {\r\n                                    /*TODO*/\r\n                                    buying.value=0\r\n                                }\r\n                            )\r\n                    )\r\n                    Spacer(modifier = Modifier.width(32.dp))\r\n                    Image(\r\n                        painter = painterResource(id = R.drawable.shop_scene_1),\r\n                        contentDescription = \"\",\r\n                        contentScale = ContentScale.Fit,\r\n                        modifier = Modifier.size(88.dp,138.dp)\r\n                            .clickable(\r\n                                enabled = !openDialog.value,\r\n                                onClickLabel = \"buy scene1\",\r\n                                onClick = {\r\n                                    /*TODO*/\r\n                                    buying.value=1\r\n                                }\r\n                            )\r\n                    )\r\n                    Spacer(modifier = Modifier.width(32.dp))\r\n                    Image(\r\n                        painter = painterResource(id = R.drawable.shop_scene_2),\r\n                        contentDescription = \"\",\r\n                        contentScale = ContentScale.Fit,\r\n                        modifier = Modifier.size(88.dp,138.dp)\r\n                            .clickable(\r\n                                enabled = !openDialog.value,\r\n                                onClickLabel = \"buy scene2\",\r\n                                onClick = {\r\n                                    /*TODO*/\r\n                                    buying.value=2\r\n                                }\r\n                            )\r\n                    )\r\n                }\r\n            }\r\n            Spacer(modifier = Modifier.height(36.dp))\r\n            Image(\r\n                painter = painterResource(id = R.drawable.shop_header_1),\r\n                contentDescription = \"\",\r\n                contentScale = ContentScale.Fit,\r\n                modifier = Modifier.size(356.dp, 72.dp)\r\n            )\r\n            Box(modifier = Modifier.size(328.dp,128.dp)){\r\n                Row(\r\n                    modifier = Modifier.align(Alignment.CenterStart),\r\n                    verticalAlignment = Alignment.CenterVertically\r\n                ) {\r\n                    Image(\r\n                        painter = painterResource(id = R.drawable.shop_gift_0),\r\n                        contentDescription = \"\",\r\n                        contentScale = ContentScale.Fit,\r\n                        modifier = Modifier.size(88.dp,138.dp)\r\n                            .clickable(\r\n                                enabled = !openDialog.value,\r\n                                onClickLabel = \"buy gift0\",\r\n                                onClick = {\r\n                                    /*TODO*/\r\n                                    buying.value=3\r\n                                }\r\n                            )\r\n                    )\r\n                    Spacer(modifier = Modifier.width(32.dp))\r\n                    Image(\r\n                        painter = painterResource(id = R.drawable.shop_gift_1),\r\n                        contentDescription = \"\",\r\n                        contentScale = ContentScale.Fit,\r\n                        modifier = Modifier.size(88.dp,138.dp)\r\n                            .clickable(\r\n                                enabled = !openDialog.value,\r\n                                onClickLabel = \"buy gift1\",\r\n                                onClick = {\r\n                                    /*TODO*/\r\n                                    buying.value=4\r\n                                }\r\n                            )\r\n                    )\r\n                    Spacer(modifier = Modifier.width(32.dp))\r\n                    Image(\r\n                        painter = painterResource(id = R.drawable.shop_gift_2),\r\n                        contentDescription = \"\",\r\n                        contentScale = ContentScale.Fit,\r\n                        modifier = Modifier.size(88.dp,138.dp)\r\n                            .clickable(\r\n                                enabled = !openDialog.value,\r\n                                onClickLabel = \"buy gift2\",\r\n                                onClick = {\r\n                                    /*TODO*/\r\n                                    buying.value=5\r\n                                }\r\n                            )\r\n                    )\r\n                }\r\n            }\r\n            Spacer(modifier = Modifier.height(36.dp))\r\n            Box(modifier = Modifier.size(328.dp,128.dp)){\r\n                Row(\r\n                    modifier = Modifier.align(Alignment.CenterStart),\r\n                    verticalAlignment = Alignment.CenterVertically\r\n                ) {\r\n                    Image(\r\n                        painter = painterResource(id = R.drawable.shop_gift_3),\r\n                        contentDescription = \"\",\r\n                        contentScale = ContentScale.Fit,\r\n                        modifier = Modifier.size(88.dp,138.dp)\r\n                            .clickable(\r\n                                enabled = !openDialog.value,\r\n                                onClickLabel = \"buy gift3\",\r\n                                onClick = {\r\n                                    /*TODO*/\r\n                                    buying.value=6\r\n                                }\r\n                            )\r\n                    )\r\n                    Spacer(modifier = Modifier.width(32.dp))\r\n                    Image(\r\n                        painter = painterResource(id = R.drawable.shop_gift_4),\r\n                        contentDescription = \"\",\r\n                        contentScale = ContentScale.Fit,\r\n                        modifier = Modifier.size(88.dp,138.dp)\r\n                            .clickable(\r\n                                enabled = !openDialog.value,\r\n                                onClickLabel = \"buy gift4\",\r\n                                onClick = {\r\n                                    /*TODO*/\r\n                                    buying.value=7\r\n                                }\r\n                            )\r\n                    )\r\n                }\r\n            }\r\n            if(buying.value>-1){\r\n                openDialog.value = true\r\n                boughtflag.value=false\r\n            }\r\n        }\r\n        if(openDialog.value){\r\n            if(buying.value<=2) spending.value=buyingPopupScreen(buying.value)\r\n            else spending.value=buyinggiftPopupScreen()\r\n            if(spending.value>0){\r\n                boughtflag.value=true\r\n            }\r\n            if(spending.value >= 0){\r\n                buying.value=-1\r\n                openDialog.value=false\r\n            }\r\n\r\n        }\r\n\r\n    }\r\n}\r\n\r\n@Preview\r\n@Composable\r\nfun ShopPagePreview() {\r\n    ShopPage(navController = NavController(LocalContext.current))\r\n}
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/app/src/main/java/com/ss_team_1/koibitoshuuchuu/presentation/pages/ShopPage.kt b/app/src/main/java/com/ss_team_1/koibitoshuuchuu/presentation/pages/ShopPage.kt
+--- a/app/src/main/java/com/ss_team_1/koibitoshuuchuu/presentation/pages/ShopPage.kt	(revision b6da1198dc5e50c239533f56452af2b078a1f1d7)
++++ b/app/src/main/java/com/ss_team_1/koibitoshuuchuu/presentation/pages/ShopPage.kt	(date 1655001668792)
+@@ -16,9 +16,12 @@
+ import androidx.compose.ui.res.painterResource
+ import androidx.compose.ui.tooling.preview.Preview
+ import androidx.compose.ui.unit.dp
++import androidx.hilt.navigation.compose.hiltViewModel
+ import androidx.navigation.NavController
+ import com.ss_team_1.koibitoshuuchuu.R
+ import com.ss_team_1.koibitoshuuchuu.presentation.components.*
++import com.ss_team_1.koibitoshuuchuu.presentation.event.ItemEvent
++import com.ss_team_1.koibitoshuuchuu.presentation.viewModel.ItemViewModel
+ 
+ val bought_list=listOf(
+     R.drawable.shop_buy_scene_0,
+@@ -33,6 +36,7 @@
+ @Composable
+ fun ShopPage(
+     navController: NavController,
++    viewModel: ItemViewModel = hiltViewModel()
+ ) {
+     val openDialog = remember { mutableStateOf(false) }
+     val buying = remember { mutableStateOf(-1) }
+@@ -82,13 +86,14 @@
+                         painter = painterResource(id = R.drawable.shop_scene_0),
+                         contentDescription = "",
+                         contentScale = ContentScale.Fit,
+-                        modifier = Modifier.size(88.dp,138.dp)
++                        modifier = Modifier
++                            .size(88.dp, 138.dp)
+                             .clickable(
+                                 enabled = !openDialog.value,
+                                 onClickLabel = "buy scene0",
+                                 onClick = {
+                                     /*TODO*/
+-                                    buying.value=0
++                                    buying.value = 0
+                                 }
+                             )
+                     )
+@@ -97,13 +102,14 @@
+                         painter = painterResource(id = R.drawable.shop_scene_1),
+                         contentDescription = "",
+                         contentScale = ContentScale.Fit,
+-                        modifier = Modifier.size(88.dp,138.dp)
++                        modifier = Modifier
++                            .size(88.dp, 138.dp)
+                             .clickable(
+                                 enabled = !openDialog.value,
+                                 onClickLabel = "buy scene1",
+                                 onClick = {
+                                     /*TODO*/
+-                                    buying.value=1
++                                    buying.value = 1
+                                 }
+                             )
+                     )
+@@ -112,13 +118,14 @@
+                         painter = painterResource(id = R.drawable.shop_scene_2),
+                         contentDescription = "",
+                         contentScale = ContentScale.Fit,
+-                        modifier = Modifier.size(88.dp,138.dp)
++                        modifier = Modifier
++                            .size(88.dp, 138.dp)
+                             .clickable(
+                                 enabled = !openDialog.value,
+                                 onClickLabel = "buy scene2",
+                                 onClick = {
+                                     /*TODO*/
+-                                    buying.value=2
++                                    buying.value = 2
+                                 }
+                             )
+                     )
+@@ -140,13 +147,14 @@
+                         painter = painterResource(id = R.drawable.shop_gift_0),
+                         contentDescription = "",
+                         contentScale = ContentScale.Fit,
+-                        modifier = Modifier.size(88.dp,138.dp)
++                        modifier = Modifier
++                            .size(88.dp, 138.dp)
+                             .clickable(
+                                 enabled = !openDialog.value,
+                                 onClickLabel = "buy gift0",
+                                 onClick = {
+                                     /*TODO*/
+-                                    buying.value=3
++                                    buying.value = 3
+                                 }
+                             )
+                     )
+@@ -155,13 +163,14 @@
+                         painter = painterResource(id = R.drawable.shop_gift_1),
+                         contentDescription = "",
+                         contentScale = ContentScale.Fit,
+-                        modifier = Modifier.size(88.dp,138.dp)
++                        modifier = Modifier
++                            .size(88.dp, 138.dp)
+                             .clickable(
+                                 enabled = !openDialog.value,
+                                 onClickLabel = "buy gift1",
+                                 onClick = {
+                                     /*TODO*/
+-                                    buying.value=4
++                                    buying.value = 4
+                                 }
+                             )
+                     )
+@@ -170,13 +179,14 @@
+                         painter = painterResource(id = R.drawable.shop_gift_2),
+                         contentDescription = "",
+                         contentScale = ContentScale.Fit,
+-                        modifier = Modifier.size(88.dp,138.dp)
++                        modifier = Modifier
++                            .size(88.dp, 138.dp)
+                             .clickable(
+                                 enabled = !openDialog.value,
+                                 onClickLabel = "buy gift2",
+                                 onClick = {
+                                     /*TODO*/
+-                                    buying.value=5
++                                    buying.value = 5
+                                 }
+                             )
+                     )
+@@ -192,13 +202,14 @@
+                         painter = painterResource(id = R.drawable.shop_gift_3),
+                         contentDescription = "",
+                         contentScale = ContentScale.Fit,
+-                        modifier = Modifier.size(88.dp,138.dp)
++                        modifier = Modifier
++                            .size(88.dp, 138.dp)
+                             .clickable(
+                                 enabled = !openDialog.value,
+                                 onClickLabel = "buy gift3",
+                                 onClick = {
+                                     /*TODO*/
+-                                    buying.value=6
++                                    buying.value = 6
+                                 }
+                             )
+                     )
+@@ -207,13 +218,14 @@
+                         painter = painterResource(id = R.drawable.shop_gift_4),
+                         contentDescription = "",
+                         contentScale = ContentScale.Fit,
+-                        modifier = Modifier.size(88.dp,138.dp)
++                        modifier = Modifier
++                            .size(88.dp, 138.dp)
+                             .clickable(
+                                 enabled = !openDialog.value,
+                                 onClickLabel = "buy gift4",
+                                 onClick = {
+                                     /*TODO*/
+-                                    buying.value=7
++                                    buying.value = 7
+                                 }
+                             )
+                     )
+@@ -229,6 +241,9 @@
+             else spending.value=buyinggiftPopupScreen()
+             if(spending.value>0){
+                 boughtflag.value=true
++                if(spending.value/1000 == 5){
++                    viewModel.onEvent(ItemEvent.UpdateOwnedQuantity(2,1))
++                }
+             }
+             if(spending.value >= 0){
+                 buying.value=-1
+Index: app/src/main/java/com/ss_team_1/koibitoshuuchuu/presentation/components/NoGiftPopup.kt
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/app/src/main/java/com/ss_team_1/koibitoshuuchuu/presentation/components/NoGiftPopup.kt b/app/src/main/java/com/ss_team_1/koibitoshuuchuu/presentation/components/NoGiftPopup.kt
+new file mode 100644
+--- /dev/null	(date 1655000644859)
++++ b/app/src/main/java/com/ss_team_1/koibitoshuuchuu/presentation/components/NoGiftPopup.kt	(date 1655000644859)
+@@ -0,0 +1,103 @@
++package com.ss_team_1.koibitoshuuchuu.presentation.components
++
++import androidx.compose.foundation.background
++import androidx.compose.foundation.clickable
++import androidx.compose.foundation.layout.*
++import androidx.compose.foundation.shape.RoundedCornerShape
++import androidx.compose.material.Text
++import androidx.compose.runtime.Composable
++import androidx.compose.runtime.mutableStateOf
++import androidx.compose.runtime.remember
++import androidx.compose.ui.Alignment
++import androidx.compose.ui.Modifier
++import androidx.compose.ui.graphics.Color
++import androidx.compose.ui.graphics.RectangleShape
++import androidx.compose.ui.res.stringResource
++import androidx.compose.ui.text.font.FontStyle
++import androidx.compose.ui.tooling.preview.Preview
++import androidx.compose.ui.unit.dp
++import androidx.compose.ui.unit.sp
++import com.ss_team_1.koibitoshuuchuu.R
++import com.ss_team_1.koibitoshuuchuu.ui.theme.AccentDark
++import com.ss_team_1.koibitoshuuchuu.ui.theme.contextFont
++import com.ss_team_1.koibitoshuuchuu.ui.theme.mainFont
++
++@Preview
++@Composable
++fun NoGift(
++):Int{
++    val popup = remember { mutableStateOf(0) }//沒暗任何案件
++    Column(
++        modifier = Modifier
++            .width(280.dp)
++            .background(color = Color.White, shape = RoundedCornerShape(10.dp)),
++        horizontalAlignment = Alignment.CenterHorizontally
++    ) {
++        Spacer(modifier = Modifier.height(16.dp))
++        Text(
++            text = stringResource(id = R.string.No_Gift_to_give_header),
++            fontSize = 28.sp,
++            fontStyle = FontStyle(contextFont),
++            modifier = Modifier.padding(8.dp)
++        )
++        Box(modifier = Modifier.fillMaxWidth()){
++            Row(
++                modifier = Modifier
++                    .align(Alignment.CenterEnd),
++                //verticalAlignment = Alignment.CenterVertically
++            ){
++                Text(
++                    text = "沒錢QQ",
++                    fontSize = 24.sp,
++                    fontStyle = FontStyle(mainFont),
++                    modifier = Modifier.padding(8.dp)
++                        .clickable(
++                            enabled = true,
++                            onClickLabel = "doesn't buy",
++                            onClick = {
++                                popup.value = 1
++                            }
++                        )
++                )
++                Spacer(modifier = Modifier.width(64.dp))
++                Text(
++                    text = "去商店",
++                    fontSize = 24.sp,
++                    fontStyle = FontStyle(mainFont),
++                    color = AccentDark,
++                    modifier = Modifier.padding(8.dp)
++                        .clickable(
++                            enabled = true,
++                            onClickLabel = "give gift",
++                            onClick = {
++                                popup.value = 2
++                            }
++                        )
++                )
++                Spacer(modifier = Modifier.width(16.dp))
++            }
++        }
++        Spacer(modifier = Modifier.height(16.dp))
++    }
++    return popup.value
++}
++
++@Preview(showBackground = true)
++@Composable
++fun NoGiftPopupScreen(
++): Int{
++    val popup = remember { mutableStateOf(0) }//沒暗任何案件
++    Box(
++        Modifier.fillMaxSize()
++            .background(Color.Black.copy(alpha = 0.5f), RectangleShape)
++    ){
++        Column(
++            Modifier.fillMaxSize(),
++            horizontalAlignment = Alignment.CenterHorizontally
++        ){
++            Spacer(modifier = Modifier.height(280.dp))
++            popup.value = NoGift()
++        }
++    }
++    return popup.value
++}
+\ No newline at end of file
+Index: app/src/main/java/com/ss_team_1/koibitoshuuchuu/presentation/components/HelpPopup.kt
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/app/src/main/java/com/ss_team_1/koibitoshuuchuu/presentation/components/HelpPopup.kt b/app/src/main/java/com/ss_team_1/koibitoshuuchuu/presentation/components/HelpPopup.kt
+new file mode 100644
+--- /dev/null	(date 1655006848525)
++++ b/app/src/main/java/com/ss_team_1/koibitoshuuchuu/presentation/components/HelpPopup.kt	(date 1655006848525)
+@@ -0,0 +1,151 @@
++package com.ss_team_1.koibitoshuuchuu.presentation.components
++
++import androidx.compose.foundation.Image
++import androidx.compose.foundation.background
++import androidx.compose.foundation.clickable
++import androidx.compose.foundation.layout.*
++import androidx.compose.foundation.shape.RoundedCornerShape
++import androidx.compose.material.Text
++import androidx.compose.runtime.Composable
++import androidx.compose.runtime.mutableStateOf
++import androidx.compose.runtime.remember
++import androidx.compose.ui.Alignment
++import androidx.compose.ui.Modifier
++import androidx.compose.ui.graphics.Color
++import androidx.compose.ui.graphics.ColorFilter
++import androidx.compose.ui.graphics.RectangleShape
++import androidx.compose.ui.layout.ContentScale
++import androidx.compose.ui.res.painterResource
++import androidx.compose.ui.res.stringResource
++import androidx.compose.ui.text.font.FontStyle
++import androidx.compose.ui.tooling.preview.Preview
++import androidx.compose.ui.unit.dp
++import androidx.compose.ui.unit.sp
++import com.ss_team_1.koibitoshuuchuu.R
++import com.ss_team_1.koibitoshuuchuu.ui.theme.AccentDark
++import com.ss_team_1.koibitoshuuchuu.ui.theme.contextFont
++import com.ss_team_1.koibitoshuuchuu.ui.theme.mainFont
++
++@Preview
++@Composable
++fun HelpPopup(
++):Int{
++    val popup = remember { mutableStateOf(0) }//沒暗任何案件
++    Column(
++        modifier = Modifier
++            .width(280.dp)
++            .background(color = Color.White, shape = RoundedCornerShape(10.dp)),
++        horizontalAlignment = Alignment.CenterHorizontally
++    ) {
++        Spacer(modifier = Modifier.height(16.dp))
++        Box(modifier = Modifier.fillMaxWidth()){
++            Row(
++                modifier = Modifier
++                    .align(Alignment.CenterEnd),
++                //verticalAlignment = Alignment.CenterVertically
++            ){
++                Text(
++                    text = "幫助",
++                    fontSize = 28.sp,
++                    fontStyle = FontStyle(contextFont),
++                    modifier = Modifier.padding(8.dp)
++                )
++                Spacer(modifier = Modifier.width(144.dp))
++                Image(
++                    painter = painterResource(id = R.drawable.ic_help_clear),
++                    contentDescription = "",
++                    contentScale = ContentScale.Fit,
++                    modifier = Modifier
++                        .size(36.dp)
++                        .clickable(
++                            enabled = true,
++                            onClickLabel = "clear",
++                            onClick = {
++                                /*TODO*/
++                            }
++                        )
++                )
++                Spacer(modifier = Modifier.width(16.dp))
++            }
++        }
++        Text(
++            text = stringResource(id = R.string.Help_body1),
++            fontSize = 20.sp,
++            fontStyle = FontStyle(contextFont),
++            modifier = Modifier.padding(8.dp)
++        )
++        Box(modifier = Modifier.fillMaxWidth()){
++            Column(
++                Modifier.fillMaxSize(),
++                horizontalAlignment = Alignment.CenterHorizontally
++            ){
++                Image(
++                    painter = painterResource(id = R.drawable.coin),
++                    contentDescription = "",
++                    contentScale = ContentScale.Fit,
++                    modifier = Modifier
++                        .width(80.dp)
++                )
++            }
++            Row(
++                modifier = Modifier
++                    .align(Alignment.CenterEnd),
++                //verticalAlignment = Alignment.CenterVertically
++            ){
++                Image(
++                    painter = painterResource(id = R.drawable.profile_arrow_left),
++                    contentDescription = "",
++                    contentScale = ContentScale.Fit,
++                    modifier = Modifier
++                        .width(28.dp)
++                        .clickable(
++                            enabled = true,
++                            onClickLabel = "clear",
++                            onClick = {
++                                /*TODO*/
++                            }
++                        )
++                )
++                Spacer(modifier = Modifier.width(172.dp))
++                Image(
++                    painter = painterResource(id = R.drawable.profile_arrow_right),
++                    contentDescription = "",
++                    contentScale = ContentScale.Fit,
++                    modifier = Modifier
++                        .width(28.dp)
++                        .clickable(
++                            enabled = true,
++                            onClickLabel = "clear",
++                            onClick = {
++                                /*TODO*/
++                            }
++                        )
++                )
++                Spacer(modifier = Modifier.width(16.dp))
++            }
++
++        }
++        Spacer(modifier = Modifier.height(16.dp))
++    }
++    return popup.value
++}
++
++@Preview(showBackground = true)
++@Composable
++fun HelpPopupScreen(
++): Int{
++    val popup = remember { mutableStateOf(0) }//沒暗任何案件
++    Box(
++        Modifier.fillMaxSize()
++            .background(Color.Black.copy(alpha = 0.5f), RectangleShape)
++    ){
++        Column(
++            Modifier.fillMaxSize(),
++            horizontalAlignment = Alignment.CenterHorizontally
++        ){
++            Spacer(modifier = Modifier.height(280.dp))
++            popup.value = NoGift()
++        }
++    }
++    return popup.value
++}
+\ No newline at end of file

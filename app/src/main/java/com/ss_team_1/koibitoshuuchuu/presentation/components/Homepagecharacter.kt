@@ -20,16 +20,9 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.ss_team_1.koibitoshuuchuu.R
+import com.ss_team_1.koibitoshuuchuu.presentation.characternamelist
+import com.ss_team_1.koibitoshuuchuu.presentation.characterphotolist
 
-var characternamelist = listOf(
-        R.drawable.character_0_name,
-        R.drawable.character_1_name,
-        R.drawable.character_2_name)
-var characterphotolist = listOf(
-    R.drawable.character_0_photo_main,
-    R.drawable.character_1_photo,
-    R.drawable.character_2_photo
-)
 
 @Composable
 fun Heart_initamcybar(
@@ -118,12 +111,22 @@ fun HomepageCharacter(
                 Image(
                     painter = painterResource(id = characterphotolist[characterId]),
                     contentDescription = "",
-                    modifier = Modifier
-                        .fillMaxSize(),
+                    modifier = Modifier.fillMaxSize(),
                     colorFilter = ColorFilter.colorMatrix(matrix)//調灰階
                 )
             }else {
-                Button(
+                Image(
+                    painter = painterResource(id = characterphotolist[characterId]),
+                    contentDescription = "",
+                    modifier = Modifier
+                        .fillMaxSize()
+                        .clickable(
+                            enabled = enable,
+                            onClickLabel = "character click",
+                            onClick = onClickToCharacterInfo
+                        )
+                )
+                /*Button(
                     onClick = onClickToCharacterInfo,
                     enabled = enable,
                     elevation = null,
@@ -135,7 +138,7 @@ fun HomepageCharacter(
                         modifier = Modifier
                             .fillMaxSize()
                     )
-                }
+                }*/
             }
         }
     }

@@ -22,7 +22,7 @@ import com.ss_team_1.koibitoshuuchuu.ui.theme.mamelonFamily
 
 @Preview
 @Composable
-fun SquareHomeButton(onClick: ()->Unit = {}) {
+fun SquareHomeButton(onClick: () -> Unit = {}) {
     Button(
         onClick = onClick,
         shape = RoundedCornerShape(15.dp),
@@ -41,7 +41,23 @@ fun SquareHomeButton(onClick: ()->Unit = {}) {
 
 @Preview
 @Composable
-fun ResourceBox() {
+private fun ResourceBoxPreview()
+{
+    ResourceBox(intimacyChange = 100, moneyChange = 100)
+}
+@Composable
+fun ResourceBox(intimacyChange: Int, moneyChange: Int) {
+    val intimacyText = if (intimacyChange > 0) {
+        "+$intimacyChange"
+    } else if (intimacyChange < 0) {
+        "$intimacyChange"
+    } else "-----"
+
+    val moneyText = if (moneyChange > 0) {
+        "+$moneyChange"
+    } else if (moneyChange < 0) {
+        "$moneyChange"
+    } else "-----"
     androidx.compose.material.Surface(
         modifier = Modifier.size(width = 323.dp, height = 61.dp),
         shape = RoundedCornerShape(15.dp),
@@ -52,8 +68,8 @@ fun ResourceBox() {
             horizontalArrangement = Arrangement.SpaceBetween,
             verticalAlignment = Alignment.CenterVertically
         ) {
-            ResourcedValue(imageId = R.drawable.heart_intimacy, text = "+100")
-            ResourcedValue(imageId = R.drawable.ic_coin, text = "+100")
+            ResourcedValue(imageId = R.drawable.heart_intimacy, text = intimacyText)
+            ResourcedValue(imageId = R.drawable.ic_coin, text = moneyText)
         }
     }
 }

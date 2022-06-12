@@ -13,6 +13,8 @@ import androidx.compose.material.icons.outlined.FastForward
 import androidx.compose.material.icons.outlined.HelpOutline
 import androidx.compose.material.icons.outlined.Settings
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.vector.ImageVector
@@ -40,10 +42,10 @@ fun HelpButton() {
     RoundButtonTemplate(
         icon = Icons.Outlined.HelpOutline,
         iconSize = 36.dp,
-        onClick = {}
+        onClick = {
+        }
     )
 }
-
 @Preview
 @Composable
 fun SettingsButton() {
