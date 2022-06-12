@@ -25,18 +25,27 @@ import com.ss_team_1.koibitoshuuchuu.presentation.event.CharacterEvent
 import com.ss_team_1.koibitoshuuchuu.presentation.event.ItemEvent
 import com.ss_team_1.koibitoshuuchuu.presentation.viewModel.CharacterViewModel
 import com.ss_team_1.koibitoshuuchuu.presentation.viewModel.ItemViewModel
+import com.ss_team_1.koibitoshuuchuu.presentation.viewModel.LastFocusSettingViewModel
 import com.ss_team_1.koibitoshuuchuu.ui.theme.Secondary
 
+val backgroundList=listOf(
+    R.drawable.scene_coffee_shop,
+    R.drawable.scene_office,
+    R.drawable.scene_library,
+    R.drawable.scene_coffe_shop_2
+)
 //@Preview
 @Composable
 fun HomePage(
     navController: NavController = NavController(LocalContext.current),
     viewModel: CharacterViewModel = hiltViewModel(),
     itemViewModel: ItemViewModel = hiltViewModel(),
+    focusSetViewModel: LastFocusSettingViewModel = hiltViewModel(),
     onClickToCharacterInfo: (Int) -> Unit
 ) {
     val state = viewModel.state.value
     val itemState = itemViewModel.state.value
+    val focusState = focusSetViewModel.state.value
     val openDialog1 = remember { mutableStateOf(false) }
     val popup = remember { mutableStateOf(0) }
     val openDialog2 = remember { mutableStateOf(false) }
@@ -55,7 +64,7 @@ fun HomePage(
         //var checkedState by rememberSaveable { mutableStateOf(false) }
 
         Image(
-            painter = painterResource(id = R.drawable.scene_coffee_shop),
+            painter = painterResource(id = backgroundList[focusState.lastFocusSetting.sceneId]),
             contentDescription = "",
             contentScale = ContentScale.Crop,
             modifier = Modifier

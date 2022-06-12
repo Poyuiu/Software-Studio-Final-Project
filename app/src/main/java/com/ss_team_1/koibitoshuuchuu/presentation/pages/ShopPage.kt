@@ -11,6 +11,8 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.ColorFilter
+import androidx.compose.ui.graphics.ColorMatrix
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
@@ -37,6 +39,7 @@ fun ShopPage(
     userViewModel: UserViewModel = hiltViewModel()
 ) {
     val state = userViewModel.state.value
+    val sceneState = sceneViewModel.state.value
     val openDialog = remember { mutableStateOf(false) }
     val buying = remember { mutableStateOf(-1) }
     val spending = remember { mutableStateOf(-1) }//沒暗任何案件
@@ -44,6 +47,8 @@ fun ShopPage(
     Box(
         Modifier.fillMaxSize()
     ) {
+        val matrix = ColorMatrix()
+        matrix.setToSaturation(0F)
         Image(
             painter = painterResource(id = R.drawable.background_only_color),
             contentDescription = "",
@@ -85,10 +90,12 @@ fun ShopPage(
                         painter = painterResource(id = R.drawable.shop_scene_0),
                         contentDescription = "",
                         contentScale = ContentScale.Fit,
+                        colorFilter = if(sceneState.scenes[1].is_owned) ColorFilter.colorMatrix(matrix)
+                                                    else null,
                         modifier = Modifier
                             .size(88.dp, 138.dp)
                             .clickable(
-                                enabled = !openDialog.value,
+                                enabled = !openDialog.value && !sceneState.scenes[1].is_owned,
                                 onClickLabel = "buy scene0",
                                 onClick = {
                                     /*TODO*/
@@ -101,10 +108,12 @@ fun ShopPage(
                         painter = painterResource(id = R.drawable.shop_scene_1),
                         contentDescription = "",
                         contentScale = ContentScale.Fit,
+                        colorFilter = if(sceneState.scenes[2].is_owned) ColorFilter.colorMatrix(matrix)
+                                            else null,
                         modifier = Modifier
                             .size(88.dp, 138.dp)
                             .clickable(
-                                enabled = !openDialog.value,
+                                enabled = !openDialog.value && !sceneState.scenes[2].is_owned,
                                 onClickLabel = "buy scene1",
                                 onClick = {
                                     /*TODO*/
@@ -117,10 +126,12 @@ fun ShopPage(
                         painter = painterResource(id = R.drawable.shop_scene_2),
                         contentDescription = "",
                         contentScale = ContentScale.Fit,
+                        colorFilter = if(sceneState.scenes[3].is_owned) ColorFilter.colorMatrix(matrix)
+                                            else null,
                         modifier = Modifier
                             .size(88.dp, 138.dp)
                             .clickable(
-                                enabled = !openDialog.value,
+                                enabled = !openDialog.value && !sceneState.scenes[3].is_owned,
                                 onClickLabel = "buy scene2",
                                 onClick = {
                                     /*TODO*/
