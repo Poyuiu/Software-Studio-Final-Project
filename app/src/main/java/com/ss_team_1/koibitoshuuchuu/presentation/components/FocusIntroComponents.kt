@@ -7,18 +7,23 @@
 package com.ss_team_1.koibitoshuuchuu.presentation.components
 
 import androidx.compose.animation.AnimatedVisibility
+import androidx.compose.animation.animateColorAsState
 import androidx.compose.animation.animateContentSize
 import androidx.compose.animation.core.Spring
 import androidx.compose.animation.core.animateDpAsState
 import androidx.compose.animation.core.spring
 import androidx.compose.foundation.*
+import androidx.compose.foundation.interaction.MutableInteractionSource
+import androidx.compose.foundation.interaction.collectIsPressedAsState
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.*
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.text.BasicTextField
+import androidx.compose.foundation.text.KeyboardActionScope
 import androidx.compose.foundation.text.KeyboardActions
 import androidx.compose.material.Button
 import androidx.compose.material.ButtonDefaults
+import androidx.compose.material.MaterialTheme.colors
 import androidx.compose.material.Surface
 import androidx.compose.material.Text
 import androidx.compose.runtime.*
@@ -48,10 +53,7 @@ import com.ss_team_1.koibitoshuuchuu.presentation.sceneNameList
 import com.ss_team_1.koibitoshuuchuu.presentation.utils.OutlinedText
 import com.ss_team_1.koibitoshuuchuu.presentation.utils.convertDpToPixel
 import com.ss_team_1.koibitoshuuchuu.ui.theme.*
-import dev.chrisbanes.snapper.ExperimentalSnapperApi
-import dev.chrisbanes.snapper.LazyListSnapperLayoutInfo
-import dev.chrisbanes.snapper.rememberLazyListSnapperLayoutInfo
-import dev.chrisbanes.snapper.rememberSnapperFlingBehavior
+import dev.chrisbanes.snapper.*
 
 //TODO: Should be input
 val focusTimeList = (50 downTo 10 step 5).toList()
@@ -76,7 +78,7 @@ fun FocusIntroTimePicker(
         color = Primary,
         border = BorderStroke(width = 3.dp, color = Secondary),
         modifier = Modifier
-            .size(width = 279.dp, height = 308.dp)
+            .size(width = 280.dp, height = 308.dp)
     ) {
         //Text(text = "${layoutInfo.currentItem?.index}", modifier = Modifier.padding(10.dp))
         LazyColumn(
@@ -106,25 +108,37 @@ fun FocusIntroTimePicker(
 
 }
 
-@Preview
-@Composable
-private fun FocusIntroTimePickerButtonPreview() {
-    FocusIntroTimePickerButton(
-        lazyListState = rememberLazyListState(),
-        layoutInfo = rememberLazyListSnapperLayoutInfo(lazyListState = rememberLazyListState()),
-        focusTime = 10,
-        setFocusTime = {}
-    )
-}
+//@Preview
+//@Composable
+//private fun FocusIntroTimePickerButtonPreview() {
+//    FocusIntroTimePickerButton(
+//        lazyListState = rememberLazyListState(),
+//        layoutInfo = rememberLazyListSnapperLayoutInfo(lazyListState = rememberLazyListState()),
+//        focusTime = 10,
+//        setFocusTime = {}
+//    )
+//}
 
 @Composable
 fun FocusIntroTimePickerButton(
+    timePickerOpenState: Boolean,
+    onClick: () -> Unit,
+    onDone: () -> Unit,
     lazyListState: LazyListState,
     layoutInfo: LazyListSnapperLayoutInfo,
     focusTime: Int,
     setFocusTime: () -> Unit
 ) {
-    var openState by remember { mutableStateOf(false) }
+    val height by animateDpAsState(targetValue = if (timePickerOpenState) 308.dp else 64.dp)
+    var scrollState by remember {
+        mutableStateOf(false)
+    }
+    LaunchedEffect(scrollState, focusTime) {
+        if (scrollState) {
+            lazyListState.scrollToItem(focusTimeList.indexOf(focusTime))
+            scrollState = false
+        }
+    }
     Column(modifier = Modifier.padding(12.dp)) {
         //Text(text = "Focus Time", fontSize = 20.sp, color = Primary, fontFamily = mamelonFamily)
         OutlinedText(
@@ -136,49 +150,94 @@ fun FocusIntroTimePickerButton(
             strokeWidth = 2
         )
         Button(
-            modifier = Modifier.size(width = 280.dp, height = 64.dp),
-            onClick = { openState = true },
+            modifier = Modifier.size(width = 280.dp, height = height),
+            onClick = {
+                if (timePickerOpenState) {
+                    onDone()
+                } else {
+                    scrollState = true
+                    onClick()
+                }
+            },
             shape = RoundedCornerShape(17.dp),
             colors = ButtonDefaults.buttonColors(
                 backgroundColor = Primary.copy(alpha = 0.7f)
             ),
             border = BorderStroke(width = 3.dp, color = Secondary)
         ) {
-            Text(text = "$focusTime:00", fontSize = 36.sp, fontFamily = mamelonFamily)
-        }
-        if (openState) {
-            Popup(
-                alignment = Alignment.Center,
-                onDismissRequest = {
-                    openState = false
-                    setFocusTime()
-                },
-                properties = PopupProperties()
-            ) {
-                FocusIntroTimePicker(lazyListState = lazyListState, layoutInfo = layoutInfo)
+            if (!timePickerOpenState) {
+                Text(text = "$focusTime:00", fontSize = 36.sp, fontFamily = mamelonFamily)
+            } else {
+                //FocusIntroTimePicker(lazyListState = lazyListState, layoutInfo = layoutInfo)
+                LazyColumn(
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .padding(0.dp),
+                    contentPadding = PaddingValues(vertical = 125.dp),
+                    horizontalAlignment = Alignment.CenterHorizontally,
+                    verticalArrangement = Arrangement.spacedBy(10.dp),
+                    state = lazyListState,
+                    flingBehavior = rememberSnapperFlingBehavior(
+                        lazyListState = lazyListState,
+                        endContentPadding = 125.dp,
+                        snapOffsetForItem = SnapOffsets.Start
+                    )
+                ) {
+                    itemsIndexed(items = focusTimeList) { index, item ->
+                        val color =
+                            if (layoutInfo.currentItem?.index == index) Color.Black else Color.Gray
+                        Text(
+                            text = "$item:00",
+                            fontSize = 36.sp,
+                            fontFamily = mamelonFamily,
+                            color = color
+                        )
+                    }
+                }
             }
         }
+//        if (openState) {
+//            Popup(
+//                alignment = Alignment.Center,
+//                onDismissRequest = {
+//                    openState = false
+//                    setFocusTime()
+//                },
+//                properties = PopupProperties()
+//            ) {
+//                FocusIntroTimePicker(lazyListState = lazyListState, layoutInfo = layoutInfo)
+//            }
+//        }
     }
 }
 
-@Preview
-@Composable
-private fun FocusIntroWorkTextFieldPreview() {
-    FocusIntroWorkTextField(
-        workDesc = "Homework",
-        onValueChange = {},
-        FocusRequester(),
-        LocalFocusManager.current
-    )
-}
+//@Preview
+//@Composable
+//private fun FocusIntroWorkTextFieldPreview() {
+//    FocusIntroWorkTextField(
+//        workDesc = "Homework",
+//        onValueChange = {},
+//        FocusRequester(),
+//        LocalFocusManager.current
+//    )
+//}
 
 @Composable
 fun FocusIntroWorkTextField(
+    workOpenState: Boolean,
+    onPress: () -> Unit,
+    onDone: KeyboardActionScope.() -> Unit,
     workDesc: String,
     onValueChange: (String) -> Unit,
     focusRequester: FocusRequester,
     focusManager: FocusManager
 ) {
+    val height by animateDpAsState(targetValue = if (workOpenState) 300.dp else 64.dp)
+    val interactionSource = remember { MutableInteractionSource() }
+    val isPressed: Boolean by interactionSource.collectIsPressedAsState()
+    if (isPressed) {
+        onPress()
+    }
     Column(modifier = Modifier.padding(12.dp)) {
         //Text(text = "Work(optional)", fontSize = 20.sp, color = Primary, fontFamily = mamelonFamily)
         OutlinedText(
@@ -191,7 +250,7 @@ fun FocusIntroWorkTextField(
         )
         Box(
             modifier = Modifier
-                .size(width = 280.dp, height = 64.dp)
+                .size(width = 280.dp, height = height)
                 //.clip(RoundedCornerShape(17.dp))
                 .background(color = Primary.copy(alpha = 0.7f), shape = RoundedCornerShape(17.dp))
                 .border(width = 3.dp, color = Secondary, shape = RoundedCornerShape(17.dp)),
@@ -203,13 +262,15 @@ fun FocusIntroWorkTextField(
                 textStyle = TextStyle(
                     textAlign = TextAlign.Center,
                     fontSize = 36.sp,
-                    fontFamily = huninnFamily
+                    fontFamily = huninnFamily,
+                    lineHeight = 40.sp
                 ),
-                modifier = Modifier.focusRequester(focusRequester),
-                keyboardActions = KeyboardActions(onDone = {
-                    focusManager.clearFocus()
-                }),
-                singleLine = true
+                modifier = Modifier
+                    .focusRequester(focusRequester),
+                keyboardActions = KeyboardActions(onDone = onDone),
+                singleLine = !workOpenState,
+                maxLines = 6,
+                interactionSource = interactionSource
             )
 
         }
@@ -219,14 +280,20 @@ fun FocusIntroWorkTextField(
 //@Preview
 @Composable
 fun FocusIntroScenePicker(
+    scenePickerOpenState: Boolean,
+    onClick: () -> Unit,
+    onDone: () -> Unit,
     sceneId: Int,
     sceneList: List<Scene>,
     sceneOnClick: (Int) -> Unit
 ) {
-    var openState by remember { mutableStateOf(false) }
-    Column(modifier = Modifier
-        .padding(12.dp)
-        .animateContentSize()) {
+    val height by animateDpAsState(targetValue = if (scenePickerOpenState) 391.dp else 64.dp)
+
+    Column(
+        modifier = Modifier
+            .padding(12.dp)
+        //.animateContentSize()
+    ) {
         OutlinedText(
             text = "Scene",
             fontSize = 20,
@@ -237,15 +304,23 @@ fun FocusIntroScenePicker(
         )
         //Text(text = "Scene", fontSize = 20.sp, color = Primary, fontFamily = mamelonFamily)
         Button(
-            modifier = Modifier.size(width = 280.dp, height = if (!openState) 64.dp else 391.dp),
-            onClick = { openState = true },
+            modifier = Modifier.size(width = 280.dp, height = height),
+            onClick = {
+                if (scenePickerOpenState) {
+                    onDone()
+                } else {
+                    onClick()
+                }
+            },
             shape = RoundedCornerShape(17.dp),
             colors = ButtonDefaults.buttonColors(
-                backgroundColor = Primary.copy(alpha = 0.7f)
+                backgroundColor = Primary.copy(
+                    alpha = 0.7f
+                )
             ),
             border = BorderStroke(width = 3.dp, color = Secondary)
         ) {
-            if (!openState) {
+            if (!scenePickerOpenState) {
                 Text(
                     text = stringResource(id = sceneNameList[sceneId]),
                     fontSize = 36.sp,
@@ -254,7 +329,9 @@ fun FocusIntroScenePicker(
             } else {
                 LazyVerticalGrid(
                     cells = GridCells.Fixed(3),
-                    modifier = Modifier.padding(20.dp)
+                    modifier = Modifier
+                        .padding(top = 8.dp)
+                        .align(Alignment.Top)
                 ) {
                     items(sceneList) { item ->
                         Image(
@@ -266,7 +343,7 @@ fun FocusIntroScenePicker(
                                 .padding(4.dp)
                                 .clickable {
                                     sceneOnClick(item.id)
-                                    openState = false
+                                    onDone()
                                 }
                         )
                     }
@@ -275,26 +352,26 @@ fun FocusIntroScenePicker(
             }
 
         }
-        val height by animateDpAsState(targetValue = if (openState) 391.dp else 64.dp)
+
         //val offset by animateDpAsState(targetValue = if (openState) (-300).dp else 0.dp)
-        if (false) {
-            Popup(
-                alignment = Alignment.TopCenter,
-                onDismissRequest = { openState = false }
-            ) {
-                Surface(
-                    shape = RoundedCornerShape(15.dp),
-                    color = Primary,
-                    border = BorderStroke(width = 6.dp, color = Secondary),
-                    modifier = Modifier
-                        .width(280.dp)
-                        .height(height)
-                ) {
-
-
-                }
-
-            }
-        }
+//        if (false) {
+//            Popup(
+//                alignment = Alignment.TopCenter,
+//                onDismissRequest = { openState = false }
+//            ) {
+//                Surface(
+//                    shape = RoundedCornerShape(15.dp),
+//                    color = Primary,
+//                    border = BorderStroke(width = 6.dp, color = Secondary),
+//                    modifier = Modifier
+//                        .width(280.dp)
+//                        .height(height)
+//                ) {
+//
+//
+//                }
+//
+//            }
+//        }
     }
 }
