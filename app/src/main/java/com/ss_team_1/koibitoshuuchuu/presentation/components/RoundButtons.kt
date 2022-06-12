@@ -38,18 +38,14 @@ fun ForwardButton(onClick: () -> Unit = {}) {
 
 @Preview
 @Composable
-fun HelpButton() :Boolean{
-    val clickedHelp = remember { mutableStateOf(false) }
+fun HelpButton() {
     RoundButtonTemplate(
         icon = Icons.Outlined.HelpOutline,
         iconSize = 36.dp,
         onClick = {
-            clickedHelp.value = true
         }
     )
-    return clickedHelp.value
 }
-
 @Preview
 @Composable
 fun SettingsButton() {

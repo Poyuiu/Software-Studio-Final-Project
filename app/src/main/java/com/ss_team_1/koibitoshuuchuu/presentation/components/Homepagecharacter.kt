@@ -118,12 +118,22 @@ fun HomepageCharacter(
                 Image(
                     painter = painterResource(id = characterphotolist[characterId]),
                     contentDescription = "",
-                    modifier = Modifier
-                        .fillMaxSize(),
+                    modifier = Modifier.fillMaxSize(),
                     colorFilter = ColorFilter.colorMatrix(matrix)//調灰階
                 )
             }else {
-                Button(
+                Image(
+                    painter = painterResource(id = characterphotolist[characterId]),
+                    contentDescription = "",
+                    modifier = Modifier
+                        .fillMaxSize()
+                        .clickable(
+                            enabled = enable,
+                            onClickLabel = "character click",
+                            onClick = onClickToCharacterInfo
+                        )
+                )
+                /*Button(
                     onClick = onClickToCharacterInfo,
                     enabled = enable,
                     elevation = null,
@@ -135,7 +145,7 @@ fun HomepageCharacter(
                         modifier = Modifier
                             .fillMaxSize()
                     )
-                }
+                }*/
             }
         }
     }

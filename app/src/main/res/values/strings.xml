@@ -84,8 +84,13 @@
 
     <string name="No_Gift_to_give_header">你沒有足夠的禮物\nQQ</string>
 
-    <string name="Help_body1">按下中間按鈕進入個人\n資料頁面</string>
-
+    <string name="Help_body0">按下focus開始專注</string>
+    <string name="Help_body1">按下此按鈕或角色查看\n角色詳細資料</string>
+    <string name="Help_body2">按下右邊按鈕進入商店</string>
+    <string name="Help_body3">按下中間按鈕進入個人\n資料頁面</string>
+    <string name="Help_body4">按住好感度條查看進度</string>
+    <string name="Help_body5">按下設定按鈕進入設定</string>
+    <string name="Help_body6">按下幫助按鈕打開幫助</string>
 
     <string name="monday">星期一</string>
     <string name="tuesday">星期二</string>

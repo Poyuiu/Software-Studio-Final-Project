@@ -3,6 +3,8 @@ package com.ss_team_1.koibitoshuuchuu.presentation.pages
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.outlined.HelpOutline
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.MutableState
 import androidx.compose.runtime.mutableStateOf
@@ -42,6 +44,7 @@ fun HomePage(
     val openDialogNoGift = remember { mutableStateOf(false) }
     val popupNoGift = remember { mutableStateOf(0) }
     val clickedHelp = remember { mutableStateOf(false) }
+    val popupHelp = remember { mutableStateOf(0) }
     Box(
         Modifier.fillMaxSize()
     ) {
@@ -74,7 +77,13 @@ fun HomePage(
                 horizontalArrangement = Arrangement.SpaceBetween
             ) {
                 SettingsButton()
-                clickedHelp.value = HelpButton()
+                RoundButtonTemplate(
+                    icon = Icons.Outlined.HelpOutline,
+                    iconSize = 36.dp,
+                    onClick = {
+                        clickedHelp.value = true
+                    }
+                )
             }
 
         }
@@ -99,7 +108,7 @@ fun HomePage(
                 lock = lock,
                 characterId = characterid.value,
                 onClickToCharacterInfo = { onClickToCharacterInfo(characterid.value) },
-                !(openDialog1.value && openDialog2.value)
+                !(openDialog1.value || openDialog2.value || openDialogNoGift.value || clickedHelp.value)
             )
         }
         Column(
@@ -123,7 +132,7 @@ fun HomePage(
                         modifier = Modifier
                             .fillMaxSize()
                             .clickable(
-                                enabled = !(openDialog1.value && openDialog2.value),
+                                enabled = !(openDialog1.value || openDialog2.value || openDialogNoGift.value || clickedHelp.value),
                                 onClickLabel = "unlock click",
                                 onClick = {
                                     /*TODO*/
@@ -139,10 +148,10 @@ fun HomePage(
                         modifier = Modifier
                             .fillMaxSize()
                             .clickable(
-                                enabled = !(openDialog1.value && openDialog2.value),
+                                enabled = !(openDialog1.value || openDialog2.value || openDialogNoGift.value || clickedHelp.value),
                                 onClickLabel = "focus click",
                                 onClick = {
-                                    navController.navigate(Page.FocusIntro.route+"/${characterid.value}")
+                                    navController.navigate(Page.FocusIntro.route + "/${characterid.value}")
                                 }
                             )
                     )
@@ -155,7 +164,7 @@ fun HomePage(
             modifier = Modifier
                 .align(Alignment.CenterStart)
                 .clickable(
-                    enabled = !(openDialog1.value && openDialog2.value),
+                    enabled = !(openDialog1.value || openDialog2.value || openDialogNoGift.value || clickedHelp.value),
                     onClickLabel = "Clickable right shift",
                     onClick = {
                         if (characterid.value < 2) {
@@ -173,7 +182,7 @@ fun HomePage(
             modifier = Modifier
                 .align(Alignment.CenterEnd)
                 .clickable(
-                    enabled = !(openDialog1.value && openDialog2.value),
+                    enabled = !(openDialog1.value || openDialog2.value || openDialogNoGift.value || clickedHelp.value),
                     onClickLabel = "Clickable left shift",
                     onClick = {
                         if (characterid.value > 0) {
@@ -186,6 +195,12 @@ fun HomePage(
             verticalAlignment = Alignment.CenterVertically
         ) {
             leftRoundedTriangle()
+        }
+        if(clickedHelp.value){
+            popupHelp.value = HelpPopupScreen()
+            if(popupHelp.value == 1){
+                clickedHelp.value = false
+            }
         }
         if(openDialog1.value){
             popup.value = UnlockPopupScreen()
