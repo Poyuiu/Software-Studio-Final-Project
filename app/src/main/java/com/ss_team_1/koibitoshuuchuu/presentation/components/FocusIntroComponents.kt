@@ -123,7 +123,7 @@ fun FocusIntroTimePicker(
 fun FocusIntroTimePickerButton(
     timePickerOpenState: Boolean,
     onClick: () -> Unit,
-    onDone: () ->Unit,
+    onDone: () -> Unit,
     lazyListState: LazyListState,
     layoutInfo: LazyListSnapperLayoutInfo,
     focusTime: Int,
@@ -282,7 +282,7 @@ fun FocusIntroWorkTextField(
 fun FocusIntroScenePicker(
     scenePickerOpenState: Boolean,
     onClick: () -> Unit,
-    onDone: () ->Unit,
+    onDone: () -> Unit,
     sceneId: Int,
     sceneList: List<Scene>,
     sceneOnClick: (Int) -> Unit
@@ -305,7 +305,13 @@ fun FocusIntroScenePicker(
         //Text(text = "Scene", fontSize = 20.sp, color = Primary, fontFamily = mamelonFamily)
         Button(
             modifier = Modifier.size(width = 280.dp, height = height),
-            onClick = onClick,
+            onClick = {
+                if (scenePickerOpenState) {
+                    onDone()
+                } else {
+                    onClick()
+                }
+            },
             shape = RoundedCornerShape(17.dp),
             colors = ButtonDefaults.buttonColors(
                 backgroundColor = Primary.copy(
