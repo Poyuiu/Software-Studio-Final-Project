@@ -82,6 +82,10 @@
 
     <string name="Give_character_gift_header">你想要送什麼禮物呢？</string>
 
+    <string name="No_Gift_to_give_header">你沒有足夠的禮物\nQQ</string>
+
+    <string name="Help_body1">按下中間按鈕進入個人\n資料頁面</string>
+
 
     <string name="monday">星期一</string>
     <string name="tuesday">星期二</string>
