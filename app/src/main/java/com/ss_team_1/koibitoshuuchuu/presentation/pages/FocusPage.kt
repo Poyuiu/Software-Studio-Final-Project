@@ -37,11 +37,11 @@ import kotlinx.coroutines.delay
 @Preview
 @Composable
 private fun FocusPagePreview() {
-    FocusPage(navController = NavController(LocalContext.current), focusTime = 15)
+    FocusPage(navController = NavController(LocalContext.current), focusTime = 15, characterId = 0)
 }
 
 @Composable
-fun FocusPage(navController: NavController, focusTime: Int?) {
+fun FocusPage(navController: NavController, focusTime: Int?, characterId: Int?) {
     var pauseState by remember { mutableStateOf(false) }
     var focusSuccess by remember {
         mutableStateOf(true)
@@ -75,7 +75,7 @@ fun FocusPage(navController: NavController, focusTime: Int?) {
     ) {
         // Character Image
         Image(
-            painter = painterResource(id = R.drawable.character_0_photo_main),
+            painter = painterResource(id = characterphotolist[characterId!!]),
             contentDescription = "",
             modifier = Modifier
                 .fillMaxSize(0.84f)

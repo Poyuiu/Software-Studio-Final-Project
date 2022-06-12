@@ -42,15 +42,33 @@ class MainActivity : ComponentActivity() {
                             navController = navController
                         )
                     }
-                    composable(Page.FocusIntro.route) { FocusIntroPage(navController) }
+
+                    /**Focus Intro Page**/
                     composable(
-                        Page.Focus.route + "/{focusTime}",
-                        arguments = listOf(navArgument("focusTime") {
+                        Page.FocusIntro.route + "/{characterId}",
+                        arguments = listOf(navArgument(
+                            ("characterId")
+                        ) {
                             type = NavType.IntType
                         })
+                    ) { entry ->
+                        val characterId = entry.arguments?.getInt("characterId")
+                        FocusIntroPage(navController, characterId)
+                    }
+
+                    /**Focus Page**/
+                    composable(
+                        Page.Focus.route + "/{focusTime}/{characterId}",
+                        arguments = listOf(
+                            navArgument("focusTime") {
+                                type = NavType.IntType
+                            }, navArgument("characterId") {
+                                type = NavType.IntType
+                            })
                     ) { backStackEntry ->
                         val focusTime = backStackEntry.arguments?.getInt("focusTime")
-                        FocusPage(navController, focusTime)
+                        val characterId = backStackEntry.arguments?.getInt("characterId")
+                        FocusPage(navController, focusTime, characterId)
                     }
                     composable(
                         //character0 will be -> Page.CharacterInfoAndStory.route + "/0"
@@ -106,7 +124,12 @@ class MainActivity : ComponentActivity() {
                             navController = navController,
                             onPlotEnd = {
                                 navController.popBackStack()
-                                plotViewModel.onEvent(PlotStateEvent.SetPlotState(characterId = characterID, plotNum = plotID))
+                                plotViewModel.onEvent(
+                                    PlotStateEvent.SetPlotState(
+                                        characterId = characterID,
+                                        plotNum = plotID
+                                    )
+                                )
                             }
                         )
                     }

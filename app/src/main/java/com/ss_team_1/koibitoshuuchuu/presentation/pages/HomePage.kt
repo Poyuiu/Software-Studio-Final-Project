@@ -39,7 +39,8 @@ fun HomePage(
     ) {
         val characterid: MutableState<Int> =
             remember { mutableStateOf(0) }
-        val lock = state.characters[characterid.value].level == 0 //&& state.characters[characterid.value].intimacy == 0
+        val lock =
+            state.characters[characterid.value].level == 0 //&& state.characters[characterid.value].intimacy == 0
 
         //var checkedState by rememberSaveable { mutableStateOf(false) }
 
@@ -116,7 +117,7 @@ fun HomePage(
                                 enabled = !(openDialog1.value && openDialog2.value),
                                 onClickLabel = "focus click",
                                 onClick = {
-                                    navController.navigate(Page.FocusIntro.route)
+                                    navController.navigate(Page.FocusIntro.route + "/${characterid.value}")
                                 }
                             )
                     )
@@ -161,22 +162,20 @@ fun HomePage(
         ) {
             leftRoundedTriangle()
         }
-        if(openDialog1.value){
+        if (openDialog1.value) {
             popup.value = UnlockPopupScreen()
-            if(popup.value==1){
-                openDialog1.value=false
+            if (popup.value == 1) {
+                openDialog1.value = false
+            } else if (popup.value == 2) {
+                openDialog1.value = false
+                openDialog2.value = true
             }
-            else if(popup.value==2){
-                openDialog1.value=false
-                openDialog2.value=true
-            }
-        }
-        else if(openDialog2.value){
+        } else if (openDialog2.value) {
             intimacyupdate.value = GiveGiftPopupScreen()
-            if(intimacyupdate.value >= 0){
-                openDialog2.value=false
-                if(intimacyupdate.value!=0){
-                    viewModel.onEvent(CharacterEvent.UpdateIntimacy(characterid.value,100))
+            if (intimacyupdate.value >= 0) {
+                openDialog2.value = false
+                if (intimacyupdate.value != 0) {
+                    viewModel.onEvent(CharacterEvent.UpdateIntimacy(characterid.value, 100))
                 }
             }
         }

@@ -30,6 +30,7 @@ import dev.chrisbanes.snapper.rememberLazyListSnapperLayoutInfo
 @Composable
 fun FocusIntroPage(
     navController: NavController = NavController(LocalContext.current),
+    characterId: Int? = 0,
     viewModel: LastFocusSettingViewModel = hiltViewModel()
 ) {
     val state = viewModel.state.value
@@ -48,7 +49,7 @@ fun FocusIntroPage(
         backgroundResourceId = R.drawable.coffee_shop_background
     ) {
         Image(
-            painter = painterResource(id = R.drawable.character_0_photo_main),
+            painter = painterResource(id = characterphotolist[characterId!!]),
             contentDescription = "",
             modifier = Modifier
                 .fillMaxSize(0.84f)
@@ -75,7 +76,7 @@ fun FocusIntroPage(
             Spacer(modifier = Modifier.size(20.dp))
             // Start Button
             AccentButtonTemplate(
-                onClick = { navController.navigate(Page.Focus.route + "/$focusTime") }
+                onClick = { navController.navigate(Page.Focus.route + "/$focusTime/$characterId") }
             ) {
                 Text(text = "START", fontSize = 32.sp, fontFamily = mamelonFamily)
             }
