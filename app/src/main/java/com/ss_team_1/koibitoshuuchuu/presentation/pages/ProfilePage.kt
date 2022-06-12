@@ -12,31 +12,34 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
 import com.ss_team_1.koibitoshuuchuu.R
 import com.ss_team_1.koibitoshuuchuu.presentation.MyApplication
+import com.ss_team_1.koibitoshuuchuu.presentation.viewModel.UserViewModel
 import java.util.*
-
 @Composable
-fun PageProfile(
-    navController: NavController
+fun PageProfile(navController: NavController= NavController(LocalContext.current),
+    userViewModel: UserViewModel= hiltViewModel(),
+
 ) {
     val userPhoto = remember {
-        MyApplication.appContainer().userRepository.getUserInfo().value?.photo_url
+        userViewModel.state.value.userInfo.photo_url
     }
     val userName = remember {
-        MyApplication.appContainer().userRepository.getUserInfo().value?.user_name
+        userViewModel.state.value.userInfo.user_name
     }
     val userID = remember {
-        MyApplication.appContainer().userRepository.getUserInfo().value?.id
+       userViewModel.state.value.userInfo.id
     }
     val userGender = remember {
-        MyApplication.appContainer().userRepository.getUserInfo().value?.gender
+        userViewModel.state.value.userInfo.gender
     }
     val userBirthday = remember {
-        MyApplication.appContainer().userRepository.getUserInfo().value?.birthday
+        userViewModel.state.value.userInfo.birthday
     }
     Box(
         modifier = Modifier.fillMaxSize()

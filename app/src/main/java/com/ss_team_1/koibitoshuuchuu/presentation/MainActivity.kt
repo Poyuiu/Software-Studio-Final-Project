@@ -14,6 +14,7 @@ import com.ss_team_1.koibitoshuuchuu.presentation.components.UserDataPage
 import com.ss_team_1.koibitoshuuchuu.presentation.event.PlotStateEvent
 import com.ss_team_1.koibitoshuuchuu.presentation.pages.*
 import com.ss_team_1.koibitoshuuchuu.presentation.viewModel.PlotStateViewModel
+import com.ss_team_1.koibitoshuuchuu.presentation.viewModel.UserViewModel
 import com.ss_team_1.koibitoshuuchuu.ui.theme.KoiBitoShuuChuuTheme
 import dagger.hilt.android.AndroidEntryPoint
 
