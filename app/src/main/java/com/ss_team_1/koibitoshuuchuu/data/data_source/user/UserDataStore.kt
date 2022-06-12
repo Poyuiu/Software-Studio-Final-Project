@@ -40,7 +40,7 @@ class UserDataStore @Inject constructor(@ApplicationContext context: Context) {
         }
         .map { user ->
             val id = user[_id] ?: 0
-            val userName = user[_userName] ?: "No Name"
+            val userName = user[_userName] ?: "酷酷的名字"
             val photoUrl = user[_photoUrl] ?: ""
             val gender = user[_gender] ?: "酷酷的草履蟲"
             val birthday = Calendar.getInstance()

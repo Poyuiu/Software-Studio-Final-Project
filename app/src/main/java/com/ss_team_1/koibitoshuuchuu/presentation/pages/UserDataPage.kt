@@ -23,17 +23,23 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavController
 import com.ss_team_1.koibitoshuuchuu.R
 import com.ss_team_1.koibitoshuuchuu.presentation.event.ItemEvent
 import com.ss_team_1.koibitoshuuchuu.presentation.event.SceneEvent
 import com.ss_team_1.koibitoshuuchuu.presentation.event.UserEvent
+import com.ss_team_1.koibitoshuuchuu.presentation.viewModel.UserViewModel
 import com.ss_team_1.koibitoshuuchuu.ui.theme.*
 import java.util.*
 
 @Composable
-fun UserDataPage(navController: NavController) {
+fun UserDataPage(
+    navController: NavController,
+    userViewModel: UserViewModel = hiltViewModel()
+) {
     val openDialog = remember { mutableStateOf(false) }
+    val userName = userViewModel.state.value.userInfo.user_name
     Box(
         modifier = Modifier.fillMaxSize()
     ) {
@@ -81,7 +87,7 @@ fun UserDataPage(navController: NavController) {
                 ) {
                     Spacer(modifier = Modifier.padding(10.dp))
                     Text(
-                        text = "酷酷的名字",
+                        text = userName,
                         fontStyle = FontStyle(R.font.mamelon),
                         color = Color.Black,
                         fontSize = 32.sp
@@ -146,7 +152,7 @@ fun UserDataPage(navController: NavController) {
                     .padding(start = 40.dp, top = 40.dp)
             )
             Text(
-                text = "早上好 酷酷的名字",
+                text = "早上好 $userName",
                 fontStyle = FontStyle(R.font.mamelon),
                 color = Color.Black,
                 fontSize = 21.sp,
@@ -157,7 +163,7 @@ fun UserDataPage(navController: NavController) {
             )
         }
         if (openDialog.value) {
-            if(ChangeNamePopUp())
+            if (ChangeNamePopUp())
                 openDialog.value = false
         }
     }
