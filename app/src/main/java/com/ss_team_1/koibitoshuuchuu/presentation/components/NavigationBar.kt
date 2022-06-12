@@ -12,18 +12,20 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.zIndex
 import androidx.navigation.NavController
+import com.ss_team_1.koibitoshuuchuu.presentation.utils.PageId
 import com.ss_team_1.koibitoshuuchuu.ui.theme.Secondary
 
 @Preview
 @Composable
 private fun NavigationBarPreview() {
-    NavigationBar(navController = NavController(LocalContext.current))
+    NavigationBar(navController = NavController(LocalContext.current), selectedPage = PageId.home)
 }
 
 @Composable
 fun NavigationBar(
     modifier: Modifier = Modifier,
-    navController: NavController
+    navController: NavController,
+    selectedPage: PageId
 ) {
     Surface(
         color = Secondary,
@@ -35,14 +37,12 @@ fun NavigationBar(
             modifier = Modifier.padding(horizontal = 25.5.dp),
             horizontalArrangement = Center
         ) {
-            NavigationHomeButton(navController)
-            NavigationProfileButton(navController)
-            NavigationShopButton(navController)
+            NavigationHomeButton(navController, selectedPage == PageId.home)
+            NavigationProfileButton(navController, selectedPage == PageId.profile)
+            NavigationShopButton(navController, selectedPage == PageId.shop)
         }
     }
 }
 /*TODO
-* Fix the little border line around buttons
-* Navigation and the selected form
 * Size tweaking (Not sure what happens when the screen size changes)
  */

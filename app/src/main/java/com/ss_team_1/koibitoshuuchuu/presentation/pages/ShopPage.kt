@@ -26,6 +26,7 @@ import com.ss_team_1.koibitoshuuchuu.presentation.components.*
 import com.ss_team_1.koibitoshuuchuu.presentation.event.ItemEvent
 import com.ss_team_1.koibitoshuuchuu.presentation.event.SceneEvent
 import com.ss_team_1.koibitoshuuchuu.presentation.event.UserEvent
+import com.ss_team_1.koibitoshuuchuu.presentation.utils.PageId
 import com.ss_team_1.koibitoshuuchuu.presentation.viewModel.ItemViewModel
 import com.ss_team_1.koibitoshuuchuu.presentation.viewModel.SceneViewModel
 import com.ss_team_1.koibitoshuuchuu.presentation.viewModel.UserViewModel
@@ -56,7 +57,7 @@ fun ShopPage(
             modifier = Modifier
                 .fillMaxSize()
         )
-        NavigationBar(modifier = Modifier.align(Alignment.BottomCenter), navController)
+        NavigationBar(modifier = Modifier.align(Alignment.BottomCenter), navController, PageId.shop)
         Column(
             modifier = Modifier
                 .align(Alignment.TopCenter),

@@ -40,14 +40,19 @@ fun money_diamond_bar(
             modifier = Modifier.size(30.dp)
         )
         Spacer(modifier = Modifier.width(8.dp))
-        Text(
-            text = "$diamond",
-            fontSize = 24.sp,
-            fontFamily = mamelonFamily,
-            fontWeight = FontWeight.Normal,
-            color = Color(0xFF000000)
-        )
-        Spacer(modifier = Modifier.width(64.dp))
+        Column(
+            modifier = Modifier.width(106.dp),
+            horizontalAlignment = Alignment.CenterHorizontally
+        ){
+            Text(
+                text = "$diamond",
+                fontSize = 24.sp,
+                fontFamily = mamelonFamily,
+                fontWeight = FontWeight.Normal,
+                color = Color(0xFF000000)
+            )
+        }
+        Spacer(modifier = Modifier.width(16.dp))
         Image(
             painter = painterResource(id = R.drawable.coin),
             contentDescription = "",
@@ -55,19 +60,24 @@ fun money_diamond_bar(
             modifier = Modifier.size(30.dp)
         )
         Spacer(modifier = Modifier.width(8.dp))
-        Text(
-            text = "$money",
-            fontSize = 24.sp,
-            fontFamily = mamelonFamily,
-            fontWeight = FontWeight.Normal,
-            color = Color(0xFF000000)
-        )
+        Column(
+            modifier = Modifier.width(106.dp),
+            horizontalAlignment = Alignment.CenterHorizontally
+        ) {
+            Text(
+                text = "$money",
+                fontSize = 24.sp,
+                fontFamily = mamelonFamily,
+                fontWeight = FontWeight.Normal,
+                color = Color(0xFF000000)
+            )
+        }
     }
 }
 @Preview
 @Composable
 fun money_diamond_barpreview(){
-    money_diamond_bar(100000,400)
+    money_diamond_bar(0,0)
 }
 
 @Composable

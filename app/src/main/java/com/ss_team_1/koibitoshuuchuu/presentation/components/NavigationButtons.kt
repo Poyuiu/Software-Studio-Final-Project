@@ -19,31 +19,31 @@ import com.ss_team_1.koibitoshuuchuu.ui.theme.Secondary
 
 //@Preview(showBackground = true)
 @Composable
-fun NavigationProfileButton(navController:NavController) {
+fun NavigationProfileButton(navController:NavController, selected: Boolean) {
     NavigationButtonTemplate(
         onClick = { navController.navigate(Page.Profile.route) },
-        selected = false,
-        painter = painterResource(id = R.drawable.ic_profile)
+        selected = selected,
+        painter =  painterResource(id = if(selected) R.drawable.ic_profile_pink else R.drawable.ic_profile)
     )
 }
 
 //@Preview(showBackground = true)
 @Composable
-fun NavigationHomeButton(navController:NavController) {
+fun NavigationHomeButton(navController:NavController, selected: Boolean) {
     NavigationButtonTemplate(
         onClick = { navController.navigate(Page.Home.route) },
-        selected = false,
-        painter = painterResource(id = R.drawable.ic_home)
+        selected = selected,
+        painter = painterResource(id = if(selected) R.drawable.ic_home_pink else R.drawable.ic_home)
     )
 }
 
 //@Preview(showBackground = true)
 @Composable
-fun NavigationShopButton(navController:NavController) {
+fun NavigationShopButton(navController:NavController, selected: Boolean) {
     NavigationButtonTemplate(
         onClick = { navController.navigate(Page.Shop.route) },
-        selected = false,
-        painter = painterResource(id = R.drawable.ic_shop)
+        selected = selected,
+        painter = painterResource(id = if(selected) R.drawable.ic_shop_pink else R.drawable.ic_shop)
     )
 }
 
@@ -59,6 +59,13 @@ private fun NavigationButtonTemplate(
         shape = RoundedCornerShape(15.dp),
         colors = ButtonDefaults.buttonColors(
             backgroundColor = if (selected) Primary else Secondary
+        ),
+        elevation = ButtonDefaults.elevation(
+            defaultElevation = 0.dp,
+            pressedElevation = 0.dp,
+            disabledElevation = 0.dp,
+            hoveredElevation = 0.dp,
+            focusedElevation = 0.dp
         )
     ) {
         Image(

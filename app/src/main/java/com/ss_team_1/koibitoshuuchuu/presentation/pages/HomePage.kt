@@ -23,6 +23,7 @@ import com.ss_team_1.koibitoshuuchuu.presentation.Page
 import com.ss_team_1.koibitoshuuchuu.presentation.components.*
 import com.ss_team_1.koibitoshuuchuu.presentation.event.CharacterEvent
 import com.ss_team_1.koibitoshuuchuu.presentation.event.ItemEvent
+import com.ss_team_1.koibitoshuuchuu.presentation.utils.PageId
 import com.ss_team_1.koibitoshuuchuu.presentation.viewModel.CharacterViewModel
 import com.ss_team_1.koibitoshuuchuu.presentation.viewModel.ItemViewModel
 import com.ss_team_1.koibitoshuuchuu.presentation.viewModel.LastFocusSettingViewModel
@@ -96,7 +97,7 @@ fun HomePage(
             }
 
         }
-        NavigationBar(modifier = Modifier.align(Alignment.BottomCenter), navController)
+        NavigationBar(modifier = Modifier.align(Alignment.BottomCenter), navController, PageId.home)
         Column(
             modifier = Modifier.align(Alignment.TopCenter),
             horizontalAlignment = Alignment.CenterHorizontally

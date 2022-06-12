@@ -11,6 +11,7 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.navigation.NavController
 import com.ss_team_1.koibitoshuuchuu.R
+import com.ss_team_1.koibitoshuuchuu.presentation.utils.PageId
 
 @Preview
 @Composable
@@ -56,7 +57,7 @@ fun KBSCScaffold(
             )
         }
         if (navbarEnable) {
-            NavigationBar(modifier = Modifier.align(Alignment.BottomCenter), navController)
+            NavigationBar(modifier = Modifier.align(Alignment.BottomCenter), navController, PageId.profile)
         }
         content()
     }
