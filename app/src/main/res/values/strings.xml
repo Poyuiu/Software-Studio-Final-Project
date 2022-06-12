@@ -100,4 +100,10 @@
     <string name="saturday">星期六</string>
     <string name="sunday">星期日</string>
 
+    /**Scene Name**/
+    <string name="scene_coffee_shop">咖啡廳</string>
+    <string name="scene_office">辦公室</string>
+    <string name="scene_library">圖書館</string>
+    <string name="scene_coffee_shop_2">咖啡廳2</string>
+
 </resources>

@@ -22,9 +22,15 @@ val bought_list=listOf(
     R.drawable.shop_buy_gift_3,
     R.drawable.shop_buy_gift_4
 )
-val sceneList = listOf(
+val sceneIdList = listOf(
     R.drawable.scene_coffee_shop,
     R.drawable.scene_office,
     R.drawable.scene_library,
     R.drawable.scene_coffe_shop_2
+)
+val sceneNameList = listOf(
+    R.string.scene_coffee_shop,
+    R.string.scene_office,
+    R.string.scene_library,
+    R.string.scene_coffee_shop_2
 )

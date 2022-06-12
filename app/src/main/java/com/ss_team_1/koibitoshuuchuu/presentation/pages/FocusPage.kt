@@ -35,6 +35,8 @@ import kotlinx.coroutines.delay
 import androidx.hilt.navigation.compose.hiltViewModel
 import com.ss_team_1.koibitoshuuchuu.presentation.characterphotolist
 import com.ss_team_1.koibitoshuuchuu.presentation.event.CharacterEvent
+import com.ss_team_1.koibitoshuuchuu.presentation.event.UserEvent
+import com.ss_team_1.koibitoshuuchuu.presentation.viewModel.UserViewModel
 
 @Preview
 @Composable
@@ -48,6 +50,7 @@ fun FocusPage(
     focusTime: Int?,
     characterId: Int?,
     viewModel: CharacterViewModel = hiltViewModel(),
+    userViewModel: UserViewModel = hiltViewModel()
 ) {
     val state = viewModel.state.value
     var pauseState by remember { mutableStateOf(false) }
@@ -85,7 +88,7 @@ fun FocusPage(
                 intimacyChange = 9872
                 viewModel.onEvent(CharacterEvent.UpdateIntimacy(characterId!!, intimacyChange))
                 moneyChange = 674
-                // TODO: add money to data
+                userViewModel.onEvent(UserEvent.UpdateMoney(moneyChange))
             }
         }
     }

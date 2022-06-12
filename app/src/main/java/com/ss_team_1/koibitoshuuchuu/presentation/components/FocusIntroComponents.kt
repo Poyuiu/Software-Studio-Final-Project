@@ -6,10 +6,7 @@
 
 package com.ss_team_1.koibitoshuuchuu.presentation.components
 
-import androidx.compose.foundation.BorderStroke
-import androidx.compose.foundation.ExperimentalFoundationApi
-import androidx.compose.foundation.background
-import androidx.compose.foundation.border
+import androidx.compose.foundation.*
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.*
 import androidx.compose.foundation.shape.RoundedCornerShape
@@ -23,6 +20,9 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.ExperimentalComposeUiApi
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.layout.ContentScale
+import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
@@ -31,6 +31,8 @@ import androidx.compose.ui.unit.sp
 import androidx.compose.ui.window.Popup
 import androidx.compose.ui.window.PopupProperties
 import com.ss_team_1.koibitoshuuchuu.R
+import com.ss_team_1.koibitoshuuchuu.domain.model.Scene
+import com.ss_team_1.koibitoshuuchuu.presentation.sceneNameList
 import com.ss_team_1.koibitoshuuchuu.presentation.utils.OutlinedText
 import com.ss_team_1.koibitoshuuchuu.ui.theme.*
 import dev.chrisbanes.snapper.ExperimentalSnapperApi
@@ -190,9 +192,12 @@ fun FocusIntroWorkTextField(
     }
 }
 
-@Preview
+//@Preview
 @Composable
 fun FocusIntroScenePicker(
+    sceneId: Int,
+    sceneIdList: List<Scene>,
+    sceneOnClick: (Int) -> Unit
 ) {
     var openState by remember { mutableStateOf(false) }
     var sceneName by remember { mutableStateOf("咖啡廳") }
@@ -215,7 +220,11 @@ fun FocusIntroScenePicker(
             ),
             border = BorderStroke(width = 3.dp, color = Secondary)
         ) {
-            Text(text = sceneName, fontSize = 36.sp, fontFamily = huninnFamily)
+            Text(
+                text = stringResource(id = sceneNameList[sceneId]),
+                fontSize = 36.sp,
+                fontFamily = huninnFamily
+            )
         }
         if (openState) {
             Popup(
@@ -228,8 +237,20 @@ fun FocusIntroScenePicker(
                     border = BorderStroke(width = 6.dp, color = Secondary),
                     modifier = Modifier.size(width = 275.dp, height = 391.dp)
                 ) {
-                    LazyVerticalGrid(cells = GridCells.Fixed(3)) {
-
+                    LazyVerticalGrid(
+                        cells = GridCells.Fixed(3),
+                        modifier = Modifier.padding(24.dp)
+                    ) {
+                        items(sceneIdList) { item ->
+                            Image(
+                                painter = painterResource(id = com.ss_team_1.koibitoshuuchuu.presentation.sceneIdList[item.id]),
+                                contentDescription = "scene",
+                                contentScale = ContentScale.FillBounds,
+                                modifier = Modifier
+                                    .size(61.dp, 106.dp)
+                                    .clickable { sceneOnClick(item.id) }
+                            )
+                        }
                     }
                 }
             }

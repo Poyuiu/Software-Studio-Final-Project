@@ -15,12 +15,13 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
 import androidx.hilt.navigation.compose.hiltViewModel
-import com.ss_team_1.koibitoshuuchuu.R
 import com.ss_team_1.koibitoshuuchuu.presentation.Page
 import com.ss_team_1.koibitoshuuchuu.presentation.characterphotolist
 import com.ss_team_1.koibitoshuuchuu.presentation.components.*
 import com.ss_team_1.koibitoshuuchuu.presentation.event.LastFocusSettingEvent
+import com.ss_team_1.koibitoshuuchuu.presentation.sceneIdList
 import com.ss_team_1.koibitoshuuchuu.presentation.viewModel.LastFocusSettingViewModel
+import com.ss_team_1.koibitoshuuchuu.presentation.viewModel.SceneViewModel
 import com.ss_team_1.koibitoshuuchuu.ui.theme.mamelonFamily
 import dev.chrisbanes.snapper.ExperimentalSnapperApi
 import dev.chrisbanes.snapper.LazyListSnapperLayoutInfo
@@ -32,7 +33,8 @@ import dev.chrisbanes.snapper.rememberLazyListSnapperLayoutInfo
 fun FocusIntroPage(
     navController: NavController = NavController(LocalContext.current),
     characterId: Int? = 0,
-    viewModel: LastFocusSettingViewModel = hiltViewModel()
+    viewModel: LastFocusSettingViewModel = hiltViewModel(),
+    sceneViewModel: SceneViewModel = hiltViewModel()
 ) {
     val state = viewModel.state.value
 //    var focusTime by remember {
@@ -41,13 +43,14 @@ fun FocusIntroPage(
     val focusTime = state.lastFocusSetting.focusTime
     val workDesc = state.lastFocusSetting.work
     val sceneId = state.lastFocusSetting.sceneId
+    val sceneList = sceneViewModel.state.value.scenes
     val lazyListState = rememberLazyListState()
     val layoutInfo: LazyListSnapperLayoutInfo =
         rememberLazyListSnapperLayoutInfo(lazyListState = lazyListState)
     KBSCScaffold(
         navController = navController,
         navbarEnable = false,
-        backgroundResourceId = sceneId
+        backgroundResourceId = sceneIdList[sceneId]
     ) {
         Image(
             painter = painterResource(id = characterphotolist[characterId!!]),
@@ -75,7 +78,9 @@ fun FocusIntroPage(
             FocusIntroWorkTextField(workDesc = workDesc, onValueChange = { it ->
                 viewModel.onEvent(LastFocusSettingEvent.SetLastWork(it))
             })
-            FocusIntroScenePicker()
+            FocusIntroScenePicker(sceneId, sceneList.filter { it.is_owned }) { it ->
+                viewModel.onEvent(LastFocusSettingEvent.SetLastSceneId(it))
+            }
             Spacer(modifier = Modifier.size(20.dp))
             // Start Button
             AccentButtonTemplate(
