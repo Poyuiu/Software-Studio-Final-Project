@@ -36,6 +36,8 @@ import androidx.hilt.navigation.compose.hiltViewModel
 import com.ss_team_1.koibitoshuuchuu.presentation.characterphotolist
 import com.ss_team_1.koibitoshuuchuu.presentation.event.CharacterEvent
 import com.ss_team_1.koibitoshuuchuu.presentation.event.UserEvent
+import com.ss_team_1.koibitoshuuchuu.presentation.sceneIdList
+import com.ss_team_1.koibitoshuuchuu.presentation.viewModel.LastFocusSettingViewModel
 import com.ss_team_1.koibitoshuuchuu.presentation.viewModel.UserViewModel
 
 @Preview
@@ -50,9 +52,11 @@ fun FocusPage(
     focusTime: Int?,
     characterId: Int?,
     viewModel: CharacterViewModel = hiltViewModel(),
-    userViewModel: UserViewModel = hiltViewModel()
+    userViewModel: UserViewModel = hiltViewModel(),
+    focusSettingViewModel: LastFocusSettingViewModel = hiltViewModel()
 ) {
     val state = viewModel.state.value
+    val sceneId = focusSettingViewModel.state.value.lastFocusSetting.sceneId
     var pauseState by remember { mutableStateOf(false) }
     var focusSuccess by remember {
         mutableStateOf(true)
@@ -100,7 +104,7 @@ fun FocusPage(
 
     KBSCScaffold(
         navController = navController,
-        backgroundResourceId = R.drawable.scene_coffee_shop,
+        backgroundResourceId = sceneIdList[sceneId],
         navbarEnable = false,
         topBarEnable = false
     ) {
