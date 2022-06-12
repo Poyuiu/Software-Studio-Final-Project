@@ -78,7 +78,7 @@ fun PageProfile(navController: NavController= NavController(LocalContext.current
 //            }
             UserInfo1(
                 userPhoto = R.drawable.profile_picture1.toString(),
-                userName = userName,
+                userName = userViewModel.state.value.userInfo.user_name,
                 userID = 1234567,
                 userGender = "酷酷的草履蟲",
                 userBirthday = Calendar.getInstance(),
