@@ -14,16 +14,12 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavController
 import com.ss_team_1.koibitoshuuchuu.R
-import com.ss_team_1.koibitoshuuchuu.presentation.MyApplication
 import com.ss_team_1.koibitoshuuchuu.presentation.viewModel.UserViewModel
 import java.util.*
-import androidx.hilt.navigation.compose.hiltViewModel
-import com.ss_team_1.koibitoshuuchuu.presentation.utils.PageId
 
 @Composable
 fun PageProfile(navController: NavController= NavController(LocalContext.current),
@@ -33,7 +29,7 @@ fun PageProfile(navController: NavController= NavController(LocalContext.current
     val userPhoto = remember {
         userViewModel.state.value.userInfo.photo_url
     }
-    val userName = remember {
+    val userName =  remember{
         userViewModel.state.value.userInfo.user_name
     }
     val userID = remember {
@@ -56,7 +52,7 @@ fun PageProfile(navController: NavController= NavController(LocalContext.current
             modifier = Modifier
                 .fillMaxSize()
         )
-        NavigationBar(modifier = Modifier.align(Alignment.BottomCenter), navController, PageId.profile)
+        NavigationBar(modifier = Modifier.align(Alignment.BottomCenter), navController)
         Column(
             modifier = Modifier
                 .align(Alignment.TopCenter)
@@ -82,7 +78,7 @@ fun PageProfile(navController: NavController= NavController(LocalContext.current
 //            }
             UserInfo1(
                 userPhoto = R.drawable.profile_picture1.toString(),
-                userName = "酷酷的名字",
+                userName = userViewModel.state.value.userInfo.user_name,
                 userID = 1234567,
                 userGender = "酷酷的草履蟲",
                 userBirthday = Calendar.getInstance(),

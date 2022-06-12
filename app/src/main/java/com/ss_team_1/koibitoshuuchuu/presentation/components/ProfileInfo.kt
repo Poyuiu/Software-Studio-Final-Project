@@ -26,6 +26,7 @@ import androidx.navigation.NavController
 import com.ss_team_1.koibitoshuuchuu.R
 import com.ss_team_1.koibitoshuuchuu.presentation.Page
 import com.ss_team_1.koibitoshuuchuu.presentation.utils.coloredShadow
+import com.ss_team_1.koibitoshuuchuu.presentation.viewModel.UserViewModel
 import com.ss_team_1.koibitoshuuchuu.ui.theme.DarkGreenBlue
 import com.ss_team_1.koibitoshuuchuu.ui.theme.GreenBlue
 import com.ss_team_1.koibitoshuuchuu.ui.theme.ProfilePink
