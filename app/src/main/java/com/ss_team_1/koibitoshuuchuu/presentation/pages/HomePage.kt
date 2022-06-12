@@ -142,7 +142,7 @@ fun HomePage(
                                 enabled = !(openDialog1.value && openDialog2.value),
                                 onClickLabel = "focus click",
                                 onClick = {
-                                    navController.navigate(Page.FocusIntro.route)
+                                    navController.navigate(Page.FocusIntro.route+"/${characterid.value}")
                                 }
                             )
                     )
@@ -209,6 +209,7 @@ fun HomePage(
             }
             else if(popupNoGift.value == 2){
                 navController.navigate(Page.Shop.route)
+                openDialogNoGift.value = false
             }
         }
         else if(openDialog2.value){

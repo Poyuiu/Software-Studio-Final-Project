@@ -76,7 +76,7 @@ fun HelpPopup(
         )
         Box(modifier = Modifier.fillMaxWidth()){
             Column(
-                Modifier.fillMaxSize(),
+                Modifier.fillMaxWidth(),
                 horizontalAlignment = Alignment.CenterHorizontally
             ){
                 Image(
@@ -106,7 +106,7 @@ fun HelpPopup(
                             }
                         )
                 )
-                Spacer(modifier = Modifier.width(172.dp))
+                Spacer(modifier = Modifier.width(184.dp))
                 Image(
                     painter = painterResource(id = R.drawable.profile_arrow_right),
                     contentDescription = "",
