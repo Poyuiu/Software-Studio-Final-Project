@@ -46,8 +46,14 @@ fun FocusIntroPage(
 //    var focusTime by remember {
 //        mutableStateOf(25)
 //    }
+    /***Time Picker***/
     val focusTime = state.lastFocusSetting.focusTime
+
+    /***Work TextField***/
     val workDesc = state.lastFocusSetting.work
+    var workOpenState by remember { mutableStateOf(false) }
+
+    /***Scene Picker***/
     val sceneId = state.lastFocusSetting.sceneId
     val sceneList = sceneViewModel.state.value.scenes
 
@@ -63,6 +69,7 @@ fun FocusIntroPage(
         modifier = Modifier.pointerInput(Unit) {
             detectTapGestures(onTap = {
                 focusManager.clearFocus()
+                workOpenState = false
             })
         },
         navController = navController,
@@ -84,12 +91,20 @@ fun FocusIntroPage(
             horizontalAlignment = Alignment.CenterHorizontally,
             verticalArrangement = Arrangement.Bottom
         ) {
+            /***Work TextField***/
             FocusIntroWorkTextField(
+                workOpenState = workOpenState,
+                onPress = { workOpenState = true },
+                onDone = {
+                    focusManager.clearFocus()
+                    workOpenState = false
+                },
                 workDesc = workDesc, onValueChange = { it ->
                     viewModel.onEvent(LastFocusSettingEvent.SetLastWork(it))
                 },
                 focusRequester = focusRequester, focusManager = focusManager
             )
+            // Time Picker
             FocusIntroTimePickerButton(
                 lazyListState = lazyListState,
                 layoutInfo = layoutInfo,
@@ -106,7 +121,8 @@ fun FocusIntroPage(
             AccentButtonTemplate(
                 onClick = {
                     mediaPlayer.start()
-                    navController.navigate(Page.Focus.route + "/$focusTime/$characterId") }
+                    navController.navigate(Page.Focus.route + "/$focusTime/$characterId")
+                }
             ) {
                 Text(text = "START", fontSize = 32.sp, fontFamily = mamelonFamily)
             }

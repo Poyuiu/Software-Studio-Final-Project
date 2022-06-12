@@ -13,10 +13,13 @@ import androidx.compose.animation.core.Spring
 import androidx.compose.animation.core.animateDpAsState
 import androidx.compose.animation.core.spring
 import androidx.compose.foundation.*
+import androidx.compose.foundation.interaction.MutableInteractionSource
+import androidx.compose.foundation.interaction.collectIsPressedAsState
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.*
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.text.BasicTextField
+import androidx.compose.foundation.text.KeyboardActionScope
 import androidx.compose.foundation.text.KeyboardActions
 import androidx.compose.material.Button
 import androidx.compose.material.ButtonDefaults
@@ -206,24 +209,33 @@ fun FocusIntroTimePickerButton(
     }
 }
 
-@Preview
-@Composable
-private fun FocusIntroWorkTextFieldPreview() {
-    FocusIntroWorkTextField(
-        workDesc = "Homework",
-        onValueChange = {},
-        FocusRequester(),
-        LocalFocusManager.current
-    )
-}
+//@Preview
+//@Composable
+//private fun FocusIntroWorkTextFieldPreview() {
+//    FocusIntroWorkTextField(
+//        workDesc = "Homework",
+//        onValueChange = {},
+//        FocusRequester(),
+//        LocalFocusManager.current
+//    )
+//}
 
 @Composable
 fun FocusIntroWorkTextField(
+    workOpenState: Boolean,
+    onPress: () -> Unit,
+    onDone: KeyboardActionScope.() -> Unit,
     workDesc: String,
     onValueChange: (String) -> Unit,
     focusRequester: FocusRequester,
     focusManager: FocusManager
 ) {
+    val height by animateDpAsState(targetValue = if (workOpenState) 300.dp else 64.dp)
+    val interactionSource = remember { MutableInteractionSource() }
+    val isPressed: Boolean by interactionSource.collectIsPressedAsState()
+    if (isPressed) {
+        onPress()
+    }
     Column(modifier = Modifier.padding(12.dp)) {
         //Text(text = "Work(optional)", fontSize = 20.sp, color = Primary, fontFamily = mamelonFamily)
         OutlinedText(
@@ -236,7 +248,7 @@ fun FocusIntroWorkTextField(
         )
         Box(
             modifier = Modifier
-                .size(width = 280.dp, height = 64.dp)
+                .size(width = 280.dp, height = height)
                 //.clip(RoundedCornerShape(17.dp))
                 .background(color = Primary.copy(alpha = 0.7f), shape = RoundedCornerShape(17.dp))
                 .border(width = 3.dp, color = Secondary, shape = RoundedCornerShape(17.dp)),
@@ -248,13 +260,15 @@ fun FocusIntroWorkTextField(
                 textStyle = TextStyle(
                     textAlign = TextAlign.Center,
                     fontSize = 36.sp,
-                    fontFamily = huninnFamily
+                    fontFamily = huninnFamily,
+                    lineHeight = 40.sp
                 ),
-                modifier = Modifier.focusRequester(focusRequester),
-                keyboardActions = KeyboardActions(onDone = {
-                    focusManager.clearFocus()
-                }),
-                singleLine = true
+                modifier = Modifier
+                    .focusRequester(focusRequester),
+                keyboardActions = KeyboardActions(onDone = onDone),
+                singleLine = !workOpenState,
+                maxLines = 6,
+                interactionSource = interactionSource
             )
 
         }
