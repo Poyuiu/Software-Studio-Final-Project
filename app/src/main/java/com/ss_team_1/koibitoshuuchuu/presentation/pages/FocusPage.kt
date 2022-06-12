@@ -1,5 +1,6 @@
 package com.ss_team_1.koibitoshuuchuu.presentation.pages
 
+import android.media.MediaPlayer
 import androidx.activity.compose.BackHandler
 import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.Image
@@ -40,23 +41,25 @@ import com.ss_team_1.koibitoshuuchuu.presentation.sceneIdList
 import com.ss_team_1.koibitoshuuchuu.presentation.viewModel.LastFocusSettingViewModel
 import com.ss_team_1.koibitoshuuchuu.presentation.viewModel.UserViewModel
 
-@Preview
-@Composable
-private fun FocusPagePreview() {
-    FocusPage(navController = NavController(LocalContext.current), focusTime = 15, characterId = 0)
-}
+//@Preview
+//@Composable
+//private fun FocusPagePreview() {
+//    FocusPage(navController = NavController(LocalContext.current), focusTime = 15, characterId = 0)
+//}
 
 @Composable
 fun FocusPage(
     navController: NavController,
     focusTime: Int?,
     characterId: Int?,
+    mediaPlayer: MediaPlayer,
     viewModel: CharacterViewModel = hiltViewModel(),
     userViewModel: UserViewModel = hiltViewModel(),
     focusSettingViewModel: LastFocusSettingViewModel = hiltViewModel()
 ) {
     val state = viewModel.state.value
     val sceneId = focusSettingViewModel.state.value.lastFocusSetting.sceneId
+
     var pauseState by remember { mutableStateOf(false) }
     var focusSuccess by remember {
         mutableStateOf(true)
@@ -93,6 +96,7 @@ fun FocusPage(
                 viewModel.onEvent(CharacterEvent.UpdateIntimacy(characterId!!, intimacyChange))
                 moneyChange = 674
                 userViewModel.onEvent(UserEvent.UpdateMoney(moneyChange))
+                mediaPlayer.pause()
             }
         }
     }
@@ -248,6 +252,7 @@ fun FocusPage(
                                     focusSuccess = false
                                     focusEnd = true
                                     intimacyChange = -100
+                                    mediaPlayer.pause()
                                     viewModel.onEvent(
                                         CharacterEvent.UpdateIntimacy(
                                             characterId,

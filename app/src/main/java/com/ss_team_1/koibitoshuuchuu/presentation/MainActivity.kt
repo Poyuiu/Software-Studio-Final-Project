@@ -1,14 +1,17 @@
 package com.ss_team_1.koibitoshuuchuu.presentation
 
+import android.media.MediaPlayer
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
+import androidx.compose.ui.platform.LocalContext
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavType
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
 import androidx.navigation.navArgument
+import com.ss_team_1.koibitoshuuchuu.R
 import com.ss_team_1.koibitoshuuchuu.presentation.components.PageProfile
 import com.ss_team_1.koibitoshuuchuu.presentation.components.UserDataPage
 import com.ss_team_1.koibitoshuuchuu.presentation.event.PlotStateEvent
@@ -23,6 +26,9 @@ class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContent {
+            val mediaPlayer = MediaPlayer.create(LocalContext.current, R.raw.coffee_sound)
+            mediaPlayer.isLooping = true
+
             KoiBitoShuuChuuTheme {
                 val navController = rememberNavController()
                 NavHost(navController = navController, startDestination = Page.Welcome.route) {
@@ -52,7 +58,7 @@ class MainActivity : ComponentActivity() {
                         })
                     ) { entry ->
                         val characterId = entry.arguments?.getInt("characterId")
-                        FocusIntroPage(navController, characterId)
+                        FocusIntroPage(navController, characterId, mediaPlayer)
                     }
 
                     /**Focus Page**/
@@ -67,7 +73,7 @@ class MainActivity : ComponentActivity() {
                     ) { backStackEntry ->
                         val focusTime = backStackEntry.arguments?.getInt("focusTime")
                         val characterId = backStackEntry.arguments?.getInt("characterId")
-                        FocusPage(navController, focusTime, characterId)
+                        FocusPage(navController, focusTime, characterId, mediaPlayer)
                     }
                     composable(
                         //character0 will be -> Page.CharacterInfoAndStory.route + "/0"

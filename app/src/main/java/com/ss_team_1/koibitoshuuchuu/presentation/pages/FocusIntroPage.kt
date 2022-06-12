@@ -1,5 +1,6 @@
 package com.ss_team_1.koibitoshuuchuu.presentation.pages
 
+import android.media.MediaPlayer
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.gestures.detectTapGestures
 import androidx.compose.foundation.layout.*
@@ -37,6 +38,7 @@ import dev.chrisbanes.snapper.rememberLazyListSnapperLayoutInfo
 fun FocusIntroPage(
     navController: NavController = NavController(LocalContext.current),
     characterId: Int? = 0,
+    mediaPlayer: MediaPlayer,
     viewModel: LastFocusSettingViewModel = hiltViewModel(),
     sceneViewModel: SceneViewModel = hiltViewModel()
 ) {
@@ -102,7 +104,9 @@ fun FocusIntroPage(
             Spacer(modifier = Modifier.size(20.dp))
             // Start Button
             AccentButtonTemplate(
-                onClick = { navController.navigate(Page.Focus.route + "/$focusTime/$characterId") }
+                onClick = {
+                    mediaPlayer.start()
+                    navController.navigate(Page.Focus.route + "/$focusTime/$characterId") }
             ) {
                 Text(text = "START", fontSize = 32.sp, fontFamily = mamelonFamily)
             }
