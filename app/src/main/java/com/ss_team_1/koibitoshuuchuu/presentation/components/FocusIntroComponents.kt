@@ -108,26 +108,28 @@ fun FocusIntroTimePicker(
 
 }
 
-@Preview
-@Composable
-private fun FocusIntroTimePickerButtonPreview() {
-    FocusIntroTimePickerButton(
-        lazyListState = rememberLazyListState(),
-        layoutInfo = rememberLazyListSnapperLayoutInfo(lazyListState = rememberLazyListState()),
-        focusTime = 10,
-        setFocusTime = {}
-    )
-}
+//@Preview
+//@Composable
+//private fun FocusIntroTimePickerButtonPreview() {
+//    FocusIntroTimePickerButton(
+//        lazyListState = rememberLazyListState(),
+//        layoutInfo = rememberLazyListSnapperLayoutInfo(lazyListState = rememberLazyListState()),
+//        focusTime = 10,
+//        setFocusTime = {}
+//    )
+//}
 
 @Composable
 fun FocusIntroTimePickerButton(
+    timePickerOpenState: Boolean,
+    onClick: () -> Unit,
+    onDone: () ->Unit,
     lazyListState: LazyListState,
     layoutInfo: LazyListSnapperLayoutInfo,
     focusTime: Int,
     setFocusTime: () -> Unit
 ) {
-    var openState by remember { mutableStateOf(false) }
-    val height by animateDpAsState(targetValue = if (openState) 308.dp else 64.dp)
+    val height by animateDpAsState(targetValue = if (timePickerOpenState) 308.dp else 64.dp)
     var scrollState by remember {
         mutableStateOf(false)
     }
@@ -150,12 +152,12 @@ fun FocusIntroTimePickerButton(
         Button(
             modifier = Modifier.size(width = 280.dp, height = height),
             onClick = {
-                if (openState) {
-                    setFocusTime()
+                if (timePickerOpenState) {
+                    onDone()
                 } else {
                     scrollState = true
+                    onClick()
                 }
-                openState = !openState
             },
             shape = RoundedCornerShape(17.dp),
             colors = ButtonDefaults.buttonColors(
@@ -163,7 +165,7 @@ fun FocusIntroTimePickerButton(
             ),
             border = BorderStroke(width = 3.dp, color = Secondary)
         ) {
-            if (!openState) {
+            if (!timePickerOpenState) {
                 Text(text = "$focusTime:00", fontSize = 36.sp, fontFamily = mamelonFamily)
             } else {
                 //FocusIntroTimePicker(lazyListState = lazyListState, layoutInfo = layoutInfo)
@@ -278,17 +280,15 @@ fun FocusIntroWorkTextField(
 //@Preview
 @Composable
 fun FocusIntroScenePicker(
+    scenePickerOpenState: Boolean,
+    onClick: () -> Unit,
+    onDone: () ->Unit,
     sceneId: Int,
     sceneList: List<Scene>,
     sceneOnClick: (Int) -> Unit
 ) {
-    var openState by remember { mutableStateOf(false) }
-    val height by animateDpAsState(targetValue = if (openState) 391.dp else 64.dp)
-    val backgroundColor by animateColorAsState(
-        targetValue = if (openState) Primary else Primary.copy(
-            alpha = 0.7f
-        )
-    )
+    val height by animateDpAsState(targetValue = if (scenePickerOpenState) 391.dp else 64.dp)
+
     Column(
         modifier = Modifier
             .padding(12.dp)
@@ -305,7 +305,7 @@ fun FocusIntroScenePicker(
         //Text(text = "Scene", fontSize = 20.sp, color = Primary, fontFamily = mamelonFamily)
         Button(
             modifier = Modifier.size(width = 280.dp, height = height),
-            onClick = { openState = true },
+            onClick = onClick,
             shape = RoundedCornerShape(17.dp),
             colors = ButtonDefaults.buttonColors(
                 backgroundColor = Primary.copy(
@@ -314,7 +314,7 @@ fun FocusIntroScenePicker(
             ),
             border = BorderStroke(width = 3.dp, color = Secondary)
         ) {
-            if (!openState) {
+            if (!scenePickerOpenState) {
                 Text(
                     text = stringResource(id = sceneNameList[sceneId]),
                     fontSize = 36.sp,
@@ -337,8 +337,7 @@ fun FocusIntroScenePicker(
                                 .padding(4.dp)
                                 .clickable {
                                     sceneOnClick(item.id)
-                                    openState = false
-
+                                    onDone()
                                 }
                         )
                     }

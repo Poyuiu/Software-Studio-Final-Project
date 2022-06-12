@@ -46,17 +46,6 @@ fun FocusIntroPage(
 //    var focusTime by remember {
 //        mutableStateOf(25)
 //    }
-    /***Time Picker***/
-    val focusTime = state.lastFocusSetting.focusTime
-
-    /***Work TextField***/
-    val workDesc = state.lastFocusSetting.work
-    var workOpenState by remember { mutableStateOf(false) }
-
-    /***Scene Picker***/
-    val sceneId = state.lastFocusSetting.sceneId
-    val sceneList = sceneViewModel.state.value.scenes
-
     val lazyListState = rememberLazyListState()
     val layoutInfo: LazyListSnapperLayoutInfo =
         rememberLazyListSnapperLayoutInfo(lazyListState = lazyListState)
@@ -65,11 +54,52 @@ fun FocusIntroPage(
     }
     val focusManager = LocalFocusManager.current
 
+    /***Time Picker***/
+    val focusTime = state.lastFocusSetting.focusTime
+    var timePickerOpenState by remember { mutableStateOf(false) }
+    fun onTimePickerStart() {
+        timePickerOpenState = true
+    }
+
+    fun onTimePickerEnd() {
+        if (timePickerOpenState)
+            viewModel.onEvent(LastFocusSettingEvent.SetLastFocusTime(focusTimeList[layoutInfo.currentItem?.index!!]))
+        timePickerOpenState = false
+    }
+
+    /***Work TextField***/
+    val workDesc = state.lastFocusSetting.work
+    var workOpenState by remember { mutableStateOf(false) }
+    fun onWorkStart() {
+        workOpenState = true
+    }
+
+    fun onWorkEnd() {
+        if (workOpenState)
+            focusManager.clearFocus()
+        workOpenState = false
+    }
+
+    /***Scene Picker***/
+    val sceneId = state.lastFocusSetting.sceneId
+    val sceneList = sceneViewModel.state.value.scenes
+    var scenePickerOpenState by remember { mutableStateOf(false) }
+    fun onScenePickerStart() {
+        scenePickerOpenState = true
+    }
+
+    fun onScenePickerEnd() {
+        scenePickerOpenState = false
+    }
+
+
+
     KBSCScaffold(
         modifier = Modifier.pointerInput(Unit) {
             detectTapGestures(onTap = {
-                focusManager.clearFocus()
-                workOpenState = false
+                onTimePickerEnd()
+                onWorkEnd()
+                onScenePickerEnd()
             })
         },
         navController = navController,
@@ -94,26 +124,44 @@ fun FocusIntroPage(
             /***Work TextField***/
             FocusIntroWorkTextField(
                 workOpenState = workOpenState,
-                onPress = { workOpenState = true },
-                onDone = {
-                    focusManager.clearFocus()
-                    workOpenState = false
+                onPress = {
+                    onWorkStart()
+                    onTimePickerEnd()
+                    onScenePickerEnd()
                 },
+                onDone = { },
                 workDesc = workDesc, onValueChange = { it ->
                     viewModel.onEvent(LastFocusSettingEvent.SetLastWork(it))
                 },
                 focusRequester = focusRequester, focusManager = focusManager
             )
-            // Time Picker
+            /***Time Picker***/
             FocusIntroTimePickerButton(
+                timePickerOpenState = timePickerOpenState,
                 lazyListState = lazyListState,
+                onClick = {
+                    onTimePickerStart()
+                    onWorkEnd()
+                    onScenePickerEnd()
+                },
+                onDone = { onTimePickerEnd() },
                 layoutInfo = layoutInfo,
                 focusTime = focusTime,
                 setFocusTime = {
                     viewModel.onEvent(LastFocusSettingEvent.SetLastFocusTime(focusTimeList[layoutInfo.currentItem?.index!!]))
                 }
             )
-            FocusIntroScenePicker(sceneId, sceneList.filter { it.is_owned }) { it ->
+            /***Scene Picker***/
+            FocusIntroScenePicker(
+                scenePickerOpenState = scenePickerOpenState,
+                onClick = {
+                    onScenePickerStart()
+                    onTimePickerEnd()
+                    onWorkEnd()
+                },
+                onDone = { onScenePickerEnd() },
+                sceneId = sceneId,
+                sceneList = sceneList.filter { it.is_owned }) {
                 viewModel.onEvent(LastFocusSettingEvent.SetLastSceneId(it))
             }
             Spacer(modifier = Modifier.size(20.dp))
