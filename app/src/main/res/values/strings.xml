@@ -1,23 +1,68 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+    <string name="a_space"> </string>
     <string name="app_name">KoiBitoShuuChuu</string>
     <string name="detail">DETAIL</string>
     <string name="plot_title_num">%1$d.</string>
+
+    /*************shkieiki PLOT1*************/
+    <string name="character0_plot0_title">我死了</string>
+    <string name="character0_plot0_snapshot0">當我醒來之時，我發現自己躺在一艘古老的小船上，面前站了一個個頭挺高，紅髮藍衣的女孩</string>
+    <string name="character0_plot0_snapshot1">好驚訝</string>
+    <string name="character0_plot0_snapshot2">什麼?我我我我我死了?怎麼會這樣，我還沒有喜歡的人，怎麼就死了</string>
+    <string name="character0_plot0_snapshot3">某女：「這位孩子，別傷心了，你還可以投胎呢?」</string>
+    <string name="character0_plot0_snapshot4">不過即使這樣，那真是太可惜了，我才十四歲呢，生命結束的太早了</string>
+    <string name="character0_plot0_snapshot5">這個女孩說了一些安慰我的話，就繼續划船，我和她閒聊了起來</string>
+
+    <string name="character0_plot1_title">你誰</string>
+    <string name="character0_plot1_snapshot0">我：「請問.......您叫什麼?</string>
+    <string name="character0_plot1_snapshot1">某女：「小野塚小町，一個死神，以後叫我小町就可以了」</string>
+    <string name="character0_plot1_snapshot2">過了很長時間，目的地到了，我對冥界十分陌生，就請求小町帶路，小町答應了，在她站起來時，她把我撞到了</string>
+    <string name="character0_plot1_snapshot3">我：「哎呀，對不起」</string>
+    <string name="character0_plot1_snapshot4">小町：「沒關係，不疼」</string>
+
+    <string name="character0_plot2_title">我不想活了</string>
+    <string name="character0_plot2_snapshot0">小町把我帶到了審判的地方，心中十分不安，只見那裡坐著一個穿著工作制服，留著綠色短髮的少女，神態嚴肅</string>
+    <string name="character0_plot2_snapshot1">我：「小町，他是...」</string>
+    <string name="character0_plot2_snapshot2">小町：「四季大人，這個孩子有點怕生，你需要和他溝通一下。這是四季大人，你們溝通一下吧」說完小町走出了房間，繼續工作了</string>
+    <string name="character0_plot2_snapshot3">四季問了我一些問題，她給我的感覺很好，嚴肅之中帶著點溫柔</string>
+    <string name="character0_plot2_snapshot4">我：「四季大人，我不想投胎了，能留在這里工作嗎?」</string>
+    <string name="character0_plot2_snapshot5">四季：「可以呀，不過需要明天的審判。」</string>
+    <string name="character0_plot2_snapshot6">隔天，我成功地通過了審判，正式成為了四季的下屬，幫助她記敘被審批者的供詞，挺有趣的工作</string>
+
+    <string name="character0_plot3_title">他好可愛</string>
+    <string name="character0_plot3_snapshot0">上午，四季在審判一個戴眼鏡，鬍子拉碴，不像好人的肥胖男子，這個男子被打入地獄，那個男子聽了後絕望的跪下了</string>
+    <string name="character0_plot3_snapshot1">下午，一個頭上有角的下屬犯了錯，被四季說教，我正站在旁邊看，仔細看著四季</string>
+    <string name="character0_plot3_snapshot2">四季大人好可愛啊，不僅臉蛋可愛，身材苗條，而且氣質也很迷人呢</string>
+    <string name="character0_plot3_snapshot3">四季的怒容並不可怕，倒很可愛，精巧的五官構成一副精緻的面孔</string>
+    <string name="character0_plot3_snapshot4">我還聽說，四季大人經常對小町說教</string>
+
+    <string name="character0_plot4_title">她暈了</string>
+    <string name="character0_plot4_snapshot0">四季大人在審判一個不良少女時莫名暈倒了！我和其他工作人員連忙將她扶起，我用公主抱的方式把她送到了醫院</string>
+    <string name="character0_plot4_snapshot1">還好，四季大人只是因為睡眠不足所致，沒有大礙，過不多久就會醒來</string>
+    <string name="character0_plot4_snapshot2">四季大人醒來了，是我最早發現的，四季大人知道是我送她來的，竟然依偎到我胸前</string>
+    <string name="character0_plot4_snapshot3">四季大人說了一些感謝我的話，露出來微笑</string>
+    <string name="character0_plot4_snapshot4">四季大人的笑容在燈光的渲染下顯得格外美麗</string>
+    <string name="character0_plot4_snapshot5">四季大人出院了，對別人的態度溫柔了些，對我似乎有好感..</string>
+    <string name="character0_plot4_snapshot6">以後我會好好工作，回報四季大人</string>
+    <string name="character0_plot4_snapshot7">demo劇情結束，本劇情改自：B站 東方同人文:一位旁觀者的日記，四季映姬</string>
+    <string name="character0_plot4_snapshot8">網址：https://www.bilibili.com/read/cv19162</string>
+
     /**********************四季映姬資料***********************/
     <string name="character0_name">四季映姫</string>
     <string name="character0_info">暱稱：閻蘿王\n\n身高：較高與高之間\n種族：閻魔\n\n住所：彼岸\n職業：審判官</string>
     <string name="character0_introduction">四季映姫是閻魔之一，擔當幻想郷及其他地區的閻魔，負責對死者的裁決。在是非曲直廳中負責審判死者的工作，死神小野塚小町的上司。\n\n平時在彼岸的是非曲直廳内裁決死者的靈魂，有時會到幻想郷去説教，警告人們積累善行，以免被判下地獄。\n\n身穿十分鄭重的袍裝，性格嚴肅認真，不過偶爾也有意外萌的一面。</string>
-    /*************PLOT1*************/
-    <string name="character0_plot0_title">第一個故事</string>
-    <string name="character0_plot0_snapshot0">你是不是在想色色的事情</string>
-    <string name="character0_plot0_snapshot1">變態！！</string>
-    <string name="character0_plot0_snapshot2">是不是想死啊？</string>
-
 
     /**********************魂魄妖夢資料***********************/
     <string name="character1_name">魂魄妖夢</string>
-    <string name="character1_info"></string>
-    <string name="character1_introduction"></string>
+    <string name="character1_info">暱稱：U夢\n\n身高：較矮\n種族：半人半靈\n住所：冥界白玉樓\n職業：護衛、庭師</string>
+    <string name="character1_introduction">妖夢是西行寺家專屬庭師的第二代，幽幽子的護衛。西行寺家上一代的庭師，妖夢的爺爺魂魄妖忌在擔任了300年的庭師之後，有一天忽然頓悟了什麼，便將庭師的工作交給了還是少女的妖夢，自己一個人隱居了起來。\n\n妖夢不同於純粹是亡靈的主人西行寺幽幽子，她是半人半靈的存在。身邊巨大的幽靈是按照她的意識活動的，那個是她身體的一部分。\n\n妖夢本來應該是幽幽子的劍術指導老師。雖說現在作為庭師工作著，但妖夢有著相當優秀的劍術，是二刀流的高手。\n\n性格認真直率，有時有點逞強；但也許是因為年齡還不是很大，常常表現得特別天真，也就成了幽幽子最喜歡戲弄的對象。\n\n膽子很小。身為半人半靈，看到幽靈時卻十分害怕。</string>
+
+
+    /**********************吉吊八千代***********************/
+    <string name="character2_name">吉吊八千代</string>
+    <string name="character2_info">種族：吉弔\n\n職業：鬼傑組組長\n\n能力：讓人失去反抗意志程度的能力</string>
+    <string name="character2_introduction">對任何人都是一副彬彬有禮的樣子，但內心裡卻瞧不起絕大多數人。擁有讓人失去反抗意志的能力，沒有人能夠違抗她。</string>
     /*************PLOT1*************/
 
 
@@ -37,6 +82,15 @@
 
     <string name="Give_character_gift_header">你想要送什麼禮物呢？</string>
 
+    <string name="No_Gift_to_give_header">你沒有足夠的禮物\nQQ</string>
+
+    <string name="Help_body0">按下focus開始專注</string>
+    <string name="Help_body1">按下此按鈕或角色查看\n角色詳細資料</string>
+    <string name="Help_body2">按下右邊按鈕進入商店</string>
+    <string name="Help_body3">按下中間按鈕進入個人\n資料頁面</string>
+    <string name="Help_body4">按住好感度條查看進度</string>
+    <string name="Help_body5">按下設定按鈕進入設定</string>
+    <string name="Help_body6">按下幫助按鈕打開幫助</string>
 
     <string name="monday">星期一</string>
     <string name="tuesday">星期二</string>

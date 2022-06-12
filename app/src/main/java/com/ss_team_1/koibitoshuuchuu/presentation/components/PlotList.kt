@@ -11,9 +11,11 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import androidx.hilt.navigation.compose.hiltViewModel
 import com.ss_team_1.koibitoshuuchuu.domain.util.GetPlotLockAndHaveReadState
 import com.ss_team_1.koibitoshuuchuu.domain.util.PlotLockAndHaveReadStateAndTitle
-
+import com.ss_team_1.koibitoshuuchuu.presentation.viewModel.CharacterViewModel
+import com.ss_team_1.koibitoshuuchuu.presentation.viewModel.PlotStateViewModel
 
 
 @Composable
@@ -56,8 +58,10 @@ fun PlotList(
 @Preview(showBackground = true, backgroundColor = 0xFFF0EAE2)
 @Composable
 fun PlotListPreview() {
+    val characterViewModel: CharacterViewModel = hiltViewModel()
+    val plotStateViewModel: PlotStateViewModel = hiltViewModel()
     PlotList(
         onClick = {},
-        plotTitleList = GetPlotLockAndHaveReadState().getPlotLockAndHaveReadState(0)
+        plotTitleList = GetPlotLockAndHaveReadState().getPlotLockAndHaveReadState(0, characterViewModel, plotStateViewModel)
     )
 }

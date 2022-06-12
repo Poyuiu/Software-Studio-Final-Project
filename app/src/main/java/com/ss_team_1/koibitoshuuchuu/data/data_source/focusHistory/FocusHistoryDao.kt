@@ -1,6 +1,5 @@
 package com.ss_team_1.koibitoshuuchuu.data.data_source.focusHistory
 
-import androidx.lifecycle.LiveData
 import androidx.room.Dao
 import androidx.room.Query
 import com.ss_team_1.koibitoshuuchuu.domain.model.FocusHistory

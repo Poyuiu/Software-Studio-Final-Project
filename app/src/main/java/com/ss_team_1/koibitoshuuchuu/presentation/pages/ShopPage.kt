@@ -16,23 +16,19 @@ import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavController
 import com.ss_team_1.koibitoshuuchuu.R
+import com.ss_team_1.koibitoshuuchuu.presentation.bought_list
 import com.ss_team_1.koibitoshuuchuu.presentation.components.*
+import com.ss_team_1.koibitoshuuchuu.presentation.event.ItemEvent
+import com.ss_team_1.koibitoshuuchuu.presentation.viewModel.ItemViewModel
 
-val bought_list=listOf(
-    R.drawable.shop_buy_scene_0,
-    R.drawable.shop_buy_scene_1,
-    R.drawable.shop_buy_scene_2,
-    R.drawable.shop_buy_gift_0,
-    R.drawable.shop_buy_gift_1,
-    R.drawable.shop_buy_gift_2,
-    R.drawable.shop_buy_gift_3,
-    R.drawable.shop_buy_gift_4
-)
+
 @Composable
 fun ShopPage(
     navController: NavController,
+    viewModel: ItemViewModel = hiltViewModel()
 ) {
     val openDialog = remember { mutableStateOf(false) }
     val buying = remember { mutableStateOf(-1) }
@@ -82,13 +78,14 @@ fun ShopPage(
                         painter = painterResource(id = R.drawable.shop_scene_0),
                         contentDescription = "",
                         contentScale = ContentScale.Fit,
-                        modifier = Modifier.size(88.dp,138.dp)
+                        modifier = Modifier
+                            .size(88.dp, 138.dp)
                             .clickable(
                                 enabled = !openDialog.value,
                                 onClickLabel = "buy scene0",
                                 onClick = {
                                     /*TODO*/
-                                    buying.value=0
+                                    buying.value = 0
                                 }
                             )
                     )
@@ -97,13 +94,14 @@ fun ShopPage(
                         painter = painterResource(id = R.drawable.shop_scene_1),
                         contentDescription = "",
                         contentScale = ContentScale.Fit,
-                        modifier = Modifier.size(88.dp,138.dp)
+                        modifier = Modifier
+                            .size(88.dp, 138.dp)
                             .clickable(
                                 enabled = !openDialog.value,
                                 onClickLabel = "buy scene1",
                                 onClick = {
                                     /*TODO*/
-                                    buying.value=1
+                                    buying.value = 1
                                 }
                             )
                     )
@@ -112,13 +110,14 @@ fun ShopPage(
                         painter = painterResource(id = R.drawable.shop_scene_2),
                         contentDescription = "",
                         contentScale = ContentScale.Fit,
-                        modifier = Modifier.size(88.dp,138.dp)
+                        modifier = Modifier
+                            .size(88.dp, 138.dp)
                             .clickable(
                                 enabled = !openDialog.value,
                                 onClickLabel = "buy scene2",
                                 onClick = {
                                     /*TODO*/
-                                    buying.value=2
+                                    buying.value = 2
                                 }
                             )
                     )
@@ -140,13 +139,14 @@ fun ShopPage(
                         painter = painterResource(id = R.drawable.shop_gift_0),
                         contentDescription = "",
                         contentScale = ContentScale.Fit,
-                        modifier = Modifier.size(88.dp,138.dp)
+                        modifier = Modifier
+                            .size(88.dp, 138.dp)
                             .clickable(
                                 enabled = !openDialog.value,
                                 onClickLabel = "buy gift0",
                                 onClick = {
                                     /*TODO*/
-                                    buying.value=3
+                                    buying.value = 3
                                 }
                             )
                     )
@@ -155,13 +155,14 @@ fun ShopPage(
                         painter = painterResource(id = R.drawable.shop_gift_1),
                         contentDescription = "",
                         contentScale = ContentScale.Fit,
-                        modifier = Modifier.size(88.dp,138.dp)
+                        modifier = Modifier
+                            .size(88.dp, 138.dp)
                             .clickable(
                                 enabled = !openDialog.value,
                                 onClickLabel = "buy gift1",
                                 onClick = {
                                     /*TODO*/
-                                    buying.value=4
+                                    buying.value = 4
                                 }
                             )
                     )
@@ -170,13 +171,14 @@ fun ShopPage(
                         painter = painterResource(id = R.drawable.shop_gift_2),
                         contentDescription = "",
                         contentScale = ContentScale.Fit,
-                        modifier = Modifier.size(88.dp,138.dp)
+                        modifier = Modifier
+                            .size(88.dp, 138.dp)
                             .clickable(
                                 enabled = !openDialog.value,
                                 onClickLabel = "buy gift2",
                                 onClick = {
                                     /*TODO*/
-                                    buying.value=5
+                                    buying.value = 5
                                 }
                             )
                     )
@@ -192,13 +194,14 @@ fun ShopPage(
                         painter = painterResource(id = R.drawable.shop_gift_3),
                         contentDescription = "",
                         contentScale = ContentScale.Fit,
-                        modifier = Modifier.size(88.dp,138.dp)
+                        modifier = Modifier
+                            .size(88.dp, 138.dp)
                             .clickable(
                                 enabled = !openDialog.value,
                                 onClickLabel = "buy gift3",
                                 onClick = {
                                     /*TODO*/
-                                    buying.value=6
+                                    buying.value = 6
                                 }
                             )
                     )
@@ -207,13 +210,14 @@ fun ShopPage(
                         painter = painterResource(id = R.drawable.shop_gift_4),
                         contentDescription = "",
                         contentScale = ContentScale.Fit,
-                        modifier = Modifier.size(88.dp,138.dp)
+                        modifier = Modifier
+                            .size(88.dp, 138.dp)
                             .clickable(
                                 enabled = !openDialog.value,
                                 onClickLabel = "buy gift4",
                                 onClick = {
                                     /*TODO*/
-                                    buying.value=7
+                                    buying.value = 7
                                 }
                             )
                     )
@@ -229,6 +233,9 @@ fun ShopPage(
             else spending.value=buyinggiftPopupScreen()
             if(spending.value>0){
                 boughtflag.value=true
+                if(spending.value/1000 == 5){
+                    viewModel.onEvent(ItemEvent.UpdateOwnedQuantity(2,1))
+                }
             }
             if(spending.value >= 0){
                 buying.value=-1

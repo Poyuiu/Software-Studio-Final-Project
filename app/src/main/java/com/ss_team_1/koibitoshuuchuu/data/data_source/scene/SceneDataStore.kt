@@ -5,20 +5,25 @@ import androidx.datastore.core.DataStore
 import androidx.datastore.preferences.core.*
 import androidx.datastore.preferences.preferencesDataStore
 import com.ss_team_1.koibitoshuuchuu.domain.model.Scene
-import kotlinx.coroutines.flow.Flow
+import dagger.hilt.android.qualifiers.ApplicationContext
 import kotlinx.coroutines.flow.catch
 import kotlinx.coroutines.flow.map
 import java.io.IOException
+import javax.inject.Inject
+import javax.inject.Singleton
 
 private val Context.sceneDataStore: DataStore<Preferences> by preferencesDataStore(name="scene_data")
-private const val numOfScenes = 3
+const val numOfScenes = 3
 
-class SceneDataStore(val context: Context) {
+@Singleton
+class SceneDataStore @Inject constructor(@ApplicationContext context: Context) {
     private val _owned = List(numOfScenes) {
         booleanPreferencesKey("owned$it")
     }
 
-    val sceneDataFlow = context.sceneDataStore.data
+    private val sceneDataStore = context.sceneDataStore
+
+    val sceneDataFlow = sceneDataStore.data
         .catch {
             if (it is IOException) {
                 it.printStackTrace()
@@ -33,23 +38,8 @@ class SceneDataStore(val context: Context) {
             }
         }
 
-    fun getScene(id: Int): Flow<Scene> {
-        return context.sceneDataStore.data
-            .catch {
-                if (it is IOException) {
-                    it.printStackTrace()
-                    emit(emptyPreferences())
-                } else {
-                    throw it
-                }
-            }
-            .map { scene ->
-                Scene(id, scene[_owned[id]] ?: false)
-            }
-    }
-
     suspend fun setOwned(id: Int, newOwned: Boolean) {
-        context.sceneDataStore.edit { scene ->
+        sceneDataStore.edit { scene ->
             scene[_owned[id]] = newOwned
         }
     }

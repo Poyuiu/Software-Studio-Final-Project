@@ -3,8 +3,7 @@ package com.ss_team_1.koibitoshuuchuu.presentation
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
-import androidx.compose.ui.platform.LocalContext
-import androidx.navigation.NavController
+import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavType
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
@@ -12,7 +11,9 @@ import androidx.navigation.compose.rememberNavController
 import androidx.navigation.navArgument
 import com.ss_team_1.koibitoshuuchuu.presentation.components.PageProfile
 import com.ss_team_1.koibitoshuuchuu.presentation.components.UserDataPage
+import com.ss_team_1.koibitoshuuchuu.presentation.event.PlotStateEvent
 import com.ss_team_1.koibitoshuuchuu.presentation.pages.*
+import com.ss_team_1.koibitoshuuchuu.presentation.viewModel.PlotStateViewModel
 import com.ss_team_1.koibitoshuuchuu.ui.theme.KoiBitoShuuChuuTheme
 import dagger.hilt.android.AndroidEntryPoint
 
@@ -39,15 +40,33 @@ class MainActivity : ComponentActivity() {
                             navController = navController
                         )
                     }
-                    composable(Page.FocusIntro.route) { FocusIntroPage(navController) }
+
+                    /**Focus Intro Page**/
                     composable(
-                        Page.Focus.route + "/{focusTime}",
-                        arguments = listOf(navArgument("focusTime") {
+                        Page.FocusIntro.route + "/{characterId}",
+                        arguments = listOf(navArgument(
+                            ("characterId")
+                        ) {
                             type = NavType.IntType
                         })
+                    ) { entry ->
+                        val characterId = entry.arguments?.getInt("characterId")
+                        FocusIntroPage(navController, characterId)
+                    }
+
+                    /**Focus Page**/
+                    composable(
+                        Page.Focus.route + "/{focusTime}/{characterId}",
+                        arguments = listOf(
+                            navArgument("focusTime") {
+                                type = NavType.IntType
+                            }, navArgument("characterId") {
+                                type = NavType.IntType
+                            })
                     ) { backStackEntry ->
                         val focusTime = backStackEntry.arguments?.getInt("focusTime")
-                        FocusPage(navController, focusTime)
+                        val characterId = backStackEntry.arguments?.getInt("characterId")
+                        FocusPage(navController, focusTime, characterId)
                     }
                     composable(
                         //character0 will be -> Page.CharacterInfoAndStory.route + "/0"
@@ -93,15 +112,21 @@ class MainActivity : ComponentActivity() {
                             }
                         )
                     ) { entry ->
+
+                        val plotViewModel: PlotStateViewModel = hiltViewModel()
+                        val plotID = entry.arguments?.getInt("plotID")!!
+                        val characterID = entry.arguments?.getInt("characterID")!!
                         PlotPage(
-                            plotID = entry.arguments?.getInt("plotID")!!,
-                            characterID = entry.arguments?.getInt("characterID")!!,
+                            plotID = plotID,
+                            characterID = characterID,
                             navController = navController,
                             onPlotEnd = {
                                 navController.popBackStack()
-                                MyApplication.appContainer().plotRepository.setPlotSeen(
-                                    characterId = entry.arguments?.getInt("characterID")!!,
-                                    plotNum = entry.arguments?.getInt("plotID")!!
+                                plotViewModel.onEvent(
+                                    PlotStateEvent.SetPlotState(
+                                        characterId = characterID,
+                                        plotNum = plotID
+                                    )
                                 )
                             }
                         )

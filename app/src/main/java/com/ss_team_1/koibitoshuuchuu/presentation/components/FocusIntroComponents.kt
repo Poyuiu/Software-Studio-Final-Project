@@ -151,9 +151,15 @@ fun FocusIntroTimePickerButton(
 
 @Preview
 @Composable
+private fun FocusIntroWorkTextFieldPreview()
+{
+    FocusIntroWorkTextField(workDesc = "Homework", onValueChange = {})
+}
+@Composable
 fun FocusIntroWorkTextField(
+    workDesc: String,
+    onValueChange: (String) -> Unit,
 ) {
-    var workDesc by remember { mutableStateOf("homework") }
     Column(modifier = Modifier.padding(12.dp)) {
         //Text(text = "Work(optional)", fontSize = 20.sp, color = Primary, fontFamily = mamelonFamily)
         OutlinedText(
@@ -174,7 +180,7 @@ fun FocusIntroWorkTextField(
         ) {
             BasicTextField(
                 value = workDesc,
-                onValueChange = { workDesc = it },
+                onValueChange = { onValueChange(it) },
                 textStyle = TextStyle(
                     textAlign = TextAlign.Center,
                     fontSize = 36.sp,
@@ -225,7 +231,7 @@ fun FocusIntroScenePicker(
                     border = BorderStroke(width = 6.dp, color = Secondary),
                     modifier = Modifier.size(width = 275.dp, height = 391.dp)
                 ) {
-
+                    
                 }
             }
         }
