@@ -106,4 +106,8 @@
     <string name="scene_library">圖書館</string>
     <string name="scene_coffee_shop_2">咖啡廳2</string>
 
+    /**Dialog**/
+    <string name="change_name_dialog_title">編輯姓名</string>
+    <string name="change_name_dialog_content">寫下您酷酷的姓名讓戀人跟您互動吧</string>
+
 </resources>

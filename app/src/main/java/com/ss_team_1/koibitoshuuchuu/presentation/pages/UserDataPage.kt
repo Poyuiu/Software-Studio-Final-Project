@@ -3,11 +3,14 @@ package com.ss_team_1.koibitoshuuchuu.presentation.components
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
@@ -22,11 +25,15 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
 import com.ss_team_1.koibitoshuuchuu.R
+import com.ss_team_1.koibitoshuuchuu.presentation.event.ItemEvent
+import com.ss_team_1.koibitoshuuchuu.presentation.event.SceneEvent
+import com.ss_team_1.koibitoshuuchuu.presentation.event.UserEvent
 import com.ss_team_1.koibitoshuuchuu.ui.theme.*
 import java.util.*
 
 @Composable
 fun UserDataPage(navController: NavController) {
+    val openDialog = remember { mutableStateOf(false) }
     Box(
         modifier = Modifier.fillMaxSize()
     ) {
@@ -46,13 +53,66 @@ fun UserDataPage(navController: NavController) {
             horizontalAlignment = Alignment.CenterHorizontally
         ) {
             Spacer(modifier = Modifier.height(50.dp))
-            UserData_Info_1(
-                userPhoto = R.drawable.profile_picture1.toString(),
-                userName = "酷酷的名字",
-                userID = 1234567,
-                userGender = "酷酷的草履蟲",
-                userBirthday = Calendar.getInstance()
-            )
+            Row(modifier = Modifier.padding(20.dp)) {
+                Box() {
+                    Image(
+                        painter = painterResource(id = R.drawable.profile_picture1),
+                        contentDescription = "",
+                        contentScale = ContentScale.FillWidth,
+                        modifier = Modifier
+                            .size(130.dp)
+                            .clip(CircleShape)
+                            .border(
+                                3.dp, GreenBlue, CircleShape
+                            )
+                    )
+                    Image(
+                        painter = painterResource(id = R.drawable.userdata_icon_pen),
+                        contentDescription = null,
+                        modifier = Modifier
+                            .size(40.dp)
+                            .align(Alignment.BottomEnd)
+                    )
+                }
+                Spacer(modifier = Modifier.padding(10.dp))
+                Column(
+                    modifier = Modifier
+                        .weight(1f)
+                ) {
+                    Spacer(modifier = Modifier.padding(10.dp))
+                    Text(
+                        text = "酷酷的名字",
+                        fontStyle = FontStyle(R.font.mamelon),
+                        color = Color.Black,
+                        fontSize = 32.sp
+                    )
+                    Spacer(modifier = Modifier.padding(5.dp))
+                    Text(
+                        text = "ID 1234567",
+                        fontStyle = FontStyle(R.font.mamelon),
+                        color = Color.Black,
+                        fontSize = 22.sp,
+                        textAlign = TextAlign.Center,
+                    )
+                }
+                Column {
+                    Spacer(modifier = Modifier.padding(14.dp))
+                    Image(
+                        painter = painterResource(id = R.drawable.userdata_icon_pen),
+                        contentDescription = null,
+                        modifier = Modifier
+                            .size(30.dp)
+                            .clickable(
+                                enabled = true,
+                                onClickLabel = "change name",
+                                onClick = {
+                                    /*TODO*/
+                                    openDialog.value = true
+                                }
+                            )
+                    )
+                }
+            }
             UserData_Info_2(
                 joinYear = 2022,
                 joinMonth = 12,
@@ -67,7 +127,9 @@ fun UserDataPage(navController: NavController) {
             )
         }
         Box(
-            modifier = Modifier.align(Alignment.BottomStart).fillMaxWidth(1f)
+            modifier = Modifier
+                .align(Alignment.BottomStart)
+                .fillMaxWidth(1f)
         ) {
             Image(
                 painter = painterResource(id = R.drawable.userdata_pitcure_1),
@@ -93,6 +155,10 @@ fun UserDataPage(navController: NavController) {
                     top = 105.dp,
                 )
             )
+        }
+        if (openDialog.value) {
+            if(ChangeNamePopUp())
+                openDialog.value = false
         }
     }
 }
