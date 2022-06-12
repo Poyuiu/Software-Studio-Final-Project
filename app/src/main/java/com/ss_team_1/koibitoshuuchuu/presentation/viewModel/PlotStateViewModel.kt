@@ -41,7 +41,7 @@ class PlotStateViewModel @Inject constructor(
         }
     }
 
-    fun getPlotState() {
+    private fun getPlotState() {
         getPlotStateJob?.cancel()
         getPlotStateJob = plotStateUseCases.getPlotState()
             .onEach { plotState ->

@@ -4,11 +4,8 @@ import android.content.Context
 import androidx.datastore.core.DataStore
 import androidx.datastore.preferences.core.*
 import androidx.datastore.preferences.preferencesDataStore
-import com.ss_team_1.koibitoshuuchuu.data.data_source.character.numOfCharacters
-import com.ss_team_1.koibitoshuuchuu.domain.model.Character
 import com.ss_team_1.koibitoshuuchuu.domain.model.LastFocusSetting
 import dagger.hilt.android.qualifiers.ApplicationContext
-import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.catch
 import kotlinx.coroutines.flow.map
 import java.io.IOException
@@ -36,7 +33,7 @@ class LastFocusSettingDataStore @Inject constructor(@ApplicationContext context:
             }
         }
         .map {
-            LastFocusSetting(it[_focusTime]?:0, it[_work]?:"", it[_sceneId]?:0)
+            LastFocusSetting(it[_focusTime]?:25, it[_work]?:"Homework", it[_sceneId]?:0)
         }
 
     suspend fun setLastFocusTime(time: Int) {

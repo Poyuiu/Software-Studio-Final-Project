@@ -1,17 +1,18 @@
 package com.ss_team_1.koibitoshuuchuu.domain.repository
 
-import androidx.lifecycle.LiveData
 import com.ss_team_1.koibitoshuuchuu.domain.model.User
+import kotlinx.coroutines.flow.Flow
 import java.util.*
 
 interface UserRepository {
-    fun getUserInfo(): LiveData<User>
-    fun setId(newId: Long)
-    fun setUserName(newName: String)
-    fun setPhotoUrl(newUrl: String)
-    fun setGender(newGender: String)
-    fun setBirthday(newBirthday: Calendar)
-    fun setJoinDate(newDate: Calendar)
-    fun updateMoney(changeAmount: Int)
-    fun updateGem(changeAmount: Int)
+    fun getUserInfo(): Flow<User>
+    suspend fun setId(newId: Long)
+    suspend fun setUserName(newName: String)
+    suspend fun setPhotoUrl(newUrl: String)
+    suspend fun setGender(newGender: String)
+    suspend fun setBirthday(newBirthday: Calendar)
+    suspend fun setJoinDate(newDate: Calendar)
+    suspend fun setMoney(newMoney: Int)
+    suspend fun setGem(newGem: Int)
+    suspend fun setLastUsedCharacterId(id: Int)
 }

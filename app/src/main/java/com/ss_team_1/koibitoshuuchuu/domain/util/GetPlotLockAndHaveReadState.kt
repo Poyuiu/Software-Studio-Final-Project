@@ -1,7 +1,5 @@
 package com.ss_team_1.koibitoshuuchuu.domain.util
 
-import androidx.hilt.navigation.compose.hiltViewModel
-import com.ss_team_1.koibitoshuuchuu.presentation.MyApplication
 import com.ss_team_1.koibitoshuuchuu.presentation.utils.ResourceStorer
 import com.ss_team_1.koibitoshuuchuu.presentation.viewModel.CharacterViewModel
 import com.ss_team_1.koibitoshuuchuu.presentation.viewModel.PlotStateViewModel
@@ -30,14 +28,4 @@ class GetPlotLockAndHaveReadState {
     }
 }
 
-class PlotLockAndHaveReadStateAndTitle {
-    val lock: Boolean
-    val haveRead: Boolean
-    val title: Int
-
-    constructor(lock: Boolean, haveRead: Boolean, title: Int) {
-        this.lock = lock
-        this.haveRead = haveRead
-        this.title = title
-    }
-}
+class PlotLockAndHaveReadStateAndTitle(val lock: Boolean, val haveRead: Boolean, val title: Int)

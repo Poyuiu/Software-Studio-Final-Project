@@ -1,13 +1,13 @@
 package com.ss_team_1.koibitoshuuchuu.domain.repository
 
-import androidx.lifecycle.LiveData
 import com.ss_team_1.koibitoshuuchuu.domain.model.Setting
+import kotlinx.coroutines.flow.Flow
 
 interface SettingRepository {
-    fun getSetting(): LiveData<Setting>
-    fun setSoundEffectVolume(newVolume: Int)
-    fun setBGMVolume(newVolume: Int)
-    fun setKeepScreenOpen(newValue: Boolean)
-    fun setLanguage(newLanguage: Int)
-    fun setRestrictedMode(newValue: Boolean)
+    fun getSetting(): Flow<Setting>
+    suspend fun setSoundEffectVolume(newVolume: Int)
+    suspend fun setBGMVolume(newVolume: Int)
+    suspend fun setKeepScreenOpen(newValue: Boolean)
+    suspend fun setLanguage(newLanguage: Int)
+    suspend fun setRestrictedMode(newValue: Boolean)
 }
