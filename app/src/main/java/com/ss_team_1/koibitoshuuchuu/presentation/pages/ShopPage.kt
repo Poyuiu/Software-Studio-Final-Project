@@ -22,14 +22,21 @@ import com.ss_team_1.koibitoshuuchuu.R
 import com.ss_team_1.koibitoshuuchuu.presentation.bought_list
 import com.ss_team_1.koibitoshuuchuu.presentation.components.*
 import com.ss_team_1.koibitoshuuchuu.presentation.event.ItemEvent
+import com.ss_team_1.koibitoshuuchuu.presentation.event.SceneEvent
+import com.ss_team_1.koibitoshuuchuu.presentation.event.UserEvent
 import com.ss_team_1.koibitoshuuchuu.presentation.viewModel.ItemViewModel
+import com.ss_team_1.koibitoshuuchuu.presentation.viewModel.SceneViewModel
+import com.ss_team_1.koibitoshuuchuu.presentation.viewModel.UserViewModel
 
 
 @Composable
 fun ShopPage(
     navController: NavController,
-    viewModel: ItemViewModel = hiltViewModel()
+    viewModel: ItemViewModel = hiltViewModel(),
+    sceneViewModel: SceneViewModel = hiltViewModel(),
+    userViewModel: UserViewModel = hiltViewModel()
 ) {
+    val state = userViewModel.state.value
     val openDialog = remember { mutableStateOf(false) }
     val buying = remember { mutableStateOf(-1) }
     val spending = remember { mutableStateOf(-1) }//沒暗任何案件
@@ -51,7 +58,7 @@ fun ShopPage(
             horizontalAlignment = Alignment.CenterHorizontally
         ) {
             Spacer(modifier = Modifier.height(32.dp))
-            money_diamond_bar(100, 100)
+            money_diamond_bar(state.userInfo.money, 100)
             if (boughtflag.value) {
                 Image(
                     painter = painterResource(id = bought_list[spending.value/1000]),
@@ -234,8 +241,11 @@ fun ShopPage(
             if(spending.value>0){
                 boughtflag.value=true
                 if(spending.value/1000 == 5){
-                    viewModel.onEvent(ItemEvent.UpdateOwnedQuantity(2,1))
+                    viewModel.onEvent(ItemEvent.UpdateOwnedQuantity(2,+1))
+                }else if(spending.value/1000<=2){
+                    sceneViewModel.onEvent(SceneEvent.SetScene(spending.value/1000,true))
                 }
+                userViewModel.onEvent(UserEvent.UpdateMoney(-(spending.value%1000)))
             }
             if(spending.value >= 0){
                 buying.value=-1
