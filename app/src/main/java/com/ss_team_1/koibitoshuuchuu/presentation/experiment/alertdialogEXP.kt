@@ -23,7 +23,7 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.compose.ui.window.Dialog
-import com.ss_team_1.koibitoshuuchuu.presentation.components.characternamelist
+import com.ss_team_1.koibitoshuuchuu.presentation.characternamelist
 import com.ss_team_1.koibitoshuuchuu.ui.theme.Purple500
 
 @Preview
