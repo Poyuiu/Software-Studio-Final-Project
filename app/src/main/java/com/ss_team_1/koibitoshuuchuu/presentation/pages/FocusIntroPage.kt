@@ -40,6 +40,7 @@ fun FocusIntroPage(
     var focusTime by remember {
         mutableStateOf(state.lastFocusSetting.focusTime)
     }
+    var workDesc by remember { mutableStateOf(state.lastFocusSetting.work) }
     val lazyListState = rememberLazyListState()
     val layoutInfo: LazyListSnapperLayoutInfo =
         rememberLazyListSnapperLayoutInfo(lazyListState = lazyListState)
@@ -71,7 +72,11 @@ fun FocusIntroPage(
                     focusTime = focusTimeList[layoutInfo.currentItem?.index!!]
                     viewModel.onEvent(LastFocusSettingEvent.SetLastFocusTime(focusTime))
                 })
-            FocusIntroWorkTextField()
+
+            FocusIntroWorkTextField(workDesc = workDesc, onValueChange = { it ->
+                workDesc = it
+                viewModel.onEvent(LastFocusSettingEvent.SetLastWork(it))
+            })
             FocusIntroScenePicker()
             Spacer(modifier = Modifier.size(20.dp))
             // Start Button
