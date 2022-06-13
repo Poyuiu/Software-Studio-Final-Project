@@ -94,7 +94,8 @@ fun HomepageCharacter(
     lock: Boolean,
     characterId: Int,
     onClickToCharacterInfo: ()->Unit = {},
-    enable: Boolean
+    enable: Boolean,
+    imageModifier: Modifier = Modifier
 ){
     val matrix = ColorMatrix()
     matrix.setToSaturation(0F)
@@ -111,14 +112,14 @@ fun HomepageCharacter(
                 Image(
                     painter = painterResource(id = characterphotolist[characterId]),
                     contentDescription = "",
-                    modifier = Modifier.fillMaxSize(),
+                    modifier = imageModifier.fillMaxSize(),
                     colorFilter = ColorFilter.colorMatrix(matrix)//調灰階
                 )
             }else {
                 Image(
                     painter = painterResource(id = characterphotolist[characterId]),
                     contentDescription = "",
-                    modifier = Modifier
+                    modifier = imageModifier
                         .fillMaxSize()
                         .clickable(
                             enabled = enable,

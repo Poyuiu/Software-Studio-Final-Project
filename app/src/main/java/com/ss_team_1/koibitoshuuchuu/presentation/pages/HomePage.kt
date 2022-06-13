@@ -2,17 +2,18 @@ package com.ss_team_1.koibitoshuuchuu.presentation.pages
 
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.clickable
+import androidx.compose.foundation.gestures.Orientation
+import androidx.compose.foundation.gestures.draggable
+import androidx.compose.foundation.gestures.rememberDraggableState
 import androidx.compose.foundation.layout.*
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.outlined.HelpOutline
-import androidx.compose.runtime.Composable
-import androidx.compose.runtime.MutableState
-import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.remember
+import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.platform.LocalDensity
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.zIndex
@@ -23,18 +24,13 @@ import com.ss_team_1.koibitoshuuchuu.presentation.Page
 import com.ss_team_1.koibitoshuuchuu.presentation.components.*
 import com.ss_team_1.koibitoshuuchuu.presentation.event.CharacterEvent
 import com.ss_team_1.koibitoshuuchuu.presentation.event.ItemEvent
+import com.ss_team_1.koibitoshuuchuu.presentation.sceneIdList
 import com.ss_team_1.koibitoshuuchuu.presentation.utils.PageId
 import com.ss_team_1.koibitoshuuchuu.presentation.viewModel.CharacterViewModel
 import com.ss_team_1.koibitoshuuchuu.presentation.viewModel.ItemViewModel
 import com.ss_team_1.koibitoshuuchuu.presentation.viewModel.LastFocusSettingViewModel
 import com.ss_team_1.koibitoshuuchuu.ui.theme.Secondary
 
-val backgroundList=listOf(
-    R.drawable.scene_coffee_shop,
-    R.drawable.scene_office,
-    R.drawable.scene_library,
-    R.drawable.scene_coffe_shop_2
-)
 //@Preview
 @Composable
 fun HomePage(
@@ -55,17 +51,46 @@ fun HomePage(
     val popupNoGift = remember { mutableStateOf(0) }
     val clickedHelp = remember { mutableStateOf(false) }
     val popupHelp = remember { mutableStateOf(0) }
+    val characterid: MutableState<Int> =
+        remember { mutableStateOf(0) }
+    // Image drag
+    var imageOffset by remember { mutableStateOf(0f) }
+    var onDragState by remember { mutableStateOf(false) }
+    val imageThreshold = with(LocalDensity.current) { 100.dp.toPx() }
+    if (onDragState) {
+        if (imageOffset > imageThreshold) {
+            if (characterid.value > 0) {
+                characterid.value -= 1
+            } else {
+                characterid.value = 2
+            }
+        } else if (imageOffset < imageThreshold) {
+            if (characterid.value < 2) {
+                characterid.value += 1
+            } else {
+                characterid.value = 0
+            }
+        }
+        onDragState = false
+    }
+
     Box(
-        Modifier.fillMaxSize()
+        Modifier.fillMaxSize().draggable(
+            orientation = Orientation.Horizontal,
+            state = rememberDraggableState(onDelta = { delta ->
+                imageOffset += delta
+            }),
+            onDragStarted = { onDragState = true }
+        )
     ) {
-        val characterid: MutableState<Int> =
-            remember { mutableStateOf(0) }
-        val lock = state.characters[characterid.value].level == 0 //&& state.characters[characterid.value].intimacy == 0
+
+        val lock =
+            state.characters[characterid.value].level == 0 //&& state.characters[characterid.value].intimacy == 0
 
         //var checkedState by rememberSaveable { mutableStateOf(false) }
 
         Image(
-            painter = painterResource(id = backgroundList[focusState.lastFocusSetting.sceneId]),
+            painter = painterResource(id = sceneIdList[focusState.lastFocusSetting.sceneId]),
             contentDescription = "",
             contentScale = ContentScale.Crop,
             modifier = Modifier
@@ -118,7 +143,8 @@ fun HomePage(
                 lock = lock,
                 characterId = characterid.value,
                 onClickToCharacterInfo = { onClickToCharacterInfo(characterid.value) },
-                !(openDialog1.value || openDialog2.value || openDialogNoGift.value || clickedHelp.value)
+                !(openDialog1.value || openDialog2.value || openDialogNoGift.value || clickedHelp.value),
+                imageModifier = Modifier
             )
         }
         Column(
@@ -206,44 +232,40 @@ fun HomePage(
         ) {
             leftRoundedTriangle()
         }
-        if(clickedHelp.value){
+        if (clickedHelp.value) {
             popupHelp.value = HelpPopupScreen()
-            if(popupHelp.value == 1){
+            if (popupHelp.value == 1) {
                 clickedHelp.value = false
             }
         }
-        if(openDialog1.value){
+        if (openDialog1.value) {
             popup.value = UnlockPopupScreen()
-            if(popup.value==1){
-                openDialog1.value=false
-            }
-            else if(popup.value==2){
-                openDialog1.value=false
-                if(itemState.Items[2].quantity_owned>0){
-                    openDialog2.value=true
-                }else{
+            if (popup.value == 1) {
+                openDialog1.value = false
+            } else if (popup.value == 2) {
+                openDialog1.value = false
+                if (itemState.Items[2].quantity_owned > 0) {
+                    openDialog2.value = true
+                } else {
                     openDialogNoGift.value = true
                 }
 
             }
-        }
-        else if(openDialogNoGift.value){
+        } else if (openDialogNoGift.value) {
             popupNoGift.value = NoGiftPopupScreen()
-            if(popupNoGift.value == 1){
+            if (popupNoGift.value == 1) {
                 openDialogNoGift.value = false
-            }
-            else if(popupNoGift.value == 2){
+            } else if (popupNoGift.value == 2) {
                 navController.navigate(Page.Shop.route)
                 openDialogNoGift.value = false
             }
-        }
-        else if(openDialog2.value){
+        } else if (openDialog2.value) {
             intimacyupdate.value = GiveGiftPopupScreen()
-            if(intimacyupdate.value >= 0){
-                openDialog2.value=false
-                if(intimacyupdate.value!=0){
-                    viewModel.onEvent(CharacterEvent.UpdateIntimacy(characterid.value,100))
-                    itemViewModel.onEvent(ItemEvent.UpdateOwnedQuantity(2,-1))
+            if (intimacyupdate.value >= 0) {
+                openDialog2.value = false
+                if (intimacyupdate.value != 0) {
+                    viewModel.onEvent(CharacterEvent.UpdateIntimacy(characterid.value, 100))
+                    itemViewModel.onEvent(ItemEvent.UpdateOwnedQuantity(2, -1))
                 }
             }
         }
