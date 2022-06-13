@@ -1,5 +1,6 @@
 package com.ss_team_1.koibitoshuuchuu.presentation.pages
 
+import android.util.Log
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.gestures.Orientation
@@ -56,9 +57,8 @@ fun HomePage(
 
     // character animation
     // take false left and true right
-    var characterMoveRight by remember{ mutableStateOf(false)}
-    fun characterAdd()
-    {
+    var characterMoveRight by remember { mutableStateOf(false) }
+    fun characterAdd() {
         if (characterid.value < 2) {
             characterid.value += 1
         } else {
@@ -66,8 +66,8 @@ fun HomePage(
         }
         characterMoveRight = true
     }
-    fun characterMinus()
-    {
+
+    fun characterMinus() {
         if (characterid.value > 0) {
             characterid.value -= 1
         } else {
@@ -80,25 +80,42 @@ fun HomePage(
     var imageOffset by remember { mutableStateOf(0f) }
     var onDragState by remember { mutableStateOf(false) }
     val imageThreshold = with(LocalDensity.current) { 100.dp.toPx() }
+
     if (onDragState) {
+//        Log.d("focus", "dragged")
         if (imageOffset > imageThreshold) {
             characterAdd()
+            onDragState = false
+//            Log.d("focus", "add chara")
         } else if (imageOffset < -imageThreshold) {
             characterMinus()
+            onDragState = false
+//            Log.d("focus", "minus chara")
         }
-        onDragState = false
-        imageOffset = 0f
+
     }
 
+
+
     Box(
-        Modifier.fillMaxSize().draggable(
-            orientation = Orientation.Horizontal,
-            state = rememberDraggableState(onDelta = { delta ->
-                imageOffset += delta
-            }),
-            onDragStarted = { onDragState = true },
-            onDragStopped = {onDragState = false}
-        )
+        Modifier
+            .fillMaxSize()
+            .draggable(
+                orientation = Orientation.Horizontal,
+                state = rememberDraggableState(onDelta = { delta ->
+                    imageOffset += delta
+//                    Log.d("focus", "offset: $imageOffset")
+                }),
+                onDragStarted = {
+//                    Log.d("focus", "onDragStart")
+                    onDragState = true
+                },
+                onDragStopped = {
+//                    Log.d("focus", "onDragStopped")
+                    onDragState = false
+                    imageOffset = 0f
+                }
+            )
     ) {
 
         val lock =
