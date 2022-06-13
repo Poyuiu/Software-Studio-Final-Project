@@ -34,6 +34,7 @@ import com.ss_team_1.koibitoshuuchuu.presentation.viewModel.CharacterViewModel
 import com.ss_team_1.koibitoshuuchuu.ui.theme.*
 import kotlinx.coroutines.delay
 import androidx.hilt.navigation.compose.hiltViewModel
+import com.ss_team_1.koibitoshuuchuu.presentation.characterFocusPhotoList
 import com.ss_team_1.koibitoshuuchuu.presentation.characterphotolist
 import com.ss_team_1.koibitoshuuchuu.presentation.event.CharacterEvent
 import com.ss_team_1.koibitoshuuchuu.presentation.event.UserEvent
@@ -76,13 +77,20 @@ fun FocusPage(
     var moneyChange by remember {
         mutableStateOf(0)
     }
-
+    //TODO: move to string resource
     val dialogText = if (!focusEnd) {
         "快點專心！我可沒法整天在這裡看著你"
     } else if (focusSuccess) {
         "還不錯嘛！接下來也繼續加油哦！"
     } else {
         "不專心可是有罪的哦..."
+    }
+    val characterMood = if (!focusEnd) {
+        0
+    } else if (focusSuccess) {
+        1
+    } else {
+        2
     }
     // Countdown Timer
     LaunchedEffect(remainTime, pauseState) {
@@ -114,7 +122,7 @@ fun FocusPage(
     ) {
         // Character Image
         Image(
-            painter = painterResource(id = characterphotolist[characterId!!]),
+            painter = painterResource(id = characterFocusPhotoList[characterId!!][characterMood]),
             contentDescription = "",
             modifier = Modifier
                 .fillMaxSize(0.84f)
