@@ -53,25 +53,41 @@ fun HomePage(
     val popupHelp = remember { mutableStateOf(0) }
     val characterid: MutableState<Int> =
         remember { mutableStateOf(0) }
+
+    // character animation
+    // take false left and true right
+    var characterMoveRight by remember{ mutableStateOf(false)}
+    fun characterAdd()
+    {
+        if (characterid.value < 2) {
+            characterid.value += 1
+        } else {
+            characterid.value = 0
+        }
+        characterMoveRight = true
+    }
+    fun characterMinus()
+    {
+        if (characterid.value > 0) {
+            characterid.value -= 1
+        } else {
+            characterid.value = 2
+        }
+        characterMoveRight = false
+    }
+
     // Image drag
     var imageOffset by remember { mutableStateOf(0f) }
     var onDragState by remember { mutableStateOf(false) }
     val imageThreshold = with(LocalDensity.current) { 100.dp.toPx() }
     if (onDragState) {
         if (imageOffset > imageThreshold) {
-            if (characterid.value > 0) {
-                characterid.value -= 1
-            } else {
-                characterid.value = 2
-            }
-        } else if (imageOffset < imageThreshold) {
-            if (characterid.value < 2) {
-                characterid.value += 1
-            } else {
-                characterid.value = 0
-            }
+            characterAdd()
+        } else if (imageOffset < -imageThreshold) {
+            characterMinus()
         }
         onDragState = false
+        imageOffset = 0f
     }
 
     Box(
@@ -80,7 +96,8 @@ fun HomePage(
             state = rememberDraggableState(onDelta = { delta ->
                 imageOffset += delta
             }),
-            onDragStarted = { onDragState = true }
+            onDragStarted = { onDragState = true },
+            onDragStopped = {onDragState = false}
         )
     ) {
 
@@ -142,9 +159,9 @@ fun HomePage(
                 context = LocalContext.current,
                 lock = lock,
                 characterId = characterid.value,
+                moveRight = characterMoveRight,
                 onClickToCharacterInfo = { onClickToCharacterInfo(characterid.value) },
-                !(openDialog1.value || openDialog2.value || openDialogNoGift.value || clickedHelp.value),
-                imageModifier = Modifier
+                enable = !(openDialog1.value || openDialog2.value || openDialogNoGift.value || clickedHelp.value)
             )
         }
         Column(
@@ -203,11 +220,7 @@ fun HomePage(
                     enabled = !(openDialog1.value || openDialog2.value || openDialogNoGift.value || clickedHelp.value),
                     onClickLabel = "Clickable right shift",
                     onClick = {
-                        if (characterid.value < 2) {
-                            characterid.value += 1
-                        } else {
-                            characterid.value = 0
-                        }
+                        characterAdd()
                     }
                 ),
             verticalAlignment = Alignment.CenterVertically
@@ -221,11 +234,7 @@ fun HomePage(
                     enabled = !(openDialog1.value || openDialog2.value || openDialogNoGift.value || clickedHelp.value),
                     onClickLabel = "Clickable left shift",
                     onClick = {
-                        if (characterid.value > 0) {
-                            characterid.value -= 1
-                        } else {
-                            characterid.value = 2
-                        }
+                        characterMinus()
                     }
                 ),
             verticalAlignment = Alignment.CenterVertically

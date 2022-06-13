@@ -1,6 +1,7 @@
 package com.ss_team_1.koibitoshuuchuu.presentation.components
 
 import android.content.Context
+import androidx.compose.animation.*
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
@@ -30,16 +31,17 @@ fun Heart_initamcybar(
     intimacy: Int,
     levelIntimacyNeed: Int,
     modifier: Modifier = Modifier
-){
-    Row(modifier = modifier){
+) {
+    Row(modifier = modifier) {
         characterIntimacyLevel(intimacyLevel)
-        intimacyBar(intimacy,levelIntimacyNeed)
+        intimacyBar(intimacy, levelIntimacyNeed)
     }
 }
+
 @Preview
 @Composable
-fun Heart_initamcybarpreview(){
-    Heart_initamcybar(2,400,1314)
+fun Heart_initamcybarpreview() {
+    Heart_initamcybar(2, 400, 1314)
 }
 
 @Composable
@@ -47,23 +49,23 @@ fun Name_InfoButton(/*調*/
     context: Context,
     characterId: Int,
     lock: Boolean,
-    onClickToCharacterInfo: ()->Unit = {}
-){
+    onClickToCharacterInfo: () -> Unit = {}
+) {
 
     Box(
         Modifier.size(280.dp, 72.dp)
-    ){
+    ) {
         //StrokeText(LocalContext.current,name, 32f,56,128f)
         Row(
             modifier = Modifier.align(Alignment.CenterStart),
             verticalAlignment = Alignment.CenterVertically
-        ){
+        ) {
             //Spacer(modifier = Modifier.width(8.dp))
             Box(
                 Modifier
                     .size(220.dp, 72.dp)
                     .padding(8.dp)
-            ){
+            ) {
                 Image(
                     painter = painterResource(id = characternamelist[characterId]),
                     contentDescription = "",
@@ -79,12 +81,14 @@ fun Name_InfoButton(/*調*/
     }
 
 }
+
 @Preview
 @Composable
-fun Name_InfoButtonpreview(){
-    Name_InfoButton(LocalContext.current,1 ,false )
+fun Name_InfoButtonpreview() {
+    Name_InfoButton(LocalContext.current, 1, false)
 }
 
+@OptIn(ExperimentalAnimationApi::class)
 @Composable
 fun HomepageCharacter(
     intimacyLevel: Int,
@@ -93,58 +97,83 @@ fun HomepageCharacter(
     context: Context,
     lock: Boolean,
     characterId: Int,
-    onClickToCharacterInfo: ()->Unit = {},
+    onClickToCharacterInfo: () -> Unit = {},
+    moveRight: Boolean,
     enable: Boolean,
-    imageModifier: Modifier = Modifier
-){
+) {
     val matrix = ColorMatrix()
-    matrix.setToSaturation(0F)
+    if (lock)
+        matrix.setToSaturation(0F)
     Box(
         Modifier.size(300.dp, 730.dp)
-    ){
+    ) {
         Column(
             modifier = Modifier.align(Alignment.TopCenter),
             horizontalAlignment = Alignment.CenterHorizontally
         ) {
             Heart_initamcybar(intimacyLevel, intimacy, levelIntimacyNeed)
             Name_InfoButton(context, characterId, lock, onClickToCharacterInfo)
-            if(lock){//隨order切照片
+            AnimatedContent(targetState = characterId,
+                transitionSpec = {
+                    if (!moveRight) {
+                        slideInHorizontally { fullWidth -> (fullWidth * 1.5).toInt() } with
+                                slideOutHorizontally { fullWidth -> -(fullWidth * 1.5).toInt() }
+                    } else {
+                        slideInHorizontally { fullWidth -> -(fullWidth * 1.5).toInt() } with
+                                slideOutHorizontally { fullWidth -> (fullWidth * 1.5).toInt() }
+                    }.using(SizeTransform(clip = false))
+                }) { targetCharacterId ->
                 Image(
-                    painter = painterResource(id = characterphotolist[characterId]),
+                    painter = painterResource(id = characterphotolist[targetCharacterId]),
+                    colorFilter = ColorFilter.colorMatrix(matrix),//調灰階
                     contentDescription = "",
-                    modifier = imageModifier.fillMaxSize(),
-                    colorFilter = ColorFilter.colorMatrix(matrix)//調灰階
-                )
-            }else {
-                Image(
-                    painter = painterResource(id = characterphotolist[characterId]),
-                    contentDescription = "",
-                    modifier = imageModifier
+                    modifier = Modifier
                         .fillMaxSize()
                         .clickable(
-                            enabled = enable,
+                            enabled = !lock,
                             onClickLabel = "character click",
                             onClick = onClickToCharacterInfo
                         )
                 )
-                /*Button(
-                    onClick = onClickToCharacterInfo,
-                    enabled = enable,
-                    elevation = null,
-                    colors = ButtonDefaults.buttonColors(backgroundColor = Color.Transparent)
-                ) {
-                    Image(
-                        painter = painterResource(id = characterphotolist[characterId]),
-                        contentDescription = "",
-                        modifier = Modifier
-                            .fillMaxSize()
-                    )
-                }*/
             }
+
+//            if (lock) {//隨order切照片
+//                Image(
+//                    painter = painterResource(id = characterphotolist[characterId]),
+//                    contentDescription = "",
+//                    modifier = Modifier.fillMaxSize(),
+//                    colorFilter = ColorFilter.colorMatrix(matrix)//調灰階
+//                )
+//            } else {
+//                Image(
+//                    painter = painterResource(id = characterphotolist[characterId]),
+//                    contentDescription = "",
+//                    modifier = Modifier
+//                        .fillMaxSize()
+//                        .clickable(
+//                            enabled = enable,
+//                            onClickLabel = "character click",
+//                            onClick = onClickToCharacterInfo
+//                        )
+//                )
+            /*Button(
+                onClick = onClickToCharacterInfo,
+                enabled = enable,
+                elevation = null,
+                colors = ButtonDefaults.buttonColors(backgroundColor = Color.Transparent)
+            ) {
+                Image(
+                    painter = painterResource(id = characterphotolist[characterId]),
+                    contentDescription = "",
+                    modifier = Modifier
+                        .fillMaxSize()
+                )
+            }*/
         }
     }
-
 }
+
+
 /*@Preview
 @Composable
 fun HomepageCharacterpreview(){
