@@ -18,6 +18,7 @@ import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavController
 import com.ss_team_1.koibitoshuuchuu.R
+import com.ss_team_1.koibitoshuuchuu.presentation.utils.PageId
 import com.ss_team_1.koibitoshuuchuu.presentation.viewModel.UserViewModel
 import java.util.*
 
@@ -52,7 +53,7 @@ fun PageProfile(navController: NavController= NavController(LocalContext.current
             modifier = Modifier
                 .fillMaxSize()
         )
-        NavigationBar(modifier = Modifier.align(Alignment.BottomCenter), navController)
+        NavigationBar(modifier = Modifier.align(Alignment.BottomCenter), navController, PageId.profile)
         Column(
             modifier = Modifier
                 .align(Alignment.TopCenter)
