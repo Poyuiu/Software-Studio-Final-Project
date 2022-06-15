@@ -260,7 +260,7 @@ fun ShopPage(
             }
         }
         if(openDialog.value){
-            if(buying.value<=2) spending.value=buyingPopupScreen(buying.value)
+            if(buying.value<=2) spending.value=buyingPopupScreen(buying.value, state.userInfo.money)
             else spending.value=buyinggiftPopupScreen(buying.value, state.userInfo.money)
             if(spending.value>0){
                 boughtflag.value=true

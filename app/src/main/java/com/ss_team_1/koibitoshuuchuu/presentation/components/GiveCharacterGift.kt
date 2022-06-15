@@ -27,6 +27,7 @@ import com.ss_team_1.koibitoshuuchuu.domain.model.Item
 import com.ss_team_1.koibitoshuuchuu.presentation.event.ItemEvent
 import com.ss_team_1.koibitoshuuchuu.presentation.viewModel.ItemViewModel
 import com.ss_team_1.koibitoshuuchuu.ui.theme.AccentDark
+import com.ss_team_1.koibitoshuuchuu.ui.theme.black
 import com.ss_team_1.koibitoshuuchuu.ui.theme.contextFont
 import com.ss_team_1.koibitoshuuchuu.ui.theme.mainFont
 
@@ -60,7 +61,7 @@ fun GiveCharacterGift(
         Text(
             text = stringResource(id = R.string.Give_character_gift_header),
             fontSize = 24.sp,
-            //color = secUn,
+            color = black,
             fontStyle = FontStyle(contextFont),
             modifier = Modifier.padding(16.dp)
         )
@@ -140,6 +141,7 @@ fun GiveCharacterGift(
                 Text(
                     text = "數量:",
                     fontSize = 16.sp,
+                    color = black,
                     fontStyle = FontStyle(contextFont)
                 )
                 Spacer(modifier = Modifier.width(24.dp))
@@ -178,6 +180,7 @@ fun GiveCharacterGift(
                         Text(
                             text = "${amount.value}",
                             fontSize = 16.sp,
+                            color = black,
                             fontStyle = FontStyle(contextFont)
                         )
                     }
@@ -214,6 +217,7 @@ fun GiveCharacterGift(
                 Text(
                     text = "將提升的好感度:   ${itemIntimacyAddList[itemlist[chooseItem.value].id]*amount.value}",
                     fontSize = 16.sp,
+                    color = black,
                     fontStyle = FontStyle(contextFont),
                     modifier = Modifier.padding(8.dp)
                 )
@@ -231,6 +235,7 @@ fun GiveCharacterGift(
                 Text(
                     text = "擁有物品:   ${itemlist[chooseItem.value].quantity_owned} 個",
                     fontSize = 16.sp,
+                    color = black,
                     fontStyle = FontStyle(contextFont),
                     modifier = Modifier.padding(8.dp)
                 )
@@ -288,17 +293,22 @@ fun GiveGiftPopupScreen(
     itemlist: List<Item>
 ): Int{
     val intimacyupdate = remember { mutableStateOf(-1) }//沒暗任何案件
-    Box(
-        Modifier.fillMaxSize()
-            .background(Color.Black.copy(alpha = 0.5f), RectangleShape)
+    androidx.compose.material.Surface(
+        color = Color.Black.copy(alpha = 0f)
     ){
-        Column(
-            Modifier.fillMaxSize(),
-            horizontalAlignment = Alignment.CenterHorizontally
+        Box(
+            Modifier.fillMaxSize()
+                .background(Color.Black.copy(alpha = 0.5f), RectangleShape)
         ){
-            Spacer(modifier = Modifier.height(240.dp))
-            intimacyupdate.value = GiveCharacterGift( itemViewModel,itemlist)
+            Column(
+                Modifier.fillMaxSize(),
+                horizontalAlignment = Alignment.CenterHorizontally
+            ){
+                Spacer(modifier = Modifier.height(240.dp))
+                intimacyupdate.value = GiveCharacterGift( itemViewModel,itemlist)
+            }
         }
     }
+
     return intimacyupdate.value
 }

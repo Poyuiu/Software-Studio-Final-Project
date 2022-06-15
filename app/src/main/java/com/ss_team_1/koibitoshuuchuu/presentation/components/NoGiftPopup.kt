@@ -19,6 +19,7 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.ss_team_1.koibitoshuuchuu.R
 import com.ss_team_1.koibitoshuuchuu.ui.theme.AccentDark
+import com.ss_team_1.koibitoshuuchuu.ui.theme.black
 import com.ss_team_1.koibitoshuuchuu.ui.theme.contextFont
 import com.ss_team_1.koibitoshuuchuu.ui.theme.mainFont
 
@@ -27,58 +28,63 @@ import com.ss_team_1.koibitoshuuchuu.ui.theme.mainFont
 fun NoGift(
 ):Int{
     val popup = remember { mutableStateOf(0) }//沒暗任何案件
-    Column(
-        modifier = Modifier
-            .width(280.dp)
-            .background(color = Color.White, shape = RoundedCornerShape(10.dp)),
-        horizontalAlignment = Alignment.CenterHorizontally
-    ) {
-        Spacer(modifier = Modifier.height(16.dp))
-        Text(
-            text = stringResource(id = R.string.No_Gift_to_give_header),
-            fontSize = 28.sp,
-            fontStyle = FontStyle(contextFont),
-            modifier = Modifier.padding(8.dp)
-        )
-        Box(modifier = Modifier.fillMaxWidth()){
-            Row(
-                modifier = Modifier
-                    .align(Alignment.CenterEnd),
-                //verticalAlignment = Alignment.CenterVertically
-            ){
-                Text(
-                    text = "沒錢QQ",
-                    fontSize = 24.sp,
-                    fontStyle = FontStyle(mainFont),
-                    modifier = Modifier.padding(8.dp)
-                        .clickable(
-                            enabled = true,
-                            onClickLabel = "doesn't buy",
-                            onClick = {
-                                popup.value = 1
-                            }
-                        )
-                )
-                Spacer(modifier = Modifier.width(64.dp))
-                Text(
-                    text = "去商店",
-                    fontSize = 24.sp,
-                    fontStyle = FontStyle(mainFont),
-                    color = AccentDark,
-                    modifier = Modifier.padding(8.dp)
-                        .clickable(
-                            enabled = true,
-                            onClickLabel = "give gift",
-                            onClick = {
-                                popup.value = 2
-                            }
-                        )
-                )
-                Spacer(modifier = Modifier.width(16.dp))
+    androidx.compose.material.Surface(){
+        Column(
+            modifier = Modifier
+                .width(280.dp)
+                .background(color = Color.White, shape = RoundedCornerShape(10.dp)),
+            horizontalAlignment = Alignment.CenterHorizontally
+        ) {
+            Spacer(modifier = Modifier.height(16.dp))
+            Text(
+                text = stringResource(id = R.string.No_Gift_to_give_header),
+                fontSize = 28.sp,
+                color = black,
+                fontStyle = FontStyle(contextFont),
+                modifier = Modifier.padding(8.dp)
+            )
+            Box(modifier = Modifier.fillMaxWidth()){
+                Row(
+                    modifier = Modifier
+                        .align(Alignment.CenterEnd),
+                    //verticalAlignment = Alignment.CenterVertically
+                ){
+                    Text(
+                        text = "沒錢QQ",
+                        fontSize = 24.sp,
+                        color = black,
+                        fontStyle = FontStyle(mainFont),
+                        modifier = Modifier.padding(8.dp)
+                            .clickable(
+                                enabled = true,
+                                onClickLabel = "doesn't buy",
+                                onClick = {
+                                    popup.value = 1
+                                }
+                            )
+                    )
+                    Spacer(modifier = Modifier.width(64.dp))
+                    Text(
+                        text = "去商店",
+                        fontSize = 24.sp,
+                        fontStyle = FontStyle(mainFont),
+                        color = AccentDark,
+                        modifier = Modifier.padding(8.dp)
+                            .clickable(
+                                enabled = true,
+                                onClickLabel = "give gift",
+                                onClick = {
+                                    popup.value = 2
+                                }
+                            )
+                    )
+                    Spacer(modifier = Modifier.width(16.dp))
+                }
             }
+            Spacer(modifier = Modifier.height(16.dp))
         }
-        Spacer(modifier = Modifier.height(16.dp))
     }
+
     return popup.value
 }
 
@@ -87,17 +93,22 @@ fun NoGift(
 fun NoGiftPopupScreen(
 ): Int{
     val popup = remember { mutableStateOf(0) }//沒暗任何案件
-    Box(
-        Modifier.fillMaxSize()
-            .background(Color.Black.copy(alpha = 0.5f), RectangleShape)
+    androidx.compose.material.Surface(
+        color = Color.Black.copy(alpha = 0f)
     ){
-        Column(
-            Modifier.fillMaxSize(),
-            horizontalAlignment = Alignment.CenterHorizontally
+        Box(
+            Modifier.fillMaxSize()
+                .background(Color.Black.copy(alpha = 0.5f), RectangleShape)
         ){
-            Spacer(modifier = Modifier.height(280.dp))
-            popup.value = NoGift()
+            Column(
+                Modifier.fillMaxSize(),
+                horizontalAlignment = Alignment.CenterHorizontally
+            ){
+                Spacer(modifier = Modifier.height(280.dp))
+                popup.value = NoGift()
+            }
         }
     }
+
     return popup.value
 }

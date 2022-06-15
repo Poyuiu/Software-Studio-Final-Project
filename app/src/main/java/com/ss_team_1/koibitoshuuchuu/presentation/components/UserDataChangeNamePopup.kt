@@ -57,7 +57,7 @@ fun ChangeNameDialog(
         Text(
             text = stringResource(id = R.string.change_name_dialog_title),
             fontSize = 32.sp,
-            //color = secUn,
+            color = black,
             fontStyle = FontStyle(contextFont),
             modifier = Modifier.padding(8.dp)
         )
@@ -65,6 +65,7 @@ fun ChangeNameDialog(
         Text(
             text = stringResource(id = R.string.change_name_dialog_content),
             fontSize = 19.sp,
+            color = black,
             fontStyle = FontStyle(contextFont)
         )
         Spacer(modifier = Modifier.padding(10.dp))
@@ -127,19 +128,24 @@ fun ChangeNameDialog(
 @Composable
 fun ChangeNamePopUp(): Boolean {
     val spend = remember { mutableStateOf(false) }//沒暗任何案件
-    Box(
-        Modifier
-            .fillMaxSize()
-            .background(Color.Black.copy(alpha = 0.5f), RectangleShape)
-    ) {
-        Column(
-            Modifier.fillMaxSize(),
-            horizontalAlignment = Alignment.CenterHorizontally
+    androidx.compose.material.Surface(
+        color = Color.Black.copy(alpha = 0f)
+    ){
+        Box(
+            Modifier
+                .fillMaxSize()
+                .background(Color.Black.copy(alpha = 0.5f), RectangleShape)
         ) {
-            Spacer(modifier = Modifier.height(100.dp))
-            spend.value = ChangeNameDialog()
+            Column(
+                Modifier.fillMaxSize(),
+                horizontalAlignment = Alignment.CenterHorizontally
+            ) {
+                Spacer(modifier = Modifier.height(100.dp))
+                spend.value = ChangeNameDialog()
+            }
         }
     }
+
     return spend.value
 }
 

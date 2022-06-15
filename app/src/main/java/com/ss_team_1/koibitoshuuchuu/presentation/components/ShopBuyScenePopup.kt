@@ -34,11 +34,11 @@ val shopBuySceneBody = listOf(
     R.string.shop_buying_scene2_body
 )
 
-@Preview
+//@Preview
 @Composable
 fun SceneBuying(
-    scene: Int = 1,
-    money: Int = 50
+    scene: Int ,
+    money: Int
 ):Int{
     val spend = remember { mutableStateOf(-1) }//沒暗任何案件
     Column(
@@ -51,13 +51,14 @@ fun SceneBuying(
         Text(
             text = stringResource(id = shopBuySceneHead[scene]),
             fontSize = 20.sp,
-            //color = secUn,
+            color = black,
             fontStyle = FontStyle(contextFont),
             modifier = Modifier.padding(8.dp)
         )
         Text(
             text = stringResource(id = shopBuySceneBody[scene]),
             fontSize = 14.sp,
+            color = black,
             fontStyle = FontStyle(contextFont)
         )
         Box(
@@ -71,6 +72,7 @@ fun SceneBuying(
                 Spacer(modifier = Modifier.width(24.dp))
                 Text(
                     text = "物品價格: 100",
+                    color = black,
                     fontSize = 14.sp,
                     fontStyle = FontStyle(contextFont),
                     modifier = Modifier.padding(8.dp)
@@ -88,6 +90,7 @@ fun SceneBuying(
                 Text(
                     text = "總金額:     100",
                     fontSize = 16.sp,
+                    color = black,
                     fontStyle = FontStyle(contextFont)
                 )
                 Spacer(modifier = Modifier.width(24.dp))
@@ -141,24 +144,29 @@ fun SceneBuying(
     return spend.value
 }
 
-@Preview(showBackground = true)
+//@Preview(showBackground = true)
 @Composable
 fun buyingPopupScreen(
-    scene: Int =2,
-    money: Int = 100
+    scene: Int,
+    money: Int
 ):Int{
     val spend = remember { mutableStateOf(-1) }//沒暗任何案件
-    Box(
-        Modifier.fillMaxSize()
-            .background(Color.Black.copy(alpha = 0.5f), RectangleShape)
+    androidx.compose.material.Surface(
+        color = Color.Black.copy(alpha = 0f)
     ){
-        Column(
-            Modifier.fillMaxSize(),
-            horizontalAlignment = Alignment.CenterHorizontally
+        Box(
+            Modifier.fillMaxSize()
+                .background(Color.Black.copy(alpha = 0.5f), RectangleShape)
         ){
-            Spacer(modifier = Modifier.height(280.dp))
-            spend.value = SceneBuying(scene,money)
+            Column(
+                Modifier.fillMaxSize(),
+                horizontalAlignment = Alignment.CenterHorizontally
+            ){
+                Spacer(modifier = Modifier.height(280.dp))
+                spend.value = SceneBuying(scene,money)
+            }
         }
     }
+
     return spend.value
 }
