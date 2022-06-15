@@ -187,11 +187,29 @@ fun HomePage(
             modifier = Modifier.align(Alignment.BottomCenter),
             horizontalAlignment = Alignment.CenterHorizontally
         ) {
-            /*FocusButton(
-                LocalContext.current,
-                lock,
-                navController
-            )*/
+            if(!lock){
+                Box(Modifier.size(144.dp, 40.dp)){
+                    Image(
+                        painter = painterResource(id = R.drawable.give_gift_button),
+                        contentDescription = "",
+                        contentScale = ContentScale.Fit,
+                        modifier = Modifier
+                            .fillMaxSize()
+                            .clickable(
+                                enabled = !(openDialog1.value || openDialog2.value || openDialogNoGift.value || clickedHelp.value),
+                                onClickLabel = "give gift",
+                                onClick = {
+                                    if(itemList.isNotEmpty()){
+                                        openDialog2.value = true
+                                    } else {
+                                        openDialogNoGift.value = true
+                                    }
+                                }
+                            )
+                    )
+                }
+                Spacer(modifier = Modifier.height(8.dp))
+            }
             Box(
                 Modifier
                     .size(216.dp, 66.dp)
@@ -230,7 +248,7 @@ fun HomePage(
                 }
 
             }
-            Spacer(modifier = Modifier.height(120.dp))
+            Spacer(modifier = Modifier.height(100.dp))
         }
         Row(
             modifier = Modifier
@@ -266,18 +284,18 @@ fun HomePage(
                 clickedHelp.value = false
             }
         }
+
         if (openDialog1.value) {
             popup.value = UnlockPopupScreen()
             if (popup.value == 1) {
                 openDialog1.value = false
             } else if (popup.value == 2) {
                 openDialog1.value = false
-                if (itemState.Items[2].quantity_owned > 0) {
+                if(itemList.isNotEmpty()){
                     openDialog2.value = true
                 } else {
                     openDialogNoGift.value = true
                 }
-
             }
         } else if (openDialogNoGift.value) {
             popupNoGift.value = NoGiftPopupScreen()
