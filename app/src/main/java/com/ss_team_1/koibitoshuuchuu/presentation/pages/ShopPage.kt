@@ -265,7 +265,8 @@ fun ShopPage(
             if(spending.value>0){
                 boughtflag.value=true
                 if(buying.value >=3){
-                    viewModel.onEvent(ItemEvent.UpdateOwnedQuantity(buying.value-3,+1))
+                    viewModel.onEvent(ItemEvent.UpdateOwnedQuantity
+                        (buying.value-3,spending.value/giftPriceList[buying.value-3]))
                 }else if(buying.value<=2){
                     sceneViewModel.onEvent(SceneEvent.SetScene((buying.value)+1,true))
                 }

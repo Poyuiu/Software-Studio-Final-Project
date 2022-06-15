@@ -55,6 +55,8 @@ fun HomePage(
     val characterid: MutableState<Int> =
         remember { mutableStateOf(0) }
 
+    val itemList = itemState.Items.filter { it.quantity_owned>0 }
+
     // character animation
     // take false left and true right
     var characterMoveRight by remember { mutableStateOf(false) }
@@ -286,12 +288,12 @@ fun HomePage(
                 openDialogNoGift.value = false
             }
         } else if (openDialog2.value) {
-            intimacyupdate.value = GiveGiftPopupScreen()
+            intimacyupdate.value = GiveGiftPopupScreen( itemViewModel,itemlist = itemList)
             if (intimacyupdate.value >= 0) {
                 openDialog2.value = false
                 if (intimacyupdate.value != 0) {
-                    viewModel.onEvent(CharacterEvent.UpdateIntimacy(characterid.value, 100))
-                    itemViewModel.onEvent(ItemEvent.UpdateOwnedQuantity(2, -1))
+                    viewModel.onEvent(CharacterEvent.UpdateIntimacy(characterid.value, intimacyupdate.value))
+                    //itemViewModel.onEvent(ItemEvent.UpdateOwnedQuantity(2, -1))
                 }
             }
         }
