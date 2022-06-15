@@ -34,10 +34,11 @@ val shopBuySceneBody = listOf(
     R.string.shop_buying_scene2_body
 )
 
-//@Preview
+@Preview
 @Composable
 fun SceneBuying(
-    scene: Int
+    scene: Int = 1,
+    money: Int = 50
 ):Int{
     val spend = remember { mutableStateOf(-1) }//沒暗任何案件
     Column(
@@ -101,10 +102,10 @@ fun SceneBuying(
                 //verticalAlignment = Alignment.CenterVertically
             ){
                 Text(
-                    text = "CANCEL",
-                    fontSize = 14.sp,
+                    text = "取消",
+                    fontSize = 16.sp,
                     fontStyle = FontStyle(mainFont),
-                    color = grayLine,
+                    color = if(money >= 100)grayLine else AccentDark,
                     modifier = Modifier.padding(8.dp)
                         .clickable(
                             enabled = true,
@@ -115,20 +116,20 @@ fun SceneBuying(
                             }
                         )
                 )
+                Spacer(modifier = Modifier.width(32.dp))
                 Text(
-                    text = "COMFIRM",
-                    fontSize = 14.sp,
+                    text = if(money >= 100)"購買" else "沒錢喔!",
+                    fontSize = 16.sp,
                     fontStyle = FontStyle(mainFont),
-                    color = AccentDark,
+                    color = if(money >= 100)AccentDark else grayLine,
                     modifier = Modifier.padding(8.dp)
                         .clickable(
-                            enabled = true,
+                            enabled = (money >= 100),
                             onClickLabel = "buy scene",
                             onClick = {
                                 /*TODO*/
-                                spend.value =100+scene*1000
+                                spend.value =100
                                 /***************************/
-                                /************扣錢!!!!!!!!加場景**************/
                             }
                         )
                 )
@@ -140,10 +141,11 @@ fun SceneBuying(
     return spend.value
 }
 
-//@Preview(showBackground = true)
+@Preview(showBackground = true)
 @Composable
 fun buyingPopupScreen(
-    scene: Int
+    scene: Int =2,
+    money: Int = 100
 ):Int{
     val spend = remember { mutableStateOf(-1) }//沒暗任何案件
     Box(
@@ -155,7 +157,7 @@ fun buyingPopupScreen(
             horizontalAlignment = Alignment.CenterHorizontally
         ){
             Spacer(modifier = Modifier.height(280.dp))
-            spend.value = SceneBuying(scene)
+            spend.value = SceneBuying(scene,money)
         }
     }
     return spend.value

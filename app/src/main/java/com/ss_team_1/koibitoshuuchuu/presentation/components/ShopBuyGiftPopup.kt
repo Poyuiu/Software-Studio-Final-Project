@@ -27,12 +27,31 @@ import com.ss_team_1.koibitoshuuchuu.ui.theme.AccentDark
 import com.ss_team_1.koibitoshuuchuu.ui.theme.grayLine
 import com.ss_team_1.koibitoshuuchuu.ui.theme.mainFont
 
-@Preview
+val shopBuyGiftHead= listOf(
+    R.string.shop_buying_gift0_head,
+    R.string.shop_buying_gift1_head,
+    R.string.shop_buying_gift2_head,
+    R.string.shop_buying_gift3_head,
+    R.string.shop_buying_gift4_head
+)
+val shopBuyGiftBody = listOf(
+    R.string.shop_buying_gift0_body,
+    R.string.shop_buying_gift1_body,
+    R.string.shop_buying_gift2_body,
+    R.string.shop_buying_gift3_body,
+    R.string.shop_buying_gift4_body
+)
+val giftPriceList = listOf(
+    10, 30, 100, 20, 30
+)
+//@Preview
 @Composable
 fun GiftBuying(
-
+    gift:Int,
+    money: Int
 ): Int{
     val spend = remember { mutableStateOf(-1) }//沒暗任何案件
+    val amount = remember { mutableStateOf(1) }
     Column(
         modifier = Modifier
             .width(280.dp)
@@ -41,14 +60,14 @@ fun GiftBuying(
     ) {
         Spacer(modifier = Modifier.height(16.dp))
         Text(
-            text = stringResource(id = R.string.shop_buying_gift2_head),
+            text = stringResource(id = shopBuyGiftHead[gift]),
             fontSize = 20.sp,
             //color = secUn,
             fontStyle = FontStyle(contextFont),
             modifier = Modifier.padding(8.dp)
         )
         Text(
-            text = stringResource(id = R.string.shop_buying_gift2_body),
+            text = stringResource(id = shopBuyGiftBody[gift]),
             fontSize = 14.sp,
             fontStyle = FontStyle(contextFont)
         )
@@ -62,7 +81,7 @@ fun GiftBuying(
             ){
                 Spacer(modifier = Modifier.width(24.dp))
                 Text(
-                    text = "物品價格: 500",
+                    text = "物品價格: ${giftPriceList[gift]}",
                     fontSize = 14.sp,
                     fontStyle = FontStyle(contextFont),
                     modifier = Modifier.padding(8.dp)
@@ -90,14 +109,16 @@ fun GiftBuying(
                     painter = painterResource(id = R.drawable.ic_minus),
                     contentDescription = "",
                     contentScale = ContentScale.Fit,
-                    colorFilter = ColorFilter.tint(color = Color.Gray),
+                    colorFilter = if(amount.value>1) null
+                                else ColorFilter.tint(color = Color.Gray),
                     modifier = Modifier
                         .size(24.dp)
                         .clickable(
-                            enabled = true,
+                            enabled = (amount.value>1),
                             onClickLabel = "minus gift",
                             onClick = {
                                 /*TODO*/
+                                amount.value--
                             }
                         )
                 )
@@ -118,7 +139,7 @@ fun GiftBuying(
                         horizontalAlignment = Alignment.CenterHorizontally
                     ) {
                         Text(
-                            text = "1",
+                            text = "${amount.value}",
                             fontSize = 16.sp,
                             fontStyle = FontStyle(contextFont)
                         )
@@ -130,14 +151,16 @@ fun GiftBuying(
                     painter = painterResource(id = R.drawable.ic_plus),
                     contentDescription = "",
                     contentScale = ContentScale.Fit,
-                    colorFilter = ColorFilter.tint(color = Color.Gray),
+                    colorFilter = if((amount.value+1)*giftPriceList[gift] <= money) null
+                                else ColorFilter.tint(color = Color.Gray),
                     modifier = Modifier
                         .size(24.dp)
                         .clickable(
-                            enabled = true,
+                            enabled = ((amount.value+1)*giftPriceList[gift] <= money),
                             onClickLabel = "plus gift",
                             onClick = {
                                 /*TODO*/
+                                amount.value++
                             }
                         )
                 )
@@ -152,7 +175,7 @@ fun GiftBuying(
                 //verticalAlignment = Alignment.CenterVertically
             ){
                 Text(
-                    text = "總金額:     500",
+                    text = "總金額:     ${giftPriceList[gift]*amount.value}",
                     fontSize = 16.sp,
                     fontStyle = FontStyle(contextFont)
                 )
@@ -168,10 +191,10 @@ fun GiftBuying(
                 //verticalAlignment = Alignment.CenterVertically
             ){
                 Text(
-                    text = "CANCEL",
-                    fontSize = 14.sp,
+                    text = "取消",
+                    fontSize = 16.sp,
                     fontStyle = FontStyle(mainFont),
-                    color = grayLine,
+                    color = if(money >= giftPriceList[gift])grayLine else AccentDark,
                     modifier = Modifier.padding(8.dp)
                         .clickable(
                             enabled = true,
@@ -182,20 +205,20 @@ fun GiftBuying(
                             }
                         )
                 )
+                Spacer(modifier = Modifier.width(32.dp))
                 Text(
-                    text = "COMFIRM",
-                    fontSize = 14.sp,
+                    text = if(money >= giftPriceList[gift])"購買" else "沒錢喔!",
+                    fontSize = 16.sp,
                     fontStyle = FontStyle(mainFont),
-                    color = AccentDark,
+                    color = if(money >= giftPriceList[gift])AccentDark else grayLine,
                     modifier = Modifier.padding(8.dp)
                         .clickable(
-                            enabled = true,
+                            enabled = (money >= giftPriceList[gift]),
                             onClickLabel = "buy gift",
                             onClick = {
                                 /*TODO*/
-                                spend.value = 500+5000
+                                spend.value = giftPriceList[gift]*amount.value
                                 /***************************/
-                                /************扣錢!!!!!!!!,加禮物**************/
                             }
                         )
                 )
@@ -207,9 +230,12 @@ fun GiftBuying(
     return spend.value
 }
 
-@Preview(showBackground = true)
+//@Preview(showBackground = true)
 @Composable
-fun buyinggiftPopupScreen():Int{
+fun buyinggiftPopupScreen(
+    buy:Int,
+    money: Int
+):Int{
     val spend = remember { mutableStateOf(-1) }//沒暗任何案件
     Box(
         Modifier.fillMaxSize()
@@ -220,7 +246,7 @@ fun buyinggiftPopupScreen():Int{
             horizontalAlignment = Alignment.CenterHorizontally
         ){
             Spacer(modifier = Modifier.height(280.dp))
-            spend.value = GiftBuying()
+            spend.value = GiftBuying(buy-3,money)//挑整排序，去除場景的序號
         }
     }
     return spend.value
