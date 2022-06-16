@@ -39,7 +39,7 @@ val shopBuyGiftBody = listOf(
     R.string.shop_buying_gift4_body
 )
 val giftPriceList = listOf(
-    10, 30, 100, 20, 20
+    10, 30, 500, 20, 20
 )
 //@Preview
 @Composable
