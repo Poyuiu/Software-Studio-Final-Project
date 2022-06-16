@@ -113,6 +113,17 @@
     <string name="scene_office">辦公室</string>
     <string name="scene_library">圖書館</string>
     <string name="scene_coffee_shop_2">咖啡廳</string>
+    
+    /**Focus Character Dialog**/
+    <string name="character_0_dialog_focus">快點專心！我可沒法整天在這裡看著你</string>
+    <string name="character_0_dialog_success">還不錯嘛！接下來也繼續加油哦！</string>
+    <string name="character_0_dialog_fail">不專心可是有罪的哦…</string>
+    <string name="character_1_dialog_focus">現在就開始專注！我也一起！</string>
+    <string name="character_1_dialog_success">太棒了！就這樣繼續下去吧！</string>
+    <string name="character_1_dialog_fail">下次請好好專心…</string>
+    <string name="character_2_dialog_focus">加油！我在這裡陪著你哦</string>
+    <string name="character_2_dialog_success">做的很棒！再來也請多多指教！</string>
+    <string name="character_2_dialog_fail">不好好專心就下地獄吧</string>
 
     /**Dialog**/
     <string name="change_name_dialog_title">編輯姓名</string>

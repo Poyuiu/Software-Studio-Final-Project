@@ -18,6 +18,7 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
@@ -27,18 +28,15 @@ import androidx.compose.ui.window.PopupProperties
 import androidx.compose.ui.zIndex
 import androidx.navigation.NavController
 import com.ss_team_1.koibitoshuuchuu.R
-import com.ss_team_1.koibitoshuuchuu.presentation.Page
 import com.ss_team_1.koibitoshuuchuu.presentation.components.*
 import com.ss_team_1.koibitoshuuchuu.presentation.utils.focusTimeFormatter
 import com.ss_team_1.koibitoshuuchuu.presentation.viewModel.CharacterViewModel
 import com.ss_team_1.koibitoshuuchuu.ui.theme.*
 import kotlinx.coroutines.delay
 import androidx.hilt.navigation.compose.hiltViewModel
-import com.ss_team_1.koibitoshuuchuu.presentation.characterFocusPhotoList
-import com.ss_team_1.koibitoshuuchuu.presentation.characterphotolist
+import com.ss_team_1.koibitoshuuchuu.presentation.*
 import com.ss_team_1.koibitoshuuchuu.presentation.event.CharacterEvent
 import com.ss_team_1.koibitoshuuchuu.presentation.event.UserEvent
-import com.ss_team_1.koibitoshuuchuu.presentation.sceneIdList
 import com.ss_team_1.koibitoshuuchuu.presentation.viewModel.LastFocusSettingViewModel
 import com.ss_team_1.koibitoshuuchuu.presentation.viewModel.UserViewModel
 
@@ -77,14 +75,6 @@ fun FocusPage(
     var moneyChange by remember {
         mutableStateOf(0)
     }
-    //TODO: move to string resource
-    val dialogText = if (!focusEnd) {
-        "快點專心！我可沒法整天在這裡看著你"
-    } else if (focusSuccess) {
-        "還不錯嘛！接下來也繼續加油哦！"
-    } else {
-        "不專心可是有罪的哦..."
-    }
     val characterMood = if (!focusEnd) {
         0
     } else if (focusSuccess) {
@@ -95,14 +85,13 @@ fun FocusPage(
     // Countdown Timer
     LaunchedEffect(remainTime, pauseState) {
         if (remainTime > 0 && !pauseState && !focusEnd) {
-            // TODO: set back to 100/100
-            delay(10L)
-            remainTime -= 6000L
+            delay(100L)
+            remainTime -= 100L
             if (remainTime <= 0) {
                 focusEnd = true
-                intimacyChange = 9872
+                intimacyChange = focusTime?.times(8) ?: 0
                 viewModel.onEvent(CharacterEvent.UpdateIntimacy(characterId!!, intimacyChange))
-                moneyChange = 674
+                moneyChange = focusTime?.times(4) ?: 0
                 userViewModel.onEvent(UserEvent.UpdateMoney(moneyChange))
                 mediaPlayer.pause()
             }
@@ -152,7 +141,7 @@ fun FocusPage(
                 levelIntimacyNeed = state.characters[characterId].intimacyNeeded(),
             )
             DialogBox(
-                text = dialogText,
+                text = stringResource(id = characterFocusDialog[characterId][characterMood]) ,
                 showTriangle = false,
                 modifier = Modifier
                     .align(Alignment.CenterHorizontally)
