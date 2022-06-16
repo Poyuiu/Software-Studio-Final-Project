@@ -173,19 +173,26 @@ fun PageProfile(
                                 .size(height = 90.dp, width = 85.dp)
                                 .background(Color.White)
                         )
+                        if (characterViewModel.state.value.characters[1].level == 0) {
+                            Image(
+                                painter = painterResource(
+                                    id = R.drawable.profile_lock
+                                ),
+                                contentDescription = "lock",
+                                modifier = Modifier
+                                    .size(50.dp)
+                                    .align(Alignment.Center)
+                            )
+                        }
                         Image(
                             painter = painterResource(
-                                id = R.drawable.profile_lock
+                                id = R.drawable.profile_chname_2,
                             ),
-                            contentDescription = "lock",
-                            modifier = Modifier
-                                .size(50.dp)
-                                .align(Alignment.Center)
-                        )
-                        Image(
-                            painter = painterResource(
-                                id = R.drawable.profile_chname_2
-                            ),
+                            colorFilter =
+                            if (characterViewModel.state.value.characters[1].level == 0) ColorFilter.colorMatrix(
+                                matrix
+                            )
+                            else null,
                             contentDescription = "chname_2",
                             modifier = Modifier
                                 .paddingFromBaseline(80.dp)
@@ -200,23 +207,35 @@ fun PageProfile(
                                 id = R.drawable.profile_character_3
                             ),
                             contentDescription = "吉吊",
+                            colorFilter =
+                            if (characterViewModel.state.value.characters[2].level == 0) ColorFilter.colorMatrix(
+                                matrix
+                            )
+                            else null,
                             modifier = Modifier
                                 .size(height = 90.dp, width = 85.dp)
                                 .background(Color.White)
                         )
-                        Image(
-                            painter = painterResource(
-                                id = R.drawable.profile_lock
-                            ),
-                            contentDescription = "lock",
-                            modifier = Modifier
-                                .size(50.dp)
-                                .align(Alignment.Center)
-                        )
+                        if (characterViewModel.state.value.characters[2].level == 0) {
+                            Image(
+                                painter = painterResource(
+                                    id = R.drawable.profile_lock
+                                ),
+                                contentDescription = "lock",
+                                modifier = Modifier
+                                    .size(50.dp)
+                                    .align(Alignment.Center)
+                            )
+                        }
                         Image(
                             painter = painterResource(
                                 id = R.drawable.profile_chname_3
                             ),
+                            colorFilter =
+                            if (characterViewModel.state.value.characters[2].level == 0) ColorFilter.colorMatrix(
+                                matrix
+                            )
+                            else null,
                             contentDescription = "chname_3",
                             modifier = Modifier
                                 .paddingFromBaseline(80.dp)
