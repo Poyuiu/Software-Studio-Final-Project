@@ -15,6 +15,8 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.graphics.ColorFilter
+import androidx.compose.ui.graphics.ColorMatrix
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontStyle
@@ -22,10 +24,13 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.hilt.navigation.compose.hiltViewModel
+import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavController
 import com.ss_team_1.koibitoshuuchuu.R
 import com.ss_team_1.koibitoshuuchuu.presentation.Page
 import com.ss_team_1.koibitoshuuchuu.presentation.utils.coloredShadow
+import com.ss_team_1.koibitoshuuchuu.presentation.viewModel.CharacterViewModel
 import com.ss_team_1.koibitoshuuchuu.ui.theme.DarkGreenBlue
 import com.ss_team_1.koibitoshuuchuu.ui.theme.GreenBlue
 import com.ss_team_1.koibitoshuuchuu.ui.theme.ProfilePink
@@ -239,7 +244,7 @@ fun UserInfo2() {
 }
 
 @Composable
-fun Info2_character() {
+fun Info2_character(characterViewModel: CharacterViewModel = hiltViewModel()) {
     Row(
         verticalAlignment = Alignment.CenterVertically,
         modifier = Modifier.padding(
@@ -247,6 +252,8 @@ fun Info2_character() {
             top = 5.dp, end = 0.dp, bottom = 0.dp
         )
     ) {
+        val matrix = ColorMatrix()
+        matrix.setToSaturation(0F)
         Spacer(modifier = Modifier.padding(5.dp))
         Image(
             painter = painterResource(id = R.drawable.profile_arrow_left),
@@ -285,6 +292,11 @@ fun Info2_character() {
                 painter = painterResource(
                     id = R.drawable.profile_character_2
                 ),
+                colorFilter =
+                if (characterViewModel.state.value.characters[1].level == 0) ColorFilter.colorMatrix(
+                    matrix
+                )
+                else null,
                 contentDescription = "魂魄",
                 modifier = Modifier
                     .size(height = 90.dp, width = 85.dp)
