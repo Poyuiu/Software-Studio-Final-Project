@@ -337,8 +337,8 @@ fun HomePage(
         onClickConfirm = {
             intimacyupdate.value =
             itemIntimacyAddList[itemList[chooseItem.value].id]*amount.value
-            itemViewModel.onEvent(ItemEvent.UpdateOwnedQuantity
-                (itemList[chooseItem.value].id, -(amount.value)))})
+            itemViewModel.onEvent(ItemEvent.UpdateOwnedQuantity(itemList[chooseItem.value].id, -(amount.value))) }
+        )
         if (intimacyupdate.value >= 0) {
             openDialog2.value = false
             viewModel.onEvent(CharacterEvent.UpdateIntimacy(characterid.value, intimacyupdate.value))

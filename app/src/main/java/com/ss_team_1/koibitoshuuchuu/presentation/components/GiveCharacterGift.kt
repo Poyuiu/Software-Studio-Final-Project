@@ -41,247 +41,6 @@ val giveGiftPhotoList = listOf(
 val itemIntimacyAddList = listOf(
     1, 5, 100, 2, 2
 )
-//@Preview
-/*@Composable
-fun GiveCharacterGift(
-    itemViewModel: ItemViewModel,
-    itemlist: List<Item>
-): Int{
-    val kindsOfItem = itemlist.indexOfLast{true}
-    val intimacyupdate = remember { mutableStateOf(-1) }//沒暗任何案件
-    val chooseItem = remember { mutableStateOf(0) }
-    val amount = remember { mutableStateOf(1) }
-    Column(
-        modifier = Modifier
-            .width(280.dp)
-            .background(color = Color.White, shape = RoundedCornerShape(10.dp)),
-        horizontalAlignment = Alignment.CenterHorizontally
-    ) {
-        Spacer(modifier = Modifier.height(16.dp))
-        Text(
-            text = stringResource(id = R.string.Give_character_gift_header),
-            fontSize = 24.sp,
-            color = black,
-            fontStyle = FontStyle(contextFont),
-            modifier = Modifier.padding(16.dp)
-        )
-        Box(modifier = Modifier.fillMaxWidth()){
-            Column(
-                Modifier.fillMaxWidth().height(160.dp),
-                horizontalAlignment = Alignment.CenterHorizontally
-            ){
-                Image(
-                    painter = painterResource(id = giveGiftPhotoList[itemlist[chooseItem.value].id]),
-                    contentDescription = "",
-                    contentScale = ContentScale.Fit
-                )
-            }
-            Row(
-                modifier = Modifier
-                    .align(Alignment.CenterEnd),
-                //verticalAlignment = Alignment.CenterVertically
-            ){
-                if(chooseItem.value !=0){
-                    Image(
-                        painter = painterResource(id = R.drawable.profile_arrow_left),
-                        contentDescription = "",
-                        contentScale = ContentScale.Fit,
-                        modifier = Modifier
-                            .size(40.dp,64.dp)
-                            .clickable(
-                                enabled = true,
-                                onClickLabel = "clear",
-                                onClick = {
-                                    /*TODO*/
-                                    chooseItem.value--
-                                    amount.value = 1
-                                }
-                            )
-                    )
-                }
-
-                Spacer(modifier = Modifier.width(164.dp))
-                if(chooseItem.value != kindsOfItem){
-                    Image(
-                        painter = painterResource(id = R.drawable.profile_arrow_right),
-                        contentDescription = "",
-                        contentScale = ContentScale.Fit,
-                        modifier = Modifier
-                            .size(40.dp,64.dp)
-                            .clickable(
-                                enabled = true,
-                                onClickLabel = "clear",
-                                onClick = {
-                                    /*TODO*/
-                                    chooseItem.value++
-                                    amount.value = 1
-                                }
-                            )
-                    )
-                }else{
-                    Spacer(modifier = Modifier.width(28.dp))
-                }
-                Spacer(modifier = Modifier.width(16.dp))
-            }
-        }
-        Box(
-            modifier = Modifier
-                .fillMaxWidth()
-                .height(30.dp)
-        ){
-            Row(
-                modifier = Modifier
-                    .align(Alignment.CenterStart),
-                //verticalAlignment = Alignment.CenterVertically
-            ){
-                Spacer(modifier = Modifier.width(24.dp))
-                Text(
-                    text = "數量:",
-                    fontSize = 16.sp,
-                    color = black,
-                    fontStyle = FontStyle(contextFont)
-                )
-                Spacer(modifier = Modifier.width(24.dp))
-                Image(
-                    painter = painterResource(id = R.drawable.ic_minus),
-                    contentDescription = "",
-                    contentScale = ContentScale.Fit,
-                    colorFilter = if(amount.value>1) null
-                                else ColorFilter.tint(color = Color.Gray),
-                    modifier = Modifier
-                        .size(24.dp)
-                        .clickable(
-                            enabled = (amount.value>1),
-                            onClickLabel = "minus gift",
-                            onClick = {
-                                amount.value--
-                            }
-                        )
-                )
-                Spacer(modifier = Modifier.width(16.dp))
-                Box(
-                    modifier = Modifier
-                        .width(90.dp)
-                        .height(30.dp)
-                        .align(Alignment.CenterVertically)
-                ){
-                    Image(
-                        painter = painterResource(id = R.drawable.popup_block),
-                        contentDescription = "",
-                        contentScale = ContentScale.Fit
-                    )
-                    Column(
-                        modifier = Modifier.fillMaxSize(),
-                        horizontalAlignment = Alignment.CenterHorizontally
-                    ) {
-                        Text(
-                            text = "${amount.value}",
-                            fontSize = 16.sp,
-                            color = black,
-                            fontStyle = FontStyle(contextFont)
-                        )
-                    }
-
-                }
-                Spacer(modifier = Modifier.width(16.dp))
-                Image(
-                    painter = painterResource(id = R.drawable.ic_plus),
-                    contentDescription = "",
-                    contentScale = ContentScale.Fit,
-                    colorFilter = if(amount.value < itemlist[chooseItem.value].quantity_owned)null
-                            else ColorFilter.tint(color = Color.Gray),
-                    modifier = Modifier
-                        .size(24.dp)
-                        .clickable(
-                            enabled = (amount.value < itemlist[chooseItem.value].quantity_owned),
-                            onClickLabel = "plus gift",
-                            onClick = {
-                                amount.value++
-                            }
-                        )
-                )
-            }
-        }
-        Box(
-            modifier = Modifier.fillMaxWidth()
-        ){
-            Row(
-                modifier = Modifier
-                    .align(Alignment.CenterStart),
-                //verticalAlignment = Alignment.CenterVertically
-            ){
-                Spacer(modifier = Modifier.width(24.dp))
-                Text(
-                    text = "將提升的好感度:   ${itemIntimacyAddList[itemlist[chooseItem.value].id]*amount.value}",
-                    fontSize = 16.sp,
-                    color = black,
-                    fontStyle = FontStyle(contextFont),
-                    modifier = Modifier.padding(8.dp)
-                )
-            }
-        }
-        Box(
-            modifier = Modifier.fillMaxWidth()
-        ){
-            Row(
-                modifier = Modifier
-                    .align(Alignment.CenterStart),
-                //verticalAlignment = Alignment.CenterVertically
-            ){
-                Spacer(modifier = Modifier.width(24.dp))
-                Text(
-                    text = "擁有物品:   ${itemlist[chooseItem.value].quantity_owned} 個",
-                    fontSize = 16.sp,
-                    color = black,
-                    fontStyle = FontStyle(contextFont),
-                    modifier = Modifier.padding(8.dp)
-                )
-            }
-        }
-        Box(modifier = Modifier.fillMaxWidth()){
-            Row(
-                modifier = Modifier
-                    .align(Alignment.CenterEnd),
-                //verticalAlignment = Alignment.CenterVertically
-            ){
-                Text(
-                    text = "取消",
-                    fontSize = 24.sp,
-                    fontStyle = FontStyle(mainFont),
-                    modifier = Modifier.padding(8.dp)
-                        .clickable(
-                            enabled = true,
-                            onClickLabel = "doesn't buy",
-                            onClick = {
-                                intimacyupdate.value = 0
-                            }
-                        )
-                )
-                Spacer(modifier = Modifier.width(100.dp))
-                Text(
-                    text = "送給她",
-                    fontSize = 24.sp,
-                    fontStyle = FontStyle(mainFont),
-                    color = AccentDark,
-                    modifier = Modifier.padding(8.dp)
-                        .clickable(
-                            enabled = true,
-                            onClickLabel = "give",
-                            onClick = {
-                                intimacyupdate.value =
-                                    itemIntimacyAddList[itemlist[chooseItem.value].id]*amount.value
-                                itemViewModel.onEvent(ItemEvent.UpdateOwnedQuantity
-                                    (itemlist[chooseItem.value].id, -(amount.value)))
-                            }
-                        )
-                )
-                Spacer(modifier = Modifier.width(16.dp))
-            }
-        }
-        Spacer(modifier = Modifier.height(16.dp))
-    }
-    return intimacyupdate.value
-}*/
 
 //@Preview(showBackground = true)
 @Composable
@@ -299,10 +58,6 @@ fun GiveGiftPopupScreen(
     onClickCancel: () -> Unit,
     onClickConfirm: () -> Unit
 ){
-    //val intimacyupdate = remember { mutableStateOf(-1) }//沒暗任何案件
-    //val kindsOfItem = itemlist.indexOfLast{true}
-    //val chooseItem = remember { mutableStateOf(0) }
-    //val amount = remember { mutableStateOf(1) }
     androidx.compose.material.Surface(
         color = Color.Black.copy(alpha = 0f)
     ){
@@ -342,8 +97,7 @@ fun GiveGiftPopupScreen(
                         }
                         Row(
                             modifier = Modifier
-                                .align(Alignment.CenterEnd),
-                            //verticalAlignment = Alignment.CenterVertically
+                                .align(Alignment.CenterEnd)
                         ){
                             if(chooseItem !=0){
                                 Image(
@@ -355,10 +109,7 @@ fun GiveGiftPopupScreen(
                                         .clickable(
                                             enabled = true,
                                             onClickLabel = "clear",
-                                            onClick = onClickLeft/*{
-                                                //chooseItem--
-                                                amount.value = 1
-                                            }*/
+                                            onClick = onClickLeft
                                         )
                                 )
                             }
@@ -374,10 +125,7 @@ fun GiveGiftPopupScreen(
                                         .clickable(
                                             enabled = true,
                                             onClickLabel = "clear",
-                                            onClick = onClickRight/*{
-                                                //chooseItem.value++
-                                                amount.value = 1
-                                            }*/
+                                            onClick = onClickRight
                                         )
                                 )
                             }else{
@@ -393,8 +141,7 @@ fun GiveGiftPopupScreen(
                     ){
                         Row(
                             modifier = Modifier
-                                .align(Alignment.CenterStart),
-                            //verticalAlignment = Alignment.CenterVertically
+                                .align(Alignment.CenterStart)
                         ){
                             Spacer(modifier = Modifier.width(24.dp))
                             Text(
@@ -415,9 +162,7 @@ fun GiveGiftPopupScreen(
                                     .clickable(
                                         enabled = (amount>1),
                                         onClickLabel = "minus gift",
-                                        onClick = onClickMinus/*{
-                                            amount.value--
-                                        }*/
+                                        onClick = onClickMinus
                                     )
                             )
                             Spacer(modifier = Modifier.width(16.dp))
@@ -457,9 +202,7 @@ fun GiveGiftPopupScreen(
                                     .clickable(
                                         enabled = (amount< itemlist[chooseItem].quantity_owned),
                                         onClickLabel = "plus gift",
-                                        onClick = onClickPlus/*{
-                                            amount.value++
-                                        }*/
+                                        onClick = onClickPlus
                                     )
                             )
                         }
@@ -469,8 +212,7 @@ fun GiveGiftPopupScreen(
                     ){
                         Row(
                             modifier = Modifier
-                                .align(Alignment.CenterStart),
-                            //verticalAlignment = Alignment.CenterVertically
+                                .align(Alignment.CenterStart)
                         ){
                             Spacer(modifier = Modifier.width(24.dp))
                             Text(
@@ -487,8 +229,7 @@ fun GiveGiftPopupScreen(
                     ){
                         Row(
                             modifier = Modifier
-                                .align(Alignment.CenterStart),
-                            //verticalAlignment = Alignment.CenterVertically
+                                .align(Alignment.CenterStart)
                         ){
                             Spacer(modifier = Modifier.width(24.dp))
                             Text(
@@ -503,8 +244,7 @@ fun GiveGiftPopupScreen(
                     Box(modifier = Modifier.fillMaxWidth()){
                         Row(
                             modifier = Modifier
-                                .align(Alignment.CenterEnd),
-                            //verticalAlignment = Alignment.CenterVertically
+                                .align(Alignment.CenterEnd)
                         ){
                             Text(
                                 text = "取消",
@@ -514,9 +254,7 @@ fun GiveGiftPopupScreen(
                                     .clickable(
                                         enabled = true,
                                         onClickLabel = "doesn't buy",
-                                        onClick = onClickCancel/*{
-                                            intimacyupdate.value = 0
-                                        }*/
+                                        onClick = onClickCancel
                                     )
                             )
                             Spacer(modifier = Modifier.width(100.dp))
@@ -529,12 +267,7 @@ fun GiveGiftPopupScreen(
                                     .clickable(
                                         enabled = true,
                                         onClickLabel = "give",
-                                        onClick = onClickConfirm/*{
-                                            intimacyupdate.value =
-                                                itemIntimacyAddList[itemlist[chooseItem].id]*amount.value
-                                            itemViewModel.onEvent(ItemEvent.UpdateOwnedQuantity
-                                                (itemlist[chooseItem].id, -(amount.value)))
-                                        }*/
+                                        onClick = onClickConfirm
                                     )
                             )
                             Spacer(modifier = Modifier.width(16.dp))
@@ -545,6 +278,4 @@ fun GiveGiftPopupScreen(
             }
         }
     }
-
-    //return intimacyupdate.value
 }
