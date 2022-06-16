@@ -85,8 +85,8 @@ fun FocusPage(
     // Countdown Timer
     LaunchedEffect(remainTime, pauseState) {
         if (remainTime > 0 && !pauseState && !focusEnd) {
-            delay(100L)
-            remainTime -= 100L
+            delay(100L)   /**測試模式改  delay(10)  **/
+            remainTime -= 100L     /**測試模式改  remainTime -= 6000  **/
             if (remainTime <= 0) {
                 focusEnd = true
                 intimacyChange = focusTime?.times(8) ?: 0
