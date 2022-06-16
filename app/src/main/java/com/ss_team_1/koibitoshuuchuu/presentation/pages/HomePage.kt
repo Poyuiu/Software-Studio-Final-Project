@@ -157,7 +157,9 @@ fun HomePage(
                     .padding(bottom = 30.dp),
                 horizontalArrangement = Arrangement.SpaceBetween
             ) {
-                SettingsButton()
+                SettingsButton {
+                    navController.navigate(Page.Settings.route)
+                }
                 RoundButtonTemplate(
                     icon = Icons.Outlined.HelpOutline,
                     iconSize = 36.dp,

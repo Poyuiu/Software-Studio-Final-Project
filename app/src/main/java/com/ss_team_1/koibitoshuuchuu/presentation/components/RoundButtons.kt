@@ -48,11 +48,11 @@ fun HelpButton() {
 }
 @Preview
 @Composable
-fun SettingsButton() {
+fun SettingsButton(onClick: () -> Unit = {}) {
     RoundButtonTemplate(
         icon = Icons.Outlined.Settings,
         iconSize = 36.dp,
-        onClick = {}
+        onClick = onClick
     )
 }
 

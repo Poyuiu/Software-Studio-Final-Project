@@ -30,7 +30,7 @@ import com.ss_team_1.koibitoshuuchuu.ui.theme.KoiBitoShuuChuuTheme
 @Composable
 fun WelcomePage(navController: NavController = NavController(LocalContext.current)) {
     R.string.detail
-    val debugInit = true
+    val debugInit = false
     Box(
         Modifier
             .fillMaxSize()

@@ -138,6 +138,14 @@ class MainActivity : ComponentActivity() {
                             }
                         )
                     }
+
+                    composable(
+                        route = Page.Settings.route
+                    ) { entry ->
+                        SettingsPage(
+                            navController = navController
+                        )
+                    }
                     //composable(Page.FocusIntro.route) { FocusIntroPage(navController) }
                     /*...*/
                 }
@@ -162,5 +170,6 @@ sealed class Page(val route: String) {
     object CharacterInfoAndStory : Page("character_info_and_story_page")
     object CharacterDetail : Page("character_detail_page")
     object Plot : Page("plot_page")
+    object Settings: Page("settings_page")
 }
 

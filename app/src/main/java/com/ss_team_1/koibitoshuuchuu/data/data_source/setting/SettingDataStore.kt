@@ -34,8 +34,8 @@ class SettingDataStore @Inject constructor(@ApplicationContext context: Context)
             }
         }
         .map { setting ->
-            val soundEffectVolume = setting[_soundEffectVolume] ?: 50
-            val bgmVolume = setting[_bgmVolume] ?: 50
+            val soundEffectVolume = setting[_soundEffectVolume] ?: 0
+            val bgmVolume = setting[_bgmVolume] ?: 0
             val keepScreenOpen = setting[_keepScreenOpen] ?: true
             val language = setting[_language] ?: 0
             val restrictedMode = setting[_restrictedMode] ?: false
