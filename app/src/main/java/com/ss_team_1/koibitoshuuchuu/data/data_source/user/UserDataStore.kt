@@ -44,7 +44,7 @@ class UserDataStore @Inject constructor(@ApplicationContext context: Context) {
             val photoUrl = user[_photoUrl] ?: ""
             val gender = user[_gender] ?: "酷酷的草履蟲"
             val birthday = Calendar.getInstance()
-            birthday.timeInMillis = user[_birthday] ?: 0
+            birthday.timeInMillis = user[_birthday] ?: Calendar.getInstance().timeInMillis
             val joinDate = Calendar.getInstance()
              joinDate.timeInMillis = user[_joinDate] ?: 0
             val money = user[_money] ?: 0

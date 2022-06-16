@@ -25,12 +25,15 @@ import com.ss_team_1.koibitoshuuchuu.presentation.Page
 import com.ss_team_1.koibitoshuuchuu.presentation.components.*
 import com.ss_team_1.koibitoshuuchuu.presentation.event.CharacterEvent
 import com.ss_team_1.koibitoshuuchuu.presentation.event.ItemEvent
+import com.ss_team_1.koibitoshuuchuu.presentation.event.UserEvent
 import com.ss_team_1.koibitoshuuchuu.presentation.sceneIdList
 import com.ss_team_1.koibitoshuuchuu.presentation.utils.PageId
 import com.ss_team_1.koibitoshuuchuu.presentation.viewModel.CharacterViewModel
 import com.ss_team_1.koibitoshuuchuu.presentation.viewModel.ItemViewModel
 import com.ss_team_1.koibitoshuuchuu.presentation.viewModel.LastFocusSettingViewModel
+import com.ss_team_1.koibitoshuuchuu.presentation.viewModel.UserViewModel
 import com.ss_team_1.koibitoshuuchuu.ui.theme.Secondary
+import java.util.*
 
 //@Preview
 @Composable
@@ -39,6 +42,7 @@ fun HomePage(
     viewModel: CharacterViewModel = hiltViewModel(),
     itemViewModel: ItemViewModel = hiltViewModel(),
     focusSetViewModel: LastFocusSettingViewModel = hiltViewModel(),
+    userViewModel: UserViewModel = hiltViewModel(),
     onClickToCharacterInfo: (Int) -> Unit
 ) {
     val state = viewModel.state.value
@@ -57,6 +61,12 @@ fun HomePage(
 
     val itemList = itemState.Items.filter { it.quantity_owned>0 }
 
+    // set the join date in homepage avoid user being not in
+    // profile page at the first time
+    val joinDate: Calendar = userViewModel.state.value.userInfo.join_date
+    if (joinDate.get(Calendar.YEAR)== 1970){
+        userViewModel.onEvent(UserEvent.SetJoinDate(Calendar.getInstance()))
+    }
     // character animation
     // take false left and true right
     var characterMoveRight by remember { mutableStateOf(false) }
@@ -199,7 +209,7 @@ fun HomePage(
                                 enabled = !(openDialog1.value || openDialog2.value || openDialogNoGift.value || clickedHelp.value),
                                 onClickLabel = "give gift",
                                 onClick = {
-                                    if(itemList.isNotEmpty()){
+                                    if (itemList.isNotEmpty()) {
                                         openDialog2.value = true
                                     } else {
                                         openDialogNoGift.value = true

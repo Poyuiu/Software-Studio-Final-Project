@@ -1,5 +1,6 @@
 package com.ss_team_1.koibitoshuuchuu.presentation.components
 
+import android.content.ReceiverCallNotAllowedException
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border
@@ -124,7 +125,7 @@ fun UserDataPage(
             }
             UserData_Info_2(
                 joinYear = joinDate.get(Calendar.YEAR),
-                joinMonth = joinDate.get(Calendar.MONTH),
+                joinMonth = (joinDate.get(Calendar.MONTH) + 1) % 12,
                 joinDay = joinDate.get(Calendar.DAY_OF_MONTH),
                 accumulatedDay = 30,
                 accumulatedHour = 10
