@@ -85,13 +85,13 @@ fun FocusPage(
     // Countdown Timer
     LaunchedEffect(remainTime, pauseState) {
         if (remainTime > 0 && !pauseState && !focusEnd) {
-            delay(100L)
-            remainTime -= 100L
+            delay(10)
+            remainTime -= 6000
             if (remainTime <= 0) {
                 focusEnd = true
                 intimacyChange = focusTime?.times(8) ?: 0
                 viewModel.onEvent(CharacterEvent.UpdateIntimacy(characterId!!, intimacyChange))
-                moneyChange = focusTime?.times(4) ?: 0
+                moneyChange = 1000//focusTime?.times(4) ?: 0
                 userViewModel.onEvent(UserEvent.UpdateMoney(moneyChange))
                 mediaPlayer.pause()
             }

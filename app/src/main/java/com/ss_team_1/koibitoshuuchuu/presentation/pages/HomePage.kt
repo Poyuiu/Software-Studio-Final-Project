@@ -59,7 +59,13 @@ fun HomePage(
     val characterid: MutableState<Int> =
         remember { mutableStateOf(0) }
 
+
     val itemList = itemState.Items.filter { it.quantity_owned>0 }
+
+/***givegiftpopup***/
+    val kindsOfItem = itemList.indexOfLast{true}
+    val chooseItem = remember { mutableStateOf(0) }
+    val amount = remember { mutableStateOf(1) }
 
     // set the join date in homepage avoid user being not in
     // profile page at the first time
@@ -317,13 +323,25 @@ fun HomePage(
             openDialogNoGift.value = false
         }
     } else if (openDialog2.value) {
-        intimacyupdate.value = GiveGiftPopupScreen( itemViewModel,itemlist = itemList)
+        GiveGiftPopupScreen( itemViewModel, itemlist = itemList, amount.value,
+                                    chooseItem.value,intimacyupdate.value, kindsOfItem,
+        onClickLeft = {
+            chooseItem.value--
+            amount.value = 1},
+        onClickRight = {
+            chooseItem.value++
+            amount.value = 1 },
+        onClickMinus = {amount.value--},
+        onClickPlus = {amount.value++},
+        onClickCancel = {intimacyupdate.value = 0},
+        onClickConfirm = {
+            intimacyupdate.value =
+            itemIntimacyAddList[itemList[chooseItem.value].id]*amount.value
+            itemViewModel.onEvent(ItemEvent.UpdateOwnedQuantity
+                (itemList[chooseItem.value].id, -(amount.value)))})
         if (intimacyupdate.value >= 0) {
             openDialog2.value = false
-            if (intimacyupdate.value != 0) {
-                viewModel.onEvent(CharacterEvent.UpdateIntimacy(characterid.value, intimacyupdate.value))
-                //itemViewModel.onEvent(ItemEvent.UpdateOwnedQuantity(2, -1))
-            }
+            viewModel.onEvent(CharacterEvent.UpdateIntimacy(characterid.value, intimacyupdate.value))
         }
     }
 }
