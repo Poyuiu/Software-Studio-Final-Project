@@ -41,11 +41,11 @@ val shopBuyGiftBody = listOf(
 val giftPriceList = listOf(
     10, 30, 500, 20, 20
 )
-//@Preview
+@Preview
 @Composable
 fun GiftBuying(
-    gift:Int,
-    money: Int
+    gift:Int = 1,
+    money: Int= 100
 ): Int{
     val spend = remember { mutableStateOf(-1) }//沒暗任何案件
     val amount = remember { mutableStateOf(1) }
