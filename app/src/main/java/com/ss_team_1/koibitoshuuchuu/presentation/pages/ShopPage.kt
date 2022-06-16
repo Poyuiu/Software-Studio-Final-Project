@@ -259,22 +259,22 @@ fun ShopPage(
                 }
             }
         }
-        if(openDialog.value){
-            if(buying.value<=2) spending.value=buyingPopupScreen(buying.value, state.userInfo.money)
-            else spending.value=buyinggiftPopupScreen(buying.value, state.userInfo.money)
-            if(spending.value>0){
-                boughtflag.value=true
-                if(buying.value >=3){
-                    viewModel.onEvent(ItemEvent.UpdateOwnedQuantity
-                        (buying.value-3,spending.value/giftPriceList[buying.value-3]))
-                }else if(buying.value<=2){
-                    sceneViewModel.onEvent(SceneEvent.SetScene((buying.value)+1,true))
-                }
-                userViewModel.onEvent(UserEvent.UpdateMoney(-(spending.value)))
+    }
+    if(openDialog.value){
+        if(buying.value<=2) spending.value=buyingPopupScreen(buying.value, state.userInfo.money)
+        else spending.value=buyinggiftPopupScreen(buying.value, state.userInfo.money)
+        if(spending.value>0){
+            boughtflag.value=true
+            if(buying.value >=3){
+                viewModel.onEvent(ItemEvent.UpdateOwnedQuantity
+                    (buying.value-3,spending.value/giftPriceList[buying.value-3]))
+            }else if(buying.value<=2){
+                sceneViewModel.onEvent(SceneEvent.SetScene((buying.value)+1,true))
             }
-            if(spending.value >= 0){
-                openDialog.value=false
-            }
+            userViewModel.onEvent(UserEvent.UpdateMoney(-(spending.value)))
+        }
+        if(spending.value >= 0){
+            openDialog.value=false
         }
     }
 }

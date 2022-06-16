@@ -278,41 +278,41 @@ fun HomePage(
         ) {
             leftRoundedTriangle()
         }
-        if (clickedHelp.value) {
-            popupHelp.value = HelpPopupScreen()
-            if (popupHelp.value == 1) {
-                clickedHelp.value = false
+    }
+    if (clickedHelp.value) {
+        popupHelp.value = HelpPopupScreen()
+        if (popupHelp.value == 1) {
+            clickedHelp.value = false
+        }
+    }
+
+    if (openDialog1.value) {
+        popup.value = UnlockPopupScreen()
+        if (popup.value == 1) {
+            openDialog1.value = false
+        } else if (popup.value == 2) {
+            openDialog1.value = false
+            if(itemList.isNotEmpty()){
+                openDialog2.value = true
+            } else {
+                openDialogNoGift.value = true
             }
         }
-
-        if (openDialog1.value) {
-            popup.value = UnlockPopupScreen()
-            if (popup.value == 1) {
-                openDialog1.value = false
-            } else if (popup.value == 2) {
-                openDialog1.value = false
-                if(itemList.isNotEmpty()){
-                    openDialog2.value = true
-                } else {
-                    openDialogNoGift.value = true
-                }
-            }
-        } else if (openDialogNoGift.value) {
-            popupNoGift.value = NoGiftPopupScreen()
-            if (popupNoGift.value == 1) {
-                openDialogNoGift.value = false
-            } else if (popupNoGift.value == 2) {
-                navController.navigate(Page.Shop.route)
-                openDialogNoGift.value = false
-            }
-        } else if (openDialog2.value) {
-            intimacyupdate.value = GiveGiftPopupScreen( itemViewModel,itemlist = itemList)
-            if (intimacyupdate.value >= 0) {
-                openDialog2.value = false
-                if (intimacyupdate.value != 0) {
-                    viewModel.onEvent(CharacterEvent.UpdateIntimacy(characterid.value, intimacyupdate.value))
-                    //itemViewModel.onEvent(ItemEvent.UpdateOwnedQuantity(2, -1))
-                }
+    } else if (openDialogNoGift.value) {
+        popupNoGift.value = NoGiftPopupScreen()
+        if (popupNoGift.value == 1) {
+            openDialogNoGift.value = false
+        } else if (popupNoGift.value == 2) {
+            navController.navigate(Page.Shop.route)
+            openDialogNoGift.value = false
+        }
+    } else if (openDialog2.value) {
+        intimacyupdate.value = GiveGiftPopupScreen( itemViewModel,itemlist = itemList)
+        if (intimacyupdate.value >= 0) {
+            openDialog2.value = false
+            if (intimacyupdate.value != 0) {
+                viewModel.onEvent(CharacterEvent.UpdateIntimacy(characterid.value, intimacyupdate.value))
+                //itemViewModel.onEvent(ItemEvent.UpdateOwnedQuantity(2, -1))
             }
         }
     }

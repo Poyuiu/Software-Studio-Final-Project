@@ -203,7 +203,6 @@ fun GiftBuying(
                                 enabled = true,
                                 onClickLabel = "doesn't buy",
                                 onClick = {
-                                    /*TODO*/
                                     spend.value = 0
                                 }
                             )
@@ -219,9 +218,7 @@ fun GiftBuying(
                                 enabled = (money >= giftPriceList[gift]),
                                 onClickLabel = "buy gift",
                                 onClick = {
-                                    /*TODO*/
                                     spend.value = giftPriceList[gift]*amount.value
-                                    /***************************/
                                 }
                             )
                     )
