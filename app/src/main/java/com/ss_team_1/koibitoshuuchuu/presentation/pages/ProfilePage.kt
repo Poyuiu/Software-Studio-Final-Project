@@ -60,29 +60,12 @@ fun PageProfile(navController: NavController= NavController(LocalContext.current
                 .padding(bottom = 0.dp),
             horizontalAlignment = Alignment.CenterHorizontally
         ) {
-//            if (userPhoto != null) {
-//                if (userName != null) {
-//                    if (userID != null) {
-//                        if (userGender != null) {
-//                            if (userBirthday != null) {
-//                                UserInfo1(
-//                                    userPhoto = userPhoto,
-//                                    userName = userName,
-//                                    userID = userID,
-//                                    userGender = userGender,
-//                                    userBirthday = userBirthday
-//                                )
-//                            }
-//                        }
-//                    }
-//                }
-//            }
             UserInfo1(
                 userPhoto = R.drawable.profile_picture1.toString(),
                 userName = userViewModel.state.value.userInfo.user_name,
-                userID = 1234567,
-                userGender = "酷酷的草履蟲",
-                userBirthday = Calendar.getInstance(),
+                userID = userViewModel.state.value.userInfo.id,
+                userGender = userViewModel.state.value.userInfo.gender,
+                userBirthday = userViewModel.state.value.userInfo.birthday,
                 navController
             )
             Divider(

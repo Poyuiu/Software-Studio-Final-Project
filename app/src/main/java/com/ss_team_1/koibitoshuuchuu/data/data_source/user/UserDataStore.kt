@@ -39,14 +39,14 @@ class UserDataStore @Inject constructor(@ApplicationContext context: Context) {
             }
         }
         .map { user ->
-            val id = user[_id] ?: 0
+            val id = user[_id] ?: 1234567
             val userName = user[_userName] ?: "酷酷的名字"
             val photoUrl = user[_photoUrl] ?: ""
             val gender = user[_gender] ?: "酷酷的草履蟲"
             val birthday = Calendar.getInstance()
-            birthday.timeInMillis = user[_birthday] ?: 0
+            //birthday.timeInMillis = user[_birthday] ?: 100
             val joinDate = Calendar.getInstance()
-            joinDate.timeInMillis = user[_joinDate] ?: 0
+            // joinDate.timeInMillis = user[_joinDate] ?: 0
             val money = user[_money] ?: 0
             val gem = user[_gem] ?: 0
             val lastUsedCharacterId = user[_lastUsedCharacterId] ?: 0
