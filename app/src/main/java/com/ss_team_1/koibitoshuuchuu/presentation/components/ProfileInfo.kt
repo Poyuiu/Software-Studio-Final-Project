@@ -244,7 +244,7 @@ fun UserInfo2() {
 }
 
 @Composable
-fun Info2_character(characterViewModel: CharacterViewModel = hiltViewModel()) {
+fun Info2_character() {
     Row(
         verticalAlignment = Alignment.CenterVertically,
         modifier = Modifier.padding(
@@ -292,11 +292,11 @@ fun Info2_character(characterViewModel: CharacterViewModel = hiltViewModel()) {
                 painter = painterResource(
                     id = R.drawable.profile_character_2
                 ),
-                colorFilter =
-                if (characterViewModel.state.value.characters[1].level == 0) ColorFilter.colorMatrix(
-                    matrix
-                )
-                else null,
+//                colorFilter =
+//                if (characterViewModel.state.value.characters[1].level == 0) ColorFilter.colorMatrix(
+//                    matrix
+//                )
+//                else null,
                 contentDescription = "魂魄",
                 modifier = Modifier
                     .size(height = 90.dp, width = 85.dp)
