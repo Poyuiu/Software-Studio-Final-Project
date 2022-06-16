@@ -25,6 +25,7 @@ import androidx.navigation.NavController
 import com.ss_team_1.koibitoshuuchuu.R
 import com.ss_team_1.koibitoshuuchuu.presentation.utils.PageId
 import com.ss_team_1.koibitoshuuchuu.presentation.viewModel.CharacterViewModel
+import com.ss_team_1.koibitoshuuchuu.presentation.viewModel.SceneViewModel
 import com.ss_team_1.koibitoshuuchuu.presentation.viewModel.UserViewModel
 import com.ss_team_1.koibitoshuuchuu.ui.theme.ProfilePink
 import java.util.*
@@ -33,7 +34,8 @@ import java.util.*
 fun PageProfile(
     navController: NavController = NavController(LocalContext.current),
     userViewModel: UserViewModel = hiltViewModel(),
-    characterViewModel: CharacterViewModel = hiltViewModel()
+    characterViewModel: CharacterViewModel = hiltViewModel(),
+    sceneViewModel: SceneViewModel = hiltViewModel()
 ) {
     val userPhoto = remember {
         userViewModel.state.value.userInfo.photo_url
@@ -50,6 +52,8 @@ fun PageProfile(
     val userBirthday = remember {
         userViewModel.state.value.userInfo.birthday
     }
+    val matrix = ColorMatrix()
+    matrix.setToSaturation(0F)
     Box(
         modifier = Modifier.fillMaxSize()
     ) {
@@ -123,8 +127,6 @@ fun PageProfile(
                         top = 5.dp, end = 0.dp, bottom = 0.dp
                     )
                 ) {
-                    val matrix = ColorMatrix()
-                    matrix.setToSaturation(0F)
                     Spacer(modifier = Modifier.padding(5.dp))
                     Image(
                         painter = painterResource(id = R.drawable.profile_arrow_left),
@@ -291,15 +293,34 @@ fun PageProfile(
                             painter = painterResource(
                                 id = R.drawable.profile_scene_1
                             ),
-                            contentDescription = "咖啡廳",
+                            contentDescription = "辦公室",
+                            colorFilter = if (!sceneViewModel.state.value.scenes[1].is_owned) ColorFilter.colorMatrix(
+                                matrix
+                            )
+                            else null,
                             modifier = Modifier
                                 .size(height = 90.dp, width = 85.dp)
                                 .background(Color.Transparent)
                         )
+                        if (!sceneViewModel.state.value.scenes[1].is_owned) {
+                            Image(
+                                painter = painterResource(
+                                    id = R.drawable.profile_lock
+                                ),
+                                contentDescription = "lock",
+                                modifier = Modifier
+                                    .size(50.dp)
+                                    .align(Alignment.Center)
+                            )
+                        }
                         Image(
                             painter = painterResource(
                                 id = R.drawable.profile_scname_1
                             ),
+                            colorFilter = if (!sceneViewModel.state.value.scenes[1].is_owned) ColorFilter.colorMatrix(
+                                matrix
+                            )
+                            else null,
                             contentDescription = "scname_1",
                             modifier = Modifier
                                 .paddingFromBaseline(80.dp)
@@ -314,24 +335,34 @@ fun PageProfile(
                                 id = R.drawable.profile_scene_2
                             ),
                             contentDescription = "圖書館",
+                            colorFilter = if (!sceneViewModel.state.value.scenes[2].is_owned) ColorFilter.colorMatrix(
+                                matrix
+                            )
+                            else null,
                             modifier = Modifier
                                 .size(height = 90.dp, width = 85.dp)
                                 .background(Color.Transparent)
                         )
-                        Image(
-                            painter = painterResource(
-                                id = R.drawable.profile_lock
-                            ),
-                            contentDescription = "lock",
-                            modifier = Modifier
-                                .size(50.dp)
-                                .align(Alignment.Center)
-                        )
+                        if (!sceneViewModel.state.value.scenes[2].is_owned) {
+                            Image(
+                                painter = painterResource(
+                                    id = R.drawable.profile_lock
+                                ),
+                                contentDescription = "lock",
+                                modifier = Modifier
+                                    .size(50.dp)
+                                    .align(Alignment.Center)
+                            )
+                        }
                         Image(
                             painter = painterResource(
                                 id = R.drawable.profile_scname_2
                             ),
                             contentDescription = "scname_2",
+                            colorFilter = if (!sceneViewModel.state.value.scenes[2].is_owned) ColorFilter.colorMatrix(
+                                matrix
+                            )
+                            else null,
                             modifier = Modifier
                                 .paddingFromBaseline(80.dp)
                                 .size(height = 27.dp, width = 85.dp)
@@ -344,24 +375,34 @@ fun PageProfile(
                             painter = painterResource(
                                 id = R.drawable.profile_scene_3
                             ),
-                            contentDescription = "辦公室",
+                            contentDescription = "咖啡廳",
+                            colorFilter = if (!sceneViewModel.state.value.scenes[3].is_owned) ColorFilter.colorMatrix(
+                                matrix
+                            )
+                            else null,
                             modifier = Modifier
                                 .size(height = 90.dp, width = 85.dp)
                                 .background(Color.Transparent)
                         )
-                        Image(
-                            painter = painterResource(
-                                id = R.drawable.profile_lock
-                            ),
-                            contentDescription = "lock",
-                            modifier = Modifier
-                                .size(50.dp)
-                                .align(Alignment.Center)
-                        )
+                        if (!sceneViewModel.state.value.scenes[3].is_owned) {
+                            Image(
+                                painter = painterResource(
+                                    id = R.drawable.profile_lock
+                                ),
+                                contentDescription = "lock",
+                                modifier = Modifier
+                                    .size(50.dp)
+                                    .align(Alignment.Center)
+                            )
+                        }
                         Image(
                             painter = painterResource(
                                 id = R.drawable.profile_scname_3
                             ),
+                            colorFilter = if (!sceneViewModel.state.value.scenes[3].is_owned) ColorFilter.colorMatrix(
+                                matrix
+                            )
+                            else null,
                             contentDescription = "scname_3",
                             modifier = Modifier
                                 .paddingFromBaseline(80.dp)
