@@ -108,16 +108,20 @@ fun FocusIntroTimePicker(
 
 }
 
-//@Preview
-//@Composable
-//private fun FocusIntroTimePickerButtonPreview() {
-//    FocusIntroTimePickerButton(
-//        lazyListState = rememberLazyListState(),
-//        layoutInfo = rememberLazyListSnapperLayoutInfo(lazyListState = rememberLazyListState()),
-//        focusTime = 10,
-//        setFocusTime = {}
-//    )
-//}
+@Preview
+@Composable
+private fun FocusIntroTimePickerButtonPreview() {
+    var openState by remember{ mutableStateOf(false)}
+    FocusIntroTimePickerButton(
+        lazyListState = rememberLazyListState(),
+        layoutInfo = rememberLazyListSnapperLayoutInfo(lazyListState = rememberLazyListState()),
+        focusTime = 10,
+        setFocusTime = {},
+        onClick = {openState = true},
+        onDone = {openState = false},
+        timePickerOpenState = openState
+    )
+}
 
 @Composable
 fun FocusIntroTimePickerButton(

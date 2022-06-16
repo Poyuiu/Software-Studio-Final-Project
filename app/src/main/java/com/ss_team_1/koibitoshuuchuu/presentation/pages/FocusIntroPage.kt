@@ -33,7 +33,7 @@ import dev.chrisbanes.snapper.LazyListSnapperLayoutInfo
 import dev.chrisbanes.snapper.rememberLazyListSnapperLayoutInfo
 
 @OptIn(ExperimentalSnapperApi::class)
-@Preview
+//@Preview
 @Composable
 fun FocusIntroPage(
     navController: NavController = NavController(LocalContext.current),

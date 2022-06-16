@@ -15,6 +15,8 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.graphics.ColorFilter
+import androidx.compose.ui.graphics.ColorMatrix
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontStyle
@@ -22,10 +24,13 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.hilt.navigation.compose.hiltViewModel
+import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavController
 import com.ss_team_1.koibitoshuuchuu.R
 import com.ss_team_1.koibitoshuuchuu.presentation.Page
 import com.ss_team_1.koibitoshuuchuu.presentation.utils.coloredShadow
+import com.ss_team_1.koibitoshuuchuu.presentation.viewModel.CharacterViewModel
 import com.ss_team_1.koibitoshuuchuu.ui.theme.DarkGreenBlue
 import com.ss_team_1.koibitoshuuchuu.ui.theme.GreenBlue
 import com.ss_team_1.koibitoshuuchuu.ui.theme.ProfilePink
@@ -207,7 +212,127 @@ fun UserInfo2() {
                 bottom = 0.dp
             )
         )
-        Info2_character()
+        Row(
+            verticalAlignment = Alignment.CenterVertically,
+            modifier = Modifier.padding(
+                start = 0.dp,
+                top = 5.dp, end = 0.dp, bottom = 0.dp
+            )
+        ) {
+            val matrix = ColorMatrix()
+            matrix.setToSaturation(0F)
+            Spacer(modifier = Modifier.padding(5.dp))
+            Image(
+                painter = painterResource(id = R.drawable.profile_arrow_left),
+                contentDescription = "arrow left",
+                modifier = Modifier
+                    .size(width = 20.dp, height = 50.dp)
+                    .background(ProfilePink)
+                    .width(10.dp)
+                    .clickable { /*future new roles*/ }
+            )
+            Spacer(modifier = Modifier.padding(5.dp))
+            Box {
+                Image(
+                    painter = painterResource(
+                        id = R.drawable.profile_character_1
+                    ),
+                    contentDescription = "四季",
+                    modifier = Modifier
+                        .size(height = 90.dp, width = 85.dp)
+                        .background(Color.White)
+                )
+                Image(
+                    painter = painterResource(
+                        id = R.drawable.profile_chname_1
+                    ),
+                    contentDescription = "chname_1",
+                    modifier = Modifier
+                        .paddingFromBaseline(80.dp)
+                        .size(height = 27.dp, width = 85.dp)
+
+                )
+            }
+            Spacer(modifier = Modifier.padding(5.dp))
+            Box {
+                Image(
+                    painter = painterResource(
+                        id = R.drawable.profile_character_2
+                    ),
+//                colorFilter =
+//                if (characterViewModel.state.value.characters[1].level == 0) ColorFilter.colorMatrix(
+//                    matrix
+//                )
+//                else null,
+                    contentDescription = "魂魄",
+                    modifier = Modifier
+                        .size(height = 90.dp, width = 85.dp)
+                        .background(Color.White)
+                )
+                Image(
+                    painter = painterResource(
+                        id = R.drawable.profile_lock
+                    ),
+                    contentDescription = "lock",
+                    modifier = Modifier
+                        .size(50.dp)
+                        .align(Alignment.Center)
+                )
+                Image(
+                    painter = painterResource(
+                        id = R.drawable.profile_chname_2
+                    ),
+                    contentDescription = "chname_2",
+                    modifier = Modifier
+                        .paddingFromBaseline(80.dp)
+                        .size(height = 27.dp, width = 85.dp)
+
+                )
+            }
+            Spacer(modifier = Modifier.padding(5.dp))
+            Box {
+                Image(
+                    painter = painterResource(
+                        id = R.drawable.profile_character_3
+                    ),
+                    contentDescription = "吉吊",
+                    modifier = Modifier
+                        .size(height = 90.dp, width = 85.dp)
+                        .background(Color.White)
+                )
+                Image(
+                    painter = painterResource(
+                        id = R.drawable.profile_lock
+                    ),
+                    contentDescription = "lock",
+                    modifier = Modifier
+                        .size(50.dp)
+                        .align(Alignment.Center)
+                )
+                Image(
+                    painter = painterResource(
+                        id = R.drawable.profile_chname_3
+                    ),
+                    contentDescription = "chname_3",
+                    modifier = Modifier
+                        .paddingFromBaseline(80.dp)
+                        .size(height = 27.dp, width = 85.dp)
+
+                )
+            }
+            Spacer(modifier = Modifier.padding(5.dp))
+            Image(
+                painter = painterResource(
+                    id = R.drawable.profile_arrow_right
+                ),
+                contentDescription = "arrow left",
+                modifier = Modifier
+                    .size(width = 20.dp, height = 50.dp)
+                    .background(ProfilePink)
+                    .width(10.dp)
+                    .clickable { /*future new roles*/ }
+            )
+        }
         Text(
             text = "場景",
             fontStyle = FontStyle(R.font.mamelon),
@@ -220,7 +345,120 @@ fun UserInfo2() {
                 bottom = 0.dp
             )
         )
-        Info2_scene()
+        Row(
+            verticalAlignment = Alignment.CenterVertically,
+            modifier = Modifier.padding(
+                start = 0.dp,
+                top = 5.dp, end = 0.dp, bottom = 0.dp
+            )
+        ) {
+            Spacer(modifier = Modifier.padding(5.dp))
+            Image(
+                painter = painterResource(id = R.drawable.profile_arrow_left),
+                contentDescription = "arrow left",
+                modifier = Modifier
+                    .size(width = 20.dp, height = 50.dp)
+                    .background(ProfilePink)
+                    .width(10.dp)
+                    .clickable { /*future new scenes*/ }
+            )
+            Spacer(modifier = Modifier.padding(5.dp))
+            Box {
+                Image(
+                    painter = painterResource(
+                        id = R.drawable.profile_scene_1
+                    ),
+                    contentDescription = "咖啡廳",
+                    modifier = Modifier
+                        .size(height = 90.dp, width = 85.dp)
+                        .background(Color.Transparent)
+                )
+                Image(
+                    painter = painterResource(
+                        id = R.drawable.profile_scname_1
+                    ),
+                    contentDescription = "scname_1",
+                    modifier = Modifier
+                        .paddingFromBaseline(80.dp)
+                        .size(height = 27.dp, width = 85.dp)
+
+                )
+            }
+            Spacer(modifier = Modifier.padding(5.dp))
+            Box {
+                Image(
+                    painter = painterResource(
+                        id = R.drawable.profile_scene_2
+                    ),
+                    contentDescription = "圖書館",
+                    modifier = Modifier
+                        .size(height = 90.dp, width = 85.dp)
+                        .background(Color.Transparent)
+                )
+                Image(
+                    painter = painterResource(
+                        id = R.drawable.profile_lock
+                    ),
+                    contentDescription = "lock",
+                    modifier = Modifier
+                        .size(50.dp)
+                        .align(Alignment.Center)
+                )
+                Image(
+                    painter = painterResource(
+                        id = R.drawable.profile_scname_2
+                    ),
+                    contentDescription = "scname_2",
+                    modifier = Modifier
+                        .paddingFromBaseline(80.dp)
+                        .size(height = 27.dp, width = 85.dp)
+
+                )
+            }
+            Spacer(modifier = Modifier.padding(5.dp))
+            Box {
+                Image(
+                    painter = painterResource(
+                        id = R.drawable.profile_scene_3
+                    ),
+                    contentDescription = "辦公室",
+                    modifier = Modifier
+                        .size(height = 90.dp, width = 85.dp)
+                        .background(Color.Transparent)
+                )
+                Image(
+                    painter = painterResource(
+                        id = R.drawable.profile_lock
+                    ),
+                    contentDescription = "lock",
+                    modifier = Modifier
+                        .size(50.dp)
+                        .align(Alignment.Center)
+                )
+                Image(
+                    painter = painterResource(
+                        id = R.drawable.profile_scname_3
+                    ),
+                    contentDescription = "scname_3",
+                    modifier = Modifier
+                        .paddingFromBaseline(80.dp)
+                        .size(height = 27.dp, width = 85.dp)
+
+                )
+            }
+            Spacer(modifier = Modifier.padding(5.dp))
+            Image(
+                painter = painterResource(
+                    id = R.drawable.profile_arrow_right
+                ),
+                contentDescription = "arrow left",
+                modifier = Modifier
+                    .size(width = 20.dp, height = 50.dp)
+                    .background(ProfilePink)
+                    .width(10.dp)
+                    .clickable { /*future new scenes*/ }
+            )
+        }
         Text(
             text = "物品",
             fontStyle = FontStyle(R.font.mamelon),
@@ -233,7 +471,108 @@ fun UserInfo2() {
                 bottom = 0.dp
             )
         )
-        Info2_item()
+        Row(
+            verticalAlignment = Alignment.CenterVertically,
+            modifier = Modifier.padding(
+                start = 0.dp,
+                top = 5.dp, end = 0.dp, bottom = 0.dp
+            )
+        ) {
+            Spacer(modifier = Modifier.padding(5.dp))
+            Image(
+                painter = painterResource(id = R.drawable.profile_arrow_left),
+                contentDescription = "arrow left",
+                modifier = Modifier
+                    .size(width = 20.dp, height = 50.dp)
+                    .background(ProfilePink)
+                    .width(10.dp)
+                    .clickable { /*future new items*/ }
+            )
+            Spacer(modifier = Modifier.padding(5.dp))
+            Box {
+                Image(
+                    painter = painterResource(
+                        id = R.drawable.profile_item_1
+                    ),
+                    contentDescription = "玫瑰",
+                    modifier = Modifier
+                        .size(height = 90.dp, width = 85.dp)
+                        .background(Color.Transparent)
+//                        colorFilter =
+//                if (characterViewModel.state.value.characters[1].level == 0) ColorFilter.colorMatrix(
+//                    matrix
+//                )
+//                else n
+                )
+                Image(
+                    painter = painterResource(
+                        id = R.drawable.profile_itname_1
+                    ),
+                    contentDescription = "itname_1",
+                    modifier = Modifier
+                        .paddingFromBaseline(80.dp)
+                        .size(height = 27.dp, width = 85.dp)
+
+                )
+            }
+            Spacer(modifier = Modifier.padding(5.dp))
+            Box {
+                Image(
+                    painter = painterResource(
+                        id = R.drawable.profile_item_2
+                    ),
+                    contentDescription = "蛋糕",
+                    modifier = Modifier
+                        .size(height = 90.dp, width = 85.dp)
+                        .background(Color.Transparent)
+                )
+                Image(
+                    painter = painterResource(
+                        id = R.drawable.profile_itname_2
+                    ),
+                    contentDescription = "itname_2",
+                    modifier = Modifier
+                        .paddingFromBaseline(80.dp)
+                        .size(height = 27.dp, width = 85.dp)
+
+                )
+            }
+            Spacer(modifier = Modifier.padding(5.dp))
+            Box {
+                Image(
+                    painter = painterResource(
+                        id = R.drawable.profile_item_3
+                    ),
+                    contentDescription = "戒指",
+                    modifier = Modifier
+                        .size(height = 90.dp, width = 85.dp)
+                        .background(Color.Transparent)
+                )
+                Image(
+                    painter = painterResource(
+                        id = R.drawable.profile_itname_3
+                    ),
+                    contentDescription = "itname_3",
+                    modifier = Modifier
+                        .paddingFromBaseline(80.dp)
+                        .size(height = 27.dp, width = 85.dp)
+
+                )
+            }
+            Spacer(modifier = Modifier.padding(5.dp))
+            Image(
+                painter = painterResource(
+                    id = R.drawable.profile_arrow_right
+                ),
+                contentDescription = "arrow right",
+                modifier = Modifier
+                    .size(width = 20.dp, height = 50.dp)
+                    .background(ProfilePink)
+                    .width(10.dp)
+                    .clickable { /*future new items*/ }
+            )
+
+        }
         Spacer(modifier = Modifier.padding(5.dp))
     }
 }
@@ -247,6 +586,8 @@ fun Info2_character() {
             top = 5.dp, end = 0.dp, bottom = 0.dp
         )
     ) {
+        val matrix = ColorMatrix()
+        matrix.setToSaturation(0F)
         Spacer(modifier = Modifier.padding(5.dp))
         Image(
             painter = painterResource(id = R.drawable.profile_arrow_left),
@@ -285,6 +626,11 @@ fun Info2_character() {
                 painter = painterResource(
                     id = R.drawable.profile_character_2
                 ),
+//                colorFilter =
+//                if (characterViewModel.state.value.characters[1].level == 0) ColorFilter.colorMatrix(
+//                    matrix
+//                )
+//                else null,
                 contentDescription = "魂魄",
                 modifier = Modifier
                     .size(height = 90.dp, width = 85.dp)
@@ -504,6 +850,11 @@ fun Info2_item() {
                 modifier = Modifier
                     .size(height = 90.dp, width = 85.dp)
                     .background(Color.Transparent)
+//                        colorFilter =
+//                if (characterViewModel.state.value.characters[1].level == 0) ColorFilter.colorMatrix(
+//                    matrix
+//                )
+//                else n
             )
             Image(
                 painter = painterResource(

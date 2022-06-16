@@ -37,7 +37,8 @@ val shopBuySceneBody = listOf(
 //@Preview
 @Composable
 fun SceneBuying(
-    scene: Int
+    scene: Int ,
+    money: Int
 ):Int{
     val spend = remember { mutableStateOf(-1) }//沒暗任何案件
     Column(
@@ -50,13 +51,14 @@ fun SceneBuying(
         Text(
             text = stringResource(id = shopBuySceneHead[scene]),
             fontSize = 20.sp,
-            //color = secUn,
+            color = black,
             fontStyle = FontStyle(contextFont),
             modifier = Modifier.padding(8.dp)
         )
         Text(
             text = stringResource(id = shopBuySceneBody[scene]),
             fontSize = 14.sp,
+            color = black,
             fontStyle = FontStyle(contextFont)
         )
         Box(
@@ -70,6 +72,7 @@ fun SceneBuying(
                 Spacer(modifier = Modifier.width(24.dp))
                 Text(
                     text = "物品價格: 100",
+                    color = black,
                     fontSize = 14.sp,
                     fontStyle = FontStyle(contextFont),
                     modifier = Modifier.padding(8.dp)
@@ -87,6 +90,7 @@ fun SceneBuying(
                 Text(
                     text = "總金額:     100",
                     fontSize = 16.sp,
+                    color = black,
                     fontStyle = FontStyle(contextFont)
                 )
                 Spacer(modifier = Modifier.width(24.dp))
@@ -101,10 +105,10 @@ fun SceneBuying(
                 //verticalAlignment = Alignment.CenterVertically
             ){
                 Text(
-                    text = "CANCEL",
-                    fontSize = 14.sp,
+                    text = "取消",
+                    fontSize = 16.sp,
                     fontStyle = FontStyle(mainFont),
-                    color = grayLine,
+                    color = if(money >= 100)grayLine else AccentDark,
                     modifier = Modifier.padding(8.dp)
                         .clickable(
                             enabled = true,
@@ -115,20 +119,20 @@ fun SceneBuying(
                             }
                         )
                 )
+                Spacer(modifier = Modifier.width(32.dp))
                 Text(
-                    text = "COMFIRM",
-                    fontSize = 14.sp,
+                    text = if(money >= 100)"購買" else "沒錢喔!",
+                    fontSize = 16.sp,
                     fontStyle = FontStyle(mainFont),
-                    color = AccentDark,
+                    color = if(money >= 100)AccentDark else grayLine,
                     modifier = Modifier.padding(8.dp)
                         .clickable(
-                            enabled = true,
+                            enabled = (money >= 100),
                             onClickLabel = "buy scene",
                             onClick = {
                                 /*TODO*/
-                                spend.value =100+scene*1000
+                                spend.value =100
                                 /***************************/
-                                /************扣錢!!!!!!!!加場景**************/
                             }
                         )
                 )
@@ -143,20 +147,26 @@ fun SceneBuying(
 //@Preview(showBackground = true)
 @Composable
 fun buyingPopupScreen(
-    scene: Int
+    scene: Int,
+    money: Int
 ):Int{
     val spend = remember { mutableStateOf(-1) }//沒暗任何案件
-    Box(
-        Modifier.fillMaxSize()
-            .background(Color.Black.copy(alpha = 0.5f), RectangleShape)
+    androidx.compose.material.Surface(
+        color = Color.Black.copy(alpha = 0f)
     ){
-        Column(
-            Modifier.fillMaxSize(),
-            horizontalAlignment = Alignment.CenterHorizontally
+        Box(
+            Modifier.fillMaxSize()
+                .background(Color.Black.copy(alpha = 0.5f), RectangleShape)
         ){
-            Spacer(modifier = Modifier.height(280.dp))
-            spend.value = SceneBuying(scene)
+            Column(
+                Modifier.fillMaxSize(),
+                horizontalAlignment = Alignment.CenterHorizontally
+            ){
+                Spacer(modifier = Modifier.height(280.dp))
+                spend.value = SceneBuying(scene,money)
+            }
         }
     }
+
     return spend.value
 }

@@ -75,8 +75,16 @@
     <string name="shop_buying_scene2_head">購買場景-咖啡廳</string>
     <string name="shop_buying_scene2_body">有了咖啡廳的場景，您可以和您心愛\n的戀人在此場景專注約會，聆聽咖啡\n廳相關音樂</string>
 
+    <string name="shop_buying_gift0_head">購買禮物-玫瑰</string>
+    <string name="shop_buying_gift0_body">有了玫瑰，您可以送給您心儀的對\n象，以提升對方對您的親切程度(+1)，\n親切程度到了一定的數值時，對方會\n接受您的告白，成為戀人</string>
+    <string name="shop_buying_gift1_head">購買禮物-蛋糕</string>
+    <string name="shop_buying_gift1_body">有了蛋糕，您可以送給您心儀的對\n象，以提升對方對您的親切程度(+5)，\n親切程度到了一定的數值時，對方會\n接受您的告白，成為戀人</string>
     <string name="shop_buying_gift2_head">購買禮物-戒指</string>
     <string name="shop_buying_gift2_body">有了戒指，您可以送給您心儀的對\n象，以提升對方對您的親切程度\n(+100)，親切程度到了一定的數值時\n，對方會接受您的告白，成為戀人</string>
+    <string name="shop_buying_gift3_head">購買禮物-巧克力</string>
+    <string name="shop_buying_gift3_body">有了巧克力，您可以送給您心儀的對\n象，以提升對方對您的親切程度(+2)，\n親切程度到了一定的數值時，對方會\n接受您的告白，成為戀人</string>
+    <string name="shop_buying_gift4_head">購買禮物-卡片</string>
+    <string name="shop_buying_gift4_body">有了卡片，您可以送給您心儀的對\n象，以提升對方對您的親切程度(+2)，\n親切程度到了一定的數值時，對方會\n接受您的告白，成為戀人</string>
 
     <string name="Unlock_character">好感度提升到1等時\n將解鎖角色</string>
 
@@ -104,7 +112,18 @@
     <string name="scene_coffee_shop">咖啡廳</string>
     <string name="scene_office">辦公室</string>
     <string name="scene_library">圖書館</string>
-    <string name="scene_coffee_shop_2">咖啡廳2</string>
+    <string name="scene_coffee_shop_2">咖啡廳</string>
+    
+    /**Focus Character Dialog**/
+    <string name="character_0_dialog_focus">快點專心！我可沒法整天在這裡看著你</string>
+    <string name="character_0_dialog_success">還不錯嘛！接下來也繼續加油哦！</string>
+    <string name="character_0_dialog_fail">不專心可是有罪的哦…</string>
+    <string name="character_1_dialog_focus">現在就開始專注！我也一起！</string>
+    <string name="character_1_dialog_success">太棒了！就這樣繼續下去吧！</string>
+    <string name="character_1_dialog_fail">下次請好好專心…</string>
+    <string name="character_2_dialog_focus">加油！我在這裡陪著你哦</string>
+    <string name="character_2_dialog_success">做的很棒！再來也請多多指教！</string>
+    <string name="character_2_dialog_fail">不好好專心就下地獄吧</string>
 
     /**Dialog**/
     <string name="change_name_dialog_title">編輯姓名</string>

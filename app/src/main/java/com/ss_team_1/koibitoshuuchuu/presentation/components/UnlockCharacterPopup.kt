@@ -17,11 +17,8 @@ import androidx.compose.ui.text.font.FontStyle
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import com.ss_team_1.koibitoshuuchuu.ui.theme.contextFont
 import com.ss_team_1.koibitoshuuchuu.R
-import com.ss_team_1.koibitoshuuchuu.ui.theme.AccentDark
-import com.ss_team_1.koibitoshuuchuu.ui.theme.grayLine
-import com.ss_team_1.koibitoshuuchuu.ui.theme.mainFont
+import com.ss_team_1.koibitoshuuchuu.ui.theme.*
 
 @Preview
 @Composable
@@ -38,7 +35,7 @@ fun UnlockCharacter(
         Text(
             text = stringResource(id = R.string.Unlock_character),
             fontSize = 28.sp,
-            //color = secUn,
+            color = black,
             fontStyle = FontStyle(contextFont),
             modifier = Modifier.padding(8.dp)
         )
@@ -51,6 +48,7 @@ fun UnlockCharacter(
                 Text(
                     text = "好喔",
                     fontSize = 24.sp,
+                    color = black,
                     fontStyle = FontStyle(mainFont),
                     modifier = Modifier.padding(8.dp)
                         .clickable(
@@ -89,17 +87,22 @@ fun UnlockCharacter(
 fun UnlockPopupScreen(
 ): Int{
     val popup = remember { mutableStateOf(0) }//沒暗任何案件
-    Box(
-        Modifier.fillMaxSize()
-            .background(Color.Black.copy(alpha = 0.5f), RectangleShape)
+    androidx.compose.material.Surface(
+        color = Color.Black.copy(alpha = 0f)
     ){
-        Column(
-            Modifier.fillMaxSize(),
-            horizontalAlignment = Alignment.CenterHorizontally
+        Box(
+            Modifier.fillMaxSize()
+                .background(Color.Black.copy(alpha = 0.5f), RectangleShape)
         ){
-            Spacer(modifier = Modifier.height(280.dp))
-            popup.value = UnlockCharacter()
+            Column(
+                Modifier.fillMaxSize(),
+                horizontalAlignment = Alignment.CenterHorizontally
+            ){
+                Spacer(modifier = Modifier.height(280.dp))
+                popup.value = UnlockCharacter()
+            }
         }
     }
+
     return popup.value
 }

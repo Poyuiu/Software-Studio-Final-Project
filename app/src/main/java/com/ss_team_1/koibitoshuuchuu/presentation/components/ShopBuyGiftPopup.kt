@@ -21,207 +21,240 @@ import androidx.compose.ui.text.font.FontStyle
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import com.ss_team_1.koibitoshuuchuu.ui.theme.contextFont
 import com.ss_team_1.koibitoshuuchuu.R
-import com.ss_team_1.koibitoshuuchuu.ui.theme.AccentDark
-import com.ss_team_1.koibitoshuuchuu.ui.theme.grayLine
-import com.ss_team_1.koibitoshuuchuu.ui.theme.mainFont
+import com.ss_team_1.koibitoshuuchuu.ui.theme.*
 
-@Preview
+val shopBuyGiftHead= listOf(
+    R.string.shop_buying_gift0_head,
+    R.string.shop_buying_gift1_head,
+    R.string.shop_buying_gift2_head,
+    R.string.shop_buying_gift3_head,
+    R.string.shop_buying_gift4_head
+)
+val shopBuyGiftBody = listOf(
+    R.string.shop_buying_gift0_body,
+    R.string.shop_buying_gift1_body,
+    R.string.shop_buying_gift2_body,
+    R.string.shop_buying_gift3_body,
+    R.string.shop_buying_gift4_body
+)
+val giftPriceList = listOf(
+    10, 30, 500, 20, 20
+)
+//@Preview
 @Composable
 fun GiftBuying(
-
+    gift:Int,
+    money: Int
 ): Int{
     val spend = remember { mutableStateOf(-1) }//沒暗任何案件
-    Column(
-        modifier = Modifier
-            .width(280.dp)
-            .background(color = Color.White, shape = RoundedCornerShape(10.dp)),
-        horizontalAlignment = Alignment.CenterHorizontally
-    ) {
-        Spacer(modifier = Modifier.height(16.dp))
-        Text(
-            text = stringResource(id = R.string.shop_buying_gift2_head),
-            fontSize = 20.sp,
-            //color = secUn,
-            fontStyle = FontStyle(contextFont),
-            modifier = Modifier.padding(8.dp)
-        )
-        Text(
-            text = stringResource(id = R.string.shop_buying_gift2_body),
-            fontSize = 14.sp,
-            fontStyle = FontStyle(contextFont)
-        )
-        Box(
-            modifier = Modifier.fillMaxWidth()
-        ){
-            Row(
-                modifier = Modifier
-                    .align(Alignment.CenterStart),
-                //verticalAlignment = Alignment.CenterVertically
-            ){
-                Spacer(modifier = Modifier.width(24.dp))
-                Text(
-                    text = "物品價格: 500",
-                    fontSize = 14.sp,
-                    fontStyle = FontStyle(contextFont),
-                    modifier = Modifier.padding(8.dp)
-                )
-            }
-        }
-        Box(
+    val amount = remember { mutableStateOf(1) }
+    androidx.compose.material.Surface(){
+        Column(
             modifier = Modifier
-                .fillMaxWidth()
-                .height(30.dp)
-        ){
-            Row(
-                modifier = Modifier
-                    .align(Alignment.CenterStart),
-                //verticalAlignment = Alignment.CenterVertically
+                .width(280.dp)
+                .background(color = Color.White, shape = RoundedCornerShape(10.dp)),
+            horizontalAlignment = Alignment.CenterHorizontally
+        ) {
+            Spacer(modifier = Modifier.height(16.dp))
+            Text(
+                text = stringResource(id = shopBuyGiftHead[gift]),
+                fontSize = 20.sp,
+                color = black,
+                fontStyle = FontStyle(contextFont),
+                modifier = Modifier.padding(8.dp)
+            )
+            Text(
+                text = stringResource(id = shopBuyGiftBody[gift]),
+                fontSize = 14.sp,
+                color = black,
+                fontStyle = FontStyle(contextFont)
+            )
+            Box(
+                modifier = Modifier.fillMaxWidth()
             ){
-                Spacer(modifier = Modifier.width(24.dp))
-                Text(
-                    text = "數量:",
-                    fontSize = 16.sp,
-                    fontStyle = FontStyle(contextFont)
-                )
-                Spacer(modifier = Modifier.width(24.dp))
-                Image(
-                    painter = painterResource(id = R.drawable.ic_minus),
-                    contentDescription = "",
-                    contentScale = ContentScale.Fit,
-                    colorFilter = ColorFilter.tint(color = Color.Gray),
+                Row(
                     modifier = Modifier
-                        .size(24.dp)
-                        .clickable(
-                            enabled = true,
-                            onClickLabel = "minus gift",
-                            onClick = {
-                                /*TODO*/
-                            }
-                        )
-                )
-                Spacer(modifier = Modifier.width(16.dp))
-                Box(
-                    modifier = Modifier
-                        .width(90.dp)
-                        .height(30.dp)
-                        .align(Alignment.CenterVertically)
+                        .align(Alignment.CenterStart),
+                    //verticalAlignment = Alignment.CenterVertically
                 ){
-                    Image(
-                        painter = painterResource(id = R.drawable.popup_block),
-                        contentDescription = "",
-                        contentScale = ContentScale.Fit
+                    Spacer(modifier = Modifier.width(24.dp))
+                    Text(
+                        text = "物品價格: ${giftPriceList[gift]}",
+                        fontSize = 14.sp,
+                        color = black,
+                        fontStyle = FontStyle(contextFont),
+                        modifier = Modifier.padding(8.dp)
                     )
-                    Column(
-                        modifier = Modifier.fillMaxSize(),
-                        horizontalAlignment = Alignment.CenterHorizontally
-                    ) {
-                        Text(
-                            text = "1",
-                            fontSize = 16.sp,
-                            fontStyle = FontStyle(contextFont)
-                        )
-                    }
-
                 }
-                Spacer(modifier = Modifier.width(16.dp))
-                Image(
-                    painter = painterResource(id = R.drawable.ic_plus),
-                    contentDescription = "",
-                    contentScale = ContentScale.Fit,
-                    colorFilter = ColorFilter.tint(color = Color.Gray),
+            }
+            Box(
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .height(30.dp)
+            ){
+                Row(
                     modifier = Modifier
-                        .size(24.dp)
-                        .clickable(
-                            enabled = true,
-                            onClickLabel = "plus gift",
-                            onClick = {
-                                /*TODO*/
-                            }
+                        .align(Alignment.CenterStart),
+                    //verticalAlignment = Alignment.CenterVertically
+                ){
+                    Spacer(modifier = Modifier.width(24.dp))
+                    Text(
+                        text = "數量:",
+                        fontSize = 16.sp,
+                        color = black,
+                        fontStyle = FontStyle(contextFont)
+                    )
+                    Spacer(modifier = Modifier.width(24.dp))
+                    Image(
+                        painter = painterResource(id = R.drawable.ic_minus),
+                        contentDescription = "",
+                        contentScale = ContentScale.Fit,
+                        colorFilter = if(amount.value>1) null
+                        else ColorFilter.tint(color = Color.Gray),
+                        modifier = Modifier
+                            .size(24.dp)
+                            .clickable(
+                                enabled = (amount.value>1),
+                                onClickLabel = "minus gift",
+                                onClick = {
+                                    /*TODO*/
+                                    amount.value--
+                                }
+                            )
+                    )
+                    Spacer(modifier = Modifier.width(16.dp))
+                    Box(
+                        modifier = Modifier
+                            .width(90.dp)
+                            .height(30.dp)
+                            .align(Alignment.CenterVertically)
+                    ){
+                        Image(
+                            painter = painterResource(id = R.drawable.popup_block),
+                            contentDescription = "",
+                            contentScale = ContentScale.Fit
                         )
-                )
+                        Column(
+                            modifier = Modifier.fillMaxSize(),
+                            horizontalAlignment = Alignment.CenterHorizontally
+                        ) {
+                            Text(
+                                text = "${amount.value}",
+                                color = black,
+                                fontSize = 16.sp,
+                                fontStyle = FontStyle(contextFont)
+                            )
+                        }
+
+                    }
+                    Spacer(modifier = Modifier.width(16.dp))
+                    Image(
+                        painter = painterResource(id = R.drawable.ic_plus),
+                        contentDescription = "",
+                        contentScale = ContentScale.Fit,
+                        colorFilter = if((amount.value+1)*giftPriceList[gift] <= money) null
+                        else ColorFilter.tint(color = Color.Gray),
+                        modifier = Modifier
+                            .size(24.dp)
+                            .clickable(
+                                enabled = ((amount.value+1)*giftPriceList[gift] <= money),
+                                onClickLabel = "plus gift",
+                                onClick = {
+                                    /*TODO*/
+                                    amount.value++
+                                }
+                            )
+                    )
+                }
             }
-        }
-        Box(
-            modifier = Modifier.fillMaxWidth()
-        ){
-            Row(
-                modifier = Modifier
-                    .align(Alignment.CenterEnd),
-                //verticalAlignment = Alignment.CenterVertically
+            Box(
+                modifier = Modifier.fillMaxWidth()
             ){
-                Text(
-                    text = "總金額:     500",
-                    fontSize = 16.sp,
-                    fontStyle = FontStyle(contextFont)
-                )
-                Spacer(modifier = Modifier.width(24.dp))
+                Row(
+                    modifier = Modifier
+                        .align(Alignment.CenterEnd),
+                    //verticalAlignment = Alignment.CenterVertically
+                ){
+                    Text(
+                        text = "總金額:     ${giftPriceList[gift]*amount.value}",
+                        fontSize = 16.sp,
+                        color = black,
+                        fontStyle = FontStyle(contextFont)
+                    )
+                    Spacer(modifier = Modifier.width(24.dp))
+                }
             }
-        }
-        Box(
-            modifier = Modifier.fillMaxWidth()
-        ){
-            Row(
-                modifier = Modifier
-                    .align(Alignment.CenterEnd),
-                //verticalAlignment = Alignment.CenterVertically
+            Box(
+                modifier = Modifier.fillMaxWidth()
             ){
-                Text(
-                    text = "CANCEL",
-                    fontSize = 14.sp,
-                    fontStyle = FontStyle(mainFont),
-                    color = grayLine,
-                    modifier = Modifier.padding(8.dp)
-                        .clickable(
-                            enabled = true,
-                            onClickLabel = "doesn't buy",
-                            onClick = {
-                                /*TODO*/
-                                spend.value = 0
-                            }
-                        )
-                )
-                Text(
-                    text = "COMFIRM",
-                    fontSize = 14.sp,
-                    fontStyle = FontStyle(mainFont),
-                    color = AccentDark,
-                    modifier = Modifier.padding(8.dp)
-                        .clickable(
-                            enabled = true,
-                            onClickLabel = "buy gift",
-                            onClick = {
-                                /*TODO*/
-                                spend.value = 500+5000
-                                /***************************/
-                                /************扣錢!!!!!!!!,加禮物**************/
-                            }
-                        )
-                )
-                Spacer(modifier = Modifier.width(16.dp))
+                Row(
+                    modifier = Modifier
+                        .align(Alignment.CenterEnd),
+                    //verticalAlignment = Alignment.CenterVertically
+                ){
+                    Text(
+                        text = "取消",
+                        fontSize = 16.sp,
+                        fontStyle = FontStyle(mainFont),
+                        color = if(money >= giftPriceList[gift])grayLine else AccentDark,
+                        modifier = Modifier.padding(8.dp)
+                            .clickable(
+                                enabled = true,
+                                onClickLabel = "doesn't buy",
+                                onClick = {
+                                    spend.value = 0
+                                }
+                            )
+                    )
+                    Spacer(modifier = Modifier.width(32.dp))
+                    Text(
+                        text = if(money >= giftPriceList[gift])"購買" else "沒錢喔!",
+                        fontSize = 16.sp,
+                        fontStyle = FontStyle(mainFont),
+                        color = if(money >= giftPriceList[gift])AccentDark else grayLine,
+                        modifier = Modifier.padding(8.dp)
+                            .clickable(
+                                enabled = (money >= giftPriceList[gift]),
+                                onClickLabel = "buy gift",
+                                onClick = {
+                                    spend.value = giftPriceList[gift]*amount.value
+                                }
+                            )
+                    )
+                    Spacer(modifier = Modifier.width(16.dp))
+                }
             }
+            Spacer(modifier = Modifier.height(8.dp))
         }
-        Spacer(modifier = Modifier.height(8.dp))
     }
+
     return spend.value
 }
 
-@Preview(showBackground = true)
+//@Preview(showBackground = true)
 @Composable
-fun buyinggiftPopupScreen():Int{
+fun buyinggiftPopupScreen(
+    buy:Int,
+    money: Int
+):Int{
     val spend = remember { mutableStateOf(-1) }//沒暗任何案件
-    Box(
-        Modifier.fillMaxSize()
-            .background(Color.Black.copy(alpha = 0.5f), RectangleShape)
+    androidx.compose.material.Surface(
+        color = Color.Black.copy(alpha = 0f)
     ){
-        Column(
-            Modifier.fillMaxSize(),
-            horizontalAlignment = Alignment.CenterHorizontally
+        Box(
+            Modifier.fillMaxSize()
+                .background(Color.Black.copy(alpha = 0.5f), RectangleShape)
         ){
-            Spacer(modifier = Modifier.height(280.dp))
-            spend.value = GiftBuying()
+            Column(
+                Modifier.fillMaxSize(),
+                horizontalAlignment = Alignment.CenterHorizontally
+            ){
+                Spacer(modifier = Modifier.height(280.dp))
+                spend.value = GiftBuying(buy-3,money)//挑整排序，去除場景的序號
+            }
         }
     }
+
     return spend.value
 }

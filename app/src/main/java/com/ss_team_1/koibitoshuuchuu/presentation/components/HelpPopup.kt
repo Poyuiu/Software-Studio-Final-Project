@@ -5,6 +5,7 @@ import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.material.Surface
 import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.mutableStateOf
@@ -60,135 +61,139 @@ fun HelpPopup(
 ):Int{
     val popup = remember { mutableStateOf(0) }//沒暗任何案件
     val helpid = remember { mutableStateOf(0) }
-    Column(
-        modifier = Modifier
-            .width(280.dp)
-            .background(color = Color.White, shape = RoundedCornerShape(10.dp)),
-        horizontalAlignment = Alignment.CenterHorizontally
-    ) {
-        Spacer(modifier = Modifier.height(16.dp))
-        Box(modifier = Modifier.fillMaxWidth()){
-            Row(
-                modifier = Modifier
-                    .align(Alignment.CenterEnd),
-                //verticalAlignment = Alignment.CenterVertically
-            ){
-                Text(
-                    text = "幫助",
-                    fontSize = 28.sp,
-                    fontStyle = FontStyle(contextFont),
-                    modifier = Modifier.padding(8.dp)
-                )
-                Spacer(modifier = Modifier.width(144.dp))
-                Image(
-                    painter = painterResource(id = R.drawable.ic_help_clear),
-                    contentDescription = "",
-                    contentScale = ContentScale.Fit,
+    androidx.compose.material.Surface() {
+        Column(
+            modifier = Modifier
+                .width(280.dp)
+                .background(color = Color.White, shape = RoundedCornerShape(10.dp)),
+            horizontalAlignment = Alignment.CenterHorizontally
+        ) {
+            Spacer(modifier = Modifier.height(16.dp))
+            Box(modifier = Modifier.fillMaxWidth()){
+                Row(
                     modifier = Modifier
-                        .size(36.dp)
+                        .align(Alignment.CenterEnd),
+                    //verticalAlignment = Alignment.CenterVertically
+                ){
+                    Text(
+                        text = "幫助",
+                        fontSize = 28.sp,
+                        fontStyle = FontStyle(contextFont),
+                        modifier = Modifier.padding(8.dp)
+                    )
+                    Spacer(modifier = Modifier.width(144.dp))
+                    Image(
+                        painter = painterResource(id = R.drawable.ic_help_clear),
+                        contentDescription = "",
+                        contentScale = ContentScale.Fit,
+                        modifier = Modifier
+                            .size(36.dp)
+                            .clickable(
+                                enabled = true,
+                                onClickLabel = "clear",
+                                onClick = {
+                                    /*TODO*/
+                                    popup.value = 1
+                                }
+                            )
+                    )
+                    Spacer(modifier = Modifier.width(16.dp))
+                }
+            }
+
+            Text(
+                text = stringResource(id = helpbodylist[helpid.value]),
+                fontSize = 20.sp,
+                fontStyle = FontStyle(contextFont),
+                modifier = Modifier.padding(8.dp)
+            )
+            Spacer(modifier = Modifier.height(16.dp))
+            Box(modifier = Modifier.fillMaxWidth()){
+                Column(
+                    Modifier.fillMaxWidth(),
+                    horizontalAlignment = Alignment.CenterHorizontally
+                ){
+                    Image(
+                        painter = painterResource(id = helpPhotoList[helpid.value]),
+                        contentDescription = "",
+                        contentScale = ContentScale.Fit,
+                        modifier = Modifier
+                            .width(photoWidthList[helpid.value])
+                    )
+                }
+                Row(
+                    modifier = Modifier
+                        .align(Alignment.CenterEnd),
+                    //verticalAlignment = Alignment.CenterVertically
+                ){
+                    if(helpid.value !=0){
+                        Image(
+                            painter = painterResource(id = R.drawable.profile_arrow_left),
+                            contentDescription = "",
+                            contentScale = ContentScale.Fit,
+                            modifier = Modifier
+                                .width(28.dp)
+                                .clickable(
+                                    enabled = true,
+                                    onClickLabel = "clear",
+                                    onClick = {
+                                        /*TODO*/
+                                        helpid.value--
+                                    }
+                                )
+                        )
+                    }
+
+                    Spacer(modifier = Modifier.width(188.dp))
+                    if(helpid.value!=6){
+                        Image(
+                            painter = painterResource(id = R.drawable.profile_arrow_right),
+                            contentDescription = "",
+                            contentScale = ContentScale.Fit,
+                            modifier = Modifier
+                                .width(28.dp)
+                                .clickable(
+                                    enabled = true,
+                                    onClickLabel = "clear",
+                                    onClick = {
+                                        /*TODO*/
+                                        helpid.value++
+                                    }
+                                )
+                        )
+                    }else{
+                        Spacer(modifier = Modifier.width(28.dp))
+                    }
+
+                    Spacer(modifier = Modifier.width(16.dp))
+                }
+
+            }
+
+            if(helpid.value==6){
+                Spacer(modifier = Modifier.height(8.dp))
+                Text(
+                    text = "好的",
+                    fontSize = 32.sp,
+                    fontStyle = FontStyle(mainFont),
+                    color = AccentDark,
+                    modifier = Modifier
+                        .padding(8.dp)
                         .clickable(
                             enabled = true,
-                            onClickLabel = "clear",
+                            onClickLabel = "buy gift",
                             onClick = {
                                 /*TODO*/
                                 popup.value = 1
                             }
                         )
                 )
-                Spacer(modifier = Modifier.width(16.dp))
+
             }
+            Spacer(modifier = Modifier.height(24.dp))
         }
-
-        Text(
-            text = stringResource(id = helpbodylist[helpid.value]),
-            fontSize = 20.sp,
-            fontStyle = FontStyle(contextFont),
-            modifier = Modifier.padding(8.dp)
-        )
-        Spacer(modifier = Modifier.height(16.dp))
-        Box(modifier = Modifier.fillMaxWidth()){
-            Column(
-                Modifier.fillMaxWidth(),
-                horizontalAlignment = Alignment.CenterHorizontally
-            ){
-                Image(
-                    painter = painterResource(id = helpPhotoList[helpid.value]),
-                    contentDescription = "",
-                    contentScale = ContentScale.Fit,
-                    modifier = Modifier
-                        .width(photoWidthList[helpid.value])
-                )
-            }
-            Row(
-                modifier = Modifier
-                    .align(Alignment.CenterEnd),
-                //verticalAlignment = Alignment.CenterVertically
-            ){
-                if(helpid.value !=0){
-                    Image(
-                        painter = painterResource(id = R.drawable.profile_arrow_left),
-                        contentDescription = "",
-                        contentScale = ContentScale.Fit,
-                        modifier = Modifier
-                            .width(28.dp)
-                            .clickable(
-                                enabled = true,
-                                onClickLabel = "clear",
-                                onClick = {
-                                    /*TODO*/
-                                    helpid.value--
-                                }
-                            )
-                    )
-                }
-
-                Spacer(modifier = Modifier.width(188.dp))
-                if(helpid.value!=6){
-                    Image(
-                        painter = painterResource(id = R.drawable.profile_arrow_right),
-                        contentDescription = "",
-                        contentScale = ContentScale.Fit,
-                        modifier = Modifier
-                            .width(28.dp)
-                            .clickable(
-                                enabled = true,
-                                onClickLabel = "clear",
-                                onClick = {
-                                    /*TODO*/
-                                    helpid.value++
-                                }
-                            )
-                    )
-                }else{
-                    Spacer(modifier = Modifier.width(28.dp))
-                }
-
-                Spacer(modifier = Modifier.width(16.dp))
-            }
-
-        }
-
-        if(helpid.value==6){
-            Spacer(modifier = Modifier.height(8.dp))
-            Text(
-                text = "好的",
-                fontSize = 32.sp,
-                fontStyle = FontStyle(mainFont),
-                color = AccentDark,
-                modifier = Modifier.padding(8.dp)
-                    .clickable(
-                        enabled = true,
-                        onClickLabel = "buy gift",
-                        onClick = {
-                            /*TODO*/
-                            popup.value = 1
-                        }
-                    )
-            )
-
-        }
-        Spacer(modifier = Modifier.height(24.dp))
     }
+
 
 
     return popup.value
@@ -200,7 +205,8 @@ fun HelpPopupScreen(
 ): Int{
     val popup = remember { mutableStateOf(0) }//沒暗任何案件
     Box(
-        Modifier.fillMaxSize()
+        Modifier
+            .fillMaxSize()
             .background(Color.Black.copy(alpha = 0.5f), RectangleShape)
     ){
         Column(

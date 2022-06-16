@@ -67,7 +67,7 @@ fun ShopPage(
             money_diamond_bar(state.userInfo.money, 100)
             if (boughtflag.value) {
                 Image(
-                    painter = painterResource(id = bought_list[spending.value/1000]),
+                    painter = painterResource(id = bought_list[buying.value]),
                     contentDescription = "",
                     contentScale = ContentScale.Fit,
                     modifier = Modifier.size(336.dp, 40.dp)
@@ -101,6 +101,8 @@ fun ShopPage(
                                 onClick = {
                                     /*TODO*/
                                     buying.value = 0
+                                    openDialog.value = true
+                                    boughtflag.value=false
                                 }
                             )
                     )
@@ -119,6 +121,8 @@ fun ShopPage(
                                 onClick = {
                                     /*TODO*/
                                     buying.value = 1
+                                    openDialog.value = true
+                                    boughtflag.value=false
                                 }
                             )
                     )
@@ -137,6 +141,8 @@ fun ShopPage(
                                 onClick = {
                                     /*TODO*/
                                     buying.value = 2
+                                    openDialog.value = true
+                                    boughtflag.value=false
                                 }
                             )
                     )
@@ -166,6 +172,8 @@ fun ShopPage(
                                 onClick = {
                                     /*TODO*/
                                     buying.value = 3
+                                    openDialog.value = true
+                                    boughtflag.value=false
                                 }
                             )
                     )
@@ -182,6 +190,8 @@ fun ShopPage(
                                 onClick = {
                                     /*TODO*/
                                     buying.value = 4
+                                    openDialog.value = true
+                                    boughtflag.value=false
                                 }
                             )
                     )
@@ -198,6 +208,8 @@ fun ShopPage(
                                 onClick = {
                                     /*TODO*/
                                     buying.value = 5
+                                    openDialog.value = true
+                                    boughtflag.value=false
                                 }
                             )
                     )
@@ -221,6 +233,8 @@ fun ShopPage(
                                 onClick = {
                                     /*TODO*/
                                     buying.value = 6
+                                    openDialog.value = true
+                                    boughtflag.value=false
                                 }
                             )
                     )
@@ -237,35 +251,31 @@ fun ShopPage(
                                 onClick = {
                                     /*TODO*/
                                     buying.value = 7
+                                    openDialog.value = true
+                                    boughtflag.value=false
                                 }
                             )
                     )
                 }
             }
-            if(buying.value>-1){
-                openDialog.value = true
-                boughtflag.value=false
-            }
         }
-        if(openDialog.value){
-            if(buying.value<=2) spending.value=buyingPopupScreen(buying.value)
-            else spending.value=buyinggiftPopupScreen()
-            if(spending.value>0){
-                boughtflag.value=true
-                if(spending.value/1000 == 5){
-                    viewModel.onEvent(ItemEvent.UpdateOwnedQuantity(2,+1))
-                }else if(spending.value/1000<=2){
-                    sceneViewModel.onEvent(SceneEvent.SetScene((spending.value/1000)+1,true))
-                }
-                userViewModel.onEvent(UserEvent.UpdateMoney(-(spending.value%1000)))
+    }
+    if(openDialog.value){
+        if(buying.value<=2) spending.value=buyingPopupScreen(buying.value, state.userInfo.money)
+        else spending.value=buyinggiftPopupScreen(buying.value, state.userInfo.money)
+        if(spending.value>0){
+            boughtflag.value=true
+            if(buying.value >=3){
+                viewModel.onEvent(ItemEvent.UpdateOwnedQuantity
+                    (buying.value-3,spending.value/giftPriceList[buying.value-3]))
+            }else if(buying.value<=2){
+                sceneViewModel.onEvent(SceneEvent.SetScene((buying.value)+1,true))
             }
-            if(spending.value >= 0){
-                buying.value=-1
-                openDialog.value=false
-            }
-
+            userViewModel.onEvent(UserEvent.UpdateMoney(-(spending.value)))
         }
-
+        if(spending.value >= 0){
+            openDialog.value=false
+        }
     }
 }
 

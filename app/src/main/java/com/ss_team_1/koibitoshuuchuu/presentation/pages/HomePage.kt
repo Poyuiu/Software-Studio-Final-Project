@@ -1,18 +1,20 @@
 package com.ss_team_1.koibitoshuuchuu.presentation.pages
 
+import android.util.Log
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.clickable
+import androidx.compose.foundation.gestures.Orientation
+import androidx.compose.foundation.gestures.draggable
+import androidx.compose.foundation.gestures.rememberDraggableState
 import androidx.compose.foundation.layout.*
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.outlined.HelpOutline
-import androidx.compose.runtime.Composable
-import androidx.compose.runtime.MutableState
-import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.remember
+import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.platform.LocalDensity
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.zIndex
@@ -23,18 +25,16 @@ import com.ss_team_1.koibitoshuuchuu.presentation.Page
 import com.ss_team_1.koibitoshuuchuu.presentation.components.*
 import com.ss_team_1.koibitoshuuchuu.presentation.event.CharacterEvent
 import com.ss_team_1.koibitoshuuchuu.presentation.event.ItemEvent
+import com.ss_team_1.koibitoshuuchuu.presentation.event.UserEvent
+import com.ss_team_1.koibitoshuuchuu.presentation.sceneIdList
 import com.ss_team_1.koibitoshuuchuu.presentation.utils.PageId
 import com.ss_team_1.koibitoshuuchuu.presentation.viewModel.CharacterViewModel
 import com.ss_team_1.koibitoshuuchuu.presentation.viewModel.ItemViewModel
 import com.ss_team_1.koibitoshuuchuu.presentation.viewModel.LastFocusSettingViewModel
+import com.ss_team_1.koibitoshuuchuu.presentation.viewModel.UserViewModel
 import com.ss_team_1.koibitoshuuchuu.ui.theme.Secondary
+import java.util.*
 
-val backgroundList=listOf(
-    R.drawable.scene_coffee_shop,
-    R.drawable.scene_office,
-    R.drawable.scene_library,
-    R.drawable.scene_coffe_shop_2
-)
 //@Preview
 @Composable
 fun HomePage(
@@ -42,6 +42,7 @@ fun HomePage(
     viewModel: CharacterViewModel = hiltViewModel(),
     itemViewModel: ItemViewModel = hiltViewModel(),
     focusSetViewModel: LastFocusSettingViewModel = hiltViewModel(),
+    userViewModel: UserViewModel = hiltViewModel(),
     onClickToCharacterInfo: (Int) -> Unit
 ) {
     val state = viewModel.state.value
@@ -55,17 +56,87 @@ fun HomePage(
     val popupNoGift = remember { mutableStateOf(0) }
     val clickedHelp = remember { mutableStateOf(false) }
     val popupHelp = remember { mutableStateOf(0) }
+    val characterid: MutableState<Int> =
+        remember { mutableStateOf(0) }
+
+    val itemList = itemState.Items.filter { it.quantity_owned>0 }
+
+    // set the join date in homepage avoid user being not in
+    // profile page at the first time
+    val joinDate: Calendar = userViewModel.state.value.userInfo.join_date
+    if (joinDate.get(Calendar.YEAR)== 1970){
+        userViewModel.onEvent(UserEvent.SetJoinDate(Calendar.getInstance()))
+    }
+    // character animation
+    // take false left and true right
+    var characterMoveRight by remember { mutableStateOf(false) }
+    fun characterAdd() {
+        if (characterid.value < 2) {
+            characterid.value += 1
+        } else {
+            characterid.value = 0
+        }
+        characterMoveRight = true
+    }
+
+    fun characterMinus() {
+        if (characterid.value > 0) {
+            characterid.value -= 1
+        } else {
+            characterid.value = 2
+        }
+        characterMoveRight = false
+    }
+
+    // Image drag
+    var imageOffset by remember { mutableStateOf(0f) }
+    var onDragState by remember { mutableStateOf(false) }
+    val imageThreshold = with(LocalDensity.current) { 100.dp.toPx() }
+
+    if (onDragState) {
+//        Log.d("focus", "dragged")
+        if (imageOffset > imageThreshold) {
+            characterAdd()
+            onDragState = false
+//            Log.d("focus", "add chara")
+        } else if (imageOffset < -imageThreshold) {
+            characterMinus()
+            onDragState = false
+//            Log.d("focus", "minus chara")
+        }
+
+    }
+
+
+
     Box(
-        Modifier.fillMaxSize()
+        Modifier
+            .fillMaxSize()
+            .draggable(
+                orientation = Orientation.Horizontal,
+                state = rememberDraggableState(onDelta = { delta ->
+                    imageOffset += delta
+//                    Log.d("focus", "offset: $imageOffset")
+                }),
+                onDragStarted = {
+//                    Log.d("focus", "onDragStart")
+                    onDragState = true
+                },
+                onDragStopped = {
+//                    Log.d("focus", "onDragStopped")
+                    onDragState = false
+                    imageOffset = 0f
+                }
+            )
     ) {
-        val characterid: MutableState<Int> =
-            remember { mutableStateOf(0) }
-        val lock = state.characters[characterid.value].level == 0 //&& state.characters[characterid.value].intimacy == 0
+
+        val lock =
+            state.characters[characterid.value].level == 0 //&& state.characters[characterid.value].intimacy == 0
 
         //var checkedState by rememberSaveable { mutableStateOf(false) }
 
         Image(
-            painter = painterResource(id = backgroundList[focusState.lastFocusSetting.sceneId]),
+            painter = painterResource(id = sceneIdList[focusState.lastFocusSetting.sceneId]),
             contentDescription = "",
             contentScale = ContentScale.Crop,
             modifier = Modifier
@@ -117,19 +188,38 @@ fun HomePage(
                 context = LocalContext.current,
                 lock = lock,
                 characterId = characterid.value,
+                moveRight = characterMoveRight,
                 onClickToCharacterInfo = { onClickToCharacterInfo(characterid.value) },
-                !(openDialog1.value || openDialog2.value || openDialogNoGift.value || clickedHelp.value)
+                enable = !(openDialog1.value || openDialog2.value || openDialogNoGift.value || clickedHelp.value)
             )
         }
         Column(
             modifier = Modifier.align(Alignment.BottomCenter),
             horizontalAlignment = Alignment.CenterHorizontally
         ) {
-            /*FocusButton(
-                LocalContext.current,
-                lock,
-                navController
-            )*/
+            if(!lock){
+                Box(Modifier.size(144.dp, 40.dp)){
+                    Image(
+                        painter = painterResource(id = R.drawable.give_gift_button),
+                        contentDescription = "",
+                        contentScale = ContentScale.Fit,
+                        modifier = Modifier
+                            .fillMaxSize()
+                            .clickable(
+                                enabled = !(openDialog1.value || openDialog2.value || openDialogNoGift.value || clickedHelp.value),
+                                onClickLabel = "give gift",
+                                onClick = {
+                                    if (itemList.isNotEmpty()) {
+                                        openDialog2.value = true
+                                    } else {
+                                        openDialogNoGift.value = true
+                                    }
+                                }
+                            )
+                    )
+                }
+                Spacer(modifier = Modifier.height(8.dp))
+            }
             Box(
                 Modifier
                     .size(216.dp, 66.dp)
@@ -168,7 +258,7 @@ fun HomePage(
                 }
 
             }
-            Spacer(modifier = Modifier.height(120.dp))
+            Spacer(modifier = Modifier.height(100.dp))
         }
         Row(
             modifier = Modifier
@@ -177,11 +267,7 @@ fun HomePage(
                     enabled = !(openDialog1.value || openDialog2.value || openDialogNoGift.value || clickedHelp.value),
                     onClickLabel = "Clickable right shift",
                     onClick = {
-                        if (characterid.value < 2) {
-                            characterid.value += 1
-                        } else {
-                            characterid.value = 0
-                        }
+                        characterAdd()
                     }
                 ),
             verticalAlignment = Alignment.CenterVertically
@@ -195,56 +281,48 @@ fun HomePage(
                     enabled = !(openDialog1.value || openDialog2.value || openDialogNoGift.value || clickedHelp.value),
                     onClickLabel = "Clickable left shift",
                     onClick = {
-                        if (characterid.value > 0) {
-                            characterid.value -= 1
-                        } else {
-                            characterid.value = 2
-                        }
+                        characterMinus()
                     }
                 ),
             verticalAlignment = Alignment.CenterVertically
         ) {
             leftRoundedTriangle()
         }
-        if(clickedHelp.value){
-            popupHelp.value = HelpPopupScreen()
-            if(popupHelp.value == 1){
-                clickedHelp.value = false
-            }
+    }
+    if (clickedHelp.value) {
+        popupHelp.value = HelpPopupScreen()
+        if (popupHelp.value == 1) {
+            clickedHelp.value = false
         }
-        if(openDialog1.value){
-            popup.value = UnlockPopupScreen()
-            if(popup.value==1){
-                openDialog1.value=false
-            }
-            else if(popup.value==2){
-                openDialog1.value=false
-                if(itemState.Items[2].quantity_owned>0){
-                    openDialog2.value=true
-                }else{
-                    openDialogNoGift.value = true
-                }
+    }
 
+    if (openDialog1.value) {
+        popup.value = UnlockPopupScreen()
+        if (popup.value == 1) {
+            openDialog1.value = false
+        } else if (popup.value == 2) {
+            openDialog1.value = false
+            if(itemList.isNotEmpty()){
+                openDialog2.value = true
+            } else {
+                openDialogNoGift.value = true
             }
         }
-        else if(openDialogNoGift.value){
-            popupNoGift.value = NoGiftPopupScreen()
-            if(popupNoGift.value == 1){
-                openDialogNoGift.value = false
-            }
-            else if(popupNoGift.value == 2){
-                navController.navigate(Page.Shop.route)
-                openDialogNoGift.value = false
-            }
+    } else if (openDialogNoGift.value) {
+        popupNoGift.value = NoGiftPopupScreen()
+        if (popupNoGift.value == 1) {
+            openDialogNoGift.value = false
+        } else if (popupNoGift.value == 2) {
+            navController.navigate(Page.Shop.route)
+            openDialogNoGift.value = false
         }
-        else if(openDialog2.value){
-            intimacyupdate.value = GiveGiftPopupScreen()
-            if(intimacyupdate.value >= 0){
-                openDialog2.value=false
-                if(intimacyupdate.value!=0){
-                    viewModel.onEvent(CharacterEvent.UpdateIntimacy(characterid.value,100))
-                    itemViewModel.onEvent(ItemEvent.UpdateOwnedQuantity(2,-1))
-                }
+    } else if (openDialog2.value) {
+        intimacyupdate.value = GiveGiftPopupScreen( itemViewModel,itemlist = itemList)
+        if (intimacyupdate.value >= 0) {
+            openDialog2.value = false
+            if (intimacyupdate.value != 0) {
+                viewModel.onEvent(CharacterEvent.UpdateIntimacy(characterid.value, intimacyupdate.value))
+                //itemViewModel.onEvent(ItemEvent.UpdateOwnedQuantity(2, -1))
             }
         }
     }

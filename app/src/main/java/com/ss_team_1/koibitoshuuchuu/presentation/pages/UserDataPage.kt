@@ -1,5 +1,6 @@
 package com.ss_team_1.koibitoshuuchuu.presentation.components
 
+import android.content.ReceiverCallNotAllowedException
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border
@@ -40,6 +41,9 @@ fun UserDataPage(
 ) {
     val openDialog = remember { mutableStateOf(false) }
     val userName = userViewModel.state.value.userInfo.user_name
+    val joinDate: Calendar = userViewModel.state.value.userInfo.join_date
+    val userBirthday: Calendar = userViewModel.state.value.userInfo.birthday
+    val userGender: String = userViewModel.state.value.userInfo.gender
     Box(
         modifier = Modifier.fillMaxSize()
     ) {
@@ -120,16 +124,16 @@ fun UserDataPage(
                 }
             }
             UserData_Info_2(
-                joinYear = 2022,
-                joinMonth = 12,
-                joinDay = 32,
+                joinYear = joinDate.get(Calendar.YEAR),
+                joinMonth = (joinDate.get(Calendar.MONTH) + 1) % 12,
+                joinDay = joinDate.get(Calendar.DAY_OF_MONTH),
                 accumulatedDay = 30,
                 accumulatedHour = 10
             )
             Spacer(modifier = Modifier.padding(10.dp))
             UserData_Info_3(
-                userBirthday = Calendar.getInstance(),
-                userGender = "酷酷的草履蟲"
+                userBirthday = userBirthday,
+                userGender = userGender
             )
         }
         Box(
